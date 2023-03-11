@@ -1,25 +1,27 @@
 import { Link, Route, Routes } from "react-router-dom";
-import HomePage from "./LandingPage";
+import LandingPage from "./LandingPage";
 import AboutPage from "./AboutPage";
 
 function Navigation() {
-  return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
+	return (
+		<div>
+			<nav>
+				<ul>
+					<li>
+						<Link to="/">Home</Link>
+					</li>
+					<li>
+						<Link to="/about">About</Link>
+					</li>
+				</ul>
+			</nav>
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-      </Routes>
-    </nav>
-  );
+			<Routes>
+				<Route path="/" element={<LandingPage />} />
+				<Route path="/about" element={<AboutPage />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default Navigation;
