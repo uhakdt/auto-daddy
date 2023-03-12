@@ -1,59 +1,54 @@
 import axios from "axios";
 import { useState } from "react";
-import { VehicleData } from "./models/VehicleData";
-import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { VehicleCheckData } from "./models/VehicleCheckData";
 
 function LandingPage() {
-  const [vehicleData, setVehicleData] = useState<VehicleData | null>(null);
+  const [vehicleCheckData, setVehicleCheckData] = useState<VehicleCheckData>();
+  const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/);
   const [licensePlate, setLicensePlate] = useState("");
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [responseStatus, setResponseStatus] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+    setIsValid(pattern.test(licensePlate));
     try {
       const response = await axios.get(
-        `https://checkmycarapi.uhakdt.repl.co/api/v1/dvla/${licensePlate}`
+        `https://checkmycarapi.uhakdt.repl.co/api/v1/dvla/check/${licensePlate}`
       );
-      console.log(
-        response.data.DataItems.TechnicalDetails.Dimensions.UnladenWeight
-      );
-      const vehicle = new VehicleData(response.data.DataItems);
-      setVehicleData(vehicle);
+      const vehicle = new VehicleCheckData(response.data.VehicleCheckData);
+      setVehicleCheckData(vehicle);
+      setResponseStatus(true);
     } catch (error) {
-      console.error(error);
+      console.log(error);
+      setResponseStatus(false);
     }
   };
+
+  const handleNavigateToLogin = () => {
+    navigate("/login", { state: { vehicleCheckData } });
+  };
+
+  if (isValid && isSubmitted && responseStatus) {
+    handleNavigateToLogin();
+  }
 
   return (
     <div>
       <h1>Add License Plate Number</h1>
-      <input
-        type="text"
-        placeholder="License Plate"
-        value={licensePlate}
-        onChange={(e) => setLicensePlate(e.target.value)}
-      />
-      <Button onClick={handleSubmit}>Submit</Button>
-      {vehicleData && (
-        <table>
-          <thead>
-            <tr>
-              <th>Property</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Tax Status</td>
-              <td>
-                {vehicleData.VehicleStatus.motVed.taxDue
-                  ? new Date(
-                      vehicleData.VehicleStatus.motVed.taxDue
-                    ).toLocaleDateString()
-                  : "-"}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={licensePlate}
+          onChange={(event) => setLicensePlate(event.target.value)}
+        />
+        {isSubmitted && !isValid && <p>Invalid UK license plate number</p>}
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
