@@ -30,7 +30,7 @@ function LandingPage() {
   };
 
   const handleNavigateToLogin = () => {
-    navigate("/login", { state: { vehicleCheckData } });
+    navigate("/tiers", { state: { vehicleCheckData } });
   };
 
   if (isValid && isSubmitted && responseStatus) {

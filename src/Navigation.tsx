@@ -1,10 +1,11 @@
 import { Link, Route, Routes } from "react-router-dom";
 import LandingPage from "./LandingPage";
-import AboutPage from "./AboutPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import ResetPage from "./ResetPage";
 import DashboardPage from "./DashboardPage";
+import AccountPage from "./AccountPage";
+import TiersPage from "./TiersPage";
 
 function Navigation() {
   return (
@@ -22,7 +23,8 @@ function Navigation() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/about" element={<AboutPage />} />
+        <Route path="/tiers" element={<TiersPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/reset" element={<ResetPage />} />
