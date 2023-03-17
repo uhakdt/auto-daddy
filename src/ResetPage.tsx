@@ -1,18 +1,25 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { auth, sendPasswordReset } from "./firebase";
 import "./ResetPage.css";
 
 function ResetPage() {
+  const location = useLocation();
+  const [tier, setTier] = useState(location.state?.tier || null);
+  const [vehicleCheckData, setVehicleCheckData] = useState(
+    location.state?.vehicleCheckData || null
+  );
   const [email, setEmail] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
+  console.log(tier, vehicleCheckData);
+
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/dashboard");
+    if (user) navigate("/account");
   }, [user, loading]);
 
   return (
@@ -29,7 +36,15 @@ function ResetPage() {
           Send password reset email
         </button>
         <div>
-          Don't have an account? <Link to="/register">Register</Link> now.
+          Don't have an account?{" "}
+          <button
+            onClick={() => {
+              navigate("/register", { state: { tier, vehicleCheckData } });
+            }}
+          >
+            Register
+          </button>{" "}
+          now.
         </div>
       </div>
     </div>

@@ -10,11 +10,17 @@ import "./RegisterPage.css";
 
 function RegisterPage() {
   const location = useLocation();
+  const [tier, setTier] = useState(location.state?.tier || null);
+  const [vehicleCheckData, setVehicleCheckData] = useState(
+    location.state?.vehicleCheckData || null
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  console.log(tier, vehicleCheckData);
 
   const register = () => {
     if (!name) alert("Please enter name");
@@ -60,7 +66,15 @@ function RegisterPage() {
           Register with Google
         </button>
         <div>
-          Already have an account? <Link to="/">Login</Link> now.
+          Already have an account?{" "}
+          <button
+            onClick={() => {
+              navigate("/login", { state: { tier, vehicleCheckData } });
+            }}
+          >
+            Login
+          </button>{" "}
+          now.
         </div>
       </div>
     </div>

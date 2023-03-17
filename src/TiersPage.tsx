@@ -17,20 +17,27 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, price, vehicleCheckData }) => {
+  const [tier] = React.useState<string>(title || "");
   const navigate = useNavigate();
+  console.log(vehicleCheckData);
 
   const handleClick = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (title === "Initial Check") {
+        if (tier === "Initial Check") {
           navigate("https://buy.stripe.com/3cs5nS2MI2xLbRu3cc");
-        } else if (title === "Basic Check") {
+        } else if (tier === "Basic Check") {
           navigate("https://buy.stripe.com/4gwdUo5YU8W98FibIJ");
-        } else if (title === "Full Check") {
+        } else if (tier === "Full Check") {
           navigate("https://buy.stripe.com/14k03y5YUgoBbRu6oq");
         }
       } else {
-        navigate("/register", { state: { title, price, vehicleCheckData } });
+        if (tier != null && vehicleCheckData != null) {
+          navigate("/login", { state: { tier, vehicleCheckData } });
+        } else {
+          //TODO: Pass error message into landing page and display it
+          navigate("/");
+        }
       }
     });
   };

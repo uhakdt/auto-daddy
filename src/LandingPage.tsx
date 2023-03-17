@@ -18,7 +18,7 @@ function LandingPage() {
     setIsValid(pattern.test(licensePlate));
     try {
       const response = await axios.get(
-        `https://checkmycarapi.uhakdt.repl.co/api/v1/dvla/check/${licensePlate}`
+        `https://autodaddyapi.uhakdt.repl.co/api/v1/vehicledata/check/${licensePlate}`
       );
       const vehicle = new VehicleCheckData(response.data.VehicleCheckData);
       setVehicleCheckData(vehicle);

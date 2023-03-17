@@ -6,6 +6,7 @@ import ResetPage from "./ResetPage";
 import DashboardPage from "./DashboardPage";
 import AccountPage from "./AccountPage";
 import TiersPage from "./TiersPage";
+import PaymentPage from "./PaymentPage";
 
 function Navigation() {
   return (
@@ -29,6 +30,7 @@ function Navigation() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/reset" element={<ResetPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </div>
   );
