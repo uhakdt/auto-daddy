@@ -1,17 +1,26 @@
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
+import { AppContext, initialData, saveDataToStorage } from "./appContext";
+import { useEffect, useState } from "react";
 
-function App() {
+export const App = ({ children }: any) => {
+  const [data, setData] = useState(initialData);
+
+  useEffect(() => {
+    saveDataToStorage(data);
+  }, [data]);
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <header className="App-header">
-          <Navigation />
-        </header>
-      </div>
-    </BrowserRouter>
+    <AppContext.Provider value={[data, setData]}>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <Navigation />
+          </header>
+          {children}
+        </div>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
-}
-
-export default App;
+};

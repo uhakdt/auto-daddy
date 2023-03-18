@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
+import { AppContext } from "./appContext";
 
 const ProductDisplay = () => (
   <section>
@@ -13,7 +14,10 @@ const ProductDisplay = () => (
         <h5>$20.00</h5>
       </div>
     </div>
-    <form action="https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session" method="POST">
+    <form
+      action="https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session"
+      method="POST"
+    >
       <button type="submit">Purchase</button>
     </form>
   </section>
@@ -26,7 +30,11 @@ const Message = ({ message }: any) => (
 );
 
 export default function PaymentPage() {
+  const [appData] = useContext(AppContext);
+  const { tier, vehicleCheckData } = appData;
   const [message, setMessage] = useState("");
+  console.log(tier);
+  console.log(vehicleCheckData);
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout

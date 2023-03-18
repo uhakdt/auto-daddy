@@ -1,39 +1,34 @@
-import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { AppContext } from "./appContext";
 
 const auth = getAuth();
-
-interface VehicleCheckData {
-  Model: string;
-  Colour: string;
-  Year: string;
-}
 
 interface CardProps {
   title: string;
   price: number;
-  vehicleCheckData: VehicleCheckData;
 }
 
-const Card: React.FC<CardProps> = ({ title, price, vehicleCheckData }) => {
-  const [tier] = React.useState<string>(title || "");
+const Card: React.FC<CardProps> = ({ title, price }) => {
+  const [appData, setAppData] = useContext(AppContext);
+  const { tier, vehicleCheckData } = appData;
   const navigate = useNavigate();
+  console.log(tier);
   console.log(vehicleCheckData);
 
   const handleClick = () => {
+    setAppData((prevData: any) => ({
+      ...prevData,
+      tier: title,
+      vehicleCheckData,
+    }));
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        if (tier === "Initial Check") {
-          navigate("https://buy.stripe.com/3cs5nS2MI2xLbRu3cc");
-        } else if (tier === "Basic Check") {
-          navigate("https://buy.stripe.com/4gwdUo5YU8W98FibIJ");
-        } else if (tier === "Full Check") {
-          navigate("https://buy.stripe.com/14k03y5YUgoBbRu6oq");
-        }
+        navigate("/payment", { state: { tier: title, vehicleCheckData } });
       } else {
-        if (tier != null && vehicleCheckData != null) {
-          navigate("/login", { state: { tier, vehicleCheckData } });
+        if (title != null && vehicleCheckData != null) {
+          navigate("/login", { state: { tier: title, vehicleCheckData } });
         } else {
           //TODO: Pass error message into landing page and display it
           navigate("/");
@@ -52,26 +47,12 @@ const Card: React.FC<CardProps> = ({ title, price, vehicleCheckData }) => {
 };
 
 const TiersPage: React.FC = () => {
-  const location = useLocation();
-
   return (
     <div>
       <h1>Tiers Page</h1>
-      <Card
-        title="Initial Check"
-        price={2.99}
-        vehicleCheckData={location.state?.vehicleCheckData}
-      />
-      <Card
-        title="Basic Check"
-        price={4.99}
-        vehicleCheckData={location.state?.vehicleCheckData}
-      />
-      <Card
-        title="Full Check"
-        price={9.99}
-        vehicleCheckData={location.state?.vehicleCheckData}
-      />
+      <Card title="Initial Check" price={2.99} />
+      <Card title="Basic Check" price={4.99} />
+      <Card title="Full Check" price={9.99} />
     </div>
   );
 };

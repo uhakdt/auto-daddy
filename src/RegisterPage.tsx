@@ -1,23 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "./firebase";
 import "./RegisterPage.css";
+import { AppContext } from "./appContext";
 
 function RegisterPage() {
-  const location = useLocation();
-  const [tier, setTier] = useState(location.state?.tier || null);
-  const [vehicleCheckData, setVehicleCheckData] = useState(
-    location.state?.vehicleCheckData || null
-  );
+  const [appData] = useContext(AppContext);
+  const { tier, vehicleCheckData } = appData;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   console.log(tier, vehicleCheckData);
@@ -30,7 +28,7 @@ function RegisterPage() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/dashboard");
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <div className="register">

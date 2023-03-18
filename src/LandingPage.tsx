@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./appContext";
 import { VehicleCheckData } from "./models/VehicleCheckData";
 
 function LandingPage() {
-  const [vehicleCheckData, setVehicleCheckData] = useState<VehicleCheckData>();
+  const [appData, setAppData] = useContext(AppContext);
+  const { vehicleCheckData } = appData;
   const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/);
   const [licensePlate, setLicensePlate] = useState("");
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -21,7 +23,10 @@ function LandingPage() {
         `https://autodaddyapi.uhakdt.repl.co/api/v1/vehicledata/check/${licensePlate}`
       );
       const vehicle = new VehicleCheckData(response.data.VehicleCheckData);
-      setVehicleCheckData(vehicle);
+      setAppData((prevData: any) => ({
+        ...prevData,
+        vehicleCheckData: vehicle,
+      }));
       setResponseStatus(true);
     } catch (error) {
       console.log(error);

@@ -1,18 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, sendPasswordReset } from "./firebase";
 import "./ResetPage.css";
+import { AppContext } from "./appContext";
 
 function ResetPage() {
-  const location = useLocation();
-  const [tier, setTier] = useState(location.state?.tier || null);
-  const [vehicleCheckData, setVehicleCheckData] = useState(
-    location.state?.vehicleCheckData || null
-  );
+  const [appData] = useContext(AppContext);
+  const { tier, vehicleCheckData } = appData;
   const [email, setEmail] = useState("");
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   console.log(tier, vehicleCheckData);
@@ -20,7 +17,7 @@ function ResetPage() {
   useEffect(() => {
     if (loading) return;
     if (user) navigate("/account");
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   return (
     <div className="reset">
