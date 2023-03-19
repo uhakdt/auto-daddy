@@ -20,8 +20,8 @@ function LoginPage() {
       // maybe trigger a loading screen
       return;
     }
-    if (user && tier === null && vehicleCheckData === null) {
-      navigate("/dashboard");
+    if (user && (!tier || !vehicleCheckData)) {
+      navigate("/account");
     } else if (user && tier != null && vehicleCheckData != null) {
       navigate("/payment", { state: { tier, vehicleCheckData } });
     }

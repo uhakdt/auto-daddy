@@ -26,9 +26,16 @@ function RegisterPage() {
   };
 
   useEffect(() => {
-    if (loading) return;
-    if (user) navigate("/dashboard");
-  }, [user, loading, navigate]);
+    if (loading) {
+      // maybe trigger a loading screen
+      return;
+    }
+    if (user && (!tier || !vehicleCheckData)) {
+      navigate("/account");
+    } else if (user && tier != null && vehicleCheckData != null) {
+      navigate("/payment", { state: { tier, vehicleCheckData } });
+    }
+  }, [user, loading, navigate, tier, vehicleCheckData]);
 
   return (
     <div className="register">

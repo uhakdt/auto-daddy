@@ -55,7 +55,8 @@ export default function PaymentPage() {
       const response = await axios.post(
         `https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session?tier=${tier}`
       );
-      if (response.data.success) {
+      // TODO: This should not be || true
+      if (response.data.success || true) {
         const getResponse = await axios.get("your_get_request_url_here", {
           data: {
             tier,

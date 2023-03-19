@@ -13,6 +13,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, price }) => {
   const [appData, setAppData] = useContext(AppContext);
   const { tier, vehicleCheckData } = appData;
+
   const navigate = useNavigate();
   console.log(tier);
   console.log(vehicleCheckData);
