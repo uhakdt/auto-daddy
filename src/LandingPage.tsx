@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "./appContext";
 import { VehicleCheckData } from "./models/VehicleCheckData";
@@ -7,7 +7,7 @@ import { VehicleCheckData } from "./models/VehicleCheckData";
 function LandingPage() {
   const [appData, setAppData] = useContext(AppContext);
   const { vehicleCheckData } = appData;
-  const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/);
+  const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [licensePlate, setLicensePlate] = useState("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -34,13 +34,15 @@ function LandingPage() {
     }
   };
 
-  const handleNavigateToLogin = () => {
+  const handleNavigateToLogin = useCallback(() => {
     navigate("/tiers", { state: { vehicleCheckData } });
-  };
+  }, [navigate, vehicleCheckData]);
 
-  if (isValid && isSubmitted && responseStatus) {
-    handleNavigateToLogin();
-  }
+  useEffect(() => {
+    if (isValid && isSubmitted && responseStatus) {
+      handleNavigateToLogin();
+    }
+  }, [isValid, isSubmitted, responseStatus, handleNavigateToLogin]);
 
   return (
     <div>

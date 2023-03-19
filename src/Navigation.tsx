@@ -1,4 +1,6 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, logout } from "./firebase";
 import LandingPage from "./LandingPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
@@ -9,16 +11,42 @@ import TiersPage from "./TiersPage";
 import PaymentPage from "./PaymentPage";
 
 function Navigation() {
+  const [user, loading] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    try {
+      logout();
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   return (
     <div>
       <nav>
         <ul>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
+          {!user && !loading && (
+            <>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </>
+          )}
+          {user && !loading && (
+            <>
+              <li>
+                <Link to="/account">Account</Link>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
 

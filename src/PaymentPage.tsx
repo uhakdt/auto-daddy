@@ -1,43 +1,42 @@
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import "./App.css";
+import { useNavigate } from "react-router-dom";
 import { AppContext } from "./appContext";
-
-const ProductDisplay = () => (
-  <section>
-    <div className="product">
-      <img
-        src="https://i.imgur.com/EHyR2nP.png"
-        alt="The cover of Stubborn Attachments"
-      />
-      <div className="description">
-        <h3>Stubborn Attachments</h3>
-        <h5>$20.00</h5>
-      </div>
-    </div>
-    <form
-      action="https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session"
-      method="POST"
-    >
-      <button type="submit">Purchase</button>
-    </form>
-  </section>
-);
-
-const Message = ({ message }: any) => (
-  <section>
-    <p>{message}</p>
-  </section>
-);
 
 export default function PaymentPage() {
   const [appData] = useContext(AppContext);
   const { tier, vehicleCheckData } = appData;
   const [message, setMessage] = useState("");
-  console.log(tier);
-  console.log(vehicleCheckData);
+  const navigate = useNavigate();
+
+  const renderProductSection = (tier: string) => {
+    console.log(tier === "Basic Check");
+    switch (tier) {
+      case "Initial Check":
+        return (
+          <div>
+            <h2 style={{ color: "black" }}>Initial Check</h2>
+          </div>
+        );
+      case "Basic Check":
+        return (
+          <div>
+            <h2 style={{ color: "black" }}>Basic Check</h2>
+          </div>
+        );
+      case "Full Check":
+        return (
+          <div>
+            <h2 style={{ color: "black" }}>Full Check</h2>
+          </div>
+        );
+      // Add more cases for other tiers if needed.
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
@@ -51,5 +50,39 @@ export default function PaymentPage() {
     }
   }, []);
 
-  return message ? <Message message={message} /> : <ProductDisplay />;
+  const handlePurchase = async () => {
+    try {
+      const response = await axios.post(
+        `https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session?tier=${tier}`
+      );
+      if (response.data.success) {
+        const getResponse = await axios.get("your_get_request_url_here", {
+          data: {
+            tier,
+            vehicleCheckData,
+          },
+        });
+        console.log(getResponse);
+
+        // Redirect the user to the dashboard page.
+        navigate("/dashboard");
+      } else {
+        setMessage("An error occurred, please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("An error occurred, please try again.");
+    }
+  };
+
+  return message ? (
+    <section>
+      <p>{message}</p>
+    </section>
+  ) : (
+    <section>
+      {renderProductSection(tier)}
+      <button onClick={handlePurchase}>Purchase</button>
+    </section>
+  );
 }
