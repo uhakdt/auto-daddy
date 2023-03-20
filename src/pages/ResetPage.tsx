@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, sendPasswordReset } from "./firebase";
+import { auth, sendPasswordReset } from "../firebase";
 import "./ResetPage.css";
-import { AppContext } from "./appContext";
+import { AppContext } from "../appContext";
 
 function ResetPage() {
   const [appData] = useContext(AppContext);

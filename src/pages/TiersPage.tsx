@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { AppContext } from "./appContext";
+import { AppContext } from "../appContext";
 
 const auth = getAuth();
 

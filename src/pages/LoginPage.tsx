@@ -1,29 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import {
-  auth,
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "./firebase";
-import "./RegisterPage.css";
-import { AppContext } from "./appContext";
+import { auth, logInWithEmailAndPassword, signInWithGoogle } from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import "./LoginPage.css";
+import { AppContext } from "../appContext";
 
-function RegisterPage() {
+function LoginPage() {
   const [appData] = useContext(AppContext);
   const { tier, vehicleCheckData } = appData;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   console.log(tier, vehicleCheckData);
-
-  const register = () => {
-    if (!name) alert("Please enter name");
-    registerWithEmailAndPassword(name, email, password);
-  };
 
   useEffect(() => {
     if (loading) {
@@ -38,46 +28,48 @@ function RegisterPage() {
   }, [user, loading, navigate, tier, vehicleCheckData]);
 
   return (
-    <div className="register">
-      <div className="register__container">
+    <div className="login">
+      <div className="login__container">
         <input
           type="text"
-          className="register__textBox"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Full Name"
-        />
-        <input
-          type="text"
-          className="register__textBox"
+          className="login__textBox"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="E-mail Address"
         />
         <input
           type="password"
-          className="register__textBox"
+          className="login__textBox"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button className="register__btn" onClick={register}>
-          Register
-        </button>
         <button
-          className="register__btn register__google"
-          onClick={signInWithGoogle}
+          className="login__btn"
+          onClick={() => logInWithEmailAndPassword(email, password)}
         >
-          Register with Google
+          Login
+        </button>
+        <button className="login__btn login__google" onClick={signInWithGoogle}>
+          Login with Google
         </button>
         <div>
-          Already have an account?{" "}
           <button
             onClick={() => {
-              navigate("/login", { state: { tier, vehicleCheckData } });
+              navigate("/reset", { state: { tier, vehicleCheckData } });
             }}
           >
-            Login
+            Forgot Password
+          </button>
+        </div>
+        <div>
+          Don't have an account?{" "}
+          <button
+            onClick={() => {
+              navigate("/register", { state: { tier, vehicleCheckData } });
+            }}
+          >
+            Register
           </button>{" "}
           now.
         </div>
@@ -86,4 +78,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default LoginPage;

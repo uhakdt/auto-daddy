@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useContext, useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "./appContext";
-import { VehicleCheckData } from "./models/VehicleCheckData";
+import { AppContext } from "../appContext";
+import { VehicleCheckData } from "../models/VehicleCheckData";
 
 function LandingPage() {
   const [appData, setAppData] = useContext(AppContext);

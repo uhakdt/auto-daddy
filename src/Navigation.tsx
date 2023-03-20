@@ -1,14 +1,14 @@
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, logout } from "./firebase";
-import LandingPage from "./LandingPage";
-import LoginPage from "./LoginPage";
-import RegisterPage from "./RegisterPage";
-import ResetPage from "./ResetPage";
-import DashboardPage from "./DashboardPage";
-import AccountPage from "./AccountPage";
-import TiersPage from "./TiersPage";
-import PaymentPage from "./PaymentPage";
+import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ResetPage from "./pages/ResetPage";
+import DashboardPage from "./pages/DashboardPage";
+import AccountPage from "./pages/AccountPage";
+import TiersPage from "./pages/TiersPage";
+import PaymentPage from "./pages/PaymentPage";
 import { useContext } from "react";
 import { AppContext, initialData } from "./appContext";
 

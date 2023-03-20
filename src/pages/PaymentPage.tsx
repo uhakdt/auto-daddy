@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "./appContext";
+import { AppContext } from "../appContext";
 
 export default function PaymentPage() {
   const [appData] = useContext(AppContext);
