@@ -9,6 +9,8 @@ export default function PaymentPage() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  console.log(tier, vehicleCheckData);
+
   const renderProductSection = (tier: string) => {
     console.log(tier === "Basic Check");
     switch (tier) {

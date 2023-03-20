@@ -9,14 +9,19 @@ import DashboardPage from "./DashboardPage";
 import AccountPage from "./AccountPage";
 import TiersPage from "./TiersPage";
 import PaymentPage from "./PaymentPage";
+import { useContext } from "react";
+import { AppContext, initialData } from "./appContext";
 
 function Navigation() {
   const [user, loading] = useAuthState(auth);
+  const [, setAppData] = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     try {
       logout();
+      sessionStorage.removeItem("appData");
+      setAppData(initialData);
       navigate("/");
     } catch (error) {
       console.error("Logout error:", error);
