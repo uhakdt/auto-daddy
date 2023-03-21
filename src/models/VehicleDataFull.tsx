@@ -6,7 +6,7 @@ import { VehicleHistory } from "./VehicleHistory/VehicleHistory";
 import { VehicleRegistration } from "./VehicleRegistration/VehicleRegistration";
 import { VehicleStatus } from "./VehicleStatus/VehicleStatus";
 
-export class VehicleData {
+export class VehicleDataFull {
   TechnicalDetails: TechnicalDetails;
   ClassificationDetails: ClassificationDetails;
   VehicleStatus: VehicleStatus;

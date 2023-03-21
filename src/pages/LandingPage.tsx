@@ -6,7 +6,7 @@ import { VehicleCheckData } from "../models/VehicleCheckData";
 
 function LandingPage() {
   const [appData, setAppData] = useContext(AppContext);
-  const { vehicleCheckData } = appData;
+  const { tier, vehicleCheckData } = appData;
   const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [licensePlate, setLicensePlate] = useState("");
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -19,15 +19,18 @@ function LandingPage() {
     setIsSubmitted(true);
     setIsValid(pattern.test(licensePlate));
     try {
-      const response = await axios.get(
-        `https://autodaddyapi.uhakdt.repl.co/api/v1/vehicledata/check/${licensePlate}`
-      );
-      const vehicle = new VehicleCheckData(response.data.VehicleCheckData);
-      setAppData((prevData: any) => ({
-        ...prevData,
-        vehicleCheckData: vehicle,
-      }));
-      setResponseStatus(true);
+      await axios
+        .get(`http://localhost:4242/api/v1/vehicledata/check/${licensePlate}`)
+        .then((res) => {
+          const vehicleCheckData = new VehicleCheckData(
+            res.data.VehicleCheckData
+          );
+          setAppData((prevData: any) => ({
+            ...prevData,
+            vehicleCheckData,
+          }));
+          setResponseStatus(true);
+        });
     } catch (error) {
       console.log(error);
       setResponseStatus(false);
@@ -35,8 +38,8 @@ function LandingPage() {
   };
 
   const handleNavigateToLogin = useCallback(() => {
-    navigate("/tiers", { state: { vehicleCheckData } });
-  }, [navigate, vehicleCheckData]);
+    navigate("/tiers", { state: { tier, vehicleCheckData } });
+  }, [navigate, vehicleCheckData, tier]);
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {

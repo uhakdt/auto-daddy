@@ -2,17 +2,28 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
+import { VehicleCheckData } from "../models/VehicleCheckData";
+import { VehicleDataBasic } from "../models/VehicleDataBasic";
+import { VehicleDataFull } from "../models/VehicleDataFull";
+import { VehicleDataInitial } from "../models/VehicleDataInitial";
+
+interface AppData {
+  tier: string;
+  vehicleCheckData: VehicleCheckData;
+  vehicleDataInitial: VehicleDataInitial;
+  vehicleDataBasic: VehicleDataBasic;
+  vehicleDataFull: VehicleDataFull;
+}
 
 export default function PaymentPage() {
-  const [appData] = useContext(AppContext);
-  const { tier, vehicleCheckData } = appData;
+  const [appData, setAppData] = useContext(AppContext);
+  const { tier, vehicleCheckData }: AppData = appData;
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   console.log(tier, vehicleCheckData);
 
   const renderProductSection = (tier: string) => {
-    console.log(tier === "Basic Check");
     switch (tier) {
       case "Initial Check":
         return (
@@ -55,19 +66,44 @@ export default function PaymentPage() {
   const handlePurchase = async () => {
     try {
       const response = await axios.post(
-        `https://AutoDaddyAPI.uhakdt.repl.co/api/v1/create-checkout-session?tier=${tier}`
+        `http://localhost:4242/api/v1/create-checkout-session?tier=${tier}`
       );
-      // TODO: This should not be || true
-      if (response.data.success || true) {
-        const getResponse = await axios.get("your_get_request_url_here", {
-          data: {
-            tier,
-            vehicleCheckData,
-          },
-        });
-        console.log(getResponse);
+      if (response.status === 200) {
+        var tempTier = "";
+        if (tier === "Initial Check") tempTier = "initial";
+        if (tier === "Basic Check") tempTier = "basic";
+        if (tier === "Full Check") tempTier = "full";
+        await axios
+          .post(`http://localhost:4242/api/v1/vehicledata/${tempTier}`, {
+            licensePlate: vehicleCheckData.licensePlate,
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (tier === "Initial Check") {
+              const vehicleDataInitial = new VehicleDataInitial(
+                res.data.VehicleData
+              );
+              setAppData((prevData: any) => ({
+                ...prevData,
+                vehicleDataInitial,
+              }));
+            } else if (tier === "Basic Check") {
+              const vehicleDataBasic = new VehicleDataBasic(
+                res.data.VehicleData
+              );
+              setAppData((prevData: any) => ({
+                ...prevData,
+                vehicleDataBasic,
+              }));
+            } else if (tier === "Full Check") {
+              const vehicleDataFull = new VehicleDataFull(res.data.DataItems);
+              setAppData((prevData: any) => ({
+                ...prevData,
+                vehicleDataFull,
+              }));
+            }
+          });
 
-        // Redirect the user to the dashboard page.
         navigate("/dashboard");
       } else {
         setMessage("An error occurred, please try again.");

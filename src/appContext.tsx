@@ -1,5 +1,8 @@
 import { createContext } from "react";
 import { VehicleCheckData } from "./models/VehicleCheckData";
+import { VehicleDataBasic } from "./models/VehicleDataBasic";
+import { VehicleDataFull } from "./models/VehicleDataFull";
+import { VehicleDataInitial } from "./models/VehicleDataInitial";
 
 export const getStoredData = () => {
   const storedData = sessionStorage.getItem("appData");
@@ -15,6 +18,12 @@ export const initialData = getStoredData() || {
   setTier: (value: string) => {},
   vehicleCheckData: new VehicleCheckData({}),
   setVehicleCheckData: (value: VehicleCheckData) => {},
+  vehicleDataInitial: new VehicleDataInitial({}),
+  setVehicleDataInitial: (value: VehicleDataInitial) => {},
+  vehicleDataBasic: new VehicleDataBasic({}),
+  setVehicleDataBasic: (value: VehicleDataBasic) => {},
+  vehicleDataFull: new VehicleDataFull({}),
+  setVehicleDataFull: (value: VehicleDataFull) => {},
 };
 
 export const AppContext = createContext(initialData);

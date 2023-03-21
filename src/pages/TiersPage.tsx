@@ -39,7 +39,7 @@ const Card: React.FC<CardProps> = ({ title, price }) => {
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 style={{ color: "black" }}>{title}</h2>
       <p>Price: £{price.toFixed(2)}</p>
       <button onClick={handleClick}>Purchase</button>
     </div>
