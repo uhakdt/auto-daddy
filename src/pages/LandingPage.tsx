@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
 import { VehicleCheckData } from "../models/VehicleCheckData";
@@ -37,15 +37,11 @@ function LandingPage() {
     }
   };
 
-  const handleNavigateToLogin = useCallback(() => {
-    navigate("/tiers", { state: { tier, vehicleCheckData } });
-  }, [navigate, vehicleCheckData, tier]);
-
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
-      handleNavigateToLogin();
+      navigate("/tiers", { state: { tier, vehicleCheckData } });
     }
-  }, [isValid, isSubmitted, responseStatus, handleNavigateToLogin]);
+  }, [isValid, isSubmitted, responseStatus, navigate, vehicleCheckData, tier]);
 
   return (
     <div>

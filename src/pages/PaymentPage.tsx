@@ -43,7 +43,6 @@ export default function PaymentPage() {
             <h2 style={{ color: "black" }}>Full Check</h2>
           </div>
         );
-      // Add more cases for other tiers if needed.
       default:
         return null;
     }

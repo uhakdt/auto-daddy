@@ -1,6 +1,6 @@
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "./firebase";
+import { auth } from "./firebase";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -9,24 +9,11 @@ import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AccountPage";
 import TiersPage from "./pages/TiersPage";
 import PaymentPage from "./pages/PaymentPage";
-import { useContext } from "react";
-import { AppContext, initialData } from "./appContext";
+import { useHandleLogout } from "./auxiliaryHooks/authHooks";
 
 function Navigation() {
   const [user, loading] = useAuthState(auth);
-  const [, setAppData] = useContext(AppContext);
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    try {
-      logout();
-      sessionStorage.removeItem("appData");
-      setAppData(initialData);
-      navigate("/");
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
+  const handleLogout = useHandleLogout();
 
   return (
     <div>

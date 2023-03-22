@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { auth, db, logout } from "../firebase";
+import { auth, db } from "../firebase";
 import { query, collection, getDocs, where } from "firebase/firestore";
 import "./DashboardPage.css";
+import { useHandleLogout } from "../auxiliaryHooks/authHooks";
 
 function DashboardPage() {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState("");
+  const handleLogout = useHandleLogout();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +37,7 @@ function DashboardPage() {
         Logged in as
         <div>{name}</div>
         <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={logout}>
+        <button className="dashboard__btn" onClick={handleLogout}>
           Logout
         </button>
       </div>
