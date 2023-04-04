@@ -2,9 +2,13 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
 import { AppContext, initialData, saveDataToStorage } from "./appContext";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-export const App = ({ children }: any) => {
+interface AppProps {
+  children?: ReactNode;
+}
+
+export const App = ({ children }: AppProps) => {
   const [data, setData] = useState(initialData);
 
   useEffect(() => {
