@@ -1,3 +1,4 @@
+import { Box, Button, Grid, TextField } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,15 +46,60 @@ function LandingPage() {
 
   return (
     <div>
-      <h1>Add License Plate Number</h1>
+      <h1 style={{ textAlign: "center" }}>Search for a car history</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={licensePlate}
-          onChange={(event) => setLicensePlate(event.target.value)}
-        />
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            <div
+              style={{
+                width: "48px",
+                height: "48px",
+                border: "1px solid #bdbdbd",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                borderRadius: "4px",
+                borderTopRightRadius: "0",
+                borderBottomRightRadius: "0",
+              }}
+            >
+              <span style={{ fontWeight: "bold" }}>GB</span>
+            </div>
+          </Grid>
+          <Grid item xs style={{ paddingLeft: "0" }}>
+            <TextField
+              fullWidth
+              id="outlined-basic"
+              label="Enter License Plate Number"
+              variant="outlined"
+              value={licensePlate}
+              onChange={(event) => setLicensePlate(event.target.value)}
+              InputProps={{
+                style: {
+                  height: "50px",
+                  borderTopLeftRadius: "0",
+                  borderBottomLeftRadius: "0",
+                },
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                height: "50px",
+                backgroundColor: "#E8F653",
+                color: "black",
+                boxShadow: "none",
+              }}
+            >
+              Go
+            </Button>
+          </Grid>
+        </Grid>
         {isSubmitted && !isValid && <p>Invalid UK license plate number</p>}
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
