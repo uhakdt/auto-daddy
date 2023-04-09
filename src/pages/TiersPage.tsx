@@ -2,6 +2,17 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { AppContext } from "../appContext";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Typography,
+} from "@mui/material";
+
+import "./TiersPage.css";
 
 const auth = getAuth();
 
@@ -10,7 +21,7 @@ interface CardProps {
   price: number;
 }
 
-const Card: React.FC<CardProps> = ({ title, price }) => {
+const CardMain: React.FC<CardProps> = ({ title, price }) => {
   const [appData, setAppData] = useContext(AppContext);
   const { tier, vehicleCheckData } = appData;
   const navigate = useNavigate();
@@ -48,11 +59,113 @@ const Card: React.FC<CardProps> = ({ title, price }) => {
 
 const TiersPage: React.FC = () => {
   return (
-    <div>
-      <h1>Tiers Page</h1>
-      <Card title="Initial Check" price={2.99} />
-      <Card title="Basic Check" price={4.99} />
-      <Card title="Full Check" price={9.99} />
+    <div className="tiers-page">
+      <h1 className="tiers-page-title">Pricing Plan</h1>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        className="grid-container"
+      >
+        <Grid item xs={12} sm={4} md={3.5}>
+          <Box className="card-wrapper">
+            <Card className="card card-first">
+              <Box className="card-header">
+                <CardContent>
+                  <Box className="card-title">
+                    <Typography variant="h5" component="div">
+                      Basic Check
+                    </Typography>
+                    <Typography color="text.secondary" gutterBottom>
+                      £2.99
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Box>
+              <Box className="card-body">
+                <CardContent>
+                  <ul className="custom-bullet-points">
+                    <li>Random text 1</li>
+                    <li>Random text 2</li>
+                    <li>Random text 3</li>
+                  </ul>
+                </CardContent>
+                <CardActions>
+                  <Box className="card-action">
+                    <Button variant="contained">Get Started</Button>
+                  </Box>
+                </CardActions>
+              </Box>
+            </Card>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4} md={5}>
+          <Box className="card-wrapper">
+            <Card className="card card-second">
+              <Box className="card-header">
+                <CardContent>
+                  <Box className="card-title">
+                    <Typography variant="h5" component="div">
+                      Premium Check
+                    </Typography>
+                    <Typography color="text.secondary" gutterBottom>
+                      £4.99
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Box>
+              <Box className="card-body">
+                <CardContent>
+                  <ul className="custom-bullet-points">
+                    <li>Random text 1</li>
+                    <li>Random text 2</li>
+                    <li>Random text 3</li>
+                    <li>Random text 4</li>
+                    <li>Random text 5</li>
+                  </ul>
+                </CardContent>
+                <CardActions>
+                  <Box className="card-action">
+                    <Button variant="contained">Get Started</Button>
+                  </Box>
+                </CardActions>
+              </Box>
+            </Card>
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={4} md={3.5}>
+          <Box className="card-wrapper">
+            <Card className="card card-third">
+              <Box className="card-header">
+                <CardContent>
+                  <Box className="card-title">
+                    <Typography variant="h5" component="div">
+                      Full Check
+                    </Typography>
+                    <Typography color="text.secondary" gutterBottom>
+                      £9.99
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Box>
+              <Box className="card-body">
+                <CardContent>
+                  <ul className="custom-bullet-points">
+                    <li>Random text 1</li>
+                    <li>Random text 2</li>
+                    <li>Random text 3</li>
+                  </ul>
+                </CardContent>
+                <CardActions>
+                  <Box className="card-action">
+                    <Button variant="contained">Get Started</Button>
+                  </Box>
+                </CardActions>
+              </Box>
+            </Card>
+          </Box>
+        </Grid>
+      </Grid>
     </div>
   );
 };
