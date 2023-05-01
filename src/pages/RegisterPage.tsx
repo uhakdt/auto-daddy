@@ -11,14 +11,14 @@ import { AppContext } from "../appContext";
 
 function RegisterPage() {
   const [appData] = useContext(AppContext);
-  const { tier, vehicleCheckData } = appData;
+  const { tier, vehicleFreeData } = appData;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
-  console.log(tier, vehicleCheckData);
+  console.log(tier, vehicleFreeData);
 
   const register = () => {
     if (!name) alert("Please enter name");
@@ -30,12 +30,12 @@ function RegisterPage() {
       // maybe trigger a loading screen
       return;
     }
-    if (user && (!tier || !vehicleCheckData)) {
+    if (user && (!tier || !vehicleFreeData)) {
       navigate("/account");
-    } else if (user && tier != null && vehicleCheckData != null) {
-      navigate("/payment", { state: { tier, vehicleCheckData } });
+    } else if (user && tier != null && vehicleFreeData != null) {
+      navigate("/payment", { state: { tier, vehicleFreeData } });
     }
-  }, [user, loading, navigate, tier, vehicleCheckData]);
+  }, [user, loading, navigate, tier, vehicleFreeData]);
 
   return (
     <div className="register">
@@ -74,7 +74,7 @@ function RegisterPage() {
           Already have an account?{" "}
           <button
             onClick={() => {
-              navigate("/login", { state: { tier, vehicleCheckData } });
+              navigate("/login", { state: { tier, vehicleFreeData } });
             }}
           >
             Login

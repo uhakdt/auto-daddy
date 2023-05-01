@@ -7,24 +7,24 @@ import { AppContext } from "../appContext";
 
 function ResetPage() {
   const [appData] = useContext(AppContext);
-  const { tier, vehicleCheckData } = appData;
+  const { tier, vehicleFreeData } = appData;
   const [email, setEmail] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
-  console.log(tier, vehicleCheckData);
+  console.log(tier, vehicleFreeData);
 
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (user && (!tier || !vehicleCheckData)) {
+    if (user && (!tier || !vehicleFreeData)) {
       navigate("/account");
-    } else if (user && tier != null && vehicleCheckData != null) {
-      navigate("/payment", { state: { tier, vehicleCheckData } });
+    } else if (user && tier != null && vehicleFreeData != null) {
+      navigate("/payment", { state: { tier, vehicleFreeData } });
     }
-  }, [user, loading, navigate, tier, vehicleCheckData]);
+  }, [user, loading, navigate, tier, vehicleFreeData]);
 
   return (
     <div className="reset">
@@ -43,7 +43,7 @@ function ResetPage() {
           Don't have an account?{" "}
           <button
             onClick={() => {
-              navigate("/register", { state: { tier, vehicleCheckData } });
+              navigate("/register", { state: { tier, vehicleFreeData } });
             }}
           >
             Register

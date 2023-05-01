@@ -3,14 +3,14 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
-import { VehicleCheckData } from "../models/VehicleCheckData";
+import { VehicleFreeData } from "../models/VehicleFreeData";
 import { useTheme } from "@mui/material/styles";
 
 function LandingPage() {
   const [appData, setAppData] = useContext(AppContext);
-  const { tier, vehicleCheckData } = appData;
+  const { tier, vehicleFreeData } = appData;
   const [pattern] = useState<RegExp>(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
-  const [licensePlate, setLicensePlate] = useState("");
+  const [registrationNumber, setRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [responseStatus, setResponseStatus] = useState<boolean>(false);
@@ -20,17 +20,17 @@ function LandingPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitted(true);
-    setIsValid(pattern.test(licensePlate));
+    setIsValid(pattern.test(registrationNumber));
     try {
       await axios
-        .get(`http://localhost:4242/api/v1/vehicledata/check/${licensePlate}`)
+        .get(
+          `http://localhost:4242/api/v1/vehicledata/check/${registrationNumber}`
+        )
         .then((res) => {
-          const vehicleCheckData = new VehicleCheckData(
-            res.data.VehicleCheckData
-          );
+          const vehicleFreeData = new VehicleFreeData(res.data.VehicleFreeData);
           setAppData((prevData: any) => ({
             ...prevData,
-            vehicleCheckData,
+            vehicleFreeData,
           }));
           setResponseStatus(true);
         });
@@ -42,9 +42,9 @@ function LandingPage() {
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
-      navigate("/tiers", { state: { tier, vehicleCheckData } });
+      navigate("/tiers", { state: { tier, vehicleFreeData } });
     }
-  }, [isValid, isSubmitted, responseStatus, navigate, vehicleCheckData, tier]);
+  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData, tier]);
 
   return (
     <Box pt={theme.spacing(20)}>
@@ -75,8 +75,8 @@ function LandingPage() {
                 id="outlined-basic"
                 label="Enter License Plate Number"
                 variant="outlined"
-                value={licensePlate}
-                onChange={(event) => setLicensePlate(event.target.value)}
+                value={registrationNumber}
+                onChange={(event) => setRegistrationNumber(event.target.value)}
                 InputProps={{
                   style: {
                     height: "50px",

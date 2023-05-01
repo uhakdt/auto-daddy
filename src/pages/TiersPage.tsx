@@ -23,23 +23,23 @@ interface CardProps {
 
 const CardMain: React.FC<CardProps> = ({ title, price }) => {
   const [appData, setAppData] = useContext(AppContext);
-  const { tier, vehicleCheckData } = appData;
+  const { tier, vehicleFreeData } = appData;
   const navigate = useNavigate();
 
-  console.log(tier, vehicleCheckData);
+  console.log(tier, vehicleFreeData);
 
   const handleClick = () => {
     setAppData((prevData: any) => ({
       ...prevData,
       tier: title,
-      vehicleCheckData,
+      vehicleFreeData,
     }));
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/payment", { state: { tier: title, vehicleCheckData } });
+        navigate("/payment", { state: { tier: title, vehicleFreeData } });
       } else {
-        if (title != null && vehicleCheckData != null) {
-          navigate("/login", { state: { tier: title, vehicleCheckData } });
+        if (title != null && vehicleFreeData != null) {
+          navigate("/login", { state: { tier: title, vehicleFreeData } });
         } else {
           //TODO: Pass error message into landing page and display it
           navigate("/");

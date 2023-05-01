@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { VehicleCheckData } from "./models/VehicleCheckData";
+import { VehicleFreeData } from "./models/VehicleFreeData";
 import { VehicleDataBasic } from "./models/VehicleDataBasic";
 import { VehicleDataFull } from "./models/VehicleDataFull";
 import { VehicleDataInitial } from "./models/VehicleDataInitial";
@@ -16,8 +16,8 @@ export const saveDataToStorage = (data: any) => {
 export const initialData = getStoredData() || {
   tier: "",
   setTier: (value: string) => {},
-  vehicleCheckData: new VehicleCheckData({}),
-  setVehicleCheckData: (value: VehicleCheckData) => {},
+  vehicleFreeData: new VehicleFreeData({}),
+  setVehicleFreeData: (value: VehicleFreeData) => {},
   vehicleDataInitial: new VehicleDataInitial({}),
   setVehicleDataInitial: (value: VehicleDataInitial) => {},
   vehicleDataBasic: new VehicleDataBasic({}),

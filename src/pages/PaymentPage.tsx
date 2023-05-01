@@ -2,14 +2,14 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
-import { VehicleCheckData } from "../models/VehicleCheckData";
+import { VehicleFreeData } from "../models/VehicleFreeData";
 import { VehicleDataBasic } from "../models/VehicleDataBasic";
 import { VehicleDataFull } from "../models/VehicleDataFull";
 import { VehicleDataInitial } from "../models/VehicleDataInitial";
 
 interface AppData {
   tier: string;
-  vehicleCheckData: VehicleCheckData;
+  vehicleFreeData: VehicleFreeData;
   vehicleDataInitial: VehicleDataInitial;
   vehicleDataBasic: VehicleDataBasic;
   vehicleDataFull: VehicleDataFull;
@@ -17,11 +17,11 @@ interface AppData {
 
 export default function PaymentPage() {
   const [appData, setAppData] = useContext(AppContext);
-  const { tier, vehicleCheckData }: AppData = appData;
+  const { tier, vehicleFreeData }: AppData = appData;
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  console.log(tier, vehicleCheckData);
+  console.log(tier, vehicleFreeData);
 
   const renderProductSection = (tier: string) => {
     switch (tier) {
@@ -74,7 +74,7 @@ export default function PaymentPage() {
         if (tier === "Full Check") tempTier = "full";
         await axios
           .post(`http://localhost:4242/api/v1/vehicledata/${tempTier}`, {
-            licensePlate: vehicleCheckData.licensePlate,
+            registrationNumber: vehicleFreeData.registrationNumber,
           })
           .then((res) => {
             console.log(res.data);
