@@ -3,16 +3,16 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
 import { VehicleFreeData } from "../models/VehicleFreeData";
-import { VehicleDataBasic } from "../models/VehicleDataBasic";
-import { VehicleDataFull } from "../models/VehicleDataFull";
-import { VehicleDataInitial } from "../models/VehicleDataInitial";
+import { VehicleBasicData } from "../models/VehicleBasicData";
+import { VehicleFullData } from "../models/VehicleFullData";
+import { VehicleMediumData } from "../models/VehicleMediumData";
 
 interface AppData {
   tier: string;
   vehicleFreeData: VehicleFreeData;
-  vehicleDataInitial: VehicleDataInitial;
-  vehicleDataBasic: VehicleDataBasic;
-  vehicleDataFull: VehicleDataFull;
+  vehicleDataInitial: VehicleMediumData;
+  vehicleDataBasic: VehicleBasicData;
+  vehicleDataFull: VehicleFullData;
 }
 
 export default function PaymentPage() {
@@ -79,7 +79,7 @@ export default function PaymentPage() {
           .then((res) => {
             console.log(res.data);
             if (tier === "Initial Check") {
-              const vehicleDataInitial = new VehicleDataInitial(
+              const vehicleDataInitial = new VehicleMediumData(
                 res.data.VehicleData
               );
               setAppData((prevData: any) => ({
@@ -87,7 +87,7 @@ export default function PaymentPage() {
                 vehicleDataInitial,
               }));
             } else if (tier === "Basic Check") {
-              const vehicleDataBasic = new VehicleDataBasic(
+              const vehicleDataBasic = new VehicleBasicData(
                 res.data.VehicleData
               );
               setAppData((prevData: any) => ({
@@ -95,7 +95,7 @@ export default function PaymentPage() {
                 vehicleDataBasic,
               }));
             } else if (tier === "Full Check") {
-              const vehicleDataFull = new VehicleDataFull(res.data.DataItems);
+              const vehicleDataFull = new VehicleFullData(res.data.DataItems);
               setAppData((prevData: any) => ({
                 ...prevData,
                 vehicleDataFull,
