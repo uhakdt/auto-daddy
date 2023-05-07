@@ -1,5 +1,5 @@
 export class FirstYear {
-  sixMonth: number | null;
+  sixMonth: object | null;
   twelveMonth: number | null;
 
   constructor(data: any) {

@@ -1,7 +1,7 @@
 export class Power {
-  bhp: number;
-  rpm: number;
-  kw: number;
+  bhp: number | null;
+  rpm: number | null;
+  kw: number | null;
 
   constructor(data: any) {
     this.bhp = data.Bhp;

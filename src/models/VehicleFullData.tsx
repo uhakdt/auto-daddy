@@ -2,11 +2,13 @@ import { ClassificationDetails } from "./ClassificationDetails/ClassificationDet
 import { MotHistory } from "./MotHistory/MotHistory";
 import { SmmtDetails } from "./SmmtDetails/SmmtDetails";
 import { TechnicalDetails } from "./TechnicalDetails/TechnicalDetails";
+import { UkvdEnhancedData } from "./UkvdEnhancedData/UkvdEnhancedData";
 import { VehicleHistory } from "./VehicleHistory/VehicleHistory";
 import { VehicleRegistration } from "./VehicleRegistration/VehicleRegistration";
 import { VehicleStatus } from "./VehicleStatus/VehicleStatus";
 
 export class VehicleFullData {
+  UkvdEnhancedData!: UkvdEnhancedData;
   TechnicalDetails: TechnicalDetails;
   ClassificationDetails: ClassificationDetails;
   VehicleStatus: VehicleStatus;

@@ -1,9 +1,11 @@
 import { YearTwoToSix } from "./YearTwoToSix";
 
 export class PremiumVehicle {
-  yearTwoToSix: YearTwoToSix;
+  yearTwoToSix: YearTwoToSix | null;
 
   constructor(data: any) {
-    this.yearTwoToSix = new YearTwoToSix(data.YearTwoToSix);
+    this.yearTwoToSix = data.YearTwoToSix
+      ? new YearTwoToSix(data.YearTwoToSix)
+      : null;
   }
 }

@@ -1,13 +1,9 @@
 export class Dvla {
-  modelCode: string;
-  model: string;
-  makeCode: string;
-  make: string;
+  model: string | null;
+  make: string | null;
 
   constructor(data: any) {
-    this.modelCode = data.ModelCode;
     this.model = data.Model;
-    this.makeCode = data.MakeCode;
     this.make = data.Make;
   }
 }

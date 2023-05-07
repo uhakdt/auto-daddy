@@ -1,6 +1,6 @@
 export class FuelConsumption {
-  lkm: number;
-  mpg: number;
+  lkm: number | null;
+  mpg: number | null;
 
   constructor(data: any) {
     this.lkm = data.Lkm;
@@ -9,21 +9,18 @@ export class FuelConsumption {
 }
 
 export class ExtraUrban extends FuelConsumption {
-  // eslint-disable-next-line
   constructor(data: any) {
     super(data);
   }
 }
 
 export class UrbanCold extends FuelConsumption {
-  // eslint-disable-next-line
   constructor(data: any) {
     super(data);
   }
 }
 
 export class Combined extends FuelConsumption {
-  // eslint-disable-next-line
   constructor(data: any) {
     super(data);
   }

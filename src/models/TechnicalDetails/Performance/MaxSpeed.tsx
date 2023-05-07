@@ -1,6 +1,6 @@
 export class MaxSpeed {
-  kph: number;
-  mph: number;
+  kph: number | null;
+  mph: number | null;
 
   constructor(data: any) {
     this.kph = data.Kph;

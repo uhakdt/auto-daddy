@@ -1,25 +1,25 @@
 export class SmmtDetails {
-  range: string;
-  fuelType: string;
-  engineCapacity: string;
-  marketSectorCode: string;
-  countryOfOrigin: string;
-  modelCode: string;
-  modelVariant: string;
-  dataVersionNumber: any;
-  numberOfGears: number;
-  nominalEngineCapacity: number;
-  marqueCode: string;
-  transmission: string;
-  bodyStyle: string;
-  visibilityDate: string;
-  sysSetupDate: string;
-  marque: string;
-  cabType: string;
-  terminateDate: any;
-  series: string;
-  numberOfDoors: number;
-  driveType: string;
+  range: string | null;
+  fuelType: string | null;
+  engineCapacity: string | null;
+  marketSectorCode: string | null;
+  countryOfOrigin: string | null;
+  modelCode: string | null;
+  modelVariant: string | null;
+  dataVersionNumber: object | null;
+  numberOfGears: number | null;
+  nominalEngineCapacity: number | null;
+  marqueCode: string | null;
+  transmission: string | null;
+  bodyStyle: string | null;
+  visibilityDate: string | null;
+  sysSetupDate: string | null;
+  marque: string | null;
+  cabType: string | null;
+  terminateDate: string | null;
+  series: string | null;
+  numberOfDoors: number | null;
+  driveType: string | null;
 
   constructor(data: any) {
     this.range = data.Range;

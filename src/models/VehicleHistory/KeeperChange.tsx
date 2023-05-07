@@ -1,7 +1,7 @@
 export class KeeperChanges {
-  dateOfTransaction: string;
-  numberOfPreviousKeepers: number;
-  dateOfLastKeeperChange: string;
+  dateOfTransaction: string | null;
+  numberOfPreviousKeepers: number | null;
+  dateOfLastKeeperChange: string | null;
 
   constructor(data: any) {
     this.dateOfTransaction = data.DateOfTransaction;

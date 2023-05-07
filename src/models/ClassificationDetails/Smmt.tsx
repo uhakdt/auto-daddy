@@ -1,14 +1,14 @@
 import { Mvris } from "./Mvris";
 
 export class Smmt {
-  make: string;
-  mvris: Mvris;
-  trim: string;
-  range: string;
+  make: string | null;
+  mvris: Mvris | null;
+  trim: string | null;
+  range: string | null;
 
   constructor(data: any) {
     this.make = data.Make;
-    this.mvris = new Mvris(data.Mvris);
+    this.mvris = data.Mvris ? new Mvris(data.Mvris) : null;
     this.trim = data.Trim;
     this.range = data.Range;
   }

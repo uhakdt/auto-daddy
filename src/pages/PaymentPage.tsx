@@ -5,12 +5,10 @@ import { AppContext } from "../appContext";
 import { VehicleFreeData } from "../models/VehicleFreeData";
 import { VehicleBasicData } from "../models/VehicleBasicData";
 import { VehicleFullData } from "../models/VehicleFullData";
-import { VehicleMediumData } from "../models/VehicleMediumData";
 
 interface AppData {
   tier: string;
   vehicleFreeData: VehicleFreeData;
-  vehicleDataInitial: VehicleMediumData;
   vehicleDataBasic: VehicleBasicData;
   vehicleDataFull: VehicleFullData;
 }
@@ -78,15 +76,7 @@ export default function PaymentPage() {
           })
           .then((res) => {
             console.log(res.data);
-            if (tier === "Initial Check") {
-              const vehicleDataInitial = new VehicleMediumData(
-                res.data.VehicleData
-              );
-              setAppData((prevData: any) => ({
-                ...prevData,
-                vehicleDataInitial,
-              }));
-            } else if (tier === "Basic Check") {
+            if (tier === "Basic Check") {
               const vehicleDataBasic = new VehicleBasicData(
                 res.data.VehicleData
               );

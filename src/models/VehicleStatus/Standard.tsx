@@ -1,6 +1,6 @@
 export class Standard {
-  sixMonth: number;
-  twelveMonth: number;
+  sixMonth: object | null;
+  twelveMonth: number | null;
 
   constructor(data: any) {
     this.sixMonth = data.SixMonth;

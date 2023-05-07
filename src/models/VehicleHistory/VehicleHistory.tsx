@@ -1,24 +1,27 @@
+import { V5CCertificateList } from "./V5CCertificate";
 import { KeeperChanges } from "./KeeperChange";
 import { PlateChange } from "./PlateChange";
 
 export class VehicleHistory {
-  v5CCertificateCount: number;
-  plateChangeCount: number;
-  numberOfPreviousKeepers: number;
-  v5CCertificateList: any;
-  keeperChangesCount: number;
-  vicCount: number;
-  colourChangeCount: number;
-  colourChangeList: any;
-  keeperChangesList: KeeperChanges[];
-  plateChangeList: PlateChange[];
-  vicList: any;
+  v5CCertificateCount: number | null;
+  plateChangeCount: number | null;
+  numberOfPreviousKeepers: number | null;
+  v5CCertificateList: V5CCertificateList | null;
+  keeperChangesCount: number | null;
+  vicCount: number | null;
+  colourChangeCount: number | null;
+  colourChangeList: any | null;
+  keeperChangesList: KeeperChanges[] | null;
+  plateChangeList: PlateChange[] | null;
+  vicList: any | null;
 
   constructor(data: any) {
     this.v5CCertificateCount = data.V5CCertificateCount;
     this.plateChangeCount = data.PlateChangeCount;
     this.numberOfPreviousKeepers = data.NumberOfPreviousKeepers;
-    this.v5CCertificateList = data.V5CCertificateList;
+    this.v5CCertificateList = data.V5CCertificateList.map(
+      (item: any) => new V5CCertificateList(item)
+    );
     this.keeperChangesCount = data.KeeperChangesCount;
     this.vicCount = data.VicCount;
     this.colourChangeCount = data.ColourChangeCount;

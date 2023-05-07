@@ -1,18 +1,25 @@
+import { Consumption } from "./Consumption/Consumption";
 import { Dimensions } from "./Dimensions";
 import { General } from "./General/General";
 import { Performance } from "./Performance/Performance";
-import { Consumption } from "./Consumption/Consumption";
+import { Safety } from "./Safety";
 
 export class TechnicalDetails {
-  dimensions: Dimensions;
-  general: General;
-  performance: Performance;
-  consumption: Consumption;
+  dimensions: Dimensions | null;
+  safety: Safety | null;
+  general: General | null;
+  performance: Performance | null;
+  consumption: Consumption | null;
 
   constructor(data: any) {
     this.dimensions = new Dimensions(data.Dimensions);
-    this.general = new General(data.General);
-    this.performance = new Performance(data.Performance);
-    this.consumption = new Consumption(data.Consumption);
+    this.safety = data.Safety ? new Safety(data.Safety) : null;
+    this.general = data.General ? new General(data.General) : null;
+    this.performance = data.Performance
+      ? new Performance(data.Performance)
+      : null;
+    this.consumption = data.Consumption
+      ? new Consumption(data.Consumption)
+      : null;
   }
 }

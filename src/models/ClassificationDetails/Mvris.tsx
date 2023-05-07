@@ -1,6 +1,6 @@
 export class Mvris {
-  modelCode: string;
-  makeCode: string;
+  modelCode: object | null;
+  makeCode: object | null;
 
   constructor(data: any) {
     this.modelCode = data.ModelCode;

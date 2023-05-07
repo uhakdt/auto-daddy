@@ -1,9 +1,9 @@
 export class PlateChange {
-  currentVRM: string;
-  transferType: string;
-  dateOfReceipt: string;
-  previousVRM: string;
-  dateOfTransaction: string;
+  currentVRM: string | null;
+  transferType: string | null;
+  dateOfReceipt: string | null;
+  previousVRM: string | null;
+  dateOfTransaction: string | null;
 
   constructor(data: any) {
     this.currentVRM = data.CurrentVRM;

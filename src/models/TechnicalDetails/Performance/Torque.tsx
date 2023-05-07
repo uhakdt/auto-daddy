@@ -1,6 +1,6 @@
 export class Torque {
-  ftLb: number;
-  nm: number;
+  ftLb: number | null;
+  nm: number | null;
   rpm: number;
 
   constructor(data: any) {
