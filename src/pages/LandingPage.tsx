@@ -23,11 +23,11 @@ function LandingPage() {
     setIsValid(pattern.test(registrationNumber));
     try {
       await axios
-        .get(
-          `http://localhost:4242/api/v1/vehicledata/check/${registrationNumber}`
+        .post(
+          `http://localhost:4242/api/v1/vehicledata/free/${registrationNumber}`
         )
         .then((res) => {
-          const vehicleFreeData = new VehicleFreeData(res.data.VehicleFreeData);
+          const vehicleFreeData = new VehicleFreeData(res.data);
           setAppData((prevData: any) => ({
             ...prevData,
             vehicleFreeData,

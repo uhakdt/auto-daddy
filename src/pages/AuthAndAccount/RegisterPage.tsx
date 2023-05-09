@@ -5,9 +5,9 @@ import {
   auth,
   registerWithEmailAndPassword,
   signInWithGoogle,
-} from "../firebase";
+} from "../../firebase";
 import "./RegisterPage.css";
-import { AppContext } from "../appContext";
+import { AppContext } from "../../appContext";
 
 function RegisterPage() {
   const [appData] = useContext(AppContext);

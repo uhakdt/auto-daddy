@@ -29,6 +29,7 @@ const CardMain: React.FC<CardProps> = ({ title, price }) => {
   console.log(tier, vehicleFreeData);
 
   const handleClick = () => {
+    console.log("test");
     setAppData((prevData: any) => ({
       ...prevData,
       tier: title,
@@ -67,9 +68,9 @@ const TiersPage: React.FC = () => {
         alignItems="center"
         className="grid-container"
       >
-        <Grid item xs={12} sm={4} md={3.5}>
+        <Grid item xs={12} sm={6}>
           <Box className="card-wrapper">
-            <Card className="card card-first">
+            <CardMain className="card card-first">
               <Box className="card-header">
                 <CardContent>
                   <Box className="card-title">
@@ -92,48 +93,14 @@ const TiersPage: React.FC = () => {
                 </CardContent>
                 <CardActions>
                   <Box className="card-action">
-                    <Button variant="contained">Get Started</Button>
+                    <Button variant="contained">Purchase</Button>
                   </Box>
                 </CardActions>
               </Box>
-            </Card>
+            </CardMain>
           </Box>
         </Grid>
-        <Grid item xs={12} sm={4} md={5}>
-          <Box className="card-wrapper">
-            <Card className="card card-second">
-              <Box className="card-header">
-                <CardContent>
-                  <Box className="card-title">
-                    <Typography variant="h5" component="div">
-                      Premium Check
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom>
-                      £4.99
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Box>
-              <Box className="card-body">
-                <CardContent>
-                  <ul className="custom-bullet-points">
-                    <li>Random text 1</li>
-                    <li>Random text 2</li>
-                    <li>Random text 3</li>
-                    <li>Random text 4</li>
-                    <li>Random text 5</li>
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Box className="card-action">
-                    <Button variant="contained">Get Started</Button>
-                  </Box>
-                </CardActions>
-              </Box>
-            </Card>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={4} md={3.5}>
+        <Grid item xs={12} sm={6}>
           <Box className="card-wrapper">
             <Card className="card card-third">
               <Box className="card-header">
@@ -158,7 +125,7 @@ const TiersPage: React.FC = () => {
                 </CardContent>
                 <CardActions>
                   <Box className="card-action">
-                    <Button variant="contained">Get Started</Button>
+                    <Button variant="contained">Purchase</Button>
                   </Box>
                 </CardActions>
               </Box>
