@@ -50,11 +50,38 @@ const CardMain: React.FC<CardProps> = ({ title, price }) => {
   };
 
   return (
-    <div>
-      <h2 style={{ color: "black" }}>{title}</h2>
-      <p>Price: £{price.toFixed(2)}</p>
-      <button onClick={handleClick}>Purchase</button>
-    </div>
+    <Box className="card-wrapper">
+      <Card className="card card-first">
+        <Box className="card-header">
+          <CardContent>
+            <Box className="card-title">
+              <Typography variant="h5" component="div">
+                {title}
+              </Typography>
+              <Typography color="text.secondary" gutterBottom>
+                Price: £{price.toFixed(2)}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Box>
+        <Box className="card-body">
+          <CardContent>
+            <ul className="custom-bullet-points">
+              <li>Random text 1</li>
+              <li>Random text 2</li>
+              <li>Random text 3</li>
+            </ul>
+          </CardContent>
+          <CardActions>
+            <Box className="card-action">
+              <Button onClick={handleClick} variant="contained">
+                Purchase
+              </Button>
+            </Box>
+          </CardActions>
+        </Box>
+      </Card>
+    </Box>
   );
 };
 
@@ -69,68 +96,10 @@ const TiersPage: React.FC = () => {
         className="grid-container"
       >
         <Grid item xs={12} sm={6}>
-          <Box className="card-wrapper">
-            <CardMain className="card card-first">
-              <Box className="card-header">
-                <CardContent>
-                  <Box className="card-title">
-                    <Typography variant="h5" component="div">
-                      Basic Check
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom>
-                      £2.99
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Box>
-              <Box className="card-body">
-                <CardContent>
-                  <ul className="custom-bullet-points">
-                    <li>Random text 1</li>
-                    <li>Random text 2</li>
-                    <li>Random text 3</li>
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Box className="card-action">
-                    <Button variant="contained">Purchase</Button>
-                  </Box>
-                </CardActions>
-              </Box>
-            </CardMain>
-          </Box>
+          <CardMain title="Basic Check" price={2.99} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Box className="card-wrapper">
-            <Card className="card card-third">
-              <Box className="card-header">
-                <CardContent>
-                  <Box className="card-title">
-                    <Typography variant="h5" component="div">
-                      Full Check
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom>
-                      £9.99
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Box>
-              <Box className="card-body">
-                <CardContent>
-                  <ul className="custom-bullet-points">
-                    <li>Random text 1</li>
-                    <li>Random text 2</li>
-                    <li>Random text 3</li>
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Box className="card-action">
-                    <Button variant="contained">Purchase</Button>
-                  </Box>
-                </CardActions>
-              </Box>
-            </Card>
-          </Box>
+          <CardMain title="Full Check" price={8.99} />
         </Grid>
       </Grid>
     </div>

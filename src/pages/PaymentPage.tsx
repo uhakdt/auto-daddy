@@ -63,13 +63,10 @@ export default function PaymentPage() {
   const handlePurchase = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:4242/api/v1/create-checkout-session?tier=${tier}`
+        `http://localhost:4242/api/v1/payment/${tier}`
       );
       if (response.status === 200) {
-        var tempTier = "";
-        if (tier === "Initial Check") tempTier = "initial";
-        if (tier === "Basic Check") tempTier = "basic";
-        if (tier === "Full Check") tempTier = "full";
+        var tempTier = getTierIdentifier(tier);
         await axios
           .post(`http://localhost:4242/api/v1/vehicledata/${tempTier}`, {
             registrationNumber: vehicleFreeData.registrationNumber,
@@ -113,4 +110,18 @@ export default function PaymentPage() {
       <button onClick={handlePurchase}>Purchase</button>
     </section>
   );
+}
+
+function getTierIdentifier(tier: string): string {
+  let tempTier: string;
+
+  if (tier === "Basic Check") {
+    tempTier = "basic";
+  } else if (tier === "Full Check") {
+    tempTier = "full";
+  } else {
+    throw new Error("Invalid tier");
+  }
+
+  return tempTier;
 }
