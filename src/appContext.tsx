@@ -17,9 +17,9 @@ export const initialData = getStoredData() || {
   setTier: (value: string) => {},
   vehicleFreeData: new VehicleFreeData({}),
   setVehicleFreeData: (value: VehicleFreeData) => {},
-  vehicleDataBasic: new VehicleBasicData({}),
+  vehicleBasicData: new VehicleBasicData({}),
   setVehicleDataBasic: (value: VehicleBasicData) => {},
-  vehicleDataFull: new VehicleFullData({}),
+  vehicleFullData: new VehicleFullData({}),
   setVehicleDataFull: (value: VehicleFullData) => {},
 };
 
