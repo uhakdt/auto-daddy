@@ -8,7 +8,6 @@ import ResetPage from "./pages/AuthAndAccount/ResetPage";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AuthAndAccount/AccountPage";
 import TiersPage from "./pages/TiersPage";
-import PaymentPage from "./pages/PaymentPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
 import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
 
@@ -138,7 +137,6 @@ function Navigation() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/reset" element={<ResetPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </div>
   );
