@@ -36,15 +36,18 @@ const TiersPage: React.FC = () => {
     }));
 
     onAuthStateChanged(auth, (user) => {
+      console.log("1");
       if (!tier || !vehicleFreeData || !user) {
         navigate("/login", { state: { tier, vehicleFreeData } });
       }
+      console.log("2");
       setDataToSendToStripe({
         tier,
         vehicleFreeData,
       });
       // If the condition is met, submit the form programmatically
       if (formRef.current) {
+        console.log("3");
         formRef.current.submit();
       }
     });
@@ -91,8 +94,18 @@ const TiersPage: React.FC = () => {
                     >
                       <input
                         type="hidden"
-                        name="productType"
-                        value={JSON.stringify(dataToSendToStripe)}
+                        name="vehicleFreeData"
+                        value={JSON.stringify(vehicleFreeData)}
+                      />
+                      <input
+                        type="hidden"
+                        name="tier"
+                        value={JSON.stringify(tier)}
+                      />
+                      <input
+                        type="hidden"
+                        name="userId"
+                        value={JSON.stringify(auth.currentUser?.uid)}
                       />
                       <Button type="submit" variant="contained">
                         Purchase
@@ -137,8 +150,18 @@ const TiersPage: React.FC = () => {
                     >
                       <input
                         type="hidden"
-                        name="productType"
-                        value={JSON.stringify(dataToSendToStripe)}
+                        name="vehicleFreeData"
+                        value={JSON.stringify(vehicleFreeData)}
+                      />
+                      <input
+                        type="hidden"
+                        name="tier"
+                        value={JSON.stringify(tier)}
+                      />
+                      <input
+                        type="hidden"
+                        name="userId"
+                        value={JSON.stringify(auth.currentUser?.uid)}
                       />
                       <Button type="submit" variant="contained">
                         Purchase
