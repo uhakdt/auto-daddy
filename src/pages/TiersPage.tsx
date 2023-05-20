@@ -88,7 +88,7 @@ const TiersPage: React.FC = () => {
                   <Box className="card-action">
                     <form
                       ref={formRef}
-                      action="http://localhost:4242/api/v1/create-checkout-session"
+                      action={apiUrl}
                       method="POST"
                       onSubmit={handleSubmit.bind(null, "basic")}
                     >
@@ -144,7 +144,7 @@ const TiersPage: React.FC = () => {
                   <Box className="card-action">
                     <form
                       ref={formRef}
-                      action="http://localhost:4242/api/v1/create-checkout-session"
+                      action={apiUrl}
                       method="POST"
                       onSubmit={handleSubmit.bind(null, "full")}
                     >
