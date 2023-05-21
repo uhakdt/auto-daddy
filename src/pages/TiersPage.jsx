@@ -22,24 +22,24 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 
 const TiersPage = () => {
   const [appData, setAppData] = useContext(AppContext);
-  const { tier, vehicleFreeData } = appData;
-  const [price, setPrice] = useState(null);
-  const [email, setEmail] = useState(auth.currentUser?.email);
+  const { vehicleFreeData } = appData;
+  const [_, setPrice] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+
+  const userEmail = auth.currentUser?.email;
 
   const navigate = useNavigate();
 
-  const handleSubmit = (price, tier) => {
+  const handleSubmit = (price) => {
     setPrice(price);
     setAppData((prevData) => ({
       ...prevData,
-      tier,
       vehicleFreeData,
     }));
 
     onAuthStateChanged(auth, (user) => {
-      if (!tier || !vehicleFreeData || !user) {
-        navigate("/login", { state: { tier, vehicleFreeData } });
+      if (!vehicleFreeData || !user) {
+        navigate("/login", { state: { vehicleFreeData } });
       } else {
         fetch(`${process.env.REACT_APP_API_URL_DEV}/create-payment-intent`, {
           method: "POST",
@@ -48,7 +48,7 @@ const TiersPage = () => {
             "Access-Control-Allow-Origin": "http://localhost:3000",
           },
           body: JSON.stringify({
-            email,
+            userEmail,
             price,
             vehicleFreeData,
           }),
@@ -100,7 +100,7 @@ const TiersPage = () => {
                 <CardActions>
                   <Box className="card-action">
                     <Button
-                      onClick={() => handleSubmit(3, "Basic Check")}
+                      onClick={() => handleSubmit(300, "Basic Check")}
                       type="submit"
                       variant="contained"
                     >
@@ -136,7 +136,7 @@ const TiersPage = () => {
                 <CardActions>
                   <Box className="card-action">
                     <Button
-                      onClick={() => handleSubmit(9, "Full Check")}
+                      onClick={() => handleSubmit(900, "Full Check")}
                       type="submit"
                       variant="contained"
                     >
@@ -151,7 +151,7 @@ const TiersPage = () => {
       </Grid>
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm price={price} userEmail={email} />
+          <CheckoutForm userEmail={userEmail} />
         </Elements>
       )}
     </div>

@@ -13,8 +13,6 @@ export const saveDataToStorage = (data) => {
 };
 
 export const initialData = getStoredData() || {
-  tier: "",
-  setTier: (value) => {},
   vehicleFreeData: new VehicleFreeData({}),
   setVehicleFreeData: (value) => {},
   vehicleBasicData: new VehicleBasicData({}),

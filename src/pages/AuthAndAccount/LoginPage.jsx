@@ -12,25 +12,23 @@ import { AppContext } from "../../appContext";
 
 function LoginPage() {
   const [appData] = useContext(AppContext);
-  const { tier, vehicleFreeData } = appData;
+  const { vehicleFreeData } = appData;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
-
-  console.log(tier, vehicleFreeData);
 
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
       return;
     }
-    if (user && (!tier || !vehicleFreeData)) {
+    if (user && !vehicleFreeData) {
       navigate("/account");
-    } else if (user && tier != null && vehicleFreeData != null) {
-      navigate("/tiers", { state: { tier, vehicleFreeData } });
+    } else if (user && vehicleFreeData != null) {
+      navigate("/tiers", { state: { vehicleFreeData } });
     }
-  }, [user, loading, navigate, tier, vehicleFreeData]);
+  }, [user, loading, navigate, vehicleFreeData]);
 
   return (
     <div className="login">
@@ -61,7 +59,7 @@ function LoginPage() {
         <div>
           <button
             onClick={() => {
-              navigate("/reset", { state: { tier, vehicleFreeData } });
+              navigate("/reset", { state: { vehicleFreeData } });
             }}
           >
             Forgot Password
@@ -71,7 +69,7 @@ function LoginPage() {
           Don't have an account?{" "}
           <button
             onClick={() => {
-              navigate("/register", { state: { tier, vehicleFreeData } });
+              navigate("/register", { state: { vehicleFreeData } });
             }}
           >
             Register

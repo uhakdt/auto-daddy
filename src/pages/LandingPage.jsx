@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material/styles";
 
 function LandingPage() {
   const [appData, setAppData] = useContext(AppContext);
-  const { tier, vehicleFreeData } = appData;
+  const { vehicleFreeData } = appData;
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -43,9 +43,9 @@ function LandingPage() {
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
-      navigate("/tiers", { state: { tier, vehicleFreeData } });
+      navigate("/tiers", { state: { vehicleFreeData } });
     }
-  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData, tier]);
+  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
 
   return (
     <Box pt={theme.spacing(20)}>
