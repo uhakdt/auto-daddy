@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { AppContext } from "../appContext";
@@ -39,7 +39,7 @@ const TiersPage = () => {
 
     onAuthStateChanged(auth, (user) => {
       if (!vehicleFreeData || !user) {
-        navigate("/login", { state: { vehicleFreeData } });
+        navigate("/register", { state: { vehicleFreeData } });
       } else {
         fetch(`${process.env.REACT_APP_API_URL_DEV}/create-payment-intent`, {
           method: "POST",
@@ -48,7 +48,6 @@ const TiersPage = () => {
             "Access-Control-Allow-Origin": "http://localhost:3000",
           },
           body: JSON.stringify({
-            userEmail,
             price,
             vehicleFreeData,
           }),
