@@ -9,7 +9,6 @@ import {
   where,
 } from "firebase/firestore";
 
-// Import necessary components from material-ui
 import {
   Table,
   TableBody,

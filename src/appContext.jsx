@@ -13,6 +13,8 @@ export const saveDataToStorage = (data) => {
 };
 
 export const initialData = getStoredData() || {
+  userId: "",
+  setUserId: (value) => {},
   vehicleFreeData: new VehicleFreeData({}),
   setVehicleFreeData: (value) => {},
   vehicleBasicData: new VehicleBasicData({}),
