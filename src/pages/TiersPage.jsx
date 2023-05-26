@@ -44,7 +44,7 @@ const TiersPage = () => {
       if (!vehicleFreeData || !user) {
         navigate("/register", { state: { vehicleFreeData } });
       } else {
-        fetch(`${process.env.REACT_APP_API_URL_DEV}/create-payment-intent`, {
+        fetch(`${process.env.REACT_APP_API_URL}/create-payment-intent`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
