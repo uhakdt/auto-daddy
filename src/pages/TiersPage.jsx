@@ -48,7 +48,7 @@ const TiersPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000",
+            "Access-Control-Allow-Origin": process.env.REACT_APP_YOUR_DOMAIN,
           },
           body: JSON.stringify({
             price,
