@@ -32,7 +32,7 @@ function RegisterPage() {
     if (user && !vehicleFreeData) {
       navigate("/account");
     } else if (user && vehicleFreeData != null) {
-      navigate("/payment", { state: { vehicleFreeData } });
+      navigate("/tiers", { state: { vehicleFreeData } });
     }
   }, [user, loading, navigate, vehicleFreeData]);
 

@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import "./TiersPage.css";
 import CheckoutForm from "../components/CheckoutForm";
+import Modal from "@mui/material/Modal";
 
 const auth = getAuth();
 
@@ -25,12 +26,14 @@ const TiersPage = () => {
   const { vehicleFreeData } = appData;
   const [_, setPrice] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+  const [open, setOpen] = React.useState(false);
 
   const userEmail = auth.currentUser?.email;
 
   const navigate = useNavigate();
 
   const handleSubmit = (price) => {
+    setOpen(true);
     setPrice(price);
     setAppData((prevData) => ({
       ...prevData,
@@ -149,9 +152,17 @@ const TiersPage = () => {
         </Grid>
       </Grid>
       {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
-          <CheckoutForm userEmail={userEmail} />
-        </Elements>
+        <Modal
+          open={open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="modal-content">
+            <Elements options={options} stripe={stripePromise}>
+              <CheckoutForm userEmail={userEmail} />
+            </Elements>
+          </div>
+        </Modal>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef } from "react";
 import {
   PaymentElement,
   LinkAuthenticationElement,
@@ -6,7 +6,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm({ userEmail }) {
+const CheckoutForm = forwardRef(({ userEmail }, ref) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -79,7 +79,7 @@ export default function CheckoutForm({ userEmail }) {
   };
 
   return (
-    <form id="payment-form" onSubmit={handleSubmit}>
+    <form id="payment-form" onSubmit={handleSubmit} ref={ref}>
       <LinkAuthenticationElement
         id="link-authentication-element"
         onChange={(e) => setEmail(email)}
@@ -94,4 +94,6 @@ export default function CheckoutForm({ userEmail }) {
       {message && <div id="payment-message">{message}</div>}
     </form>
   );
-}
+});
+
+export default CheckoutForm;
