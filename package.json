@@ -35,7 +35,8 @@
     ],
     "rules": {
       "no-unused-vars": "off",
-      "no-useless-constructor": "off"
+      "no-useless-constructor": "off",
+      "react-hooks/exhaustive-deps": "off"
     }
   },
   "browserslist": {

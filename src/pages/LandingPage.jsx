@@ -50,7 +50,7 @@ function LandingPage() {
   return (
     <Box pt={theme.spacing(20)}>
       <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-        <h1 style={{ textAlign: "center" }}>Search for a car history</h1>
+        <h1 style={{ textAlign: "center" }}>Search For Your Car</h1>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
