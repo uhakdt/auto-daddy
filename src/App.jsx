@@ -28,10 +28,10 @@ export const App = ({ children }) => {
     setData((prevData) => ({ ...prevData, vehicleFullData: value }));
   };
 
-  const setClickedLoginOrRegisterButton = (value) => {
+  const setPreviousPage = (value) => {
     setData((prevData) => ({
       ...prevData,
-      clickedLoginOrRegisterButton: value,
+      previousPage: value,
     }));
   };
 
@@ -43,7 +43,7 @@ export const App = ({ children }) => {
         setVehicleFreeData,
         setVehicleDataBasic,
         setVehicleDataFull,
-        setClickedLoginOrRegisterButton,
+        setPreviousPage,
       }}
     >
       <BrowserRouter>

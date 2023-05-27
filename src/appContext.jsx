@@ -17,7 +17,7 @@ export const initialData = getStoredData() || {
   vehicleFreeData: new VehicleFreeData({}),
   vehicleBasicData: new VehicleBasicData({}),
   vehicleFullData: new VehicleFullData({}),
-  clickedLoginOrRegisterButton: false,
+  previousPage: false,
 };
 
 export const AppContext = createContext(initialData);

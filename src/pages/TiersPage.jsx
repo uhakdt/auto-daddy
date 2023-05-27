@@ -43,7 +43,7 @@ const TiersPage = () => {
 
     onAuthStateChanged(auth, (user) => {
       if (!vehicleFreeData || !user) {
-        navigate("/register", { state: { vehicleFreeData } });
+        navigate("/auth/login", { state: { vehicleFreeData } });
       } else {
         fetch(`${process.env.REACT_APP_API_URL}/create-payment-intent`, {
           method: "POST",

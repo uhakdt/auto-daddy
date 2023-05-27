@@ -8,7 +8,7 @@ import { VehicleFreeData } from "../models/VehicleFreeData";
 import { useTheme } from "@mui/material/styles";
 
 function LandingPage() {
-  const { vehicleFreeData, setVehicleFreeData, clickedLoginOrRegisterButton } =
+  const { vehicleFreeData, setVehicleFreeData, setPreviousPage } =
     useContext(AppContext);
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [registrationNumber, setRegistrationNumber] = useState("");
@@ -17,7 +17,6 @@ function LandingPage() {
   const [responseStatus, setResponseStatus] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
-  console.log(clickedLoginOrRegisterButton);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,7 +40,10 @@ function LandingPage() {
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
+      setPreviousPage("/tiers");
       navigate("/tiers", { state: { vehicleFreeData } });
+    } else {
+      setPreviousPage("/");
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
 

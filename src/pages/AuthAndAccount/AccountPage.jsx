@@ -22,11 +22,11 @@ import {
 } from "@mui/material";
 
 function AccountPage() {
-  const { setClickedLoginOrRegisterButton } = useContext(AppContext);
+  const { setPreviousPage } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    setClickedLoginOrRegisterButton(false);
+    setPreviousPage(false);
     const fetchOrders = async (user) => {
       if (user) {
         const ordersRef = collection(db, "orders");

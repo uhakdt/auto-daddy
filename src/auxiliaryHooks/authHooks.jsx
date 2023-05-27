@@ -13,9 +13,7 @@ export const useHandleLogout = () => {
       appData.setVehicleFreeData(initialData.vehicleFreeData);
       appData.setVehicleDataBasic(initialData.vehicleBasicData);
       appData.setVehicleDataFull(initialData.vehicleFullData);
-      appData.setClickedLoginOrRegisterButton(
-        initialData.clickedLoginOrRegisterButton
-      );
+      appData.setPreviousPage(initialData.previousPage);
     } catch (error) {
       console.error("Logout error:", error);
     }

@@ -3,9 +3,7 @@ import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import LandingPage from "./pages/LandingPage";
-import LoginPage from "./pages/AuthAndAccount/LoginPage";
-import RegisterPage from "./pages/AuthAndAccount/RegisterPage";
-import ResetPage from "./pages/AuthAndAccount/ResetPage";
+import AuthPage from "./pages/AuthAndAccount/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AuthAndAccount/AccountPage";
 import TiersPage from "./pages/TiersPage";
@@ -28,8 +26,7 @@ const Logo = () => {
 };
 
 function Navigation() {
-  const { clickedLoginOrRegisterButton, setClickedLoginOrRegisterButton } =
-    useContext(AppContext);
+  const { previousPage, setPreviousPage } = useContext(AppContext);
   const [user, loading] = useAuthState(auth);
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
@@ -104,8 +101,8 @@ function Navigation() {
                 <Button
                   color="inherit"
                   onClick={() => {
-                    navigate("/login");
-                    setClickedLoginOrRegisterButton(true);
+                    navigate("/auth/login");
+                    setPreviousPage("/");
                   }}
                   sx={{
                     color: "black",
@@ -119,8 +116,8 @@ function Navigation() {
                 <Button
                   color="inherit"
                   onClick={() => {
-                    navigate("/register");
-                    setClickedLoginOrRegisterButton(true);
+                    navigate("/auth/register");
+                    setPreviousPage("/");
                   }}
                   sx={{
                     color: "black",
@@ -141,9 +138,7 @@ function Navigation() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/tiers" element={<TiersPage />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/reset" element={<ResetPage />} />
+        <Route path="/auth/*" element={<AuthPage />} />{" "}
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </div>
