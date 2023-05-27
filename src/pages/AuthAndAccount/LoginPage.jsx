@@ -11,8 +11,12 @@ import "./LoginPage.css";
 import { AppContext } from "../../appContext";
 
 function LoginPage() {
-  const [appData] = useContext(AppContext);
-  const { vehicleFreeData } = appData;
+  const {
+    vehicleFreeData,
+    clickedLoginOrRegisterButton,
+    setClickedLoginOrRegisterButton,
+  } = useContext(AppContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading] = useAuthState(auth);
@@ -23,10 +27,14 @@ function LoginPage() {
       // maybe trigger a loading screen
       return;
     }
-    if (user && !vehicleFreeData) {
+    if (
+      user &&
+      (vehicleFreeData != null || clickedLoginOrRegisterButton === true)
+    ) {
       navigate("/account");
-    } else if (user && vehicleFreeData != null) {
-      navigate("/tiers", { state: { vehicleFreeData } });
+    } else if (user && vehicleFreeData === null) {
+      navigate("/");
+    } else if (!user && clickedLoginOrRegisterButton === false) {
     }
   }, [user, loading, navigate, vehicleFreeData]);
 

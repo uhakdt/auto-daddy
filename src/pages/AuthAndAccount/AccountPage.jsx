@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { auth, db } from "../../firebase";
 import {
   collection,
@@ -8,6 +8,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { AppContext } from "../../appContext";
 
 import {
   Table,
@@ -21,9 +22,11 @@ import {
 } from "@mui/material";
 
 function AccountPage() {
+  const { setClickedLoginOrRegisterButton } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
+    setClickedLoginOrRegisterButton(false);
     const fetchOrders = async (user) => {
       if (user) {
         const ordersRef = collection(db, "orders");

@@ -8,8 +8,8 @@ import { VehicleFreeData } from "../models/VehicleFreeData";
 import { useTheme } from "@mui/material/styles";
 
 function LandingPage() {
-  const [appData, setAppData] = useContext(AppContext);
-  const { vehicleFreeData } = appData;
+  const { vehicleFreeData, setVehicleFreeData, clickedLoginOrRegisterButton } =
+    useContext(AppContext);
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -17,6 +17,7 @@ function LandingPage() {
   const [responseStatus, setResponseStatus] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
+  console.log(clickedLoginOrRegisterButton);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,10 +30,7 @@ function LandingPage() {
         )
         .then((res) => {
           const vehicleFreeData = new VehicleFreeData(res.data);
-          setAppData((prevData) => ({
-            ...prevData,
-            vehicleFreeData,
-          }));
+          setVehicleFreeData(vehicleFreeData);
           setResponseStatus(true);
         });
     } catch (error) {
@@ -107,7 +105,7 @@ function LandingPage() {
         </form>
       </div>
       <img
-        src={`${process.env.PUBLIC_URL}/LandingPageImage.png`}
+        src={`${process.env.PUBLIC_URL}/landing-page-image.png`}
         alt="Landing page illustration"
         style={{ width: "100%" }}
       />

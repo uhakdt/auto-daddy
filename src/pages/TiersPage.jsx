@@ -16,14 +16,15 @@ import {
 import "./TiersPage.css";
 import CheckoutForm from "../components/CheckoutForm";
 import Modal from "@mui/material/Modal";
+import IconButton from "@mui/material/IconButton";
+import Close from "@mui/icons-material/Close";
 
 const auth = getAuth();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 
 const TiersPage = () => {
-  const [appData, setAppData] = useContext(AppContext);
-  const { vehicleFreeData } = appData;
+  const { vehicleFreeData, setVehicleFreeData } = useContext(AppContext);
   const [_, setPrice] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -32,13 +33,13 @@ const TiersPage = () => {
 
   const navigate = useNavigate();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleSubmit = (price) => {
     setOpen(true);
     setPrice(price);
-    setAppData((prevData) => ({
-      ...prevData,
-      vehicleFreeData,
-    }));
 
     onAuthStateChanged(auth, (user) => {
       if (!vehicleFreeData || !user) {
@@ -154,10 +155,19 @@ const TiersPage = () => {
       {clientSecret && (
         <Modal
           open={open}
+          onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
           <div className="modal-content">
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={handleClose}
+              aria-label="close"
+            >
+              <Close />
+            </IconButton>
             <Elements options={options} stripe={stripePromise}>
               <CheckoutForm userEmail={userEmail} />
             </Elements>

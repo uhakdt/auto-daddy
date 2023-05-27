@@ -11,8 +11,7 @@ import "./RegisterPage.css";
 import { AppContext } from "../../appContext";
 
 function RegisterPage() {
-  const [appData] = useContext(AppContext);
-  const { vehicleFreeData } = appData;
+  const { vehicleFreeData } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");

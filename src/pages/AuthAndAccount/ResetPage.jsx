@@ -7,8 +7,7 @@ import "./ResetPage.css";
 import { AppContext } from "../../appContext";
 
 function ResetPage() {
-  const [appData] = useContext(AppContext);
-  const { vehicleFreeData } = appData;
+  const { vehicleFreeData } = useContext(AppContext);
   const [email, setEmail] = useState("");
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();

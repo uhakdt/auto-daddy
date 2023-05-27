@@ -1,4 +1,5 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
 import LandingPage from "./pages/LandingPage";
@@ -9,21 +10,26 @@ import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AuthAndAccount/AccountPage";
 import TiersPage from "./pages/TiersPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
-import { AppBar, Toolbar, Box, Button } from "@mui/material";
+import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
+import { AppContext } from "./appContext";
 
-// const Logo = () => {
-//   return (
-//     <Typography
-//       variant="h4"
-//       component="div"
-//       sx={{ flexGrow: 1, pl: "100px", color: "black" }}
-//     >
-//       Auto Daddy
-//     </Typography>
-//   );
-// };
+const Logo = () => {
+  return (
+    <Link to="/" style={{ textDecoration: "none" }}>
+      <Typography
+        variant="h4"
+        component="div"
+        sx={{ flexGrow: 1, pl: "100px", color: "black" }}
+      >
+        Auto Daddy
+      </Typography>
+    </Link>
+  );
+};
 
 function Navigation() {
+  const { clickedLoginOrRegisterButton, setClickedLoginOrRegisterButton } =
+    useContext(AppContext);
   const [user, loading] = useAuthState(auth);
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
@@ -36,11 +42,7 @@ function Navigation() {
       >
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <h1
-              style={{ color: "black", paddingLeft: "50px", fontSize: "20px" }}
-            >
-              Auto Daddy
-            </h1>
+            <Logo />
           </Box>
           <Box
             sx={{
@@ -101,7 +103,10 @@ function Navigation() {
               <>
                 <Button
                   color="inherit"
-                  onClick={() => navigate("/login")}
+                  onClick={() => {
+                    navigate("/login");
+                    setClickedLoginOrRegisterButton(true);
+                  }}
                   sx={{
                     color: "black",
                     fontSize: "14px",
@@ -113,7 +118,10 @@ function Navigation() {
                 </Button>
                 <Button
                   color="inherit"
-                  onClick={() => navigate("/register")}
+                  onClick={() => {
+                    navigate("/register");
+                    setClickedLoginOrRegisterButton(true);
+                  }}
                   sx={{
                     color: "black",
                     fontSize: "14px",
