@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { registerWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -36,13 +37,14 @@ function RegisterForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button className="auth__btn" onClick={register}>
-        Register
-      </button>
+      <Link className="auth__forgotPassword" href="/auth/reset">
+        Forgot Password
+      </Link>
       <button className="auth__btn auth__google" onClick={signInWithGoogle}>
         Register with Google
       </button>
       <button onClick={() => navigate("/auth/reset")}>Forgot Password</button>
+      <button onClick={() => navigate("/auth/login")}>Login</button>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { useNavigate, Routes, Route, useLocation } from "react-router-dom";
 import { AppContext } from "../../appContext";
+import "./AuthPage.css";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
@@ -37,7 +38,13 @@ function AuthPage() {
 
   return (
     <div className="auth">
+      <div className="auth__sidebar"></div>
       <div className="auth__container">
+        <img
+          className="auth__logo"
+          src={`${process.env.PUBLIC_URL}/autodaddy-logo.png`}
+          alt="Logo"
+        />
         <Routes>
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegisterForm />} />

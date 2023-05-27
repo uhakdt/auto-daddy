@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { logInWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import { Link } from "@mui/material";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -23,6 +24,9 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+      <Link className="auth__forgotPassword" href="/auth/reset">
+        Forgot Password
+      </Link>
       <button
         className="auth__btn"
         onClick={() => logInWithEmailAndPassword(email, password)}
@@ -33,6 +37,7 @@ function LoginForm() {
         Login with Google
       </button>
       <button onClick={() => navigate("/auth/reset")}>Forgot Password</button>
+      <button onClick={() => navigate("/auth/register")}>Register</button>
     </>
   );
 }
