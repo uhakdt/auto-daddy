@@ -73,14 +73,9 @@ function LandingPage() {
               />
             </Grid>
             <Grid item>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className="landing__btn"
-              >
+              <button type="submit" class="landing__btn">
                 Go
-              </Button>
+              </button>
             </Grid>
           </Grid>
           {isSubmitted && !isValid && <p>Invalid UK license plate number</p>}

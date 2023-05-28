@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import { AppContext } from "./appContext";
 import MenuIcon from "@mui/icons-material/Menu";
+import "./Navigation.css";
 
 const Logo = () => {
   return (
@@ -92,7 +93,7 @@ function Navigation() {
               <ListItemText primary="Login" />
             </ListItem>
             <ListItem button onClick={() => navigate(`/auth/register`)}>
-              <ListItemText primary="Sign Up" />
+              <ListItemText className="auth__btn" primary="Sign Up" />
             </ListItem>
           </>
         )}
@@ -195,19 +196,15 @@ function Navigation() {
                   >
                     Login
                   </Button>
-                  <Button
-                    color="inherit"
+                  <button
+                    className="auth__btn"
                     onClick={() => {
                       navigate("/auth/register");
                       setPreviousPage("/");
                     }}
-                    sx={{
-                      color: "black",
-                      fontSize: "14px",
-                    }}
                   >
                     Sign Up
-                  </Button>
+                  </button>
                 </>
               )}
             </Box>
