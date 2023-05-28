@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../appContext";
 import { VehicleFreeData } from "../models/VehicleFreeData";
 import { useTheme } from "@mui/material/styles";
+import "./LandingPage.css";
 
 function LandingPage() {
   const { vehicleFreeData, setVehicleFreeData, setPreviousPage } =
@@ -49,41 +50,25 @@ function LandingPage() {
 
   return (
     <Box pt={theme.spacing(20)}>
-      <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-        <h1 style={{ textAlign: "center" }}>Search For Your Car</h1>
+      <div className="landing__container">
+        <h1 className="landing__heading">Search For Your Car</h1>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2} alignItems="center">
             <Grid item>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  border: "1px solid #bdbdbd",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "4px",
-                  borderTopRightRadius: "0",
-                  borderBottomRightRadius: "0",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>GB</span>
+              <div className="landing__GB">
+                <span>GB</span>
               </div>
             </Grid>
             <Grid item xs style={{ paddingLeft: "0" }}>
               <TextField
                 fullWidth
                 id="outlined-basic"
-                label="Enter License Plate Number"
+                label="License Plate"
                 variant="outlined"
                 value={registrationNumber}
                 onChange={(event) => setRegistrationNumber(event.target.value)}
                 InputProps={{
-                  style: {
-                    height: "50px",
-                    borderTopLeftRadius: "0",
-                    borderBottomLeftRadius: "0",
-                  },
+                  className: "landing__text__input",
                 }}
               />
             </Grid>
@@ -92,12 +77,7 @@ function LandingPage() {
                 type="submit"
                 variant="contained"
                 color="primary"
-                style={{
-                  height: "50px",
-                  backgroundColor: "#E8F653",
-                  color: "black",
-                  boxShadow: "none",
-                }}
+                className="landing__btn"
               >
                 Go
               </Button>
@@ -107,9 +87,9 @@ function LandingPage() {
         </form>
       </div>
       <img
+        className="landing__image"
         src={`${process.env.PUBLIC_URL}/landing-page-image.png`}
         alt="Landing page illustration"
-        style={{ width: "100%" }}
       />
     </Box>
   );
