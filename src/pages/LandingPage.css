@@ -35,19 +35,6 @@
   padding-right: 10px;
 }
 
-.auth__btn {
-  width: 55%;
-  padding: 0.5em;
-  border-radius: 10px;
-  border: none;
-  background-color: #e8f653;
-  color: black;
-  text-shadow: none;
-  box-shadow: none;
-  height: 3em;
-  font-size: large;
-}
-
 .landing__btn {
   width: 150%;
   padding: 0.5em;

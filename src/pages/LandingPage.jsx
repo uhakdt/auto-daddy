@@ -73,7 +73,7 @@ function LandingPage() {
               />
             </Grid>
             <Grid item>
-              <button type="submit" class="landing__btn">
+              <button type="submit" className="landing__btn">
                 Go
               </button>
             </Grid>
