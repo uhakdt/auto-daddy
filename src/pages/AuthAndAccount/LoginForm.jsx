@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { logInWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import { Link } from "@mui/material";
+import Divider from "@mui/material/Divider";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -20,24 +20,31 @@ function LoginForm() {
       <input
         type="password"
         className="auth__textBox"
+        style={{}}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <Link className="auth__forgotPassword" href="/auth/reset">
-        Forgot Password
-      </Link>
+      <a className="auth__forgotPassword" href="/auth/reset">
+        Forgot Password?
+      </a>
       <button
         className="auth__btn"
         onClick={() => logInWithEmailAndPassword(email, password)}
       >
         Login
       </button>
-      <button className="auth__btn auth__google" onClick={signInWithGoogle}>
-        Login with Google
+      <div className="auth__line">Or Sign in with</div>
+      <button className="auth__google" onClick={signInWithGoogle}>
+        <img
+          className="auth__google__logo"
+          src={`${process.env.PUBLIC_URL}/google-logo.png`}
+        ></img>
       </button>
-      <button onClick={() => navigate("/auth/reset")}>Forgot Password</button>
-      <button onClick={() => navigate("/auth/register")}>Register</button>
+      <a className="auth__link__simple" href="/auth/register">
+        <span className="auth__text__grey">Not registered yet?</span>
+        <span className="auth__text__bold"> Create Account</span>
+      </a>
     </>
   );
 }

@@ -37,14 +37,18 @@ function RegisterForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <Link className="auth__forgotPassword" href="/auth/reset">
-        Forgot Password
-      </Link>
-      <button className="auth__btn auth__google" onClick={signInWithGoogle}>
-        Register with Google
+      <div className="auth__line">Or Register with</div>
+
+      <button className="auth__google" onClick={signInWithGoogle}>
+        <img
+          className="auth__google__logo"
+          src={`${process.env.PUBLIC_URL}/google-logo.png`}
+        ></img>
       </button>
-      <button onClick={() => navigate("/auth/reset")}>Forgot Password</button>
-      <button onClick={() => navigate("/auth/login")}>Login</button>
+      <a className="auth__link__simple" href="/auth/login">
+        <span className="auth__text__grey">Have an account?</span>
+        <span className="auth__text__bold"> Sign In</span>
+      </a>
     </>
   );
 }

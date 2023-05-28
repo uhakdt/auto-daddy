@@ -40,11 +40,13 @@ function AuthPage() {
     <div className="auth">
       <div className="auth__sidebar"></div>
       <div className="auth__container">
-        <img
-          className="auth__logo"
-          src={`${process.env.PUBLIC_URL}/autodaddy-logo.png`}
-          alt="Logo"
-        />
+        <a href="/">
+          <img
+            className="auth__logo"
+            src={`${process.env.PUBLIC_URL}/autodaddy-logo.png`}
+            alt="Logo"
+          />
+        </a>
         <Routes>
           <Route path="login" element={<LoginForm />} />
           <Route path="register" element={<RegisterForm />} />

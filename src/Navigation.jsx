@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useLocation } from "react-router";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
@@ -30,109 +31,114 @@ function Navigation() {
   const [user, loading] = useAuthState(auth);
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const isAuthPage = location.pathname.startsWith("/auth");
 
   return (
     <div>
-      <AppBar
-        position="fixed"
-        sx={{ backgroundColor: "#e0e1e9", boxShadow: "none" }}
-      >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Logo />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              paddingRight: "50px",
-            }}
-          >
-            <Button
-              color="inherit"
-              onClick={() => navigate("/")}
-              sx={{ color: "black", fontSize: "14px", mr: "16px" }}
+      {!isAuthPage && (
+        <AppBar
+          position="fixed"
+          sx={{ backgroundColor: "#e0e1e9", boxShadow: "none" }}
+        >
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Logo />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                paddingRight: "50px",
+              }}
             >
-              Home
-            </Button>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/tiers")}
-              sx={{ color: "black", fontSize: "14px", mr: "16px" }}
-            >
-              Pricing
-            </Button>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/about")}
-              sx={{ color: "black", fontSize: "14px", mr: "16px" }}
-            >
-              About
-            </Button>
-            {user ? (
-              <>
-                <Button
-                  color="inherit"
-                  onClick={() => navigate("/account")}
-                  sx={{
-                    color: "black",
-                    fontSize: "14px",
-                    mr: "16px",
-                    display: { xs: "none", sm: "inline-flex" },
-                  }}
-                >
-                  Account
-                </Button>
-                <Button
-                  color="inherit"
-                  onClick={handleLogout}
-                  sx={{
-                    color: "black",
-                    fontSize: "14px",
-                    display: { xs: "none", sm: "inline-flex" },
-                  }}
-                >
-                  Log out
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    navigate("/auth/login");
-                    setPreviousPage("/");
-                  }}
-                  sx={{
-                    color: "black",
-                    fontSize: "14px",
-                    mr: "16px",
-                    display: { xs: "none", sm: "inline-flex" },
-                  }}
-                >
-                  Login
-                </Button>
-                <Button
-                  color="inherit"
-                  onClick={() => {
-                    navigate("/auth/register");
-                    setPreviousPage("/");
-                  }}
-                  sx={{
-                    color: "black",
-                    fontSize: "14px",
-                    display: { xs: "none", sm: "inline-flex" },
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </>
-            )}
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box sx={{ height: "64px" }} />
+              <Button
+                color="inherit"
+                onClick={() => navigate("/")}
+                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
+              >
+                Home
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/tiers")}
+                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
+              >
+                Pricing
+              </Button>
+              <Button
+                color="inherit"
+                onClick={() => navigate("/about")}
+                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
+              >
+                About
+              </Button>
+              {user ? (
+                <>
+                  <Button
+                    color="inherit"
+                    onClick={() => navigate("/account")}
+                    sx={{
+                      color: "black",
+                      fontSize: "14px",
+                      mr: "16px",
+                      display: { xs: "none", sm: "inline-flex" },
+                    }}
+                  >
+                    Account
+                  </Button>
+                  <Button
+                    color="inherit"
+                    onClick={handleLogout}
+                    sx={{
+                      color: "black",
+                      fontSize: "14px",
+                      display: { xs: "none", sm: "inline-flex" },
+                    }}
+                  >
+                    Log out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      navigate("/auth/login");
+                      setPreviousPage("/");
+                    }}
+                    sx={{
+                      color: "black",
+                      fontSize: "14px",
+                      mr: "16px",
+                      display: { xs: "none", sm: "inline-flex" },
+                    }}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    color="inherit"
+                    onClick={() => {
+                      navigate("/auth/register");
+                      setPreviousPage("/");
+                    }}
+                    sx={{
+                      color: "black",
+                      fontSize: "14px",
+                      display: { xs: "none", sm: "inline-flex" },
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </>
+              )}
+            </Box>
+          </Toolbar>
+        </AppBar>
+      )}
+      {!isAuthPage && <Box sx={{ height: "64px" }} />}
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
