@@ -28,8 +28,8 @@ function AuthPage() {
       return;
     }
     if (user) {
-      if (previousPage === "/tiers" && vehicleFreeData !== null) {
-        navigate("/tiers");
+      if (previousPage === "/packages" && vehicleFreeData !== null) {
+        navigate("/packages");
       } else {
         navigate("/account");
       }

@@ -40,8 +40,8 @@ function LandingPage() {
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
-      setPreviousPage("/tiers");
-      navigate("/tiers", { state: { vehicleFreeData } });
+      setPreviousPage("/packages");
+      navigate("/packages", { state: { vehicleFreeData } });
     } else {
       setPreviousPage("/");
     }

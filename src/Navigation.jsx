@@ -7,7 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthAndAccount/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AuthAndAccount/AccountPage";
-import TiersPage from "./pages/TiersPage";
+import PackagesPage from "./pages/PackagesPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
 import {
   AppBar,
@@ -62,11 +62,17 @@ function Navigation() {
   const list = () => (
     <Box sx={{ width: 250 }}>
       <List>
-        {["Home", "Pricing", "About"].map((text, index) => (
+        {["Home", "Packages", "About"].map((text, index) => (
           <ListItem
             button
             key={text}
-            onClick={() => navigate(`/${text.toLowerCase()}`)}
+            onClick={() => {
+              if (text === "Home") {
+                navigate("/");
+              } else {
+                navigate(`/${text.toLowerCase()}`);
+              }
+            }}
           >
             <ListItemText primary={text} />
           </ListItem>
@@ -137,7 +143,7 @@ function Navigation() {
               </Button>
               <Button
                 color="inherit"
-                onClick={() => navigate("/tiers")}
+                onClick={() => navigate("/packages")}
                 sx={{ color: "black", fontSize: "14px", mr: "16px" }}
               >
                 Pricing
@@ -212,7 +218,7 @@ function Navigation() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/tiers" element={<TiersPage />} />
+        <Route path="/packages" element={<PackagesPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />

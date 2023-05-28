@@ -13,7 +13,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import "./TiersPage.css";
+import "./PackagesPage.css";
 import CheckoutForm from "../components/CheckoutForm";
 import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
@@ -23,7 +23,7 @@ const auth = getAuth();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 
-const TiersPage = () => {
+const PackagesPage = () => {
   const { vehicleFreeData, setVehicleFreeData } = useContext(AppContext);
   const [_, setPrice] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
@@ -71,8 +71,8 @@ const TiersPage = () => {
   };
 
   return (
-    <div className="tiers-page">
-      <h1 className="tiers-page-title">Pricing Plan</h1>
+    <div className="packages-page">
+      <h1 className="packages-page-title">Pricing Plan</h1>
       <Grid
         container
         justifyContent="center"
@@ -178,4 +178,4 @@ const TiersPage = () => {
   );
 };
 
-export default TiersPage;
+export default PackagesPage;
