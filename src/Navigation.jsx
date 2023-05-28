@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation } from "react-router";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -9,8 +9,20 @@ import DashboardPage from "./pages/DashboardPage";
 import AccountPage from "./pages/AuthAndAccount/AccountPage";
 import TiersPage from "./pages/TiersPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
-import { AppBar, Toolbar, Box, Button, Typography } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Box,
+  Button,
+  Typography,
+  IconButton,
+  SwipeableDrawer,
+  List,
+  ListItem,
+  ListItemText,
+} from "@mui/material";
 import { AppContext } from "./appContext";
+import MenuIcon from "@mui/icons-material/Menu";
 
 const Logo = () => {
   return (
@@ -18,7 +30,7 @@ const Logo = () => {
       <Typography
         variant="h4"
         component="div"
-        sx={{ flexGrow: 1, pl: "100px", color: "black" }}
+        sx={{ flexGrow: 1, color: "black" }}
       >
         Auto Daddy
       </Typography>
@@ -32,8 +44,55 @@ function Navigation() {
   const handleLogout = useHandleLogout();
   const navigate = useNavigate();
   const location = useLocation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const isAuthPage = location.pathname.startsWith("/auth");
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
+  const list = () => (
+    <Box sx={{ width: 250 }}>
+      <List>
+        {["Home", "Pricing", "About"].map((text, index) => (
+          <ListItem
+            button
+            key={text}
+            onClick={() => navigate(`/${text.toLowerCase()}`)}
+          >
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+        {user ? (
+          <>
+            <ListItem button onClick={() => navigate(`/account`)}>
+              <ListItemText primary="Account" />
+            </ListItem>
+            <ListItem button onClick={handleLogout}>
+              <ListItemText primary="Log out" />
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem button onClick={() => navigate(`/auth/login`)}>
+              <ListItemText primary="Login" />
+            </ListItem>
+            <ListItem button onClick={() => navigate(`/auth/register`)}>
+              <ListItemText primary="Sign Up" />
+            </ListItem>
+          </>
+        )}
+      </List>
+    </Box>
+  );
 
   return (
     <div>
@@ -43,15 +102,31 @@ function Navigation() {
           sx={{ backgroundColor: "#e0e1e9", boxShadow: "none" }}
         >
           <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Logo />
-            </Box>
+            <Logo />
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2, display: { sm: "none" }, color: "black" }}
+              onClick={toggleDrawer(true)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <SwipeableDrawer
+              anchor="right"
+              open={drawerOpen}
+              onClose={toggleDrawer(false)}
+              onOpen={toggleDrawer(true)}
+            >
+              {list()}
+            </SwipeableDrawer>
             <Box
               sx={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
                 paddingRight: "50px",
+                display: { xs: "none", sm: "flex" },
               }}
             >
               <Button
@@ -84,7 +159,6 @@ function Navigation() {
                       color: "black",
                       fontSize: "14px",
                       mr: "16px",
-                      display: { xs: "none", sm: "inline-flex" },
                     }}
                   >
                     Account
@@ -95,7 +169,6 @@ function Navigation() {
                     sx={{
                       color: "black",
                       fontSize: "14px",
-                      display: { xs: "none", sm: "inline-flex" },
                     }}
                   >
                     Log out
@@ -113,7 +186,6 @@ function Navigation() {
                       color: "black",
                       fontSize: "14px",
                       mr: "16px",
-                      display: { xs: "none", sm: "inline-flex" },
                     }}
                   >
                     Login
@@ -127,7 +199,6 @@ function Navigation() {
                     sx={{
                       color: "black",
                       fontSize: "14px",
-                      display: { xs: "none", sm: "inline-flex" },
                     }}
                   >
                     Sign Up
@@ -144,7 +215,7 @@ function Navigation() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/tiers" element={<TiersPage />} />
         <Route path="/account" element={<AccountPage />} />
-        <Route path="/auth/*" element={<AuthPage />} />{" "}
+        <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>
     </div>

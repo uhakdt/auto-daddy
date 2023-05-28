@@ -48,7 +48,7 @@ export const App = ({ children }) => {
     >
       <BrowserRouter>
         <div className="App">
-          <header className="App-header">
+          <header>
             <Navigation />
           </header>
           {children}
