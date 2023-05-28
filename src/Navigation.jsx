@@ -122,7 +122,6 @@ function Navigation() {
             </SwipeableDrawer>
             <Box
               sx={{
-                display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
                 paddingRight: "50px",

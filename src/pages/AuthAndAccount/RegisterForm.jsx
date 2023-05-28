@@ -41,6 +41,7 @@ function RegisterForm() {
 
       <button className="auth__google" onClick={signInWithGoogle}>
         <img
+          alt="Google Logo"
           className="auth__google__logo"
           src={`${process.env.PUBLIC_URL}/google-logo.png`}
         ></img>

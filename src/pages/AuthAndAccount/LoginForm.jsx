@@ -37,6 +37,7 @@ function LoginForm() {
       <div className="auth__line">Or Sign in with</div>
       <button className="auth__google" onClick={signInWithGoogle}>
         <img
+          alt="Google Logo"
           className="auth__google__logo"
           src={`${process.env.PUBLIC_URL}/google-logo.png`}
         ></img>
