@@ -37,12 +37,18 @@ const PackagesPage = () => {
     setOpen(false);
   };
 
-  const handleSubmit = (price) => {
+  const handleSubmit = (price, vehicleFreeData) => {
     setOpen(true);
     setPrice(price);
 
+    if (typeof vehicleFreeData === "undefined") {
+      alert("Please enter a license plate number.");
+      navigate("/");
+      return;
+    }
+
     onAuthStateChanged(auth, (user) => {
-      if (!vehicleFreeData || !user) {
+      if (user === null) {
         navigate("/auth/login", { state: { vehicleFreeData } });
       } else {
         fetch(`${process.env.REACT_APP_API_URL}/create-payment-intent`, {
@@ -72,7 +78,7 @@ const PackagesPage = () => {
 
   return (
     <div className="packages-page">
-      <h1 className="packages-page-title">Pricing Plan</h1>
+      <h1 className="packages-page-title">Packages</h1>
       <Grid
         container
         justifyContent="center"
@@ -103,7 +109,7 @@ const PackagesPage = () => {
                 <CardActions>
                   <Box className="card-action">
                     <Button
-                      onClick={() => handleSubmit(300, "Basic Check")}
+                      onClick={() => handleSubmit(300, vehicleFreeData)}
                       type="submit"
                       variant="contained"
                     >
@@ -139,7 +145,7 @@ const PackagesPage = () => {
                 <CardActions>
                   <Box className="card-action">
                     <Button
-                      onClick={() => handleSubmit(900, "Full Check")}
+                      onClick={() => handleSubmit(900, vehicleFreeData)}
                       type="submit"
                       variant="contained"
                     >

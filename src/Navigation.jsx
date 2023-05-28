@@ -147,7 +147,7 @@ function Navigation() {
                 onClick={() => navigate("/packages")}
                 sx={{ color: "black", fontSize: "14px", mr: "16px" }}
               >
-                Pricing
+                Packages
               </Button>
               <Button
                 color="inherit"

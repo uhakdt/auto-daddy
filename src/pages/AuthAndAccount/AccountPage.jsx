@@ -22,11 +22,12 @@ import {
 } from "@mui/material";
 
 function AccountPage() {
-  const { setPreviousPage } = useContext(AppContext);
+  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     setPreviousPage(false);
+    setVehicleFreeData(undefined);
     const fetchOrders = async (user) => {
       if (user) {
         const ordersRef = collection(db, "orders");
