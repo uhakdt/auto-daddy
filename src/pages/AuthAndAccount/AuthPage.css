@@ -6,8 +6,21 @@
   background-color: #fafafa;
 }
 
+@media (max-width: 768px) {
+  .auth {
+    flex-direction: column;
+    background-color: white;
+  }
+}
+
 .auth__sidebar {
   flex: 0.55;
+}
+
+@media (max-width: 768px) {
+  .auth__sidebar {
+    display: none;
+  }
 }
 
 .auth__container {
@@ -19,6 +32,13 @@
   align-items: center;
   padding: 2em;
   height: 100%;
+}
+
+@media (max-width: 768px) {
+  .auth__container {
+    width: 100%;
+    padding: 1em;
+  }
 }
 
 .auth__logo {
@@ -36,6 +56,12 @@
   font-size: large;
 }
 
+@media (max-width: 768px) {
+  .auth__textBox {
+    width: 80%;
+  }
+}
+
 .auth__btn {
   width: 55%;
   padding: 0.5em;
@@ -47,6 +73,12 @@
   box-shadow: none;
   height: 3em;
   font-size: large;
+}
+
+@media (max-width: 768px) {
+  .auth__btn {
+    width: 80%;
+  }
 }
 
 .auth__btn:hover {
@@ -61,6 +93,13 @@
   border-color: white;
   width: 20%;
   height: 5%;
+}
+
+@media (max-width: 768px) {
+  .auth__google {
+    width: 30%;
+    height: 10%;
+  }
 }
 
 .auth__google:hover {
@@ -79,6 +118,12 @@
   font-size: medium;
   margin-bottom: 2em;
   margin-left: 30%;
+}
+
+@media (max-width: 768px) {
+  .auth__forgotPassword {
+    margin-left: 10%;
+  }
 }
 
 .auth__link__simple {
@@ -105,6 +150,12 @@
   width: 50%;
   margin-top: 3em;
   margin-bottom: 3em;
+}
+
+@media (max-width: 768px) {
+  .auth__line {
+    width: 90%;
+  }
 }
 
 .auth__line::before,
