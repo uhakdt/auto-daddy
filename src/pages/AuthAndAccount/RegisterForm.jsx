@@ -37,6 +37,12 @@ function RegisterForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
+      <button
+        className="auth__btn"
+        onClick={() => registerWithEmailAndPassword(email, password)}
+      >
+        Register
+      </button>
       <div className="auth__line">Or Register with</div>
 
       <button className="auth__google" onClick={signInWithGoogle}>

@@ -54,9 +54,11 @@ const signInWithGoogle = async () => {
 const logInWithEmailAndPassword = async (email, password) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
+    return { error: null };
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    // return the error instead of alerting
+    return { error: err.message };
   }
 };
 
@@ -70,9 +72,11 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
     });
+    return { error: null };
   } catch (err) {
     console.error(err);
-    alert(err.message);
+    // return the error instead of alerting
+    return { error: err.message };
   }
 };
 

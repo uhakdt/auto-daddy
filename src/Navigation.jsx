@@ -135,27 +135,6 @@ function Navigation() {
                 display: { xs: "none", sm: "flex" },
               }}
             >
-              <Button
-                color="inherit"
-                onClick={() => navigate("/")}
-                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
-              >
-                Home
-              </Button>
-              <Button
-                color="inherit"
-                onClick={() => navigate("/packages")}
-                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
-              >
-                Packages
-              </Button>
-              <Button
-                color="inherit"
-                onClick={() => navigate("/about")}
-                sx={{ color: "black", fontSize: "14px", mr: "16px" }}
-              >
-                About
-              </Button>
               {user ? (
                 <>
                   <Button
