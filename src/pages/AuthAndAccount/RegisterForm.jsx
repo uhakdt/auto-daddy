@@ -37,10 +37,7 @@ function RegisterForm() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <button
-        className="auth__btn"
-        onClick={() => registerWithEmailAndPassword(email, password)}
-      >
+      <button className="auth__btn" onClick={() => register()}>
         Register
       </button>
       <div className="auth__line">Or Register with</div>
