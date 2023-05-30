@@ -30,6 +30,7 @@ const CheckoutForm = forwardRef(({ userEmail }, ref) => {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
+          console.log("Payment succeeded!");
           setMessage("Payment succeeded!");
           break;
         case "processing":
@@ -49,21 +50,23 @@ const CheckoutForm = forwardRef(({ userEmail }, ref) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard`,
-        receipt_email: email,
-      },
-    });
+    const { error } = await stripe
+      .confirmPayment({
+        elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard`,
+          receipt_email: email,
+        },
+      })
+      .then(() => {
+        console.log("Payment succeeded!");
+      });
 
     if (error.type === "card_error" || error.type === "validation_error") {
       setMessage(error.message);
