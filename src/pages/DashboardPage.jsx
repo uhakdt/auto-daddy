@@ -1,19 +1,30 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
 import { auth, db } from "../firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
-import "./DashboardPage.css";
-import { useHandleLogout } from "../auxiliaryHooks/authHooks";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import { AppContext } from "../appContext";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+} from "@mui/material";
 import Confetti from "react-dom-confetti";
 
 function DashboardPage() {
-  const [user, loading] = useAuthState(auth);
-  const [name, setName] = useState("");
+  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
+  const [orders, setOrders] = useState([]);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
-  const handleLogout = useHandleLogout();
-  const navigate = useNavigate();
 
   const config = {
     angle: 90,
@@ -38,38 +49,80 @@ function DashboardPage() {
   };
 
   useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
+    setPreviousPage(false);
+    setVehicleFreeData(undefined);
 
-    const fetchUserName = async () => {
-      try {
-        const q = query(collection(db, "users"), where("uid", "==", user?.uid));
-        const doc = await getDocs(q);
-        const data = doc.docs[0].data();
-        setName(data.name);
-      } catch (err) {
-        console.error(err);
-        alert("An error occured while fetching user data");
-      }
-    };
-
-    fetchUserName();
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get("redirect_status") === "succeeded") {
       setPaymentSuccess(true);
     }
-  }, [user, loading, navigate]);
+
+    const fetchOrders = async (user) => {
+      if (user) {
+        const ordersRef = collection(db, "orders");
+        const q = query(ordersRef, where("userId", "==", user.uid));
+        const snapshot = await getDocs(q);
+
+        const ordersList = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setOrders(ordersList);
+      }
+    };
+
+    const unsubscribe = auth.onAuthStateChanged(fetchOrders);
+
+    // Cleanup function:
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleViewOrder = async (orderId) => {
+    const orderRef = doc(db, "orders", orderId);
+    const docSnap = await getDoc(orderRef);
+
+    if (docSnap.exists()) {
+      console.log("Order data:", docSnap.data());
+    } else {
+      console.log("No such order!");
+    }
+  };
 
   return (
-    <div className="dashboard">
-      <div className="dashboard__container">
-        Logged in as
-        <div>{name}</div>
-        <div>{user?.email}</div>
-        <button className="dashboard__btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
+    <div>
+      <h1>Account Page</h1>
+      <p>Welcome to the Account Page!</p>
+
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Order ID</TableCell>
+              <TableCell align="right">Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.id}>
+                <TableCell component="th" scope="row">
+                  {order.id}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleViewOrder(order.id)}
+                  >
+                    View Order
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <div className="confetti-container">
         <Confetti active={paymentSuccess} config={config} />
       </div>

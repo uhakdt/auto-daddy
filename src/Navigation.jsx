@@ -6,7 +6,6 @@ import { auth } from "./firebase";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthAndAccount/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
-import AccountPage from "./pages/AuthAndAccount/AccountPage";
 import PackagesPage from "./pages/PackagesPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
 import {
@@ -80,8 +79,8 @@ function Navigation() {
         ))}
         {user ? (
           <>
-            <ListItem button onClick={() => navigate(`/account`)}>
-              <ListItemText primary="Account" />
+            <ListItem button onClick={() => navigate(`/dashboard`)}>
+              <ListItemText primary="Dashboard" />
             </ListItem>
             <ListItem button onClick={handleLogout}>
               <ListItemText primary="Log out" />
@@ -139,14 +138,14 @@ function Navigation() {
                 <>
                   <Button
                     color="inherit"
-                    onClick={() => navigate("/account")}
+                    onClick={() => navigate("/dashboard")}
                     sx={{
                       color: "black",
                       fontSize: "14px",
                       mr: "16px",
                     }}
                   >
-                    Account
+                    Dashboard
                   </Button>
                   <Button
                     color="inherit"
@@ -195,7 +194,6 @@ function Navigation() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/packages" element={<PackagesPage />} />
-        <Route path="/account" element={<AccountPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
       </Routes>

@@ -31,7 +31,7 @@ function AuthPage() {
       if (previousPage === "/packages" && vehicleFreeData !== null) {
         navigate("/packages");
       } else {
-        navigate("/account");
+        navigate("/dashboard");
       }
     }
   }, [user, loading, previousPage, vehicleFreeData, navigate]);
