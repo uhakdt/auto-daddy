@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { AppContext } from "../appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
@@ -150,67 +150,116 @@ const PackagesPage = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <div className="modal-content">
+          <div>
             {!user && formType === "login" && (
-              <>
+              <div className="modal-content-auth">
                 <input
                   type="text"
+                  className="modal-content-auth-input"
                   value={loginEmail}
                   onChange={(e) => setLoginEmail(e.target.value)}
                   placeholder="E-mail Address"
                 />
                 <input
                   type="password"
+                  className="modal-content-auth-input"
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder="Password"
                 />
-                <button onClick={handleLogin}>Login</button>
-                <button onClick={() => setFormType("register")}>
-                  Switch to Register
+                <a
+                  className="modal-content-auth-forgotPassword"
+                  href="/auth/reset"
+                >
+                  Forgot Password?
+                </a>
+                <button
+                  className="modal-content-auth-btn"
+                  onClick={handleLogin}
+                >
+                  Login
                 </button>
-              </>
+                <button
+                  className="modal-content-auth-google"
+                  onClick={signInWithGoogle}
+                >
+                  <img
+                    alt="Google Logo"
+                    className="modal-content-auth-google-logo"
+                    src={`${process.env.PUBLIC_URL}/google-logo.png`}
+                  ></img>
+                </button>
+                <button
+                  className="modal-content-auth-link-simple"
+                  onClick={() => setFormType("register")}
+                >
+                  <span className="modal-content-auth-text-grey">
+                    Not registered yet?
+                  </span>
+                  <span className="modal-content-auth-text-bold">
+                    {" "}
+                    Create Account
+                  </span>
+                </button>
+              </div>
             )}
             {!user && formType === "register" && (
-              <>
+              <div className="modal-content-auth">
                 <input
                   type="text"
+                  className="modal-content-auth-input"
                   value={registerName}
                   onChange={(e) => setRegisterName(e.target.value)}
                   placeholder="Full Name"
                 />
                 <input
                   type="text"
+                  className="modal-content-auth-input"
                   value={registerEmail}
                   onChange={(e) => setRegisterEmail(e.target.value)}
                   placeholder="E-mail Address"
                 />
                 <input
                   type="password"
+                  className="modal-content-auth-input"
                   value={registerPassword}
                   onChange={(e) => setRegisterPassword(e.target.value)}
                   placeholder="Password"
                 />
-                <button onClick={handleRegister}>Register</button>
-                <button onClick={() => setFormType("login")}>
-                  Switch to Login
-                </button>
-              </>
-            )}
-            {user && (
-              <>
-                <IconButton
-                  edge="end"
-                  color="inherit"
-                  onClick={handleClose}
-                  aria-label="close"
+                <button
+                  className="modal-content-auth-btn"
+                  onClick={handleRegister}
                 >
-                  <Close />
-                </IconButton>
+                  Register
+                </button>
+                <button
+                  className="modal-content-auth-google"
+                  onClick={signInWithGoogle}
+                >
+                  <img
+                    alt="Google Logo"
+                    className="modal-content-auth-google-logo"
+                    src={`${process.env.PUBLIC_URL}/google-logo.png`}
+                  ></img>
+                </button>
+                <button
+                  className="modal-content-auth-link-simple"
+                  onClick={() => setFormType("login")}
+                >
+                  <span className="modal-content-auth-text-grey">
+                    Already have an account?
+                  </span>
+                  <span className="modal-content-auth-text-bold"> Login</span>
+                </button>
+              </div>
+            )}
+
+            {user && (
+              <div className="modal-content-checkout">
                 <Elements options={options} stripe={stripePromise}>
                   <CheckoutForm userEmail={auth.currentUser.email} />
                 </Elements>
-              </>
+              </div>
             )}
           </div>
         </Modal>

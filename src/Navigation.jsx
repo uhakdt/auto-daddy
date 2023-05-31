@@ -135,7 +135,7 @@ function Navigation() {
                 display: { xs: "none", sm: "flex" },
               }}
             >
-              {user ? (
+              {loading ? null : user ? (
                 <>
                   <Button
                     color="inherit"

@@ -5,6 +5,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import "./CheckoutForm.css";
 
 const CheckoutForm = forwardRef(({ userEmail }, ref) => {
   const stripe = useStripe();
@@ -55,26 +56,29 @@ const CheckoutForm = forwardRef(({ userEmail }, ref) => {
 
     setIsLoading(true);
 
-    const { error } = await stripe
-      .confirmPayment({
+    try {
+      const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          // Make sure to change this to your payment completion page
           return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard`,
           receipt_email: email,
         },
-      })
-      .then(() => {
-        console.log("Payment succeeded!");
       });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
+      if (error) {
+        if (error.type === "card_error" || error.type === "validation_error") {
+          setMessage(error.message);
+        } else {
+          setMessage("An unexpected error occurred.");
+        }
+      } else {
+        console.log("Payment succeeded!");
+      }
+    } catch (error) {
       setMessage("An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const paymentElementOptions = {
