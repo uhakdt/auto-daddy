@@ -10,3 +10,18 @@
   align-items: center;
   z-index: 1000;
 }
+
+.dashboard {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+}
+
+.order-details {
+  flex-grow: 1;
+  padding: 10px;
+}

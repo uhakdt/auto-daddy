@@ -62,21 +62,6 @@ function Navigation() {
   const list = () => (
     <Box sx={{ width: 250 }}>
       <List>
-        {["Home", "Packages", "About"].map((text, index) => (
-          <ListItem
-            button
-            key={text}
-            onClick={() => {
-              if (text === "Home") {
-                navigate("/");
-              } else {
-                navigate(`/${text.toLowerCase()}`);
-              }
-            }}
-          >
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
         {user ? (
           <>
             <ListItem button onClick={() => navigate(`/dashboard`)}>
