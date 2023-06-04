@@ -59,6 +59,10 @@ function DashboardPage() {
           ...doc.data(),
         }));
         setOrders(ordersList);
+
+        if (ordersList.length > 0) {
+          setSelectedOrder(ordersList[0].id);
+        }
       }
     };
 
