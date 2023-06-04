@@ -43,7 +43,7 @@ function Sidebar({ orders, onSelectOrder }) {
           }}
         >
           <OrderIcon />
-          {open && (order?.registrationNumber || "N/A")}
+          {open && (order?.vehicleFreeData.RegistrationNumber || "N/A")}
         </IconButton>
       ))}
     </Box>
