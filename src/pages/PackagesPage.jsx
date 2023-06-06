@@ -45,6 +45,7 @@ const PackagesPage = () => {
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  console.log(vehicleFreeData);
 
   const navigate = useNavigate();
 
@@ -99,50 +100,80 @@ const PackagesPage = () => {
 
   return (
     <div className="packages-page">
-      <h1 className="packages-page-title">Packages</h1>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        className="grid-container"
-      >
-        <Grid item xs={12} sm={6}>
-          <Box className="card-wrapper">
-            <Card className="card card-first">
-              <Box className="card-header">
-                <CardContent>
-                  <Box className="card-title">
-                    <Typography variant="h5" component="div">
-                      Full Check
-                    </Typography>
-                    <Typography color="text.secondary" gutterBottom>
-                      Price: £9
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Box>
-              <Box className="card-body">
-                <CardContent>
-                  <ul className="custom-bullet-points">
-                    <li>Random text 1</li>
-                  </ul>
-                </CardContent>
-                <CardActions>
-                  <Box className="card-action">
-                    <Button
-                      onClick={() => handleSubmit(900, vehicleFreeData)}
-                      type="submit"
-                      variant="contained"
-                    >
-                      Purchase
-                    </Button>
-                  </Box>
-                </CardActions>
-              </Box>
-            </Card>
-          </Box>
-        </Grid>
-      </Grid>
+      <div className="main-container">
+        <div className="freedata-container">
+          {vehicleFreeData.registrationNumber && (
+            <div>Registration Number{vehicleFreeData.registrationNumber}</div>
+          )}
+          {vehicleFreeData.make && <div>Make: {vehicleFreeData.make}</div>}
+          {vehicleFreeData.colour && (
+            <div>Colour: {vehicleFreeData.colour}</div>
+          )}
+          {vehicleFreeData.fuelType && (
+            <div>Fuel Type: {vehicleFreeData.fuelType}</div>
+          )}
+          {vehicleFreeData.monthOfFirstRegistration && (
+            <div>
+              Date of Registration: {vehicleFreeData.monthOfFirstRegistration}
+            </div>
+          )}
+          {vehicleFreeData.enginerCapacity && (
+            <div>Engine Capacity: {vehicleFreeData.enginerCapacity}</div>
+          )}
+          {vehicleFreeData.co2Emissions && (
+            <div>CO2 Emissions: {vehicleFreeData.co2Emissions}</div>
+          )}
+          {vehicleFreeData.dateofLastV5Issued && (
+            <div>
+              Date of Last V5 Issued: {vehicleFreeData.dateofLastV5Issued}
+            </div>
+          )}
+          {vehicleFreeData.markedForExport && (
+            <div>Marked for Export: {vehicleFreeData.markedForExport}</div>
+          )}
+          {vehicleFreeData.motExpiryDate && (
+            <div>MOT Expiry Date: {vehicleFreeData.motExpiryDate}</div>
+          )}
+          {vehicleFreeData.motStatus && (
+            <div>MOT Status: {vehicleFreeData.motStatus}</div>
+          )}
+          {vehicleFreeData.taxDueDate && (
+            <div>Tax Due Date: {vehicleFreeData.taxDueDate}</div>
+          )}
+          {vehicleFreeData.taxStatus && (
+            <div>Tax Status: {vehicleFreeData.taxStatus}</div>
+          )}
+          {vehicleFreeData.wheelPlan && (
+            <div>Wheel Plan: {vehicleFreeData.wheelPlan}</div>
+          )}
+        </div>
+        <div className="package-container">
+          <h3>Buy the Full Package</h3>
+          <h2>£9</h2>
+          <div className="package-list">
+            <div>Full Vehicle History</div>
+            <div>Full MOT History</div>
+            <div>Full Tax History</div>
+            <div>Full Mileage History</div>
+            <div>Full Owner History</div>
+            <div>Full Finance History</div>
+            <div>Full Import/Export History</div>
+            <div>Full Stolen History</div>
+            <div>Full Write-off History</div>
+            <div>Full Scrape History</div>
+            <div>Full Plate Change History</div>
+            <div>Full Colour Change History</div>
+            <div>Full Keeper Change History</div>
+          </div>
+          <Button
+            onClick={() => handleSubmit(900, vehicleFreeData)}
+            type="submit"
+            variant="contained"
+          >
+            Purchase
+          </Button>
+        </div>
+      </div>
       {clientSecret && (
         <Modal
           open={open}

@@ -1,6 +1,5 @@
 import { createContext } from "react";
 import { VehicleFreeData } from "./models/VehicleFreeData";
-import { VehicleBasicData } from "./models/VehicleBasicData";
 import { VehicleFullData } from "./models/VehicleFullData";
 
 export const getStoredData = () => {
@@ -15,7 +14,6 @@ export const saveDataToStorage = (data) => {
 export const initialData = getStoredData() || {
   userId: "",
   vehicleFreeData: new VehicleFreeData({}),
-  vehicleBasicData: new VehicleBasicData({}),
   vehicleFullData: new VehicleFullData({}),
   previousPage: false,
 };

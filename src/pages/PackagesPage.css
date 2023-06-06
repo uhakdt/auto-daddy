@@ -4,78 +4,49 @@
   margin-bottom: 10%;
 }
 
-.grid-container {
-  padding-left: 10%;
-  padding-right: 10%;
-}
+/* Main */
 
-.card-wrapper {
-  margin-bottom: 2rem;
-}
-
-.card-header {
-  background-color: white;
-  padding-top: 4rem;
-  padding-bottom: 2rem;
-}
-
-.card-title {
-  text-align: center;
-  width: 100%;
-}
-
-.card-title .MuiTypography-gutterBottom {
-  margin-top: 1rem;
-}
-
-.card-body {
-  background-color: #fafafa;
-  padding-bottom: 2rem;
-}
-
-.custom-bullet-points {
-  list-style-type: none;
-  padding-left: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.custom-bullet-points li::before {
-  content: "✓";
-  color: #e8f653;
-  display: inline-block;
-  margin-right: 8px;
-}
-
-.card-action {
+.main-container {
   display: flex;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
-.card {
-  border-radius: 16px;
+.freedata-container,
+.package-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  background-color: lightgrey;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  flex: 1 1 45%; /* Shorthand for flex-grow, flex-shrink, and flex-basis */
+  box-sizing: border-box;
+  max-width: 45%; /* You can adjust this value according to your needs */
 }
 
-.card-first {
-  box-shadow: 5px 0px 5px rgba(0, 0, 0, 0.1), 0px 5px 5px rgba(0, 0, 0, 0.1),
-    0px -5px 5px rgba(0, 0, 0, 0.1);
+.freedata-container div,
+.package-container div {
+  margin-bottom: 10px;
 }
 
-.card-second {
-  box-shadow: -5px 0px 5px rgba(0, 0, 0, 0.1), 0px 5px 5px rgba(0, 0, 0, 0.1),
-    0px -5px 5px rgba(0, 0, 0, 0.1);
+.package-container h2,
+.package-container h3 {
+  margin: 10px 0;
 }
 
-.button {
-  background-color: #e8f653;
-  color: black;
-  text-shadow: none;
-  box-shadow: none;
-}
+@media screen and (max-width: 768px) {
+  .main-container {
+    flex-direction: column;
+  }
 
-.MuiButton-contained {
-  box-shadow: none !important;
+  .freedata-container,
+  .package-container {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 }
 
 /* Modal */
