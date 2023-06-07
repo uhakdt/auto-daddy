@@ -6,12 +6,15 @@ import Confetti from "react-dom-confetti";
 import Sidebar from "../components/Sidebar";
 import OrderDetails from "../components/OrderDetails";
 import Box from "@mui/material/Box";
+import CarLoader from "../components/SVGs/CarLoader";
+import "./DashboardPage.css";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const config = {
     angle: 90,
@@ -45,6 +48,7 @@ function DashboardPage() {
     }
 
     const fetchOrders = async (user) => {
+      setIsLoading(true);
       if (user) {
         const ordersRef = collection(db, "orders");
         const q = query(
@@ -64,6 +68,7 @@ function DashboardPage() {
           setSelectedOrder(ordersList[0].id);
         }
       }
+      setTimeout(() => setIsLoading(false), 500);
     };
 
     const unsubscribe = auth.onAuthStateChanged(fetchOrders);
@@ -74,10 +79,22 @@ function DashboardPage() {
     };
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="loader">
+        <CarLoader />
+      </div>
+    );
+  }
+
   return (
-    <Box sx={{ display: "flex" }}>
-      <Sidebar orders={orders} onSelectOrder={setSelectedOrder} />
-      <OrderDetails orderId={selectedOrder} />
+    <Box className="dashboard" sx={{ display: "flex" }}>
+      <Sidebar
+        className="sidebar"
+        orders={orders}
+        onSelectOrder={setSelectedOrder}
+      />
+      <OrderDetails className="order-details" orderId={selectedOrder} />
       <Box className="confetti-container">
         <Confetti active={paymentSuccess} config={config} />
       </Box>
