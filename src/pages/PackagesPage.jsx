@@ -11,47 +11,30 @@ import {
   signInWithGoogle,
 } from "../firebase";
 
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button } from "@mui/material";
 import "./PackagesPage.css";
 import CheckoutForm from "../components/CheckoutForm";
 import Modal from "@mui/material/Modal";
-import IconButton from "@mui/material/IconButton";
-import Close from "@mui/icons-material/Close";
 
 const auth = getAuth();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 
 const PackagesPage = () => {
-  const { vehicleFreeData, setVehicleFreeData } = useContext(AppContext);
-  const [_, setPrice] = useState(null);
+  const { vehicleFreeData } = useContext(AppContext);
   const [clientSecret, setClientSecret] = useState("");
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
   const [formType, setFormType] = useState("login");
-  // Login form state
+
+  // Form states
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
-
-  // Register form state
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  console.log(vehicleFreeData);
 
   const navigate = useNavigate();
-
-  const handleLogin = () => {
-    logInWithEmailAndPassword(loginEmail, loginPassword);
-  };
 
   const handleRegister = () => {
     if (!registerName) {
@@ -61,13 +44,8 @@ const PackagesPage = () => {
     registerWithEmailAndPassword(registerName, registerEmail, registerPassword);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleSubmit = (price, vehicleFreeData) => {
     setOpen(true);
-    setPrice(price);
 
     if (typeof vehicleFreeData === "undefined") {
       alert("Please enter a license plate number.");
@@ -88,14 +66,6 @@ const PackagesPage = () => {
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  };
-
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
   };
 
   return (
@@ -177,7 +147,7 @@ const PackagesPage = () => {
       {clientSecret && (
         <Modal
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -206,7 +176,9 @@ const PackagesPage = () => {
                 </a>
                 <button
                   className="modal-content-auth-btn"
-                  onClick={handleLogin}
+                  onClick={() =>
+                    logInWithEmailAndPassword(loginEmail, loginPassword)
+                  }
                 >
                   Login
                 </button>
@@ -287,7 +259,13 @@ const PackagesPage = () => {
 
             {user && (
               <div className="modal-content-checkout">
-                <Elements options={options} stripe={stripePromise}>
+                <Elements
+                  options={{
+                    clientSecret,
+                    theme: "stripe",
+                  }}
+                  stripe={stripePromise}
+                >
                   <CheckoutForm userEmail={auth.currentUser.email} />
                 </Elements>
               </div>

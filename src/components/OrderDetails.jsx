@@ -84,15 +84,18 @@ const OrderDetails = ({ orderId }) => {
               {basic.VehicleRegistration.MakeModel && (
                 <div>
                   Vehicle:
-                  {basic.VehicleRegistration.MakeModel}
+                  {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
                 </div>
               )}
               {/* VEHICLE IDENTITY - BODY STYLE */}
               {(basic.VehicleRegistration.DoorPlanLiteral ||
                 basic.VehicleRegistration.SeatingCapacity) && (
                 <div>
-                  Body Style: {basic.VehicleRegistration.DoorPlanLiteral},{" "}
-                  {basic.VehicleRegistration.SeatingCapacity} Seats
+                  Body Style:{" "}
+                  {CapitalizeEachWord(
+                    basic.VehicleRegistration.DoorPlanLiteral
+                  )}
+                  , {basic.VehicleRegistration.SeatingCapacity} Seats
                 </div>
               )}
               {/* VEHICLE IDENTITY - TAX */}

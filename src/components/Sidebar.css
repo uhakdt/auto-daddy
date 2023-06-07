@@ -1,3 +1,22 @@
+.sidebar-box {
+  height: 100vh;
+  transition: width 0.3s;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.toggle-button {
+  align-self: flex-end;
+}
+
+.order-button {
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
+}
+
 .sidebar {
   padding: 1em;
   background-color: #f5f5f5;
