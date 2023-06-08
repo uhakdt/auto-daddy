@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { getAuth } from "firebase/auth";
 import Box from "@mui/material/Box";
 import {
   CapitalizeEachWord,
@@ -10,6 +11,9 @@ import {
   CalcAvgMileAYear,
   CalcLastYearMile,
 } from "../auxiliaryFunctions/mathFunctions";
+import { Button } from "@mui/material";
+
+const auth = getAuth();
 
 const OrderDetails = ({ orderId }) => {
   const [order, setOrder] = useState(null);
@@ -42,8 +46,40 @@ const OrderDetails = ({ orderId }) => {
     if (orderId) fetchOrder();
   }, [orderId]);
 
+  const handleDownloadReport = async () => {
+    try {
+      const vehicleRegMark = free.RegistrationNumber;
+      const userId = auth.currentUser.uid;
+      const url = `${process.env.REACT_APP_API_URL}/download-report`;
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ orderId, vehicleRegMark, userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const { url: downloadUrl } = await response.json();
+
+      // Create new link and trigger click event on it
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.target = "_blank"; // to open in a new tab
+      link.download = "report.pdf";
+      link.click();
+    } catch (err) {
+      console.error("Error downloading file:", err);
+    }
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Button onClick={() => handleDownloadReport()}>Download Report</Button>
       <div className="order-details">
         {order ? (
           <div>
