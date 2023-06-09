@@ -12,6 +12,7 @@ import {
   CalcLastYearMile,
 } from "../auxiliaryFunctions/mathFunctions";
 import { Button } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
 
 const auth = getAuth();
 
@@ -20,6 +21,9 @@ const OrderDetails = ({ orderId }) => {
   const [free, setVehicleFreeData] = useState(null);
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
+
+  const [emailStatus, setEmailStatus] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const goToMileageSection = React.useRef();
   const goTokeeperSection = React.useRef();
@@ -77,12 +81,68 @@ const OrderDetails = ({ orderId }) => {
     }
   };
 
+  const handleEmailReport = async () => {
+    try {
+      const vehicleRegMark = free.RegistrationNumber;
+      const userId = auth.currentUser.uid;
+      const email = auth.currentUser.email;
+
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/email-report`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ orderId, vehicleRegMark, userId, email }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      setEmailStatus({ success: true, message: result.message });
+      setSnackbarOpen(true);
+    } catch (err) {
+      setEmailStatus({ success: false, message: err.toString() });
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setSnackbarOpen(false);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Button onClick={() => handleDownloadReport()}>Download Report</Button>
       <div className="order-details">
         {order ? (
           <div>
+            <Button
+              style={{ backgroundColor: "lightblue", margin: "1rem" }}
+              onClick={handleDownloadReport}
+            >
+              Download Report
+            </Button>
+            <Button
+              style={{ backgroundColor: "lightblue", margin: "1rem" }}
+              onClick={handleEmailReport}
+            >
+              Email Report
+            </Button>
+            <Snackbar
+              open={snackbarOpen}
+              autoHideDuration={2000}
+              onClose={handleSnackbarClose}
+              message={emailStatus?.message}
+            />
             {/* VEHICLE MAIN */}
             <section>
               {free.RegistrationNumber && (
