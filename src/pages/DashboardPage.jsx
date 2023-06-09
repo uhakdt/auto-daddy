@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { auth, db } from "../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { AppContext } from "../appContext";
-import Confetti from "react-dom-confetti";
 import Sidebar from "../components/Sidebar";
 import OrderDetails from "../components/OrderDetails";
 import Box from "@mui/material/Box";
@@ -12,43 +11,16 @@ import "./DashboardPage.css";
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
-  const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const config = {
-    angle: 90,
-    spread: 360,
-    startVelocity: 20,
-    elementCount: 70,
-    dragFriction: 0.12,
-    duration: 3000,
-    stagger: 3,
-    width: "10px",
-    height: "10px",
-    perspective: "500px",
-    colors: [
-      "#FF0000",
-      "#FF7F00",
-      "#FFFF00",
-      "#00FF00",
-      "#0000FF",
-      "#4B0082",
-      "#8F00FF",
-    ],
-  };
 
   useEffect(() => {
     setPreviousPage(false);
     setVehicleFreeData(undefined);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("redirect_status") === "succeeded") {
-      setPaymentSuccess(true);
-    }
-
     const fetchOrders = async (user) => {
-      setIsLoading(true);
+      const startTime = Date.now();
+
       if (user) {
         const ordersRef = collection(db, "orders");
         const q = query(
@@ -67,8 +39,13 @@ function DashboardPage() {
         if (ordersList.length > 0) {
           setSelectedOrder(ordersList[0].id);
         }
+
+        const timeDiff = Date.now() - startTime;
+        const remainingTime = Math.max(1000 - timeDiff, 0);
+        setTimeout(() => setIsLoading(false), remainingTime);
+      } else {
+        setIsLoading(false);
       }
-      setTimeout(() => setIsLoading(false), 500);
     };
 
     const unsubscribe = auth.onAuthStateChanged(fetchOrders);
@@ -95,9 +72,6 @@ function DashboardPage() {
         onSelectOrder={setSelectedOrder}
       />
       <OrderDetails className="order-details" orderId={selectedOrder} />
-      <Box className="confetti-container">
-        <Confetti active={paymentSuccess} config={config} />
-      </Box>
     </Box>
   );
 }
