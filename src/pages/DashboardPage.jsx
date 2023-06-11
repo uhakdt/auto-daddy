@@ -14,12 +14,24 @@ function DashboardPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const getPaymentIntentFromUrl = () => {
+    return new URLSearchParams(window.location.search).get("payment_intent");
+  };
+
+  const checkRedirectStatus = () => {
+    const redirectStatus = new URLSearchParams(window.location.search).get(
+      "redirect_status"
+    );
+    return redirectStatus === "succeeded";
+  };
+
   useEffect(() => {
     setPreviousPage(false);
     setVehicleFreeData(undefined);
 
     const fetchOrders = async (user) => {
       const startTime = Date.now();
+      const paymentIntent = getPaymentIntentFromUrl();
 
       if (user) {
         const ordersRef = collection(db, "orders");
@@ -30,14 +42,25 @@ function DashboardPage() {
         );
         const snapshot = await getDocs(q);
 
-        const ordersList = snapshot.docs.map((doc) => ({
+        let ordersList = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
+
         setOrders(ordersList);
 
-        if (ordersList.length > 0) {
-          setSelectedOrder(ordersList[0].id);
+        if (checkRedirectStatus() && paymentIntent) {
+          const recentOrder = ordersList.find(
+            (order) => order.paymentId === paymentIntent
+          );
+          if (recentOrder) {
+            setSelectedOrder(recentOrder.id); // select the recent order
+          } else {
+            fetchOrders(user); // refetch if no order with matching paymentId is found
+            return;
+          }
+        } else if (ordersList.length > 0) {
+          setSelectedOrder(ordersList[0].id); // select the first order by default
         }
 
         const timeDiff = Date.now() - startTime;
