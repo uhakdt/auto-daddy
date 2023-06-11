@@ -14,6 +14,7 @@ import {
 import FormatDate from "../auxiliaryFunctions/dateFunctions";
 import Snackbar from "@mui/material/Snackbar";
 import "./OrderDetails.css";
+import EmissionsLabel from "./SVGs/EmissionsLabel";
 
 const auth = getAuth();
 
@@ -659,7 +660,7 @@ const OrderDetails = ({ orderId }) => {
                       )}
                     </tbody>
                   </table>
-                  {/* VEHICLE DETAILS - IMAGE */}
+                  {/* VEHICLE DETAILS - FIGURE */}
                   <div>
                     {/* TODO: Add Image from new Api endpoint */}
                     <img
@@ -770,6 +771,218 @@ const OrderDetails = ({ orderId }) => {
                   </div>
                 )}
               </div> */}
+            </section>
+            {/* ENERGY & CONSUMPTION */}
+            <section className="section">
+              <div className="section-title">Energy & Consumption</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* ENERGY & CONSUMPTION - POWER */}
+                      {basic.TechnicalDetails.Performance.Power.Bhp &&
+                        basic.TechnicalDetails.Performance.Power.Kw &&
+                        basic.TechnicalDetails.Performance.Power.Rpm && (
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Power
+                            </td>
+                            <td>
+                              {basic.TechnicalDetails.Performance.Power.Bhp} BHP
+                              {" / "}
+                              {basic.TechnicalDetails.Performance.Power.Kw} KW
+                              {" / "}
+                              {basic.TechnicalDetails.Performance.Power.Rpm} RPM
+                            </td>
+                          </tr>
+                        )}
+                      {/* ENERGY & CONSUMPTION - TORQUE */}
+                      {basic.TechnicalDetails.Performance.Torque.Nm &&
+                        basic.TechnicalDetails.Performance.Torque.Rpm && (
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Torque
+                            </td>
+                            <td>
+                              {basic.TechnicalDetails.Performance.Torque.Nm} Nm
+                              at {basic.TechnicalDetails.Performance.Torque.Rpm}{" "}
+                            </td>
+                          </tr>
+                        )}
+                      {/* ENERGY & CONSUMPTION - CYLINDERS */}
+                      {basic.TechnicalDetails.General.Engine
+                        .NumberOfCylinders && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Cylinders
+                          </td>
+                          <td>
+                            {
+                              basic.TechnicalDetails.General.Engine
+                                .NumberOfCylinders
+                            }
+                          </td>
+                        </tr>
+                      )}
+                      {/* ENERGY & CONSUMPTION - URBAN */}
+                      {basic.TechnicalDetails.Consumption.UrbanCold.Mpg && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">Urban</td>
+                          <td>
+                            {basic.TechnicalDetails.Consumption.UrbanCold.Mpg}{" "}
+                            Mpg
+                          </td>
+                        </tr>
+                      )}
+                      {/* ENERGY & CONSUMPTION - EXTRA URBAN */}
+                      {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Extra Urban
+                          </td>
+                          <td>
+                            {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg}{" "}
+                            Mpg
+                          </td>
+                        </tr>
+                      )}
+                      {/* ENERGY & CONSUMPTION - COMBINED */}
+                      {basic.TechnicalDetails.Consumption.Combined.Mpg && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Combined
+                          </td>
+                          <td>
+                            {basic.TechnicalDetails.Consumption.Combined.Mpg}{" "}
+                            Mpg
+                          </td>
+                        </tr>
+                      )}
+                      {/* ENERGY & CONSUMPTION - CO2 EMISSIONS */}
+                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            CO<span style={{ fontSize: "0.70rem" }}>2</span>{" "}
+                            Emissions
+                          </td>
+                          <td>{basic.TechnicalDetails.Performance.Co2} g/Km</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  {/* ENERGY & CONSUMPTION - FIGURE */}
+                  <div>
+                    <EmissionsLabel />
+                    {/* TODO: Add Image from new Api endpoint */}
+                    {/* <img
+                      width={"100%"}
+                      src="https://media.istockphoto.com/id/155376760/photo/side-of-silver-modern-compact-car-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c=0L9-QU_RPpPVM8d-OzxjN7kZsm-RyYKsuK-ll-TThyc="
+                      alt="Car"
+                    /> */}
+                  </div>
+                </div>
+              </div>
+              {/* <div>
+                *Road tax costs are indicative. You should check with the seller
+                or look at the{" "}
+                <a href="https://www.gov.uk/vehicle-tax-rate-tables">
+                  vehicle tax rates
+                </a>{" "}
+                table to confirm tax costs.
+              </div> */}
+              <div>
+                {/* TODO: Calculate Tax for 12 months */}
+                {/* TODO: Calculate Tax for 6 months */}
+                {/* TODO: Calculate Fuel Cost for 12,000 miles */}
+                {/* {basic.TechnicalDetails.Consumption.UrbanCold.Mpg && (
+                  <div>
+                    Urban: {basic.TechnicalDetails.Consumption.UrbanCold.Mpg}{" "}
+                    Mpg
+                  </div>
+                )} */}
+                {/* {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg && (
+                  <div>
+                    Extra Urban:{" "}
+                    {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg} Mpg
+                  </div>
+                )} */}
+                {/* {basic.TechnicalDetails.Consumption.Combined.Mpg && (
+                  <div>
+                    Combined: {basic.TechnicalDetails.Consumption.Combined.Mpg}{" "}
+                    Mpg
+                  </div>
+                )} */}
+              </div>
             </section>
             {/* VEHICLE HISTORY */}
             <section>
@@ -1188,41 +1401,7 @@ const OrderDetails = ({ orderId }) => {
                 </div>
               )}
             </section>
-            {/* RUNNING COSTS */}
-            <section>
-              <h2>Running Costs</h2>
-              <div>
-                *Road tax costs are indicative. You should check with the seller
-                or look at the{" "}
-                <a href="https://www.gov.uk/vehicle-tax-rate-tables">
-                  vehicle tax rates
-                </a>{" "}
-                table to confirm tax costs.
-              </div>
-              <div>
-                {/* TODO: Calculate Tax for 12 months */}
-                {/* TODO: Calculate Tax for 6 months */}
-                {/* TODO: Calculate Fuel Cost for 12,000 miles */}
-                {basic.TechnicalDetails.Consumption.UrbanCold.Mpg && (
-                  <div>
-                    Urban: {basic.TechnicalDetails.Consumption.UrbanCold.Mpg}{" "}
-                    Mpg
-                  </div>
-                )}
-                {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg && (
-                  <div>
-                    Extra Urban:{" "}
-                    {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg} Mpg
-                  </div>
-                )}
-                {basic.TechnicalDetails.Consumption.Combined.Mpg && (
-                  <div>
-                    Combined: {basic.TechnicalDetails.Consumption.Combined.Mpg}{" "}
-                    Mpg
-                  </div>
-                )}
-              </div>
-            </section>
+
             {/* REGISTRATION HISTORY */}
             <section>
               <h2>Registration History</h2>
