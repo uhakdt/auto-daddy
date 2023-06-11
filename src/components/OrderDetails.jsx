@@ -11,16 +11,38 @@ import {
   CalcAvgMileAYear,
   CalcLastYearMile,
 } from "../auxiliaryFunctions/mathFunctions";
-import { Button } from "@mui/material";
+import FormatDate from "../auxiliaryFunctions/dateFunctions";
 import Snackbar from "@mui/material/Snackbar";
+import "./OrderDetails.css";
 
 const auth = getAuth();
 
+const aiContentListSample = [
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum odio luctus feugiat cursus. Praesent aliquam augue nulla, a porttitor justo pellentesque sit amet. Fusce ac sem sit amet ante sagittis condimentum. Fusce sit amet erat magna. Etiam vehicula lectus orci, eget bibendum mi scelerisque nec. Aliquam nec blandit risus. Mauris pretium ornare ornare. Curabitur molestie purus est, at aliquam diam porttitor eget. Mauris malesuada, ante ac blandit ultrices, lacus mauris laoreet ex, id tempor erat sem a justo.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
+];
+
 const OrderDetails = ({ orderId }) => {
+  const [aiContentList, setAIContentList] = useState(aiContentListSample);
   const [order, setOrder] = useState(null);
   const [free, setVehicleFreeData] = useState(null);
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
+  console.log(free);
+  console.log(basic);
+  console.log(full);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -125,66 +147,542 @@ const OrderDetails = ({ orderId }) => {
       <div className="order-details">
         {order ? (
           <div>
-            <Button
-              style={{ backgroundColor: "lightblue", margin: "1rem" }}
-              onClick={handleDownloadReport}
-            >
-              Download Report
-            </Button>
-            <Button
-              style={{ backgroundColor: "lightblue", margin: "1rem" }}
-              onClick={handleEmailReport}
-            >
-              Email Report
-            </Button>
-            <Snackbar
-              open={snackbarOpen}
-              autoHideDuration={2000}
-              onClose={handleSnackbarClose}
-              message={emailStatus?.message}
-            />
             {/* VEHICLE MAIN */}
-            <section>
-              {free.RegistrationNumber && (
-                <div>Registration Number: {free.RegistrationNumber}</div>
-              )}
-              {basic.VehicleRegistration.MakeModel && (
-                <div>
-                  Make and Model:{" "}
-                  {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
-                </div>
-              )}
-              {CapitalizeEachWord(full.Colour)}
-              {order.dateTime && (
-                <div>
-                  Date and Time: {new Date(order.dateTime).toLocaleString()}
-                </div>
-              )}
-              {full.FuelType && (
-                <div>Fuel Type: {CapitalizeEachWord(full.FuelType)}</div>
-              )}
+            <section className="section">
+              <div className="section-title">
+                {basic.VehicleRegistration.MakeModel && (
+                  <div>
+                    {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
+                  </div>
+                )}
+              </div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {free.RegistrationNumber && (
+                  <div className="registration-number-container">
+                    <div className="registration-number-gb">GB</div>
+                    <div className="registration-number-content">
+                      {free.RegistrationNumber}
+                    </div>
+                  </div>
+                )}
+                <button className="button" onClick={handleDownloadReport}>
+                  Download Report
+                </button>
+                <button className="button" onClick={handleEmailReport}>
+                  Email Report
+                </button>
+                <Snackbar
+                  open={snackbarOpen}
+                  autoHideDuration={2000}
+                  onClose={handleSnackbarClose}
+                  message={emailStatus?.message}
+                />
+              </div>
             </section>
             {/* SUMMARY */}
-            <section>
-              <h2>Report Summary</h2>
-              <div>PASS</div>
+            <section className="section">
+              <div className="section-title">
+                AutoDaddy <br />
+                <span className="section-title-sub">AI Summary</span>
+              </div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+              </div>
             </section>
-            {/* VEHICLE IDENTITY */}
-            <section>
-              <h2>Vehicle Identity</h2>
-              {/* VEHICLE IDENTITY - REGISTRATION NUMBER */}
-              {free.RegistrationNumber && (
+            {/* STATUS WINDOWS */}
+            <section className="status-windows-container">
+              {/* STATUS WINDOWS - TAX */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    free.TaxStatus === "Taxed" ? "#e1f909" : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">TAX</div>
+                  <div className="status-window-details">
+                    Expires: <br />
+                    {FormatDate(free.TaxDueDate)}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - MOT */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    free.MotStatus === "Valid" ? "#e1f909" : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">MOT</div>
+                  <div className="status-window-details">
+                    Expires: <br />
+                    {FormatDate(free.MotExpiryDate)}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - FINANCES */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.FinanceRecordCount === 0 ? "#e1f909" : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Finances</div>
+                  <div className="status-window-details">
+                    {full.FinanceRecordCount === 0 ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Number of Records:{" "}
+                        <span className="status-window-details-count">
+                          {full.FinanceRecordCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - WRITE OFF */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.WrittenOff === false && full.WriteOffRecordCount === 0
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Write Off</div>
+                  <div className="status-window-details">
+                    {full.WriteOffRecordCount === 0 ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Number of Records:{" "}
+                        <span>{full.WriteOffRecordCount}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - IMPORTED / EXPORTED */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.Imported === false && full.Exported === false
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Export</div>
+                  <div className="status-window-details">
+                    {full.Imported === false && full.Exported === false ? (
+                      <>No Records</>
+                    ) : (
+                      <>Click to View Details</>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - SCRAPPED */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.Scrapped === false ? "#e1f909" : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Scrapped</div>
+                  <div className="status-window-details">
+                    {full.Scrapped === false ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Scrap Date: <br />
+                        {FormatDate(full.ScrapDate)}
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - VIC INSPECTED */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.VicTested === false || full.VicTested === null
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">VIC</div>
+                  <div className="status-window-details">
+                    {full.VicTested === false || full.VicTested === null ? (
+                      <>No Records</>
+                    ) : (
+                      <>Click to View Details</>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - COLOUR CHANGES */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    basic.VehicleHistory.ColourChangeCount === null ||
+                    basic.VehicleHistory.ColourChangeCount === 0
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Colour</div>
+                  <div className="status-window-details">
+                    {basic.VehicleHistory.ColourChangeCount === null ||
+                    basic.VehicleHistory.ColourChangeCount === 0 ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Number of Records:{" "}
+                        <span className="status-window-details-count">
+                          {basic.VehicleHistory.ColourChangeCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - PLATE CHANGES */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.PlateChangeCount === null ||
+                    full.PlateChangeCount === 0
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Plate</div>
+                  <div className="status-window-details">
+                    {full.PlateChangeCount === null ||
+                    full.PlateChangeCount === 0 ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Number of Records:{" "}
+                        <span className="status-window-details-count">
+                          {full.PlateChangeCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - STOLEN */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.Stolen === false || full.Stolen === null
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Stolen</div>
+                  <div className="status-window-details">
+                    {full.Stolen === false || full.Stolen === null ? (
+                      <>No Records</>
+                    ) : (
+                      <>Click to View Details</>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - MILEAGE */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.MileageAnomalyDetected === false ||
+                    full.MileageAnomalyDetected === null
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Mileage</div>
+                  <div className="status-window-details">
+                    {full.MileageAnomalyDetected === false ||
+                    full.MileageAnomalyDetected === null ? (
+                      <>No Records</>
+                    ) : (
+                      <>Click to View Details</>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - KEEPERS */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.PreviousKeeperCount === null ||
+                    full.PreviousKeeperCount === 0
+                      ? "#e1f909"
+                      : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">Keepers</div>
+                  <div className="status-window-details">
+                    {full.PreviousKeeperCount === null ||
+                    full.PreviousKeeperCount === 0 ? (
+                      <>No Records</>
+                    ) : (
+                      <>
+                        Number of Records:{" "}
+                        <span className="status-window-details-count">
+                          {full.PreviousKeeperCount}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+              {/* STATUS WINDOWS - V5C */}
+              <div
+                className="status-window"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${
+                    full.LatestV5cIssuedDate != null ? "#e1f909" : "#f6514b"
+                  } 1rem, white 1rem`,
+                }}
+              >
+                <div className="status-window-content">
+                  <div className="status-window-title">V5C</div>
+                  <div className="status-window-details">
+                    Date Issued: <br />
+                    {FormatDate(full.LatestV5cIssuedDate)}
+                  </div>
+                </div>
+              </div>
+            </section>
+            {/* VEHICLE DETAILS */}
+            <section className="section">
+              <div className="section-title">
+                {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
+                <br />
+                <span className="section-title-sub">Details</span>
+              </div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {/* VEHICLE DETAILS - AI SUMMARY */}
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[1]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* VEHICLE DETAILS - MODEL */}
+                      {basic.VehicleRegistration.MakeModel && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">Model</td>
+                          <td>
+                            {CapitalizeEachWord(
+                              basic.VehicleRegistration.MakeModel
+                            )}
+                          </td>
+                        </tr>
+                      )}
+                      {/* VEHICLE DETAILS - FUEL TYPE */}
+                      {free.FuelType && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Fuel Type
+                          </td>
+                          <td>{CapitalizeEachWord(free.FuelType)}</td>
+                        </tr>
+                      )}
+                      {/* VEHICLE DETAILS - COLOUR */}
+                      {free.Colour && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Colour
+                          </td>
+                          <td>{CapitalizeEachWord(free.Colour)}</td>
+                        </tr>
+                      )}
+                      {/* VEHICLE DETAILS - ENGINE */}
+                      {free.EngineCapacity && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Engine
+                          </td>
+                          <td>{free.EngineCapacity} cc</td>
+                        </tr>
+                      )}
+                      {/* VEHICLE DETAILS - GEARBOX */}
+                      {basic.SmmtDetails.Transmission &&
+                        basic.SmmtDetails.NumberOfGears && (
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Gearbox
+                            </td>
+                            <td>
+                              {basic.SmmtDetails.NumberOfGears} speed{" "}
+                              {CapitalizeEachWord(
+                                basic.SmmtDetails.Transmission
+                              )}
+                            </td>
+                          </tr>
+                        )}
+                      {/* VEHICLE DETAILS - ACCELERATION */}
+                      {basic.TechnicalDetails.Performance.Acceleration
+                        .ZeroTo60Mph && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Acceleration
+                          </td>
+                          <td>Column 3, Row 2</td>
+                        </tr>
+                      )}
+                      {/* VEHICLE DETAILS - TOP SPEED */}
+                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph && (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Top Speed
+                          </td>
+                          <td>
+                            {basic.TechnicalDetails.Performance.MaxSpeed.Mph}{" "}
+                            Mph
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                  {/* VEHICLE DETAILS - IMAGE */}
+                  <div>
+                    {/* TODO: Add Image from new Api endpoint */}
+                    <img
+                      width={"100%"}
+                      src="https://media.istockphoto.com/id/155376760/photo/side-of-silver-modern-compact-car-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c=0L9-QU_RPpPVM8d-OzxjN7kZsm-RyYKsuK-ll-TThyc="
+                      alt="Car"
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* VEHICLE DETAILS - REGISTRATION NUMBER */}
+              {/* {free.RegistrationNumber && (
                 <div>Registration Number: {free.RegistrationNumber}</div>
-              )}
-              {/* VEHICLE IDENTITY - VEHICLE */}
-              {basic.VehicleRegistration.MakeModel && (
+              )} */}
+              {/* VEHICLE DETAILS - VEHICLE */}
+              {/* {basic.VehicleRegistration.MakeModel && (
                 <div>
                   Vehicle:
                   {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
                 </div>
-              )}
-              {/* VEHICLE IDENTITY - BODY STYLE */}
-              {(basic.VehicleRegistration.DoorPlanLiteral ||
+              )} */}
+              {/* VEHICLE DETAILS - BODY STYLE */}
+              {/* {(basic.VehicleRegistration.DoorPlanLiteral ||
                 basic.VehicleRegistration.SeatingCapacity) && (
                 <div>
                   Body Style:{" "}
@@ -193,9 +691,9 @@ const OrderDetails = ({ orderId }) => {
                   )}
                   , {basic.VehicleRegistration.SeatingCapacity} Seats
                 </div>
-              )}
-              {/* VEHICLE IDENTITY - TAX */}
-              <div>
+              )} */}
+              {/* VEHICLE DETAILS - TAX */}
+              {/* <div>
                 {free.TaxStatus === "Taxed" ? (
                   <div>Taxed</div>
                 ) : (
@@ -232,9 +730,9 @@ const OrderDetails = ({ orderId }) => {
                     {new Date(free.TaxDueDate).toLocaleDateString()}
                   </div>
                 )}
-              </div>
-              {/* VEHICLE IDENTITY - MOT */}
-              <div>
+              </div> */}
+              {/* VEHICLE DETAILS - MOT */}
+              {/* <div>
                 {free.MotStatus === "Valid" ? (
                   <div>Valid</div>
                 ) : (
@@ -271,7 +769,7 @@ const OrderDetails = ({ orderId }) => {
                     {new Date(free.MotExpiryDate).toLocaleDateString()}
                   </div>
                 )}
-              </div>
+              </div> */}
             </section>
             {/* VEHICLE HISTORY */}
             <section>
@@ -306,7 +804,7 @@ const OrderDetails = ({ orderId }) => {
                   </div>
                 )}
               </div>
-              {/* VEHICLE HISTORY - WRITTEN OFF */}
+              {/* VEHICLE HISTORY - WRITE OFF */}
               <div>
                 <div>Written Off</div>
                 {full.WrittenOff === false && full.WriteOffRecordCount === 0 ? (

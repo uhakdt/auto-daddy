@@ -1,0 +1,236 @@
+/* MAIN */
+
+.section {
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-color: rgb(228, 228, 228);
+  border-style: solid;
+  border-radius: 5px;
+  padding: 1rem;
+  display: flex; /* Align children in a row */
+  justify-content: space-between; /* Distribute the space evenly between children */
+  align-items: center; /* Center the children vertically */
+  margin: 0.3rem;
+}
+
+.section-title {
+  padding-right: 0.5rem; /* Adjust as needed */
+  flex-basis: 200px; /* Specifies the base width of the title */
+  flex-shrink: 0; /* Prevents the title from shrinking */
+  font-size: x-large;
+  text-align: center;
+  font-weight: bold;
+}
+
+.section-title-sub {
+  font-size: medium;
+}
+
+.section-divider {
+  width: 1px; /* Make the divider a thin vertical line */
+  background-color: #c1c1c1; /* Or use the color you want */
+  margin: 0 1rem; /* Add some horizontal margin to create space */
+  flex-shrink: 0; /* Prevents the divider from shrinking */
+  align-self: stretch; /* Make the divider take the full height of the parent */
+}
+
+.section-content {
+  padding-left: 0.5rem; /* Adjust as needed */
+  flex-grow: 1; /* Allows the content to take up remaining space */
+}
+
+@media (max-width: 600px) {
+  .section {
+    flex-direction: column; /* Stack children vertically */
+  }
+
+  .section-title {
+    padding-right: 0; /* Remove right padding */
+    padding-bottom: 0.5rem; /* Add bottom padding */
+    flex-basis: auto; /* Removes the fixed width on mobile */
+  }
+
+  .section-divider {
+    width: 100%; /* Make the divider a full-width horizontal line */
+    height: 1px; /* Make the divider thin */
+    margin: 0.5rem 0; /* Add some vertical margin to create space */
+  }
+
+  .section-content {
+    padding-left: 0; /* Remove left padding */
+    padding-top: 0.5rem; /* Add top padding */
+  }
+}
+
+/* BUTTONS */
+
+.button {
+  margin-right: 1rem;
+  margin-top: 1rem;
+  background-color: #24a0ed;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Adjust transition to include all properties */
+}
+
+.button:hover {
+  background-color: #1c80cb;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  background-color: #145a8b;
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* REGISTRATION NUMBER PLATE */
+
+.registration-number-container {
+  display: flex;
+  border: 2px solid #cdcdcd;
+  border-radius: 5px;
+  background-color: white;
+  width: max-content;
+}
+
+.registration-number-gb {
+  background-color: white;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  border-right: 1px solid #cdcdcd;
+  flex-basis: 10%; /* Set the width to be 10% of the container */
+  flex-shrink: 0; /* Prevent the box from shrinking */
+  text-align: center;
+}
+
+.registration-number-content {
+  background-color: #e8f653;
+  color: black;
+  font-size: xx-large;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  flex-grow: 1; /* Allow the box to take up the remaining space */
+  text-align: center;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* AI SUMMARY */
+
+.ai-summary-container {
+  position: relative; /* This allows us to position .ai-summary-by relative to this container */
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  border-color: #dddddd;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.ai-summary-content {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.ai-summary-by {
+  margin-top: 0.2rem;
+  position: absolute; /* This allows us to position this element at the bottom right of .ai-summary-container */
+  bottom: 0;
+  right: 0;
+  font-size: 0.75rem;
+  color: #9f00d0;
+  padding: 0.5rem;
+}
+
+/* STATUS WINDOWS */
+
+.status-windows-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.3rem;
+  justify-content: center;
+}
+
+.status-window {
+  width: 6.5rem;
+  min-height: 4.5rem;
+  background-color: white;
+  border-radius: 5px;
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+
+.status-window-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+  font-weight: bold;
+  color: #575757;
+}
+
+.status-window-details {
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+
+.status-window-details-count {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #f6514b;
+}
+
+/* TABLES */
+.table-figure-container {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .table-figure-container {
+    flex-direction: column;
+  }
+}
+
+.section-table {
+  margin: 0 auto;
+  min-width: 50%;
+}
+
+.section-table td {
+  border: 1.5px solid rgb(195, 195, 195);
+  padding: 10px;
+}
+
+.section-table-first-column {
+  border-bottom-style: hidden !important;
+  align-content: center;
+}
+
+.section-table-second-column {
+  border-left-style: hidden !important;
+}
+
+.section-table-row-status {
+  height: 0.75rem;
+  width: 0.75rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 0.1rem;
+}
