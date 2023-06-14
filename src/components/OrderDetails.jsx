@@ -14,7 +14,9 @@ import {
 import FormatDate from "../auxiliaryFunctions/dateFunctions";
 import Snackbar from "@mui/material/Snackbar";
 import "./OrderDetails.css";
-import EmissionsLabel from "./SVGs/EmissionsLabel";
+import { storage } from "../firebase";
+import axios from "axios";
+import { ref, getDownloadURL } from "firebase/storage";
 
 const auth = getAuth();
 
@@ -41,9 +43,7 @@ const OrderDetails = ({ orderId }) => {
   const [free, setVehicleFreeData] = useState(null);
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
-  console.log(free);
-  console.log(basic);
-  console.log(full);
+  const [imageUrl, setImageUrl] = useState([]);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -54,6 +54,17 @@ const OrderDetails = ({ orderId }) => {
   const scrollToRef = (ref) => {
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const fetchImageUrl = async () => {
+      const fileName = `${orderId}_image_0.jpg`;
+      const filePath = `user_files/${auth.currentUser.uid}/car_images/${fileName}`;
+      const url = await getDownloadURL(ref(storage, filePath));
+      setImageUrl(url);
+    };
+
+    fetchImageUrl();
+  }, [orderId]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -661,14 +672,11 @@ const OrderDetails = ({ orderId }) => {
                     </tbody>
                   </table>
                   {/* VEHICLE DETAILS - FIGURE */}
-                  <div>
-                    {/* TODO: Add Image from new Api endpoint */}
-                    <img
-                      width={"100%"}
-                      src="https://media.istockphoto.com/id/155376760/photo/side-of-silver-modern-compact-car-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c=0L9-QU_RPpPVM8d-OzxjN7kZsm-RyYKsuK-ll-TThyc="
-                      alt="Car"
-                    />
-                  </div>
+                  {order.data.VehicleImages.length > 0 && (
+                    <div>
+                      <img width={"100%"} src={imageUrl} alt="Car" />
+                    </div>
+                  )}
                 </div>
               </div>
               {/* VEHICLE DETAILS - REGISTRATION NUMBER */}
@@ -941,15 +949,13 @@ const OrderDetails = ({ orderId }) => {
                     </tbody>
                   </table>
                   {/* ENERGY & CONSUMPTION - FIGURE */}
-                  <div>
-                    <EmissionsLabel />
-                    {/* TODO: Add Image from new Api endpoint */}
-                    {/* <img
+                  {/* TODO: IMPLEMENT THE EMISSIONS FIGURE*/}
+                  {/* <div>
+                    <EmissionsLabel
                       width={"100%"}
-                      src="https://media.istockphoto.com/id/155376760/photo/side-of-silver-modern-compact-car-on-a-white-background.jpg?s=1024x1024&w=is&k=20&c=0L9-QU_RPpPVM8d-OzxjN7kZsm-RyYKsuK-ll-TThyc="
-                      alt="Car"
-                    /> */}
-                  </div>
+                      emission={basic.TechnicalDetails.Performance.Co2}
+                    />
+                  </div> */}
                 </div>
               </div>
               {/* <div>
@@ -1332,7 +1338,7 @@ const OrderDetails = ({ orderId }) => {
                     {full.PreviousKeeperList.map((x, i) => (
                       <div key={i}>
                         {GetOrdinalSuffix(i)}
-                        {/*TODO: Needs to be checked and added*/}
+                        {/* TODO: Needs to be checked and added */}
                       </div>
                     ))}
                     <div>
