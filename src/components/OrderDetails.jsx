@@ -43,7 +43,7 @@ const OrderDetails = ({ orderId }) => {
   const [free, setVehicleFreeData] = useState(null);
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
-  const [imageUrl, setImageUrl] = useState([]);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -63,8 +63,8 @@ const OrderDetails = ({ orderId }) => {
       setImageUrl(url);
     };
 
-    fetchImageUrl();
-  }, [orderId]);
+    if (order) fetchImageUrl();
+  }, [order]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -672,7 +672,7 @@ const OrderDetails = ({ orderId }) => {
                     </tbody>
                   </table>
                   {/* VEHICLE DETAILS - FIGURE */}
-                  {order.data.VehicleImages.length > 0 && (
+                  {imageUrl && (
                     <div>
                       <img width={"100%"} src={imageUrl} alt="Car" />
                     </div>
