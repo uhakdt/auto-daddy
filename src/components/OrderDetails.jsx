@@ -174,21 +174,25 @@ const OrderDetails = ({ orderId }) => {
             {/* VEHICLE MAIN */}
             <section className="section">
               <div className="section-title">
-                {basic.VehicleRegistration.MakeModel && (
+                {basic.VehicleRegistration.MakeModel ? (
                   <div>
                     {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
                   </div>
+                ) : (
+                  <></>
                 )}
               </div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {free.RegistrationNumber && (
+                {free.RegistrationNumber ? (
                   <div className="registration-number-container">
                     <div className="registration-number-gb">GB</div>
                     <div className="registration-number-content">
                       {free.RegistrationNumber}
                     </div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 <button className="button" onClick={handleDownloadReport}>
                   Download Report
@@ -212,11 +216,14 @@ const OrderDetails = ({ orderId }) => {
               </div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {aiContentList[0] && (
+                {/* SUMMARY - AI SUMMARY */}
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[0]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
               </div>
             </section>
@@ -534,17 +541,19 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-divider"></div>
               <div className="section-content">
                 {/* VEHICLE DETAILS - AI SUMMARY */}
-                {aiContentList[0] && (
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[1]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 <div className="table-figure-container">
                   <table rules="all" className="section-table">
                     <tbody>
                       {/* VEHICLE DETAILS - MODEL */}
-                      {basic.VehicleRegistration.MakeModel && (
+                      {basic.VehicleRegistration.MakeModel ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -562,9 +571,11 @@ const OrderDetails = ({ orderId }) => {
                             )}
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* VEHICLE DETAILS - FUEL TYPE */}
-                      {free.FuelType && (
+                      {free.FuelType ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -580,9 +591,11 @@ const OrderDetails = ({ orderId }) => {
                           </td>
                           <td>{CapitalizeEachWord(free.FuelType)}</td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* VEHICLE DETAILS - COLOUR */}
-                      {free.Colour && (
+                      {free.Colour ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -598,9 +611,11 @@ const OrderDetails = ({ orderId }) => {
                           </td>
                           <td>{CapitalizeEachWord(free.Colour)}</td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* VEHICLE DETAILS - ENGINE */}
-                      {free.EngineCapacity && (
+                      {free.EngineCapacity ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -616,34 +631,36 @@ const OrderDetails = ({ orderId }) => {
                           </td>
                           <td>{free.EngineCapacity} cc</td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* VEHICLE DETAILS - GEARBOX */}
                       {basic.SmmtDetails.Transmission &&
-                        basic.SmmtDetails.NumberOfGears && (
-                          <tr>
-                            <td className="section-table-first-column">
-                              <div
-                                className="section-table-row-status"
-                                style={{
-                                  backgroundColor: "rgb(225, 249, 9)",
-                                  borderColor: "rgb(121, 130, 45)",
-                                }}
-                              ></div>
-                            </td>
-                            <td className="section-table-second-column">
-                              Gearbox
-                            </td>
-                            <td>
-                              {basic.SmmtDetails.NumberOfGears} speed{" "}
-                              {CapitalizeEachWord(
-                                basic.SmmtDetails.Transmission
-                              )}
-                            </td>
-                          </tr>
-                        )}
+                      basic.SmmtDetails.NumberOfGears ? (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Gearbox
+                          </td>
+                          <td>
+                            {basic.SmmtDetails.NumberOfGears} speed{" "}
+                            {CapitalizeEachWord(basic.SmmtDetails.Transmission)}
+                          </td>
+                        </tr>
+                      ) : (
+                        <></>
+                      )}
                       {/* VEHICLE DETAILS - ACCELERATION */}
                       {basic.TechnicalDetails.Performance.Acceleration
-                        .ZeroTo60Mph && (
+                        .ZeroTo60Mph ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -659,9 +676,11 @@ const OrderDetails = ({ orderId }) => {
                           </td>
                           <td>Column 3, Row 2</td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* VEHICLE DETAILS - TOP SPEED */}
-                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph && (
+                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -680,14 +699,18 @@ const OrderDetails = ({ orderId }) => {
                             Mph
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                     </tbody>
                   </table>
                   {/* VEHICLE DETAILS - FIGURE */}
-                  {imageUrl && (
+                  {imageUrl ? (
                     <div>
                       <img width={"100%"} src={imageUrl} alt="Car" />
                     </div>
+                  ) : (
+                    <></>
                   )}
                 </div>
               </div>
@@ -797,66 +820,71 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-title">Energy & Consumption</div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {aiContentList[0] && (
+                {/* ENERGY & CONSUMPTION - AI SUMMARY */}
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[0]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 <div className="table-figure-container">
                   <table rules="all" className="section-table">
                     <tbody>
                       {/* ENERGY & CONSUMPTION - POWER */}
                       {basic.TechnicalDetails.Performance.Power.Bhp &&
-                        basic.TechnicalDetails.Performance.Power.Kw &&
-                        basic.TechnicalDetails.Performance.Power.Rpm && (
-                          <tr>
-                            <td className="section-table-first-column">
-                              <div
-                                className="section-table-row-status"
-                                style={{
-                                  backgroundColor: "rgb(225, 249, 9)",
-                                  borderColor: "rgb(121, 130, 45)",
-                                }}
-                              ></div>
-                            </td>
-                            <td className="section-table-second-column">
-                              Power
-                            </td>
-                            <td>
-                              {basic.TechnicalDetails.Performance.Power.Bhp} BHP
-                              {" / "}
-                              {basic.TechnicalDetails.Performance.Power.Kw} KW
-                              {" / "}
-                              {basic.TechnicalDetails.Performance.Power.Rpm} RPM
-                            </td>
-                          </tr>
-                        )}
+                      basic.TechnicalDetails.Performance.Power.Kw &&
+                      basic.TechnicalDetails.Performance.Power.Rpm ? (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">Power</td>
+                          <td>
+                            {basic.TechnicalDetails.Performance.Power.Bhp} BHP
+                            {" / "}
+                            {basic.TechnicalDetails.Performance.Power.Kw} KW
+                            {" / "}
+                            {basic.TechnicalDetails.Performance.Power.Rpm} RPM
+                          </td>
+                        </tr>
+                      ) : (
+                        <></>
+                      )}
                       {/* ENERGY & CONSUMPTION - TORQUE */}
                       {basic.TechnicalDetails.Performance.Torque.Nm &&
-                        basic.TechnicalDetails.Performance.Torque.Rpm && (
-                          <tr>
-                            <td className="section-table-first-column">
-                              <div
-                                className="section-table-row-status"
-                                style={{
-                                  backgroundColor: "rgb(225, 249, 9)",
-                                  borderColor: "rgb(121, 130, 45)",
-                                }}
-                              ></div>
-                            </td>
-                            <td className="section-table-second-column">
-                              Torque
-                            </td>
-                            <td>
-                              {basic.TechnicalDetails.Performance.Torque.Nm} Nm
-                              at {basic.TechnicalDetails.Performance.Torque.Rpm}{" "}
-                            </td>
-                          </tr>
-                        )}
+                      basic.TechnicalDetails.Performance.Torque.Rpm ? (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Torque
+                          </td>
+                          <td>
+                            {basic.TechnicalDetails.Performance.Torque.Nm} Nm at{" "}
+                            {basic.TechnicalDetails.Performance.Torque.Rpm}{" "}
+                          </td>
+                        </tr>
+                      ) : (
+                        <></>
+                      )}
                       {/* ENERGY & CONSUMPTION - CYLINDERS */}
                       {basic.TechnicalDetails.General.Engine
-                        .NumberOfCylinders && (
+                        .NumberOfCylinders ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -877,9 +905,11 @@ const OrderDetails = ({ orderId }) => {
                             }
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* ENERGY & CONSUMPTION - URBAN */}
-                      {basic.TechnicalDetails.Consumption.UrbanCold.Mpg && (
+                      {basic.TechnicalDetails.Consumption.UrbanCold.Mpg ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -896,9 +926,11 @@ const OrderDetails = ({ orderId }) => {
                             Mpg
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* ENERGY & CONSUMPTION - EXTRA URBAN */}
-                      {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg && (
+                      {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -917,9 +949,11 @@ const OrderDetails = ({ orderId }) => {
                             Mpg
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* ENERGY & CONSUMPTION - COMBINED */}
-                      {basic.TechnicalDetails.Consumption.Combined.Mpg && (
+                      {basic.TechnicalDetails.Consumption.Combined.Mpg ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -938,9 +972,11 @@ const OrderDetails = ({ orderId }) => {
                             Mpg
                           </td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                       {/* ENERGY & CONSUMPTION - CO2 EMISSIONS */}
-                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph && (
+                      {basic.TechnicalDetails.Performance.MaxSpeed.Mph ? (
                         <tr>
                           <td className="section-table-first-column">
                             <div
@@ -957,6 +993,8 @@ const OrderDetails = ({ orderId }) => {
                           </td>
                           <td>{basic.TechnicalDetails.Performance.Co2} g/Km</td>
                         </tr>
+                      ) : (
+                        <></>
                       )}
                     </tbody>
                   </table>
@@ -1007,11 +1045,14 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-title">MOT</div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {aiContentList[0] && (
+                {/* MOT - AI SUMMARY */}
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[0]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 {/* MOT - SUMMARY */}
                 <div className="table-figure-container">
@@ -1032,8 +1073,7 @@ const OrderDetails = ({ orderId }) => {
                           Pass Rate
                         </td>
                         <td>
-                          {basic.MotHistory.RecordList.length !== 0 ||
-                          basic.MotHistory.RecordList !== null ? (
+                          {basic.MotHistory.RecordList.length ? (
                             <>
                               {CalculateMOTPassRate(
                                 basic.MotHistory.RecordList
@@ -1227,11 +1267,14 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-title">Tax</div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {aiContentList[0] && (
+                {/* TAX - AI SUMMARY */}
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[0]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 {/* TAX - SUMMARY */}
                 <div className="table-figure-container">
@@ -1399,11 +1442,14 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-title">Mileage</div>
               <div className="section-divider"></div>
               <div className="section-content">
-                {aiContentList[0] && (
+                {/* MILEAGE - AI SUMMARY */}
+                {aiContentList[0] ? (
                   <div className="ai-summary-container">
                     <div className="ai-summary-content">{aiContentList[0]}</div>
                     <div className="ai-summary-by">Powered By ChadGPT</div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 {/* MILEAGE - SUMMARY */}
                 <div className="table-figure-container">
@@ -1625,39 +1671,489 @@ const OrderDetails = ({ orderId }) => {
                 })}
               </div>
             </section>
+            {/* PLATE CHANGES */}
+            <section className="section">
+              <div className="section-title">Plate Changes</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {/* PLATE CHANGES - AI SUMMARY */}
+                {aiContentList[0] ? (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {/* PLATE CHANGES */}
+                {full.PlateChangeList.map((x, i) => {
+                  return (
+                    <div className="table-figure-container">
+                      <table
+                        style={{ width: "100%" }}
+                        rules="all"
+                        className="section-table"
+                      >
+                        <tbody>
+                          {/* PLATE CHANGES - DATE CHANGED */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date Changed
+                            </td>
+                            <td>{FormatDate(x.DateChanged)}</td>
+                          </tr>
+                          {/* PLATE CHANGES - PREVIOUS VRM */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Previous Plate Number
+                            </td>
+                            <td>{x.PreviousVrm}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+            {/* OUTSTANDING FINANCES */}
+            <section className="section">
+              <div className="section-title">Outstanding Finances</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {/* OUTSTANDING FINANCES - AI SUMMARY */}
+                {aiContentList[0] ? (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                {/* OUTSTANDING FINANCES */}
+                {full.FinanceRecordList.map((x, i) => {
+                  return (
+                    <div className="table-figure-container">
+                      <table
+                        style={{ width: "100%" }}
+                        rules="all"
+                        className="section-table"
+                      >
+                        <tbody>
+                          {/* OUTSTANDING FINANCES - AGREEMENT DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Agreement Date
+                            </td>
+                            <td>{FormatDate(x.AgreementDate)}</td>
+                          </tr>
+                          {/* OUTSTANDING FINANCES - AGREEMENT NUMBER */}
+                          {x.AgreementNumber !== "REDACTED" ? (
+                            <tr>
+                              <td className="section-table-first-column">
+                                <div
+                                  className="section-table-row-status"
+                                  style={{
+                                    backgroundColor: "rgb(225, 249, 9)",
+                                    borderColor: "rgb(121, 130, 45)",
+                                  }}
+                                ></div>
+                              </td>
+                              <td className="section-table-second-column">
+                                Agreement Number
+                              </td>
+                              <td>{x.AgreementNumber}</td>
+                            </tr>
+                          ) : null}
+                          {/* OUTSTANDING FINANCES - AGREEMENT TERM */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Agreement Term
+                            </td>
+                            <td>{x.AgreementTerm}</td>
+                          </tr>
+                          {/* OUTSTANDING FINANCES - AGREEMENT TYPE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Agreement Type
+                            </td>
+                            <td>{x.AgreementType}</td>
+                          </tr>
+                          {/* OUTSTANDING FINANCES - CONTACT NUMBER */}
+                          {x.ContactNumber !== "REDACTED" ? (
+                            <tr>
+                              <td className="section-table-first-column">
+                                <div
+                                  className="section-table-row-status"
+                                  style={{
+                                    backgroundColor: "rgb(225, 249, 9)",
+                                    borderColor: "rgb(121, 130, 45)",
+                                  }}
+                                ></div>
+                              </td>
+                              <td className="section-table-second-column">
+                                Contact Number
+                              </td>
+                              <td>{x.ContactNumber}</td>
+                            </tr>
+                          ) : null}
+                          {/* OUTSTANDING FINANCES - FINANCE COMPANY */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Finance Company
+                            </td>
+                            <td>{x.FinanceCompany}</td>
+                          </tr>
+                          {/* OUTSTANDING FINANCES - VEHICLE DESCRIPTION */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Vehicle Description
+                            </td>
+                            <td>{x.VehicleDescription}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+            {/* STOLEN */}
+            {full.Stolen ? (
+              <>
+                <section className="section">
+                  <div className="section-title">Stolen</div>
+                  <div className="section-divider"></div>
+                  <div className="section-content">
+                    {/* STOLEN - AI SUMMARY */}
+                    {aiContentList[0] ? (
+                      <div className="ai-summary-container">
+                        <div className="ai-summary-content">
+                          {aiContentList[0]}
+                        </div>
+                        <div className="ai-summary-by">Powered By ChadGPT</div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    {/* STOLEN - SUMMARY */}
+                    <div className="table-figure-container">
+                      <table rules="all" className="section-table">
+                        <tbody>
+                          {/* STOLEN - SUMMARY - STATUS */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Status
+                            </td>
+                            <td>{full.StolenStatus}</td>
+                          </tr>
+                          {/* STOLEN - SUMMARY - CONTACT NUMBER */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Contact Number
+                            </td>
+                            <td>{full.StolenContactNumber}</td>
+                          </tr>
+                          {/* STOLEN - SUMMARY - DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date
+                            </td>
+                            <td>{FormatDate(full.StolenDate)}</td>
+                          </tr>
+                          {/* STOLEN - SUMMARY - POLICE FORCE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Police Force
+                            </td>
+                            <td>{full.StolenPoliceForce}</td>
+                          </tr>
+                          {/* STOLEN - SUMMARY - INFORMATION SOURCE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Information Source
+                            </td>
+                            <td>{full.StolenInfoSource}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    {/* STOLEN - MIAFTR */}
+                    {full.StolenMiaftrRecordCount > 0 ? (
+                      <>
+                        {full.StolenMiaftrRecordList.map((x, i) => {
+                          return (
+                            <div className="table-figure-container">
+                              <table
+                                style={{ width: "100%" }}
+                                rules="all"
+                                className="section-table"
+                              >
+                                <tbody>
+                                  {/* TODO: Needs to be checked and added */}
+                                </tbody>
+                              </table>
+                            </div>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </section>
+              </>
+            ) : (
+              <></>
+            )}
+            {/* IMPORTED / EXPORTED */}
+            <section className="section">
+              <div className="section-title">
+                {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
+                <br />
+                <span className="section-title-sub">Details</span>
+              </div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {/* IMPORTED / EXPORTED - AI SUMMARY */}
+                {aiContentList[0] ? (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[1]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* IMPORTED / EXPORTED - DATE FIRST REGISTERED */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Date First Registered
+                        </td>
+                        <td>{FormatDate(full.DateFirstRegistered)}</td>
+                      </tr>
+                      {/* IMPORTED / EXPORTED - IMPORTED */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        {full.Imported ? (
+                          <>
+                            <td className="section-table-second-column">
+                              Import Date
+                            </td>
+                            <td>{FormatDate(full.ImportDate)}</td>
+                          </>
+                        ) : (
+                          <>
+                            <td className="section-table-second-column">
+                              Imported
+                            </td>
+                            <td>False</td>
+                          </>
+                        )}
+                      </tr>
+                      {/* IMPORTED / EXPORTED - IMPORT USED BEFORE UK REGISTERATION */}
+                      {full.ImportUsedBeforeUkRegistration ? (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Import Used before UK Registration
+                          </td>
+                          <td>{full.ImportUsedBeforeUkRegistration}</td>
+                        </tr>
+                      ) : (
+                        <></>
+                      )}
+                      {/* IMPORTED / EXPORTED - IMPORTED FROM OUTSIDE EU */}
+                      {full.ImportedFromOutsideEu ? (
+                        <tr>
+                          <td className="section-table-first-column">
+                            <div
+                              className="section-table-row-status"
+                              style={{
+                                backgroundColor: "rgb(225, 249, 9)",
+                                borderColor: "rgb(121, 130, 45)",
+                              }}
+                            ></div>
+                          </td>
+                          <td className="section-table-second-column">
+                            Imported From Outside EU
+                          </td>
+                          <td>{full.ImportedFromOutsideEu}</td>
+                        </tr>
+                      ) : (
+                        <></>
+                      )}
+                      {/* IMPORTED / EXPORTED - EXPORTED */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        {full.Exported ? (
+                          <>
+                            <td className="section-table-second-column">
+                              Export Date
+                            </td>
+                            <td>{FormatDate(full.ExportDate)}</td>
+                          </>
+                        ) : (
+                          <>
+                            <td className="section-table-second-column">
+                              Exported
+                            </td>
+                            <td>False</td>
+                          </>
+                        )}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
             {/* VEHICLE HISTORY */}
             <section>
               <h2>Vehicle History</h2>
-              {/* VEHICLE HISTORY - OUTSTANDING FINANCE */}
-              <div>
-                <div>Outstanding Finance</div>
-                {full.FinanceRecordCount === 0 ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>
-                      No outstanding finance recorded against this vehicle
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    {full.FinanceRecordList.map((x, i) => (
-                      <div key={i}>
-                        <div>
-                          Agreement Date:{" "}
-                          {new Date(x.AgreementDate).toLocaleDateString()}
-                        </div>
-                        <div>Agreement Number: {x.AgreementNumber}</div>
-                        <div>Agreement Term: {x.AgreementTerm}</div>
-                        <div>Agreement Type: {x.AgreementType}</div>
-                        <div>Contact Number: {x.ContactNumber}</div>
-                        <div>Finance Company: {x.FinanceCompany}</div>
-                        <div>Vehicle Description: {x.VehicleDescription}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
               {/* VEHICLE HISTORY - WRITE OFF */}
               <div>
                 <div>Written Off</div>
@@ -1684,84 +2180,6 @@ const OrderDetails = ({ orderId }) => {
                   </div>
                 )}
               </div>
-              {/* VEHICLE HISTORY - IMPORTED / EXPORTED */}
-              <div>
-                <div>Imported / Exported</div>
-                {full.Imported === false && full.Exported === false ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>
-                      No import / export history recorded against this vehicle
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      {full.DateFirstRegistered && (
-                        <>
-                          Date First Registered:{" "}
-                          {new Date(
-                            full.DateFirstRegistered
-                          ).toLocaleDateString()}
-                        </>
-                      )}
-                      {full.DateFirstRegisteredUk && (
-                        <>
-                          Date First Registered in the UK:{" "}
-                          {new Date(
-                            full.DateFirstRegisteredUk
-                          ).toLocaleDateString()}
-                        </>
-                      )}
-                      {full.Imported && <>Imported: {full.Imported}</>}
-                      {full.ImportDate && (
-                        <>
-                          Import Date:{" "}
-                          {new Date(full.ImportDate).toLocaleDateString()}
-                        </>
-                      )}
-                      {full.ImportUsedBeforeUkRegistration && (
-                        <>
-                          Import used before UK Registration:{" "}
-                          {full.ImportUsedBeforeUkRegistration}
-                        </>
-                      )}
-                      {full.ImportedFromOutsideEu && (
-                        <>
-                          Imported from Outside EU: {full.ImportedFromOutsideEu}
-                        </>
-                      )}
-                    </div>
-                    <div>
-                      {full.Exported && <>Exported: {full.Exported}</>}
-                      {full.ExportDate && (
-                        <>
-                          Export Date:{" "}
-                          {new Date(full.ExportDate).toLocaleDateString()}
-                        </>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - SCRAPPED */}
-              <div>
-                <div>Scrapped</div>
-                {full.Scrapped === false ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>No scrapped history recorded against this vehicle</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Date: {new Date(full.ScrapDate).toLocaleDateString()}
-                    </div>
-                  </div>
-                )}
-              </div>
               {/* VEHICLE HISTORY - VIC INSPECTED */}
               <div>
                 <div>VIC Inspected</div>
@@ -1774,183 +2192,25 @@ const OrderDetails = ({ orderId }) => {
                     <div>Fail</div>
                     <div>
                       VIC Tested: {full.VicTested}
-                      {full.VicTestDate && (
+                      {full.VicTestDate ? (
                         <>
                           VIC Test Date:{" "}
                           {new Date(full.VicTestDate).toLocaleDateString()}
                         </>
+                      ) : (
+                        <></>
                       )}
-                      {full.VicTestResult && (
+                      {full.VicTestResult ? (
                         <>VIC Test Result: {full.VicTestResult}</>
+                      ) : (
+                        <></>
                       )}
                     </div>
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - COLOUR CHANGES */}
-              <div>
-                <div>Colour Changes</div>
-                {basic.VehicleHistory.ColourChangeCount === null ||
-                basic.VehicleHistory.ColourChangeCount === 0 ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>
-                      No colour change history recorded against this vehicle
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Colour Change Count:{" "}
-                      {basic.VehicleHistory.ColourChangeCount}
-                    </div>
-                    {basic.VehicleHistory.ColourChangeList.map((x, i) => (
-                      <div key={i}>
-                        {/* TODO: Needs to be checked and added */}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - PLATE CHANGES */}
-              <div>
-                <div>Plate Changes</div>
-                {full.PlateChangeCount === null ||
-                full.PlateChangeCount === 0 ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>
-                      No plate change history recorded against this vehicle
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Plate Change Count: {full.PlateChangeCount}
-                      {full.PlateChangeList.map((x, i) => (
-                        <div key={i}>
-                          <div>Date Changed: {x.DateChanged}</div>
-                          <div>Previous VRM: {x.PreviousVrm}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - STOLEN */}
-              <div>
-                <div>Stolen</div>
-                {full.Stolen === false || full.Stolen === null ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>No stolen history recorded against this vehicle</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Stolen: {full.Stolen}
-                      {full.StolenStatus && (
-                        <>Stolen Status: {full.StolenStatus}</>
-                      )}
-                      {full.StolenContactNumber && (
-                        <>Stolen Contact Number: {full.StolenContactNumber}</>
-                      )}
-                      {full.StolenDate && (
-                        <>
-                          Stolen Date:{" "}
-                          {new Date(full.StolenDate).toLocaleDateString()}
-                        </>
-                      )}
-                      {full.StolenPoliceForce && (
-                        <>Stolen Police Force: {full.StolenPoliceForce}</>
-                      )}
-                      {full.StolenInfoSource && (
-                        <>Stolen Info Source: {full.StolenInfoSource}</>
-                      )}
-                      {(full.StolenMiaftrRecordCount === 0 ||
-                        full.StolenMiaftrRecordCount === null) && (
-                        <div>
-                          {full.StolenMiaftrRecordList.map((x, i) => (
-                            <div key={i}>
-                              {/* TODO: Needs to be checked and added */}
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - MILEAGE */}
-              <div>
-                <div>Mileage</div>
-                {full.MileageAnomalyDetected === false ||
-                full.MileageAnomalyDetected === null ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>No mileage anomaly detected against this vehicle</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Mileage Anomaly Detected: {full.MileageAnomalyDetected}
-                      <button onClick={() => scrollToRef(goToMileageSection)}>
-                        Look at the Mileage section below for more information.
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - KEEPERS */}
-              <div>
-                <div>Keepers</div>
-                {full.PreviousKeeperCount === null ||
-                full.PreviousKeeperCount === 0 ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>No keeper history recorded against this vehicle</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>Previous Keeper Count: {full.PreviousKeeperCount}</div>
-                    <button onClick={() => scrollToRef(goTokeeperSection)}>
-                      Look at the Keepers section below for more information.
-                    </button>
                   </div>
                 )}
               </div>
             </section>
 
-            {/* KEEPER HISTORY */}
-            <section ref={goTokeeperSection}>
-              <h2>Keeper History</h2>
-              <div>
-                {full.PreviousKeepers === null || full.PreviousKeepers === 0 ? (
-                  <div>No keeper history recorded against this vehicle</div>
-                ) : (
-                  <div>
-                    <div>
-                      Vehicle first registered: {full.DateFirstRegistered}
-                    </div>
-                    {full.PreviousKeeperList.map((x, i) => (
-                      <div key={i}>
-                        {GetOrdinalSuffix(i)}
-                        {/* TODO: Needs to be checked and added */}
-                      </div>
-                    ))}
-                    <div>
-                      Total number of keepers: {full.PreviousKeeperCount}{" "}
-                      (excluding current keeper).
-                    </div>
-                  </div>
-                )}
-              </div>
-            </section>
             {/* IMPORTANT CHECKS */}
             <section>
               <h2>Important Checks</h2>
@@ -1965,62 +2225,36 @@ const OrderDetails = ({ orderId }) => {
             {/* VEHICLE SPECIFICATION */}
             <section>
               <h2>Vehicle Specification</h2>
-              {basic.TechnicalDetails.Dimensions.CarLength && (
+              {basic.TechnicalDetails.Dimensions.CarLength ? (
                 <div>Length: {basic.TechnicalDetails.Dimensions.CarLength}</div>
+              ) : (
+                <></>
               )}
-              {basic.TechnicalDetails.Dimensions.Width && (
+              {basic.TechnicalDetails.Dimensions.Width ? (
                 <div>Width: {basic.TechnicalDetails.Dimensions.Width}</div>
+              ) : (
+                <></>
               )}
-              {basic.TechnicalDetails.Dimensions.Height && (
+              {basic.TechnicalDetails.Dimensions.Height ? (
                 <div>Height: {basic.TechnicalDetails.Dimensions.Height}</div>
+              ) : (
+                <></>
               )}
-              {basic.TechnicalDetails.Dimensions.WheelBase && (
+              {basic.TechnicalDetails.Dimensions.WheelBase ? (
                 <div>
                   Wheel Base: {basic.TechnicalDetails.Dimensions.WheelBase}
                 </div>
+              ) : (
+                <></>
               )}
-              {basic.TechnicalDetails.Dimensions.GrossVehicleWeight && (
+              {basic.TechnicalDetails.Dimensions.GrossVehicleWeight ? (
                 <div>
                   Gross Vehicle Weight:{" "}
                   {basic.TechnicalDetails.Dimensions.GrossVehicleWeight}
                 </div>
+              ) : (
+                <></>
               )}
-            </section>
-            {/* VEHICLE PERFORMANCE */}
-            <section>
-              <h2>Vehicle Performance</h2>
-              {basic.TechnicalDetails.Performance.MaxSpeed.Mph && (
-                <div>
-                  Max Speed: {basic.TechnicalDetails.Performance.MaxSpeed.Mph}{" "}
-                  Mph
-                </div>
-              )}
-              {basic.TechnicalDetails.Performance.Acceleration.ZeroTo60Mph && (
-                <div>
-                  Acceleration (0-60 mph):{" "}
-                  {basic.TechnicalDetails.Performance.Acceleration.ZeroTo60Mph}{" "}
-                  seconds
-                </div>
-              )}
-              {basic.TechnicalDetails.Performance.Power.Bhp && (
-                <div>
-                  Power:{" "}
-                  {basic.TechnicalDetails.Performance.Power.Bhp.toString()} Bhp
-                </div>
-              )}
-            </section>
-
-            {/* REGISTRATION HISTORY */}
-            <section>
-              <h2>Registration History</h2>
-              <div>
-                {full.DateFirstRegistered && (
-                  <div>Date first registered: {full.DateFirstRegistered}</div>
-                )}
-                {full.YearOfManufacture && (
-                  <div>Year of manufacture: {full.YearOfManufacture}</div>
-                )}
-              </div>
             </section>
 
             {/* ABOUT THIS REPORT */}
