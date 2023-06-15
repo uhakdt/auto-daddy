@@ -21,6 +21,8 @@ import {
   CalculateMOTFailedTests,
   CalculateTotalAdviceItems,
   CalculateTotalAdviceItemsFailed,
+  CalculateTaxDaysLeft,
+  CalculateTaxSingle12MonthPayment,
 } from "../auxiliaryFunctions/orderFunctions";
 
 const auth = getAuth();
@@ -1209,10 +1211,413 @@ const OrderDetails = ({ orderId }) => {
                                 MOT Advise
                               </td>
                               <td>
-                                Type: {y.Type} <br /> Advise: {y.Text}
+                                Type: {y.Type} <br /> {y.Text}
                               </td>
                             </tr>
                           ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+            {/* TAX */}
+            <section className="section">
+              <div className="section-title">Tax</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+                {/* TAX - SUMMARY */}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* TAX - SUMMARY - STATUS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Tax Status
+                        </td>
+                        <td>{FormatDate(free.TaxDueDate)}</td>
+                      </tr>
+                      {/* TAX - SUMMARY - DAYS LEFT */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Days Left
+                        </td>
+                        <td>
+                          {CalculateTaxDaysLeft(free.TaxDueDate) > 0 ? (
+                            <>
+                              {CalculateTaxDaysLeft(free.TaxDueDate)} days left
+                            </>
+                          ) : (
+                            <>
+                              {CalculateTaxDaysLeft(free.TaxDueDate) * -1} days
+                              too late
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* TAX - DETAILS */}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* TAX - DETAILS - VEHICLE CLASS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Vehicle Class
+                        </td>
+                        <td>{basic.VehicleRegistration.VehicleClass}</td>
+                      </tr>
+                      {/* TAX - DETAILS - BAND */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          CO<span style={{ fontSize: "0.70rem" }}>2</span>{" "}
+                          Emissions
+                        </td>
+                        <td>{basic.VehicleRegistration.Co2Emissions}g/km </td>
+                      </tr>
+                      {/* TAX - DETAILS - SINGLE 12 MONTHS PAYMENT */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Single 12 Months Payment
+                        </td>
+                        <td>
+                          {CalculateTaxSingle12MonthPayment(
+                            basic.VehicleRegistration.VehicleClass,
+                            basic.VehicleRegistration.Co2Emissions,
+                            basic.ClassificationDetails.Ukvd.IsElectricVehicle,
+                            full.FuelType
+                          )}
+                        </td>
+                      </tr>
+                      {/* TODO: TAX - DETAILS - SINGLE 6 MONTHS PAYMENT */}
+                      {/* <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Single 6 Months Payment
+                        </td>
+                        <td>
+                          {CalculateTaxSingle6MonthPayment(
+                            basic.VehicleRegistration.VehicleClass,
+                            basic.VehicleRegistration.Co2Emissions,
+                            basic.ClassificationDetails.Ukvd.IsElectricVehicle,
+                            full.FuelType
+                          )}
+                        </td>
+                      </tr> */}
+                      {/* TODO: TAX - DETAILS - 12 MONTHS INSTALLMENTS TOTAL PAYMENT */}
+                      {/* <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Total payable by 12 monthly installments
+                        </td>
+                        <td>
+                          {CalculateTaxSingle6MonthPayment(
+                            basic.VehicleRegistration.VehicleClass,
+                            basic.VehicleRegistration.Co2Emissions,
+                            basic.ClassificationDetails.Ukvd.IsElectricVehicle,
+                            full.FuelType
+                          )}
+                        </td>
+                      </tr> */}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+            {/* MILEAGE */}
+            <section className="section">
+              <div className="section-title">Mileage</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+                {/* MILEAGE - SUMMARY */}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* MILEAGE - SUMMARY - ODOMETER */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Odometer
+                        </td>
+                        <td>In miles</td>
+                      </tr>
+                      {/* MILEAGE - SUMMARY - NO OF REGISTRATIONS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          No. of Registrations
+                        </td>
+                        <td>{full.MileageRecordCount}</td>
+                      </tr>
+                      {/* MILEAGE - SUMMARY - ANOMALY DETECTED */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">Anomaly</td>
+                        <td>
+                          {CapitalizeEachWord(
+                            full.MileageAnomalyDetected.toString()
+                          )}
+                        </td>
+                      </tr>
+                      {full.MileageRecordList.length > 0 ? (
+                        <>
+                          {/* MILEAGE - SUMMARY - FIRST REGISTRATION */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              First Registration
+                            </td>
+                            <td>
+                              {
+                                full.MileageRecordList[
+                                  full.MileageRecordList.length - 1
+                                ].DateOfInformation
+                              }
+                            </td>
+                          </tr>
+                          {/* MILEAGE - SUMMARY - LAST REGISTRATION */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Last Registration
+                            </td>
+                            <td>
+                              {full.MileageRecordList[0].DateOfInformation}
+                            </td>
+                          </tr>
+                          {/* MILEAGE - SUMMARY - LAST MOT MILEAGE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Last MOT Mileage
+                            </td>
+                            <td>{full.MileageRecordList[0].Mileage}</td>
+                          </tr>
+                          {/* MILEAGE - SUMMARY - AVERAGE MILEAGE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Average Mileage
+                            </td>
+                            <td>
+                              {CalcAvgMileAYear(full.MileageRecordList)} p/year
+                            </td>
+                          </tr>
+                          {/* MILEAGE - SUMMARY - MILEAGE LAST YEAR */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Mileage Last Year
+                            </td>
+                            <td>
+                              {CalcLastYearMile(full.MileageRecordList)} miles
+                            </td>
+                          </tr>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+                {/* MILEAGE - HISTORY */}
+                {full.MileageRecordList.map((x, i) => {
+                  return (
+                    <div className="table-figure-container">
+                      <table
+                        style={{ width: "100%" }}
+                        rules="all"
+                        className="section-table"
+                      >
+                        <tbody>
+                          {/* MILEAGE - HISTORY - DATE OF INFORMATION */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date of Information
+                            </td>
+                            <td>{FormatDate(x.DateOfInformation)}</td>
+                          </tr>
+                          {/* MILEAGE - HISTORY - MILEAGE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Mileage
+                            </td>
+                            <td>{x.Mileage}</td>
+                          </tr>
+                          {/* MILEAGE - HISTORY - SOURCE OF INFORMATION */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Source of Information
+                            </td>
+                            <td>{x.SourceOfInformation}</td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -1520,40 +1925,7 @@ const OrderDetails = ({ orderId }) => {
                 )}
               </div>
             </section>
-            {/* MILEAGE HISTORY */}
-            <section ref={goToMileageSection}>
-              <h2>Mileage History</h2>
-              <div>
-                {full.MileageRecordList &&
-                  full.MileageRecordList.map((x, i) => (
-                    <div key={i}>
-                      <div>
-                        Date of Information:{" "}
-                        {new Date(x.DateOfInformation).toLocaleDateString()}
-                      </div>
-                      <div>Mileage: {x.Mileage}</div>
-                      <div>Source of Information: {x.SourceOfInformation}</div>
-                    </div>
-                  ))}
-              </div>
-              <div>
-                {full.MileageRecordList && full.MileageRecordList.length > 0 ? (
-                  <div>
-                    Last MOT Mileage: {full.MileageRecordList[0].Mileage}
-                    <div>
-                      Average mileage:{" "}
-                      {CalcAvgMileAYear(full.MileageRecordList)} p/year
-                    </div>
-                    <div>
-                      Mileage last year:{" "}
-                      {CalcLastYearMile(full.MileageRecordList)} miles
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </section>
+
             {/* KEEPER HISTORY */}
             <section ref={goTokeeperSection}>
               <h2>Keeper History</h2>

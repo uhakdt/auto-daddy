@@ -78,10 +78,73 @@ const CalculateTotalAdviceItemsFailed = (l) => {
   return adviceItemsFailed;
 };
 
+const CalculateTaxDaysLeft = (d) => {
+  // Convert string into a Date object
+  d = new Date(d);
+
+  if (!(d instanceof Date)) {
+    throw new Error("The argument must be a Date object.");
+  }
+
+  // Calculate the number of days between the current date and the date passed in
+  const daysLeft = Math.floor(
+    (d.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  return daysLeft;
+};
+
+const CalculateTaxSingle12MonthPayment = (
+  vehicleClass,
+  co2Emissions,
+  isElectric,
+  fuelType
+) => {
+  if (isElectric || vehicleClass !== "Car") {
+    return "£0";
+  }
+
+  // Lookup table for CO2 emissions and corresponding tax rates
+  const rates = [
+    { limit: 50, diesel: "£30", petrol: "£10", alternative: "£20" },
+    { limit: 75, diesel: "£130", petrol: "£30", alternative: "£120" },
+    { limit: 90, diesel: "£165", petrol: "£130", alternative: "£155" },
+    { limit: 100, diesel: "£185", petrol: "£165", alternative: "£175" },
+    { limit: 110, diesel: "£210", petrol: "£185", alternative: "£200" },
+    { limit: 130, diesel: "£255", petrol: "£210", alternative: "£245" },
+    { limit: 150, diesel: "£645", petrol: "£255", alternative: "£635" },
+    { limit: 170, diesel: "£1,040", petrol: "£645", alternative: "£1,030" },
+    { limit: 190, diesel: "£1,565", petrol: "£1,040", alternative: "£1,555" },
+    { limit: 225, diesel: "£2,220", petrol: "£1,565", alternative: "£2,210" },
+    { limit: 255, diesel: "£2,605", petrol: "£2,220", alternative: "£2,595" },
+    {
+      limit: Infinity,
+      diesel: "£2,605",
+      petrol: "£2,605",
+      alternative: "£2,595",
+    },
+  ];
+
+  // Select rate based on CO2 emissions
+  let rate = rates.find((r) => co2Emissions <= r.limit);
+
+  // Apply fuel type adjustment
+  switch (fuelType) {
+    case "DIESEL":
+      return rate.diesel;
+    case "PETROL":
+      return rate.petrol;
+    default:
+      return rate.alternative;
+  }
+};
+
 export {
   CheckOrderCriteria,
   CalculateMOTPassRate,
   CalculateMOTFailedTests,
   CalculateTotalAdviceItems,
   CalculateTotalAdviceItemsFailed,
+  CalculateTaxDaysLeft,
+  CalculateTaxSingle12MonthPayment,
 };
