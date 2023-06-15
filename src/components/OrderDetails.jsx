@@ -15,8 +15,13 @@ import FormatDate from "../auxiliaryFunctions/dateFunctions";
 import Snackbar from "@mui/material/Snackbar";
 import "./OrderDetails.css";
 import { storage } from "../firebase";
-import axios from "axios";
 import { ref, getDownloadURL } from "firebase/storage";
+import {
+  CalculateMOTPassRate,
+  CalculateMOTFailedTests,
+  CalculateTotalAdviceItems,
+  CalculateTotalAdviceItemsFailed,
+} from "../auxiliaryFunctions/orderFunctions";
 
 const auth = getAuth();
 
@@ -44,6 +49,11 @@ const OrderDetails = ({ orderId }) => {
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  console.log("Order: \n", order);
+  console.log("Free: \n", free);
+  console.log("Basic: \n", basic);
+  console.log("Full: \n", full);
+  console.log("ImageUrl: \n", imageUrl);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -990,6 +1000,226 @@ const OrderDetails = ({ orderId }) => {
                 )} */}
               </div>
             </section>
+            {/* MOT */}
+            <section className="section">
+              <div className="section-title">MOT</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {aiContentList[0] && (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                )}
+                {/* MOT - SUMMARY */}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* MOT - SUMMARY - PASS RATE */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Pass Rate
+                        </td>
+                        <td>
+                          {basic.MotHistory.RecordList.length !== 0 ||
+                          basic.MotHistory.RecordList !== null ? (
+                            <>
+                              {CalculateMOTPassRate(
+                                basic.MotHistory.RecordList
+                              )}
+                            </>
+                          ) : (
+                            <>No MOT History</>
+                          )}
+                        </td>
+                      </tr>
+                      {/* MOT - SUMMARY - FAILED TESTS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Failed Tests
+                        </td>
+                        <td>
+                          {CalculateMOTFailedTests(basic.MotHistory.RecordList)}
+                        </td>
+                      </tr>
+                      {/* MOT - SUMMARY - TOTAL ADVISE ITEMS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Total Advice Items
+                        </td>
+                        <td>
+                          {CalculateTotalAdviceItems(
+                            basic.MotHistory.RecordList
+                          )}
+                        </td>
+                      </tr>
+                      {/* MOT - SUMMARY - TOTAL ADVISE ITEMS FAILED */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Total Items Failed
+                        </td>
+                        <td>
+                          {CalculateTotalAdviceItemsFailed(
+                            basic.MotHistory.RecordList
+                          )}
+                        </td>
+                      </tr>
+                      {/* MOT - SUMMARY - EXPIRY DATE */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Expiry Date
+                        </td>
+                        <td>{FormatDate(free.MotExpiryDate)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                {/* MOT - HISTORY */}
+                {basic.MotHistory.RecordList.map((x, i) => {
+                  return (
+                    <div className="table-figure-container">
+                      <table
+                        style={{ width: "100%" }}
+                        rules="all"
+                        className="section-table"
+                      >
+                        <tbody>
+                          {/* MOT - HISTORY - NUMBER AND DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Test Nr. {i + 1}
+                            </td>
+                            <td>{FormatDate(x.TestDate)}</td>
+                          </tr>
+                          {/* MOT - HISTORY - TEST NUMBER */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Test Number
+                            </td>
+                            <td>{x.TestNumber}</td>
+                          </tr>
+                          {/* MOT - HISTORY - RESULT */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Test Result
+                            </td>
+                            <td>{x.TestResult}</td>
+                          </tr>
+                          {/* MOT - HISTORY - EXPIRY DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Expiry Date
+                            </td>
+                            <td>{FormatDate(x.ExpiryDate)}</td>
+                          </tr>
+                          {/* MOT - HISTORY - ADVISE ITEMS */}
+                          {x.AnnotationDetailsList.map((y, j) => (
+                            <tr key={j}>
+                              <td className="section-table-first-column">
+                                <div
+                                  className="section-table-row-status"
+                                  style={{
+                                    backgroundColor: "rgb(225, 249, 9)",
+                                    borderColor: "rgb(121, 130, 45)",
+                                  }}
+                                ></div>
+                              </td>
+                              <td className="section-table-second-column">
+                                MOT Advise
+                              </td>
+                              <td>
+                                Type: {y.Type} <br /> Advise: {y.Text}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
             {/* VEHICLE HISTORY */}
             <section>
               <h2>Vehicle History</h2>
@@ -1420,33 +1650,7 @@ const OrderDetails = ({ orderId }) => {
                 )}
               </div>
             </section>
-            {/* MOT HISTORY */}
-            <section>
-              <h2>MOT History</h2>
-              {(basic.MotHistory.RecordList.length !== 0 ||
-                basic.MotHistory.RecordList !== null) && (
-                <>
-                  {basic.MotHistory.RecordList.map((x, i) => (
-                    <div key={i}>
-                      <div>Test Date: {x.TestDate}</div>
-                      <div>Test Result: {x.TestResult}</div>
-                      <div>Mileage: {x.OdometerInMiles} miles</div>
-                      {(x.FailureReasonList.length !== 0 ||
-                        x.FailureReasonList.length !== null) && (
-                        <>
-                          <div>
-                            Advised on {x.FailureReasonList.length} items:
-                          </div>
-                          {x.FailureReasonList.map((y, j) => (
-                            <div key={j}>{y}</div>
-                          ))}
-                        </>
-                      )}
-                    </div>
-                  ))}
-                </>
-              )}
-            </section>
+
             {/* ABOUT THIS REPORT */}
             <section>
               <h2>About this Report</h2>

@@ -200,6 +200,7 @@
 .table-figure-container {
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 600px) {
@@ -210,7 +211,7 @@
 
 .section-table {
   margin: 0 auto;
-  min-width: 50%;
+  width: 100%;
 }
 
 .section-table td {
@@ -221,10 +222,12 @@
 .section-table-first-column {
   border-bottom-style: hidden !important;
   align-content: center;
+  width: 5% !important;
 }
 
 .section-table-second-column {
   border-left-style: hidden !important;
+  width: 30% !important;
 }
 
 .section-table-row-status {

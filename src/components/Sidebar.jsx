@@ -7,7 +7,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import "./Sidebar.css";
 import CarSidebar from "./SVGs/CarSidebar";
-import CheckOrderCritera from "../auxiliaryFunctions/orderFunctions";
+import { CheckOrderCriteria } from "../auxiliaryFunctions/orderFunctions";
 
 function Sidebar({ orders, onSelectOrder }) {
   const theme = useTheme();
@@ -31,7 +31,7 @@ function Sidebar({ orders, onSelectOrder }) {
           className="order-button"
         >
           <CarSidebar
-            colour={CheckOrderCritera(order) ? "#e8f653" : "#FF0000"}
+            colour={CheckOrderCriteria(order) ? "#e8f653" : "#FF0000"}
           />
           <div
             style={{
