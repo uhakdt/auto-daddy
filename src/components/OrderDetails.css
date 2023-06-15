@@ -9,16 +9,14 @@
   padding: 1rem;
   display: flex; /* Align children in a row */
   justify-content: space-between; /* Distribute the space evenly between children */
-  align-items: center; /* Center the children vertically */
   margin: 0.3rem;
 }
 
 .section-title {
-  padding-right: 0.5rem; /* Adjust as needed */
-  flex-basis: 200px; /* Specifies the base width of the title */
-  flex-shrink: 0; /* Prevents the title from shrinking */
+  padding-right: 0.5rem;
+  flex-basis: 20%;
+  flex-shrink: 0;
   font-size: x-large;
-  text-align: center;
   font-weight: bold;
 }
 
@@ -200,7 +198,6 @@
 .table-figure-container {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
 @media (max-width: 600px) {
@@ -210,7 +207,7 @@
 }
 
 .section-table {
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 100%;
 }
 
