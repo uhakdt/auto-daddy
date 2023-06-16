@@ -12,7 +12,7 @@ import {
   CalcLastYearMile,
 } from "../auxiliaryFunctions/mathFunctions";
 import FormatDate from "../auxiliaryFunctions/dateFunctions";
-import Snackbar from "@mui/material/Snackbar";
+
 import "./OrderDetails.css";
 import { storage } from "../firebase";
 import { ref, getDownloadURL } from "firebase/storage";
@@ -24,6 +24,8 @@ import {
   CalculateTaxDaysLeft,
   CalculateTaxSingle12MonthPayment,
 } from "../auxiliaryFunctions/orderFunctions";
+import VehicleMain from "./OrderDetails/VehicleMain";
+import AIMainSummary from "./OrderDetails/AIMainSummary";
 
 const auth = getAuth();
 
@@ -51,20 +53,28 @@ const OrderDetails = ({ orderId }) => {
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  console.log("Order: \n", order);
   console.log("Free: \n", free);
   console.log("Basic: \n", basic);
   console.log("Full: \n", full);
-  console.log("ImageUrl: \n", imageUrl);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
+  const goToTAXSection = React.useRef();
+  const goToMOTSection = React.useRef();
+  const goToFinanceSection = React.useRef();
+  const goToWriteOffSection = React.useRef();
+  const goToImportExportSection = React.useRef();
+  const goToStolenSection = React.useRef();
+  const goToVICSection = React.useRef();
+  const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
-  const goTokeeperSection = React.useRef();
 
   const scrollToRef = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
+    window.scrollTo({
+      top: ref.current.offsetTop - 100,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -171,71 +181,27 @@ const OrderDetails = ({ orderId }) => {
       <div className="order-details">
         {order ? (
           <div>
-            {/* VEHICLE MAIN */}
-            <section className="section">
-              <div className="section-title">
-                {basic.VehicleRegistration.MakeModel ? (
-                  <div>
-                    {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <div className="section-divider"></div>
-              <div className="section-content">
-                {free.RegistrationNumber ? (
-                  <div className="registration-number-container">
-                    <div className="registration-number-gb">GB</div>
-                    <div className="registration-number-content">
-                      {free.RegistrationNumber}
-                    </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-                <button className="button" onClick={handleDownloadReport}>
-                  Download Report
-                </button>
-                <button className="button" onClick={handleEmailReport}>
-                  Email Report
-                </button>
-                <Snackbar
-                  open={snackbarOpen}
-                  autoHideDuration={2000}
-                  onClose={handleSnackbarClose}
-                  message={emailStatus?.message}
-                />
-              </div>
-            </section>
-            {/* SUMMARY */}
-            <section className="section">
-              <div className="section-title">
-                AutoDaddy <br />
-                <span className="section-title-sub">AI Summary</span>
-              </div>
-              <div className="section-divider"></div>
-              <div className="section-content">
-                {/* SUMMARY - AI SUMMARY */}
-                {aiContentList[0] ? (
-                  <div className="ai-summary-container">
-                    <div className="ai-summary-content">{aiContentList[0]}</div>
-                    <div className="ai-summary-by">Powered By ChadGPT</div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </div>
-            </section>
+            <VehicleMain
+              basic={basic}
+              free={free}
+              handleDownloadReport={handleDownloadReport}
+              handleEmailReport={handleEmailReport}
+              emailStatus={emailStatus}
+              snackbarOpen={snackbarOpen}
+              handleSnackbarClose={handleSnackbarClose}
+            />
+            <AIMainSummary aiContentList={aiContentList} />
             {/* STATUS WINDOWS */}
             <section className="status-windows-container">
               {/* STATUS WINDOWS - TAX */}
               <div
+                onClick={() => scrollToRef(goToTAXSection)}
                 className="status-window"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     free.TaxStatus === "Taxed" ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: "pointer",
                 }}
               >
                 <div className="status-window-content">
@@ -248,11 +214,13 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - MOT */}
               <div
+                onClick={() => scrollToRef(goToMOTSection)}
                 className="status-window"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     free.MotStatus === "Valid" ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: "pointer",
                 }}
               >
                 <div className="status-window-content">
@@ -265,11 +233,17 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - FINANCES */}
               <div
+                onClick={() => {
+                  if (full.FinanceRecordCount !== 0) {
+                    scrollToRef(goToFinanceSection);
+                  }
+                }}
                 className="status-window"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     full.FinanceRecordCount === 0 ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: "pointer",
                 }}
               >
                 <div className="status-window-content">
@@ -290,13 +264,30 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - WRITE OFF */}
               <div
-                className="status-window"
+                onClick={() => {
+                  if (
+                    full.WrittenOff !== false &&
+                    full.WriteOffRecordCount !== 0
+                  ) {
+                    scrollToRef(goToWriteOffSection);
+                  }
+                }}
+                className={`status-window ${
+                  full.WrittenOff === false && full.WriteOffRecordCount === 0
+                    ? "no-hover"
+                    : ""
+                }`}
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     full.WrittenOff === false && full.WriteOffRecordCount === 0
                       ? "#e1f909"
                       : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: `${
+                    full.WrittenOff === false && full.WriteOffRecordCount === 0
+                      ? "default"
+                      : "pointer"
+                  }`,
                 }}
               >
                 <div className="status-window-content">
@@ -315,13 +306,27 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - IMPORTED / EXPORTED */}
               <div
-                className="status-window"
+                onClick={() => {
+                  if (full.Imported !== false && full.Exported !== false) {
+                    scrollToRef(goToImportExportSection);
+                  }
+                }}
+                className={`status-window ${
+                  full.Imported === false && full.Exported === false
+                    ? "no-hover"
+                    : ""
+                }`}
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     full.Imported === false && full.Exported === false
                       ? "#e1f909"
                       : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: `${
+                    full.Imported === false && full.Exported === false
+                      ? "default"
+                      : "pointer"
+                  }`,
                 }}
               >
                 <div className="status-window-content">
@@ -337,7 +342,7 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - SCRAPPED */}
               <div
-                className="status-window"
+                className="status-window no-hover"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     full.Scrapped === false ? "#e1f909" : "#f6514b"
@@ -358,31 +363,9 @@ const OrderDetails = ({ orderId }) => {
                   </div>
                 </div>
               </div>
-              {/* STATUS WINDOWS - VIC INSPECTED */}
-              <div
-                className="status-window"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.VicTested === false || full.VicTested === null
-                      ? "#e1f909"
-                      : "#f6514b"
-                  } 1rem, white 1rem`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">VIC</div>
-                  <div className="status-window-details">
-                    {full.VicTested === false || full.VicTested === null ? (
-                      <>No Records</>
-                    ) : (
-                      <>Click to View Details</>
-                    )}
-                  </div>
-                </div>
-              </div>
               {/* STATUS WINDOWS - COLOUR CHANGES */}
               <div
-                className="status-window"
+                className="status-window no-hover"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
                     basic.VehicleHistory.ColourChangeCount === null ||
@@ -411,14 +394,26 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - PLATE CHANGES */}
               <div
-                className="status-window"
+                onClick={() => {
+                  if (full.PlateChangeCount > 0) {
+                    scrollToRef(goToPlateSection);
+                  }
+                }}
+                className={`status-window ${
+                  full.PlateChangeCount === 0 || full.PlateChangeCount === null
+                    ? "no-hover"
+                    : ""
+                }`}
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
-                    full.PlateChangeCount === null ||
-                    full.PlateChangeCount === 0
-                      ? "#e1f909"
-                      : "#f6514b"
+                    full.PlateChangeCount < 2 ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: `${
+                    full.PlateChangeCount === 0 ||
+                    full.PlateChangeCount === null
+                      ? "default"
+                      : "pointer"
+                  }`,
                 }}
               >
                 <div className="status-window-content">
@@ -440,13 +435,17 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - STOLEN */}
               <div
-                className="status-window"
+                onClick={() => {
+                  if (!full.Stolen) {
+                    scrollToRef(goToStolenSection);
+                  }
+                }}
+                className={`status-window ${!full.Stolen ? "no-hover" : ""}`}
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
-                    full.Stolen === false || full.Stolen === null
-                      ? "#e1f909"
-                      : "#f6514b"
+                    !full.Stolen ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
+                  cursor: `${!full.Stolen ? "default" : "pointer"}`,
                 }}
               >
                 <div className="status-window-content">
@@ -462,14 +461,13 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - MILEAGE */}
               <div
+                onClick={() => scrollToRef(goToMileageSection)}
                 className="status-window"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
-                    full.MileageAnomalyDetected === false ||
-                    full.MileageAnomalyDetected === null
-                      ? "#e1f909"
-                      : "#f6514b"
+                    full.MileageAnomalyDetected ? "#f6514b" : "#e1f909"
                   } 1rem, white 1rem`,
+                  cursor: "pointer",
                 }}
               >
                 <div className="status-window-content">
@@ -486,13 +484,10 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - KEEPERS */}
               <div
-                className="status-window"
+                className="status-window no-hover"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
-                    full.PreviousKeeperCount === null ||
-                    full.PreviousKeeperCount === 0
-                      ? "#e1f909"
-                      : "#f6514b"
+                    full.PreviousKeeperCount < 2 ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
                 }}
               >
@@ -515,10 +510,10 @@ const OrderDetails = ({ orderId }) => {
               </div>
               {/* STATUS WINDOWS - V5C */}
               <div
-                className="status-window"
+                className="status-window no-hover"
                 style={{
                   backgroundImage: `linear-gradient(90deg, ${
-                    full.LatestV5cIssuedDate != null ? "#e1f909" : "#f6514b"
+                    full.LatestV5cIssuedDate ? "#e1f909" : "#f6514b"
                   } 1rem, white 1rem`,
                 }}
               >
@@ -1041,7 +1036,7 @@ const OrderDetails = ({ orderId }) => {
               </div>
             </section>
             {/* MOT */}
-            <section className="section">
+            <section ref={goToMOTSection} className="section">
               <div className="section-title">MOT</div>
               <div className="section-divider"></div>
               <div className="section-content">
@@ -1263,7 +1258,7 @@ const OrderDetails = ({ orderId }) => {
               </div>
             </section>
             {/* TAX */}
-            <section className="section">
+            <section ref={goToTAXSection} className="section">
               <div className="section-title">Tax</div>
               <div className="section-divider"></div>
               <div className="section-content">
@@ -1438,7 +1433,7 @@ const OrderDetails = ({ orderId }) => {
               </div>
             </section>
             {/* MILEAGE */}
-            <section className="section">
+            <section ref={goToMileageSection} className="section">
               <div className="section-title">Mileage</div>
               <div className="section-divider"></div>
               <div className="section-content">
@@ -1672,70 +1667,78 @@ const OrderDetails = ({ orderId }) => {
               </div>
             </section>
             {/* PLATE CHANGES */}
-            <section className="section">
-              <div className="section-title">Plate Changes</div>
-              <div className="section-divider"></div>
-              <div className="section-content">
-                {/* PLATE CHANGES - AI SUMMARY */}
-                {aiContentList[0] ? (
-                  <div className="ai-summary-container">
-                    <div className="ai-summary-content">{aiContentList[0]}</div>
-                    <div className="ai-summary-by">Powered By ChadGPT</div>
+            {full.PlateChangeCount > 0 ? (
+              <>
+                <section ref={goToPlateSection} className="section">
+                  <div className="section-title">Plate Changes</div>
+                  <div className="section-divider"></div>
+                  <div className="section-content">
+                    {/* PLATE CHANGES - AI SUMMARY */}
+                    {aiContentList[0] ? (
+                      <div className="ai-summary-container">
+                        <div className="ai-summary-content">
+                          {aiContentList[0]}
+                        </div>
+                        <div className="ai-summary-by">Powered By ChadGPT</div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    {/* PLATE CHANGES */}
+                    {full.PlateChangeList.map((x, i) => {
+                      return (
+                        <div className="table-figure-container">
+                          <table
+                            style={{ width: "100%" }}
+                            rules="all"
+                            className="section-table"
+                          >
+                            <tbody>
+                              {/* PLATE CHANGES - DATE CHANGED */}
+                              <tr>
+                                <td className="section-table-first-column">
+                                  <div
+                                    className="section-table-row-status"
+                                    style={{
+                                      backgroundColor: "rgb(225, 249, 9)",
+                                      borderColor: "rgb(121, 130, 45)",
+                                    }}
+                                  ></div>
+                                </td>
+                                <td className="section-table-second-column">
+                                  Date Changed
+                                </td>
+                                <td>{FormatDate(x.DateChanged)}</td>
+                              </tr>
+                              {/* PLATE CHANGES - PREVIOUS VRM */}
+                              <tr>
+                                <td className="section-table-first-column">
+                                  <div
+                                    className="section-table-row-status"
+                                    style={{
+                                      backgroundColor: "rgb(225, 249, 9)",
+                                      borderColor: "rgb(121, 130, 45)",
+                                    }}
+                                  ></div>
+                                </td>
+                                <td className="section-table-second-column">
+                                  Previous Plate Number
+                                </td>
+                                <td>{x.PreviousVrm}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      );
+                    })}
                   </div>
-                ) : (
-                  <></>
-                )}
-                {/* PLATE CHANGES */}
-                {full.PlateChangeList.map((x, i) => {
-                  return (
-                    <div className="table-figure-container">
-                      <table
-                        style={{ width: "100%" }}
-                        rules="all"
-                        className="section-table"
-                      >
-                        <tbody>
-                          {/* PLATE CHANGES - DATE CHANGED */}
-                          <tr>
-                            <td className="section-table-first-column">
-                              <div
-                                className="section-table-row-status"
-                                style={{
-                                  backgroundColor: "rgb(225, 249, 9)",
-                                  borderColor: "rgb(121, 130, 45)",
-                                }}
-                              ></div>
-                            </td>
-                            <td className="section-table-second-column">
-                              Date Changed
-                            </td>
-                            <td>{FormatDate(x.DateChanged)}</td>
-                          </tr>
-                          {/* PLATE CHANGES - PREVIOUS VRM */}
-                          <tr>
-                            <td className="section-table-first-column">
-                              <div
-                                className="section-table-row-status"
-                                style={{
-                                  backgroundColor: "rgb(225, 249, 9)",
-                                  borderColor: "rgb(121, 130, 45)",
-                                }}
-                              ></div>
-                            </td>
-                            <td className="section-table-second-column">
-                              Previous Plate Number
-                            </td>
-                            <td>{x.PreviousVrm}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
+                </section>
+              </>
+            ) : (
+              <></>
+            )}
             {/* OUTSTANDING FINANCES */}
-            <section className="section">
+            <section ref={goToFinanceSection} className="section">
               <div className="section-title">Outstanding Finances</div>
               <div className="section-divider"></div>
               <div className="section-content">
@@ -1884,7 +1887,7 @@ const OrderDetails = ({ orderId }) => {
             {/* STOLEN */}
             {full.Stolen ? (
               <>
-                <section className="section">
+                <section ref={goToStolenSection} className="section">
                   <div className="section-title">Stolen</div>
                   <div className="section-divider"></div>
                   <div className="section-content">
@@ -2015,141 +2018,149 @@ const OrderDetails = ({ orderId }) => {
               <></>
             )}
             {/* IMPORTED / EXPORTED */}
-            <section className="section">
-              <div className="section-title">Import / Export</div>
-              <div className="section-divider"></div>
-              <div className="section-content">
-                {/* IMPORTED / EXPORTED - AI SUMMARY */}
-                {aiContentList[0] ? (
-                  <div className="ai-summary-container">
-                    <div className="ai-summary-content">{aiContentList[1]}</div>
-                    <div className="ai-summary-by">Powered By ChadGPT</div>
+            {full.Imported || full.Exported ? (
+              <>
+                <section ref={goToImportExportSection} className="section">
+                  <div className="section-title">Import / Export</div>
+                  <div className="section-divider"></div>
+                  <div className="section-content">
+                    {/* IMPORTED / EXPORTED - AI SUMMARY */}
+                    {aiContentList[0] ? (
+                      <div className="ai-summary-container">
+                        <div className="ai-summary-content">
+                          {aiContentList[1]}
+                        </div>
+                        <div className="ai-summary-by">Powered By ChadGPT</div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    <div className="table-figure-container">
+                      <table rules="all" className="section-table">
+                        <tbody>
+                          {/* IMPORTED / EXPORTED - DATE FIRST REGISTERED */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date First Registered
+                            </td>
+                            <td>{FormatDate(full.DateFirstRegistered)}</td>
+                          </tr>
+                          {/* IMPORTED / EXPORTED - IMPORTED */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            {full.Imported ? (
+                              <>
+                                <td className="section-table-second-column">
+                                  Import Date
+                                </td>
+                                <td>{FormatDate(full.ImportDate)}</td>
+                              </>
+                            ) : (
+                              <>
+                                <td className="section-table-second-column">
+                                  Imported
+                                </td>
+                                <td>False</td>
+                              </>
+                            )}
+                          </tr>
+                          {/* IMPORTED / EXPORTED - IMPORT USED BEFORE UK REGISTERATION */}
+                          {full.ImportUsedBeforeUkRegistration ? (
+                            <tr>
+                              <td className="section-table-first-column">
+                                <div
+                                  className="section-table-row-status"
+                                  style={{
+                                    backgroundColor: "rgb(225, 249, 9)",
+                                    borderColor: "rgb(121, 130, 45)",
+                                  }}
+                                ></div>
+                              </td>
+                              <td className="section-table-second-column">
+                                Import Used before UK Registration
+                              </td>
+                              <td>{full.ImportUsedBeforeUkRegistration}</td>
+                            </tr>
+                          ) : (
+                            <></>
+                          )}
+                          {/* IMPORTED / EXPORTED - IMPORTED FROM OUTSIDE EU */}
+                          {full.ImportedFromOutsideEu ? (
+                            <tr>
+                              <td className="section-table-first-column">
+                                <div
+                                  className="section-table-row-status"
+                                  style={{
+                                    backgroundColor: "rgb(225, 249, 9)",
+                                    borderColor: "rgb(121, 130, 45)",
+                                  }}
+                                ></div>
+                              </td>
+                              <td className="section-table-second-column">
+                                Imported From Outside EU
+                              </td>
+                              <td>{full.ImportedFromOutsideEu}</td>
+                            </tr>
+                          ) : (
+                            <></>
+                          )}
+                          {/* IMPORTED / EXPORTED - EXPORTED */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            {full.Exported ? (
+                              <>
+                                <td className="section-table-second-column">
+                                  Export Date
+                                </td>
+                                <td>{FormatDate(full.ExportDate)}</td>
+                              </>
+                            ) : (
+                              <>
+                                <td className="section-table-second-column">
+                                  Exported
+                                </td>
+                                <td>False</td>
+                              </>
+                            )}
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                ) : (
-                  <></>
-                )}
-                <div className="table-figure-container">
-                  <table rules="all" className="section-table">
-                    <tbody>
-                      {/* IMPORTED / EXPORTED - DATE FIRST REGISTERED */}
-                      <tr>
-                        <td className="section-table-first-column">
-                          <div
-                            className="section-table-row-status"
-                            style={{
-                              backgroundColor: "rgb(225, 249, 9)",
-                              borderColor: "rgb(121, 130, 45)",
-                            }}
-                          ></div>
-                        </td>
-                        <td className="section-table-second-column">
-                          Date First Registered
-                        </td>
-                        <td>{FormatDate(full.DateFirstRegistered)}</td>
-                      </tr>
-                      {/* IMPORTED / EXPORTED - IMPORTED */}
-                      <tr>
-                        <td className="section-table-first-column">
-                          <div
-                            className="section-table-row-status"
-                            style={{
-                              backgroundColor: "rgb(225, 249, 9)",
-                              borderColor: "rgb(121, 130, 45)",
-                            }}
-                          ></div>
-                        </td>
-                        {full.Imported ? (
-                          <>
-                            <td className="section-table-second-column">
-                              Import Date
-                            </td>
-                            <td>{FormatDate(full.ImportDate)}</td>
-                          </>
-                        ) : (
-                          <>
-                            <td className="section-table-second-column">
-                              Imported
-                            </td>
-                            <td>False</td>
-                          </>
-                        )}
-                      </tr>
-                      {/* IMPORTED / EXPORTED - IMPORT USED BEFORE UK REGISTERATION */}
-                      {full.ImportUsedBeforeUkRegistration ? (
-                        <tr>
-                          <td className="section-table-first-column">
-                            <div
-                              className="section-table-row-status"
-                              style={{
-                                backgroundColor: "rgb(225, 249, 9)",
-                                borderColor: "rgb(121, 130, 45)",
-                              }}
-                            ></div>
-                          </td>
-                          <td className="section-table-second-column">
-                            Import Used before UK Registration
-                          </td>
-                          <td>{full.ImportUsedBeforeUkRegistration}</td>
-                        </tr>
-                      ) : (
-                        <></>
-                      )}
-                      {/* IMPORTED / EXPORTED - IMPORTED FROM OUTSIDE EU */}
-                      {full.ImportedFromOutsideEu ? (
-                        <tr>
-                          <td className="section-table-first-column">
-                            <div
-                              className="section-table-row-status"
-                              style={{
-                                backgroundColor: "rgb(225, 249, 9)",
-                                borderColor: "rgb(121, 130, 45)",
-                              }}
-                            ></div>
-                          </td>
-                          <td className="section-table-second-column">
-                            Imported From Outside EU
-                          </td>
-                          <td>{full.ImportedFromOutsideEu}</td>
-                        </tr>
-                      ) : (
-                        <></>
-                      )}
-                      {/* IMPORTED / EXPORTED - EXPORTED */}
-                      <tr>
-                        <td className="section-table-first-column">
-                          <div
-                            className="section-table-row-status"
-                            style={{
-                              backgroundColor: "rgb(225, 249, 9)",
-                              borderColor: "rgb(121, 130, 45)",
-                            }}
-                          ></div>
-                        </td>
-                        {full.Exported ? (
-                          <>
-                            <td className="section-table-second-column">
-                              Export Date
-                            </td>
-                            <td>{FormatDate(full.ExportDate)}</td>
-                          </>
-                        ) : (
-                          <>
-                            <td className="section-table-second-column">
-                              Exported
-                            </td>
-                            <td>False</td>
-                          </>
-                        )}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </section>
+                </section>
+              </>
+            ) : (
+              <></>
+            )}
             {/* WRITE OFF */}
             {full.WrittenOff !== false && full.WriteOffRecordCount !== 0 ? (
               <>
-                <section className="section">
+                <section ref={goToWriteOffSection} className="section">
                   <div className="section-title">Write Off</div>
                   <div className="section-divider"></div>
                   <div className="section-content">
@@ -2250,7 +2261,7 @@ const OrderDetails = ({ orderId }) => {
             {/* VIC INSPECTED */}
             {full.VicTested ? (
               <>
-                <section className="section">
+                <section ref={goToVICSection} className="section">
                   <div className="section-title">VIC Inspected</div>
                   <div className="section-divider"></div>
                   <div className="section-content">
