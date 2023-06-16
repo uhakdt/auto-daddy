@@ -27,6 +27,8 @@ import {
 import VehicleMain from "./OrderDetails/VehicleMain";
 import AIMainSummary from "./OrderDetails/AIMainSummary";
 
+import StatusWindow from "./OrderDetails/StatusWindow";
+
 const auth = getAuth();
 
 const aiContentListSample = [
@@ -53,6 +55,7 @@ const OrderDetails = ({ orderId }) => {
   const [basic, setVehicleAndMotHistory] = useState(null);
   const [full, setVdiCheckFull] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [windowData, setWindowData] = useState(null);
   console.log("Free: \n", free);
   console.log("Basic: \n", basic);
   console.log("Full: \n", full);
@@ -98,6 +101,208 @@ const OrderDetails = ({ orderId }) => {
         setVehicleFreeData(docSnap.data().vehicleFreeData);
         setVehicleAndMotHistory(docSnap.data().data.VehicleAndMotHistory);
         setVdiCheckFull(docSnap.data().data.VdiCheckFull);
+        setWindowData([
+          {
+            title: "TAX",
+            details: `Expires: ${FormatDate(
+              docSnap.data().vehicleFreeData.TaxDueDate
+            )}`,
+            onClick: () => scrollToRef(goToTAXSection),
+            gradientColor:
+              docSnap.data().vehicleFreeData.TaxStatus === "Taxed"
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: false,
+          },
+          {
+            title: "MOT",
+            details: `Expires: ${FormatDate(
+              docSnap.data().vehicleFreeData.MotExpiryDate
+            )}`,
+            onClick: () => scrollToRef(goToMOTSection),
+            gradientColor:
+              docSnap.data().vehicleFreeData.MotStatus === "Valid"
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: false,
+          },
+          {
+            title: "Finances",
+            details:
+              docSnap.data().data.VdiCheckFull.FinanceRecordCount === 0
+                ? "No Records"
+                : `Number of Records: ${
+                    docSnap.data().data.VdiCheckFull.FinanceRecordCount
+                  }`,
+            onClick:
+              docSnap.data().data.VdiCheckFull.FinanceRecordCount !== 0
+                ? () => scrollToRef(goToFinanceSection)
+                : null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.FinanceRecordCount === 0
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: false,
+          },
+          {
+            title: "Write Off",
+            details:
+              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0
+                ? "No Records"
+                : `Number of Records: ${
+                    docSnap.data().data.VdiCheckFull.WriteOffRecordCount
+                  }`,
+            onClick:
+              docSnap.data().data.VdiCheckFull.WrittenOff !== false &&
+              docSnap.data().data.VdiCheckFull.WriteOffRecordCount !== 0
+                ? () => scrollToRef(goToWriteOffSection)
+                : null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.WrittenOff === false &&
+              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0
+                ? "#e1f909"
+                : "#f6514b",
+            noHover:
+              docSnap.data().data.VdiCheckFull.WrittenOff === false &&
+              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0,
+          },
+          {
+            title: "Export",
+            details:
+              docSnap.data().data.VdiCheckFull.Imported === false &&
+              docSnap.data().data.VdiCheckFull.Exported === false
+                ? "No Records"
+                : "Click to View Details",
+            onClick:
+              docSnap.data().data.VdiCheckFull.Imported !== false &&
+              docSnap.data().data.VdiCheckFull.Exported !== false
+                ? () => scrollToRef(goToImportExportSection)
+                : null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.Imported === false &&
+              docSnap.data().data.VdiCheckFull.Exported === false
+                ? "#e1f909"
+                : "#f6514b",
+            noHover:
+              docSnap.data().data.VdiCheckFull.Imported === false &&
+              docSnap.data().data.VdiCheckFull.Exported === false,
+          },
+          {
+            title: "Scrapped",
+            details:
+              docSnap.data().data.VdiCheckFull.Scrapped === false
+                ? "No Records"
+                : `Scrap Date: ${FormatDate(
+                    docSnap.data().data.VdiCheckFull.ScrapDate
+                  )}`,
+            onClick: null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.Scrapped === false
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: true,
+          },
+          {
+            title: "Colour",
+            details:
+              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
+                .ColourChangeCount === null ||
+              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
+                .ColourChangeCount === 0
+                ? "No Records"
+                : `Number of Records: ${
+                    docSnap.data().data.VehicleAndMotHistory.VehicleHistory
+                      .ColourChangeCount
+                  }`,
+            onClick: null,
+            gradientColor:
+              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
+                .ColourChangeCount === null ||
+              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
+                .ColourChangeCount === 0
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: true,
+          },
+          {
+            title: "Plate",
+            details:
+              docSnap.data().data.VdiCheckFull.PlateChangeCount === null ||
+              docSnap.data().data.VdiCheckFull.PlateChangeCount === 0
+                ? "No Records"
+                : `Number of Records: ${
+                    docSnap.data().data.VdiCheckFull.PlateChangeCount
+                  }`,
+            onClick:
+              docSnap.data().data.VdiCheckFull.PlateChangeCount > 0
+                ? () => scrollToRef(goToPlateSection)
+                : null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.PlateChangeCount < 2
+                ? "#e1f909"
+                : "#f6514b",
+            noHover:
+              docSnap.data().data.VdiCheckFull.PlateChangeCount === 0 ||
+              docSnap.data().data.VdiCheckFull.PlateChangeCount === null,
+          },
+          {
+            title: "Stolen",
+            details:
+              docSnap.data().data.VdiCheckFull.Stolen === false ||
+              docSnap.data().data.VdiCheckFull.Stolen === null
+                ? "No Records"
+                : "Click to View Details",
+            onClick: docSnap.data().data.VdiCheckFull.Stolen
+              ? () => scrollToRef(goToStolenSection)
+              : null,
+            gradientColor: !docSnap.data().data.VdiCheckFull.Stolen
+              ? "#e1f909"
+              : "#f6514b",
+            noHover: !docSnap.data().data.VdiCheckFull.Stolen,
+          },
+          {
+            title: "Mileage",
+            details:
+              docSnap.data().data.VdiCheckFull.MileageAnomalyDetected ===
+                false ||
+              docSnap.data().data.VdiCheckFull.MileageAnomalyDetected === null
+                ? "No Records"
+                : "Click to View Details",
+            onClick: () => scrollToRef(goToMileageSection),
+            gradientColor: docSnap.data().data.VdiCheckFull
+              .MileageAnomalyDetected
+              ? "#f6514b"
+              : "#e1f909",
+            noHover: false,
+          },
+          {
+            title: "Keepers",
+            details:
+              docSnap.data().data.VdiCheckFull.PreviousKeeperCount === null ||
+              docSnap.data().data.VdiCheckFull.PreviousKeeperCount === 0
+                ? "No Records"
+                : `Number of Records: ${
+                    docSnap.data().data.VdiCheckFull.PreviousKeeperCount
+                  }`,
+            onClick: null,
+            gradientColor:
+              docSnap.data().data.VdiCheckFull.PreviousKeeperCount < 2
+                ? "#e1f909"
+                : "#f6514b",
+            noHover: true,
+          },
+          {
+            title: "V5C",
+            details: `Date Issued: ${FormatDate(
+              docSnap.data().data.VdiCheckFull.LatestV5cIssuedDate
+            )}`,
+            onClick: null,
+            gradientColor: docSnap.data().data.VdiCheckFull.LatestV5cIssuedDate
+              ? "#e1f909"
+              : "#f6514b",
+            noHover: true,
+          },
+        ]);
       } else {
         console.log("No such order!");
       }
@@ -193,338 +398,17 @@ const OrderDetails = ({ orderId }) => {
             <AIMainSummary aiContentList={aiContentList} />
             {/* STATUS WINDOWS */}
             <section className="status-windows-container">
-              {/* STATUS WINDOWS - TAX */}
-              <div
-                onClick={() => scrollToRef(goToTAXSection)}
-                className="status-window"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    free.TaxStatus === "Taxed" ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: "pointer",
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">TAX</div>
-                  <div className="status-window-details">
-                    Expires: <br />
-                    {FormatDate(free.TaxDueDate)}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - MOT */}
-              <div
-                onClick={() => scrollToRef(goToMOTSection)}
-                className="status-window"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    free.MotStatus === "Valid" ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: "pointer",
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">MOT</div>
-                  <div className="status-window-details">
-                    Expires: <br />
-                    {FormatDate(free.MotExpiryDate)}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - FINANCES */}
-              <div
-                onClick={() => {
-                  if (full.FinanceRecordCount !== 0) {
-                    scrollToRef(goToFinanceSection);
-                  }
-                }}
-                className="status-window"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.FinanceRecordCount === 0 ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: "pointer",
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Finances</div>
-                  <div className="status-window-details">
-                    {full.FinanceRecordCount === 0 ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Number of Records:{" "}
-                        <span className="status-window-details-count">
-                          {full.FinanceRecordCount}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - WRITE OFF */}
-              <div
-                onClick={() => {
-                  if (
-                    full.WrittenOff !== false &&
-                    full.WriteOffRecordCount !== 0
-                  ) {
-                    scrollToRef(goToWriteOffSection);
-                  }
-                }}
-                className={`status-window ${
-                  full.WrittenOff === false && full.WriteOffRecordCount === 0
-                    ? "no-hover"
-                    : ""
-                }`}
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.WrittenOff === false && full.WriteOffRecordCount === 0
-                      ? "#e1f909"
-                      : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: `${
-                    full.WrittenOff === false && full.WriteOffRecordCount === 0
-                      ? "default"
-                      : "pointer"
-                  }`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Write Off</div>
-                  <div className="status-window-details">
-                    {full.WriteOffRecordCount === 0 ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Number of Records:{" "}
-                        <span>{full.WriteOffRecordCount}</span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - IMPORTED / EXPORTED */}
-              <div
-                onClick={() => {
-                  if (full.Imported !== false && full.Exported !== false) {
-                    scrollToRef(goToImportExportSection);
-                  }
-                }}
-                className={`status-window ${
-                  full.Imported === false && full.Exported === false
-                    ? "no-hover"
-                    : ""
-                }`}
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.Imported === false && full.Exported === false
-                      ? "#e1f909"
-                      : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: `${
-                    full.Imported === false && full.Exported === false
-                      ? "default"
-                      : "pointer"
-                  }`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Export</div>
-                  <div className="status-window-details">
-                    {full.Imported === false && full.Exported === false ? (
-                      <>No Records</>
-                    ) : (
-                      <>Click to View Details</>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - SCRAPPED */}
-              <div
-                className="status-window no-hover"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.Scrapped === false ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Scrapped</div>
-                  <div className="status-window-details">
-                    {full.Scrapped === false ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Scrap Date: <br />
-                        {FormatDate(full.ScrapDate)}
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - COLOUR CHANGES */}
-              <div
-                className="status-window no-hover"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    basic.VehicleHistory.ColourChangeCount === null ||
-                    basic.VehicleHistory.ColourChangeCount === 0
-                      ? "#e1f909"
-                      : "#f6514b"
-                  } 1rem, white 1rem`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Colour</div>
-                  <div className="status-window-details">
-                    {basic.VehicleHistory.ColourChangeCount === null ||
-                    basic.VehicleHistory.ColourChangeCount === 0 ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Number of Records:{" "}
-                        <span className="status-window-details-count">
-                          {basic.VehicleHistory.ColourChangeCount}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - PLATE CHANGES */}
-              <div
-                onClick={() => {
-                  if (full.PlateChangeCount > 0) {
-                    scrollToRef(goToPlateSection);
-                  }
-                }}
-                className={`status-window ${
-                  full.PlateChangeCount === 0 || full.PlateChangeCount === null
-                    ? "no-hover"
-                    : ""
-                }`}
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.PlateChangeCount < 2 ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: `${
-                    full.PlateChangeCount === 0 ||
-                    full.PlateChangeCount === null
-                      ? "default"
-                      : "pointer"
-                  }`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Plate</div>
-                  <div className="status-window-details">
-                    {full.PlateChangeCount === null ||
-                    full.PlateChangeCount === 0 ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Number of Records:{" "}
-                        <span className="status-window-details-count">
-                          {full.PlateChangeCount}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - STOLEN */}
-              <div
-                onClick={() => {
-                  if (!full.Stolen) {
-                    scrollToRef(goToStolenSection);
-                  }
-                }}
-                className={`status-window ${!full.Stolen ? "no-hover" : ""}`}
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    !full.Stolen ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                  cursor: `${!full.Stolen ? "default" : "pointer"}`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Stolen</div>
-                  <div className="status-window-details">
-                    {full.Stolen === false || full.Stolen === null ? (
-                      <>No Records</>
-                    ) : (
-                      <>Click to View Details</>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - MILEAGE */}
-              <div
-                onClick={() => scrollToRef(goToMileageSection)}
-                className="status-window"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.MileageAnomalyDetected ? "#f6514b" : "#e1f909"
-                  } 1rem, white 1rem`,
-                  cursor: "pointer",
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Mileage</div>
-                  <div className="status-window-details">
-                    {full.MileageAnomalyDetected === false ||
-                    full.MileageAnomalyDetected === null ? (
-                      <>No Records</>
-                    ) : (
-                      <>Click to View Details</>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - KEEPERS */}
-              <div
-                className="status-window no-hover"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.PreviousKeeperCount < 2 ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">Keepers</div>
-                  <div className="status-window-details">
-                    {full.PreviousKeeperCount === null ||
-                    full.PreviousKeeperCount === 0 ? (
-                      <>No Records</>
-                    ) : (
-                      <>
-                        Number of Records:{" "}
-                        <span className="status-window-details-count">
-                          {full.PreviousKeeperCount}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* STATUS WINDOWS - V5C */}
-              <div
-                className="status-window no-hover"
-                style={{
-                  backgroundImage: `linear-gradient(90deg, ${
-                    full.LatestV5cIssuedDate ? "#e1f909" : "#f6514b"
-                  } 1rem, white 1rem`,
-                }}
-              >
-                <div className="status-window-content">
-                  <div className="status-window-title">V5C</div>
-                  <div className="status-window-details">
-                    Date Issued: <br />
-                    {FormatDate(full.LatestV5cIssuedDate)}
-                  </div>
-                </div>
-              </div>
+              {windowData &&
+                windowData.map((window, index) => (
+                  <StatusWindow
+                    key={index}
+                    title={window.title}
+                    details={window.details}
+                    onClick={window.onClick}
+                    gradientColor={window.gradientColor}
+                    noHover={window.noHover}
+                  />
+                ))}
             </section>
             {/* VEHICLE DETAILS */}
             <section className="section">
