@@ -1,4 +1,9 @@
 const FormatDate = (d) => {
+  // Return "No Record" if the date is null or empty
+  if (!d) {
+    return "No Record";
+  }
+
   let date;
 
   // Check if the date is in "DD/MM/YYYY" format
@@ -7,6 +12,11 @@ const FormatDate = (d) => {
     date = new Date(parts[2], parts[1] - 1, parts[0]);
   } else {
     date = new Date(d);
+  }
+
+  // Return "No Record" if the date is Invalid
+  if (isNaN(date)) {
+    return "No Record";
   }
 
   const day = date.getDate();

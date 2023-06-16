@@ -2016,11 +2016,7 @@ const OrderDetails = ({ orderId }) => {
             )}
             {/* IMPORTED / EXPORTED */}
             <section className="section">
-              <div className="section-title">
-                {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
-                <br />
-                <span className="section-title-sub">Details</span>
-              </div>
+              <div className="section-title">Import / Export</div>
               <div className="section-divider"></div>
               <div className="section-content">
                 {/* IMPORTED / EXPORTED - AI SUMMARY */}
@@ -2150,125 +2146,259 @@ const OrderDetails = ({ orderId }) => {
                 </div>
               </div>
             </section>
-
-            {/* VEHICLE HISTORY */}
-            <section>
-              <h2>Vehicle History</h2>
-              {/* VEHICLE HISTORY - WRITE OFF */}
-              <div>
-                <div>Written Off</div>
-                {full.WrittenOff === false && full.WriteOffRecordCount === 0 ? (
-                  <div>
-                    <div>Pass</div>
-                    <div>
-                      No write off history recorded against this vehicle
-                    </div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      Date: {new Date(full.WriteOffDate).toLocaleDateString()}
-                    </div>
-                    <div>Category: {full.WriteOffCategory}</div>
-                    <div>Record Count: {full.WriteOffRecordCount}</div>
-                    {full.WriteOffRecordList.map((x, i) => (
-                      <div key={i}>
-                        {/* TODO: Needs to be checked and added */}
+            {/* WRITE OFF */}
+            {full.WrittenOff !== false && full.WriteOffRecordCount !== 0 ? (
+              <>
+                <section className="section">
+                  <div className="section-title">Write Off</div>
+                  <div className="section-divider"></div>
+                  <div className="section-content">
+                    {/* WRITE OFF - AI SUMMARY */}
+                    {aiContentList[0] ? (
+                      <div className="ai-summary-container">
+                        <div className="ai-summary-content">
+                          {aiContentList[1]}
+                        </div>
+                        <div className="ai-summary-by">Powered By ChadGPT</div>
                       </div>
-                    ))}
+                    ) : (
+                      <></>
+                    )}
+                    {/* WRITE OFF - SUMMARY */}
+                    <div className="table-figure-container">
+                      <table rules="all" className="section-table">
+                        <tbody>
+                          {/* WRITE OFF - SUMMARY - DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date
+                            </td>
+                            <td>{FormatDate(full.WriteOffDate)}</td>
+                          </tr>
+                          {/* WRITE OFF - SUMMARY - CATEGORY */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Category
+                            </td>
+                            <td>{full.WriteOffCategory}</td>
+                          </tr>
+                          {/* WRITE OFF - SUMMARY - RECORD COUNT */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Record Count
+                            </td>
+                            <td>{full.WriteOffRecordCount}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    {/* WRITE OFF - DETAILS */}
+                    {full.WriteOffRecordList > 0 ? (
+                      <>
+                        {full.WriteOffRecordList.map((x, i) => {
+                          return (
+                            <div className="table-figure-container">
+                              <table
+                                style={{ width: "100%" }}
+                                rules="all"
+                                className="section-table"
+                              >
+                                <tbody>
+                                  {/* TODO: Needs to be checked and added */}
+                                </tbody>
+                              </table>
+                            </div>
+                          );
+                        })}
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
-                )}
-              </div>
-              {/* VEHICLE HISTORY - VIC INSPECTED */}
-              <div>
-                <div>VIC Inspected</div>
-                {full.VicTested === false || full.VicTested === null ? (
-                  <div>
-                    <div>Pass</div>
-                  </div>
-                ) : (
-                  <div>
-                    <div>Fail</div>
-                    <div>
-                      VIC Tested: {full.VicTested}
-                      {full.VicTestDate ? (
-                        <>
-                          VIC Test Date:{" "}
-                          {new Date(full.VicTestDate).toLocaleDateString()}
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                      {full.VicTestResult ? (
-                        <>VIC Test Result: {full.VicTestResult}</>
-                      ) : (
-                        <></>
-                      )}
+                </section>
+              </>
+            ) : (
+              <></>
+            )}
+            {/* VIC INSPECTED */}
+            {full.VicTested ? (
+              <>
+                <section className="section">
+                  <div className="section-title">VIC Inspected</div>
+                  <div className="section-divider"></div>
+                  <div className="section-content">
+                    {/* VIC INSPECTED - AI SUMMARY */}
+                    {aiContentList[0] ? (
+                      <div className="ai-summary-container">
+                        <div className="ai-summary-content">
+                          {aiContentList[0]}
+                        </div>
+                        <div className="ai-summary-by">Powered By ChadGPT</div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    <div className="table-figure-container">
+                      <table rules="all" className="section-table">
+                        <tbody>
+                          {/* VIC INSPECTED - DATE */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Date
+                            </td>
+                            <td>{FormatDate(full.VicTestDate)}</td>
+                          </tr>
+
+                          {/* VIC INSPECTED - RESULT */}
+                          <tr>
+                            <td className="section-table-first-column">
+                              <div
+                                className="section-table-row-status"
+                                style={{
+                                  backgroundColor: "rgb(225, 249, 9)",
+                                  borderColor: "rgb(121, 130, 45)",
+                                }}
+                              ></div>
+                            </td>
+                            <td className="section-table-second-column">
+                              Test Result
+                            </td>
+                            <td>{full.VicTestResult}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                )}
-              </div>
-            </section>
-
+                </section>
+              </>
+            ) : (
+              <></>
+            )}
             {/* IMPORTANT CHECKS */}
-            <section>
-              <h2>Important Checks</h2>
-              <div>
-                It is important to check the following details before purchasing
-                to confirm the vehicle's identity.
+            <section className="section">
+              <div className="section-title">
+                Important Checks <br />
+                <div className="section-title-sub">
+                  It is important to check the following details before
+                  purchasing to confirm the vehicle's identity.
+                </div>
               </div>
-              <div>VIN last 5 digits: {full.VinLast5}</div>
-              <div>Engine number: {basic.VehicleRegistration.EngineNumber}</div>
-              <div>V5C date is: {full.LatestV5cIssuedDate}</div>
-            </section>
-            {/* VEHICLE SPECIFICATION */}
-            <section>
-              <h2>Vehicle Specification</h2>
-              {basic.TechnicalDetails.Dimensions.CarLength ? (
-                <div>Length: {basic.TechnicalDetails.Dimensions.CarLength}</div>
-              ) : (
-                <></>
-              )}
-              {basic.TechnicalDetails.Dimensions.Width ? (
-                <div>Width: {basic.TechnicalDetails.Dimensions.Width}</div>
-              ) : (
-                <></>
-              )}
-              {basic.TechnicalDetails.Dimensions.Height ? (
-                <div>Height: {basic.TechnicalDetails.Dimensions.Height}</div>
-              ) : (
-                <></>
-              )}
-              {basic.TechnicalDetails.Dimensions.WheelBase ? (
-                <div>
-                  Wheel Base: {basic.TechnicalDetails.Dimensions.WheelBase}
+              <div className="section-divider"></div>
+              <div className="section-content">
+                {/* IMPORTANT CHECKS - AI SUMMARY */}
+                {aiContentList[0] ? (
+                  <div className="ai-summary-container">
+                    <div className="ai-summary-content">{aiContentList[0]}</div>
+                    <div className="ai-summary-by">Powered By ChadGPT</div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+                <div className="table-figure-container">
+                  <table rules="all" className="section-table">
+                    <tbody>
+                      {/* VIC INSPECTED - VIN LAST 5 DIGITS */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          VIN Last 5 Digits
+                        </td>
+                        <td>{full.VinLast5}</td>
+                      </tr>
+                      {/* VIC INSPECTED - ENGINE NUMBER */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          Enginer Number
+                        </td>
+                        <td>{basic.VehicleRegistration.EngineNumber}</td>
+                      </tr>
+                      {/* VIC INSPECTED - V5C DATE */}
+                      <tr>
+                        <td className="section-table-first-column">
+                          <div
+                            className="section-table-row-status"
+                            style={{
+                              backgroundColor: "rgb(225, 249, 9)",
+                              borderColor: "rgb(121, 130, 45)",
+                            }}
+                          ></div>
+                        </td>
+                        <td className="section-table-second-column">
+                          V5C Date
+                        </td>
+                        <td>{FormatDate(full.LatestV5cIssuedDate)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              ) : (
-                <></>
-              )}
-              {basic.TechnicalDetails.Dimensions.GrossVehicleWeight ? (
-                <div>
-                  Gross Vehicle Weight:{" "}
-                  {basic.TechnicalDetails.Dimensions.GrossVehicleWeight}
-                </div>
-              ) : (
-                <></>
-              )}
+              </div>
             </section>
-
             {/* ABOUT THIS REPORT */}
-            <section>
-              <h2>About this Report</h2>
-              <div>
-                Date of Registration:{" "}
-                {new Date(order.dateTime).toLocaleString()}
+            <section className="section">
+              <div className="section-title">About This Report</div>
+              <div className="section-divider"></div>
+              <div className="section-content">
+                <div>Date of Registration: {FormatDate(order.dateTime)}</div>
+                <br />
+                <div>Report Reference: {order.orderId}</div>
               </div>
-              <div>Report Reference: {order.orderId}</div>
             </section>
           </div>
         ) : (
-          <p>No order selected.</p>
+          <p>Create an Order here! TODO:</p>
         )}
       </div>
     </Box>
