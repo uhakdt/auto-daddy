@@ -30,7 +30,7 @@ import CookiesPage from "./pages/Policy/CookiesPage";
 import DataDeletionPage from "./pages/Policy/DataDeletionPage";
 import GDPRPage from "./pages/Policy/GDPRPage";
 import MoneyBackPage from "./pages/Policy/MoneyBackPage";
-import ContactUsPage from "./pages/Policy/ContactUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
 import Footer from "./Footer";
 
 const Logo = () => {
