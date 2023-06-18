@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
+  FacebookAuthProvider,
+  TwitterAuthProvider,
+  OAuthProvider,
   getAuth,
   signInWithPopup,
   signInWithEmailAndPassword,
@@ -45,6 +48,67 @@ const signInWithGoogle = async () => {
         uid: user.uid,
         name: user.displayName,
         authProvider: "google",
+        email: user.email,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const signInWithApple = async () => {
+  try {
+    const provider = new OAuthProvider("apple.com");
+    const res = await signInWithPopup(auth, provider);
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "apple",
+        email: user.email,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const signInWithFacebook = async () => {
+  try {
+    const res = await signInWithPopup(auth, new FacebookAuthProvider());
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "facebook",
+        email: user.email,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+const signInWithTwitter = async () => {
+  try {
+    const res = await signInWithPopup(auth, new TwitterAuthProvider());
+    const user = res.user;
+    const q = query(collection(db, "users"), where("uid", "==", user.uid));
+    const docs = await getDocs(q);
+    if (docs.docs.length === 0) {
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        name: user.displayName,
+        authProvider: "twitter",
         email: user.email,
       });
     }
@@ -102,6 +166,9 @@ export {
   db,
   storage,
   signInWithGoogle,
+  signInWithApple,
+  signInWithFacebook,
+  signInWithTwitter,
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
