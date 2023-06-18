@@ -4,7 +4,7 @@ import FormatDate from "../../auxiliaryFunctions/dateFunctions";
 import {
   CalcAvgMileAYear,
   CalcLastYearMile,
-} from "../../auxiliaryFunctions/mathFunctions";
+} from "../../auxiliaryFunctions/orderFunctions";
 import { CapitalizeEachWord } from "../../auxiliaryFunctions/stringFunctions";
 
 const Mileage = ({ full, aiContent, goToMileageSection }) => {
