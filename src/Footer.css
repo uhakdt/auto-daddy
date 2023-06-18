@@ -1,0 +1,11 @@
+.footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
