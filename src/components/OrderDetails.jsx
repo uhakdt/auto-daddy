@@ -4,6 +4,8 @@ import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
 import Box from "@mui/material/Box";
 import FormatDate from "../auxiliaryFunctions/dateFunctions";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 import "./OrderDetails.css";
 import { storage } from "../firebase";
@@ -30,6 +32,9 @@ import {
   handleEmailReport,
 } from "../auxiliaryHooks/reportHooks";
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
+});
 
 const auth = getAuth();
 
@@ -61,6 +66,7 @@ const OrderDetails = ({ orderId }) => {
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [error, setError] = useState({ status: false, message: "" });
 
   const goToTAXSection = React.useRef();
   const goToMOTSection = React.useRef();
@@ -71,6 +77,10 @@ const OrderDetails = ({ orderId }) => {
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
 
+  const handleError = (message) => {
+    setError({ status: true, message });
+  };
+
   const scrollToRef = (ref) => {
     window.scrollTo({
       top: ref.current.offsetTop - 100,
@@ -78,12 +88,23 @@ const OrderDetails = ({ orderId }) => {
     });
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setError({ status: false, message: "" });
+  };
+
   useEffect(() => {
     const fetchImageUrl = async () => {
-      const fileName = `${orderId}_image_0.jpg`;
-      const filePath = `user_files/${auth.currentUser.uid}/car_images/${fileName}`;
-      const url = await getDownloadURL(ref(storage, filePath));
-      setImageUrl(url);
+      try {
+        const fileName = `${orderId}_image_0.jpg`;
+        const filePath = `user_files/${auth.currentUser.uid}/car_images/${fileName}`;
+        const url = await getDownloadURL(ref(storage, filePath));
+        setImageUrl(url);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     if (order) fetchImageUrl();
@@ -300,7 +321,7 @@ const OrderDetails = ({ orderId }) => {
           },
         ]);
       } else {
-        console.log("No such order!");
+        handleError("No such order!");
       }
     };
 
@@ -436,6 +457,16 @@ const OrderDetails = ({ orderId }) => {
           <p>Create an Order here! TODO:</p>
         )}
       </div>
+      <Snackbar
+        open={error.status}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+          {error.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
