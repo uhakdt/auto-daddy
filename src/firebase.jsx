@@ -37,6 +37,10 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+const twitterProvider = new TwitterAuthProvider();
+const appleProvider = new OAuthProvider("apple.com");
+
 const signInWithGoogle = async () => {
   try {
     const res = await signInWithPopup(auth, googleProvider);
@@ -59,8 +63,7 @@ const signInWithGoogle = async () => {
 
 const signInWithApple = async () => {
   try {
-    const provider = new OAuthProvider("apple.com");
-    const res = await signInWithPopup(auth, provider);
+    const res = await signInWithPopup(auth, appleProvider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
@@ -80,7 +83,7 @@ const signInWithApple = async () => {
 
 const signInWithFacebook = async () => {
   try {
-    const res = await signInWithPopup(auth, new FacebookAuthProvider());
+    const res = await signInWithPopup(auth, facebookProvider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
@@ -100,7 +103,7 @@ const signInWithFacebook = async () => {
 
 const signInWithTwitter = async () => {
   try {
-    const res = await signInWithPopup(auth, new TwitterAuthProvider());
+    const res = await signInWithPopup(auth, twitterProvider);
     const user = res.user;
     const q = query(collection(db, "users"), where("uid", "==", user.uid));
     const docs = await getDocs(q);
