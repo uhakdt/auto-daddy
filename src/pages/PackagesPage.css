@@ -4,8 +4,6 @@
   margin-bottom: 10%;
 }
 
-/* Main */
-
 .main-container {
   display: flex;
   justify-content: space-evenly;
@@ -22,9 +20,9 @@
   border-radius: 10px;
   padding: 20px;
   margin: 10px;
-  flex: 1 1 45%; /* Shorthand for flex-grow, flex-shrink, and flex-basis */
+  flex: 1 1 45%;
   box-sizing: border-box;
-  max-width: 45%; /* You can adjust this value according to your needs */
+  max-width: 45%;
 }
 
 .freedata-container div,
@@ -49,8 +47,7 @@
   }
 }
 
-/* Modal */
-.modal-content-auth {
+.modal-content-checkout {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -66,23 +63,7 @@
   gap: 10px;
 }
 
-.modal-content-auth-input {
-  width: 88.5%;
-  padding: 0.8em;
-  justify-content: center;
-  margin-bottom: 1em;
-  border-radius: 10px;
-  border: 1px solid gray;
-  font-size: large;
-}
-
-@media (max-width: 768px) {
-  .modal-content-auth-input {
-    width: 80%;
-  }
-}
-
-.modal-content-auth-btn {
+.modal-content-checkout-btn {
   width: 100%;
   padding: 0.8em;
   border-radius: 10px;
@@ -95,82 +76,13 @@
   font-size: large;
 }
 
-.modal-content-auth-btn:hover {
+.modal-content-checkout-btn:hover {
   background-color: #f5ff86;
   cursor: pointer;
   border-color: #32341d;
 }
 
-.modal-content-auth-forgotPassword {
-  text-decoration: none;
-  color: black;
-  font-size: medium;
-  margin-bottom: 1em;
-  margin-left: 40%;
-  margin-top: -7.5%;
-}
-
-@media (max-width: 768px) {
-  .modal-content-auth-forgotPassword {
-    margin-left: 0%;
-  }
-}
-
-.modal-content-auth-link-simple {
-  text-decoration: none;
-  color: black;
-  font-size: medium;
-  margin-top: 2em;
-  border-color: transparent;
-  background-color: transparent;
-  text-shadow: none;
-  padding: 0.5em;
-}
-
-.modal-content-auth-link-simple:hover {
-  cursor: pointer;
-  background-color: #f8f9fa;
-  border-color: #efefef;
-  border-radius: 5px;
-}
-
-.modal-content-auth-text-lightgrey {
-  color: grey;
-}
-
-.modal-content-auth-text-bold {
-  font-weight: bold;
-}
-
-.modal-content-auth-google {
-  background-color: white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.23);
-  border-radius: 10px;
-  border-color: white;
-  width: 100%;
-}
-
-.modal-content-auth-google:hover {
-  cursor: pointer;
-  background-color: #dffffa;
-  border-color: #dffffa;
-}
-
-.modal-content-auth-google-logo {
-  width: 3em;
-  height: 3em;
-  padding: 0.2em;
-}
-
-.modal-content-checkout {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 500px;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  outline: none;
+.modal-content-checkout-text {
+  font-size: 18px;
+  text-align: center;
 }

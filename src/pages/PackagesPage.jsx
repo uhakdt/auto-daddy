@@ -5,16 +5,13 @@ import { AppContext } from "../appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "../firebase";
 
-import { Button } from "@mui/material";
 import "./PackagesPage.css";
+import { Button } from "@mui/material";
 import CheckoutForm from "../components/CheckoutForm";
 import Modal from "@mui/material/Modal";
+import LoginForm from "../components/Auth/LoginForm";
+import RegisterForm from "../components/Auth/RegisterForm";
 
 const auth = getAuth();
 
@@ -35,14 +32,6 @@ const PackagesPage = () => {
   const [registerPassword, setRegisterPassword] = useState("");
 
   const navigate = useNavigate();
-
-  const handleRegister = () => {
-    if (!registerName) {
-      alert("Please enter name");
-      return;
-    }
-    registerWithEmailAndPassword(registerName, registerEmail, registerPassword);
-  };
 
   const handleSubmit = (price, vehicleFreeData) => {
     setOpen(true);
@@ -153,108 +142,24 @@ const PackagesPage = () => {
         >
           <div>
             {!user && formType === "login" && (
-              <div className="modal-content-auth">
-                <input
-                  type="text"
-                  className="modal-content-auth-input"
-                  value={loginEmail}
-                  onChange={(e) => setLoginEmail(e.target.value)}
-                  placeholder="E-mail Address"
-                />
-                <input
-                  type="password"
-                  className="modal-content-auth-input"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  placeholder="Password"
-                />
-                <a
-                  className="modal-content-auth-forgotPassword"
-                  href="/auth/reset"
-                >
-                  Forgot Password?
-                </a>
-                <button
-                  className="modal-content-auth-btn"
-                  onClick={() =>
-                    logInWithEmailAndPassword(loginEmail, loginPassword)
-                  }
-                >
-                  Login
-                </button>
-                <button
-                  className="modal-content-auth-google"
-                  onClick={signInWithGoogle}
-                >
-                  <img
-                    alt="Google Logo"
-                    className="modal-content-auth-google-logo"
-                    src={`${process.env.PUBLIC_URL}/google-logo.png`}
-                  ></img>
-                </button>
-                <button
-                  className="modal-content-auth-link-simple"
-                  onClick={() => setFormType("register")}
-                >
-                  <span className="modal-content-auth-text-grey">
-                    Not registered yet?
-                  </span>
-                  <span className="modal-content-auth-text-bold">
-                    {" "}
-                    Create Account
-                  </span>
-                </button>
-              </div>
+              <LoginForm
+                setFormType={setFormType}
+                loginEmail={loginEmail}
+                setLoginEmail={setLoginEmail}
+                loginPassword={loginPassword}
+                setLoginPassword={setLoginPassword}
+              />
             )}
             {!user && formType === "register" && (
-              <div className="modal-content-auth">
-                <input
-                  type="text"
-                  className="modal-content-auth-input"
-                  value={registerName}
-                  onChange={(e) => setRegisterName(e.target.value)}
-                  placeholder="Full Name"
-                />
-                <input
-                  type="text"
-                  className="modal-content-auth-input"
-                  value={registerEmail}
-                  onChange={(e) => setRegisterEmail(e.target.value)}
-                  placeholder="E-mail Address"
-                />
-                <input
-                  type="password"
-                  className="modal-content-auth-input"
-                  value={registerPassword}
-                  onChange={(e) => setRegisterPassword(e.target.value)}
-                  placeholder="Password"
-                />
-                <button
-                  className="modal-content-auth-btn"
-                  onClick={handleRegister}
-                >
-                  Register
-                </button>
-                <button
-                  className="modal-content-auth-google"
-                  onClick={signInWithGoogle}
-                >
-                  <img
-                    alt="Google Logo"
-                    className="modal-content-auth-google-logo"
-                    src={`${process.env.PUBLIC_URL}/google-logo.png`}
-                  ></img>
-                </button>
-                <button
-                  className="modal-content-auth-link-simple"
-                  onClick={() => setFormType("login")}
-                >
-                  <span className="modal-content-auth-text-grey">
-                    Already have an account?
-                  </span>
-                  <span className="modal-content-auth-text-bold"> Login</span>
-                </button>
-              </div>
+              <RegisterForm
+                setFormType={setFormType}
+                registerName={registerName}
+                setRegisterName={setRegisterName}
+                registerEmail={registerEmail}
+                setRegisterEmail={setRegisterEmail}
+                registerPassword={registerPassword}
+                setRegisterPassword={setRegisterPassword}
+              />
             )}
 
             {user && (
