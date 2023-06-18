@@ -48,6 +48,7 @@ const Stolen = ({ full, aiContent, goToStolenSection }) => {
         {full.StolenMiaftrRecordCount > 0 &&
           full.StolenMiaftrRecordList.map((x, i) => {
             // TODO: Implement logic here for StolenMiaftrRecordList
+            return <></>;
           })}
       </div>
     </section>

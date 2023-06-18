@@ -26,7 +26,7 @@ const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
         )}
         {full.PlateChangeList.map((x, i) => {
           return (
-            <div className="table-figure-container">
+            <div key={i} className="table-figure-container">
               <table rules="all" className="section-table">
                 <tbody>
                   <TableRow item={x.DateChanged} title="Date Changed">

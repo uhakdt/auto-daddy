@@ -26,7 +26,7 @@ const OutstandingFinances = ({ full, aiContent, goToFinanceSection }) => {
         ) : null}
         {full.FinanceRecordList.map((x, i) => {
           return (
-            <div className="table-figure-container">
+            <div key={i} className="table-figure-container">
               <table rules="all" className="section-table">
                 <tbody>
                   <TableRow item={x.AgreementDate} title="Agreement Date">

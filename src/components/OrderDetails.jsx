@@ -24,6 +24,7 @@ import ImportExport from "./OrderDetails/ImportExport";
 import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
+import { useOrderDetails } from "../auxiliaryHooks/orderHooks";
 
 const auth = getAuth();
 
@@ -45,11 +46,8 @@ const aiContentListSample = [
 ];
 
 const OrderDetails = ({ orderId }) => {
+  const { order, free, basic, full } = useOrderDetails(orderId);
   const [aiContentList, setAIContentList] = useState(aiContentListSample);
-  const [order, setOrder] = useState(null);
-  const [free, setVehicleFreeData] = useState(null);
-  const [basic, setVehicleAndMotHistory] = useState(null);
-  const [full, setVdiCheckFull] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [windowData, setWindowData] = useState(null);
   console.log("Free: \n", free);
@@ -92,10 +90,6 @@ const OrderDetails = ({ orderId }) => {
       const docSnap = await getDoc(orderRef);
 
       if (docSnap.exists()) {
-        setOrder(docSnap.data());
-        setVehicleFreeData(docSnap.data().vehicleFreeData);
-        setVehicleAndMotHistory(docSnap.data().data.VehicleAndMotHistory);
-        setVdiCheckFull(docSnap.data().data.VdiCheckFull);
         setWindowData([
           {
             title: "TAX",

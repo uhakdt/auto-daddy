@@ -11,7 +11,6 @@ export const App = ({ children }) => {
     saveDataToStorage(data);
   }, [data]);
 
-  // Implementing the functions that will modify the state and automatically save it to sessionStorage
   const setUserId = (value) => {
     setData((prevData) => ({ ...prevData, userId: value }));
   };

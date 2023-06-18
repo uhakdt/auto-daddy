@@ -78,7 +78,7 @@ const Mileage = ({ full, aiContent, goToMileageSection }) => {
         </div>
         {full.MileageRecordList.map((x, i) => {
           return (
-            <div className="table-figure-container">
+            <div key={i} className="table-figure-container">
               <table
                 style={{ width: "100%" }}
                 rules="all"
