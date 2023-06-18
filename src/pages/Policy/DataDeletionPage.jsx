@@ -36,10 +36,19 @@ const DataDeletionPage = () => {
 
       <h2>How to Request Data Deletion?</h2>
       <p>
-        To request data deletion, you can contact any part of our organization.
-        We accept both verbal and written requests, but we recommend following
-        up verbal requests in writing to ensure clear communication. We aim to
-        respond within one calendar month.
+        You can delete your data through your account settings on our website.
+        Here are the steps:
+      </p>
+      <ul>
+        <li>Log in to your AutoDaddy account.</li>
+        <li>Go to 'Settings'.</li>
+        <li>Select 'Delete Account and Data'.</li>
+        <li>Follow the prompts to confirm the deletion.</li>
+      </ul>
+      <p>
+        Please note that this will permanently delete your account and all
+        associated data. If you have any difficulties or require further
+        assistance, please contact our support team.
       </p>
 
       <h2>Exemptions</h2>
