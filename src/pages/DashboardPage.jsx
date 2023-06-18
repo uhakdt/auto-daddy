@@ -2,17 +2,20 @@ import React, { useState, useEffect, useContext } from "react";
 import { auth, db } from "../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { AppContext } from "../appContext";
-import Sidebar from "../components/Sidebar";
-import OrderDetails from "../components/OrderDetails";
 import Box from "@mui/material/Box";
 import CarLoader from "../components/SVGs/CarLoader";
 import "./DashboardPage.css";
+
+import Sidebar from "../components/Sidebar";
+import OrderDetails from "../components/OrderDetails";
+import Settings from "../components/Settings";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
 
   const getPaymentIntentFromUrl = () => {
     return new URLSearchParams(window.location.search).get("payment_intent");
@@ -92,9 +95,17 @@ function DashboardPage() {
       <Sidebar
         className="sidebar"
         orders={orders}
-        onSelectOrder={setSelectedOrder}
+        onSelectOrder={(orderId) => {
+          setSelectedOrder(orderId);
+          setShowSettings(false);
+        }}
+        onSelectSettings={() => setShowSettings(true)}
       />
-      <OrderDetails className="order-details" orderId={selectedOrder} />
+      {showSettings ? (
+        <Settings />
+      ) : (
+        <OrderDetails className="order-details" orderId={selectedOrder} />
+      )}
     </Box>
   );
 }

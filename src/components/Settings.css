@@ -1,0 +1,25 @@
+.user-profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-profile .avatar {
+  margin-right: 10px;
+}
+
+.user-profile .email {
+  font-size: 18px;
+  color: #333;
+}
+
+.contact-button {
+  margin-top: 10px;
+}
+
+.delete-account-button {
+  margin-top: 10px;
+  color: #fff;
+  background-color: #f44336;
+  border-color: #f44336;
+}

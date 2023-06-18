@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
+import SettingsIcon from "@mui/icons-material/Settings";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -9,7 +10,7 @@ import "./Sidebar.css";
 import CarSidebar from "./SVGs/CarSidebar";
 import { CheckOrderCriteria } from "../auxiliaryFunctions/orderFunctions";
 
-function Sidebar({ orders, onSelectOrder }) {
+function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -42,6 +43,10 @@ function Sidebar({ orders, onSelectOrder }) {
           </div>
         </IconButton>
       ))}
+
+      <IconButton onClick={onSelectSettings} className="settings-button">
+        <SettingsIcon />
+      </IconButton>
     </Box>
   );
 }
