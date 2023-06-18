@@ -1,0 +1,15 @@
+.page {
+  padding: 20px;
+  background-color: #f6f6f6;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.page h1 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.page p {
+  color: #555;
+}

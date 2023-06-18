@@ -3,10 +3,6 @@ import { useLocation } from "react-router";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase";
-import LandingPage from "./pages/LandingPage";
-import AuthPage from "./pages/AuthAndAccount/AuthPage";
-import DashboardPage from "./pages/DashboardPage";
-import PackagesPage from "./pages/PackagesPage";
 import { useHandleLogout } from "./auxiliaryHooks/authHooks";
 import {
   AppBar,
@@ -23,6 +19,19 @@ import {
 import { AppContext } from "./appContext";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Navigation.css";
+
+import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/AuthAndAccount/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
+import PackagesPage from "./pages/PackagesPage";
+import PrivacyPage from "./pages/Policy/PrivacyPage";
+import TermsPage from "./pages/Policy/TermsPage";
+import CookiesPage from "./pages/Policy/CookiesPage";
+import DataDeletionPage from "./pages/Policy/DataDeletionPage";
+import GDPRPage from "./pages/Policy/GDPRPage";
+import MoneyBackPage from "./pages/Policy/MoneyBackPage";
+import ContactUsPage from "./pages/Policy/ContactUsPage";
+import Footer from "./Footer";
 
 const Logo = () => {
   return (
@@ -181,7 +190,15 @@ function Navigation() {
         <Route path="/packages" element={<PackagesPage />} />
         <Route path="/auth/*" element={<AuthPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/cookies" element={<CookiesPage />} />
+        <Route path="/data-deletion" element={<DataDeletionPage />} />
+        <Route path="/gdpr" element={<GDPRPage />} />
+        <Route path="/money-back" element={<MoneyBackPage />} />
+        <Route path="/contact-us" element={<ContactUsPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
