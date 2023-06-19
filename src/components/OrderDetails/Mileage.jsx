@@ -1,4 +1,13 @@
 import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
 import TableRow from "./TableRow";
 import FormatDate from "../../auxiliaryFunctions/dateFunctions";
 import {
@@ -8,6 +17,10 @@ import {
 import { CapitalizeEachWord } from "../../auxiliaryFunctions/stringFunctions";
 
 const Mileage = ({ full, aiContent, goToMileageSection }) => {
+  const data = full.MileageRecordList.map((record) => ({
+    date: record.DateOfInformation,
+    mileage: record.Mileage,
+  })).reverse();
   return (
     <section ref={goToMileageSection} className="section">
       <div className="section-title">Mileage</div>
@@ -76,6 +89,29 @@ const Mileage = ({ full, aiContent, goToMileageSection }) => {
             </tbody>
           </table>
         </div>
+        <LineChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis dataKey="mileage" />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="mileage"
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
         {full.MileageRecordList.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
