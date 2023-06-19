@@ -73,19 +73,39 @@ function Navigation() {
       <List>
         {user ? (
           <>
-            <ListItem button onClick={() => navigate(`/dashboard`)}>
+            <ListItem
+              onClick={() => {
+                navigate(`/dashboard`);
+                toggleDrawer(false)();
+              }}
+            >
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={handleLogout}>
+            <ListItem
+              onClick={() => {
+                handleLogout();
+                toggleDrawer(false)();
+              }}
+            >
               <ListItemText primary="Log out" />
             </ListItem>
           </>
         ) : (
           <>
-            <ListItem button onClick={() => navigate(`/auth/login`)}>
+            <ListItem
+              onClick={() => {
+                navigate(`/auth/login`);
+                toggleDrawer(false)();
+              }}
+            >
               <ListItemText primary="Login" />
             </ListItem>
-            <ListItem button onClick={() => navigate(`/auth/register`)}>
+            <ListItem
+              onClick={() => {
+                navigate(`/auth/register`);
+                toggleDrawer(false)();
+              }}
+            >
               <ListItemText className="auth__btn" primary="Sign Up" />
             </ListItem>
           </>
