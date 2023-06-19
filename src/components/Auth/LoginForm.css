@@ -14,6 +14,13 @@
   gap: 10px;
 }
 
+@media (max-width: 768px) {
+  .modal-content-auth {
+    width: 70%;
+    height: 70%;
+  }
+}
+
 .modal-content-auth-input {
   width: 88.5%;
   padding: 0.8em;

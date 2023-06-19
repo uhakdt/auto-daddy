@@ -163,7 +163,7 @@ const PackagesPage = () => {
             )}
 
             {user && (
-              <div className="modal-content-checkout">
+              <div className="modal-content-checkout" style={{ width: "80%" }}>
                 <Elements
                   options={{
                     clientSecret,
