@@ -95,7 +95,7 @@ function Navigation() {
   );
 
   return (
-    <div>
+    <>
       {!isAuthPage && (
         <AppBar
           position="fixed"
@@ -199,7 +199,7 @@ function Navigation() {
         <Route path="/contact-us" element={<ContactUsPage />} />
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

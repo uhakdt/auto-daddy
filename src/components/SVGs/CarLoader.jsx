@@ -1,4 +1,5 @@
 import React from "react";
+import "./CarLoader.css";
 
 function CarLoader() {
   return (
