@@ -5,10 +5,12 @@ import { AppContext } from "../appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import "./PackagesPage.css";
 import { Button } from "@mui/material";
 import CheckoutForm from "../components/CheckoutForm";
+import PaypPalPayment from "../components/PayPalPayment";
 import Modal from "@mui/material/Modal";
 import LoginForm from "../components/Auth/LoginForm";
 import RegisterForm from "../components/Auth/RegisterForm";
@@ -17,12 +19,20 @@ const auth = getAuth();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 
+const initialOptions = {
+  "client-id":
+    "AeEuJ4sFBulMy2T3rCl60TOmWoIf3_ub1AUmUU-Cdg6M7fR32BSvR8Ij93A4lwe3LEkByX3YGXfUtlTr",
+  currency: "USD",
+  intent: "capture",
+};
+
 const PackagesPage = () => {
   const { vehicleFreeData } = useContext(AppContext);
   const [clientSecret, setClientSecret] = useState("");
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
   const [formType, setFormType] = useState("login");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   // Form states
   const [loginEmail, setLoginEmail] = useState("");
@@ -33,8 +43,9 @@ const PackagesPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (price, vehicleFreeData) => {
+  const handleStripeSubmit = (price, vehicleFreeData) => {
     setOpen(true);
+    setPaymentMethod("stripe");
 
     if (typeof vehicleFreeData === "undefined") {
       alert("Please enter a license plate number.");
@@ -55,6 +66,28 @@ const PackagesPage = () => {
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
+  };
+
+  const handlePayPalSubmit = (price, vehicleFreeData) => {
+    setOpen(true);
+    setPaymentMethod("paypal");
+
+    if (typeof vehicleFreeData === "undefined") {
+      alert("Please enter a license plate number.");
+      navigate("/");
+      return;
+    }
+
+    fetch(`${process.env.REACT_APP_API_URL}/create-paypal-order`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": process.env.REACT_APP_YOUR_DOMAIN,
+      },
+      body: JSON.stringify({
+        price,
+      }),
+    }).then((res) => res.json());
   };
 
   return (
@@ -125,15 +158,22 @@ const PackagesPage = () => {
             <div>Full Keeper Change History</div>
           </div>
           <Button
-            onClick={() => handleSubmit(900, vehicleFreeData)}
+            onClick={() => handleStripeSubmit(900, vehicleFreeData)}
             type="submit"
             variant="contained"
           >
-            Purchase
+            Purchase with Stripe
+          </Button>
+          <Button
+            onClick={() => handlePayPalSubmit(900, vehicleFreeData)}
+            type="submit"
+            variant="contained"
+          >
+            Purchase with PayPal
           </Button>
         </div>
       </div>
-      {clientSecret && (
+      {clientSecret && paymentMethod === "stripe" && (
         <Modal
           open={open}
           onClose={() => setOpen(false)}
@@ -178,6 +218,19 @@ const PackagesPage = () => {
           </div>
         </Modal>
       )}
+      {/* {paymentMethod === "paypal" && (
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <PayPalForm price={900} />
+        </Modal>
+      )} */}
+      <PayPalScriptProvider options={initialOptions}>
+        <PaypPalPayment />
+      </PayPalScriptProvider>
     </div>
   );
 };
