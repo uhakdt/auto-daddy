@@ -12,10 +12,8 @@ const PaypPalPayment = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        product: {
-          description: "Full Package",
-          cost: "9.00",
-        },
+        description: "Full Car Check",
+        cost: "9.00",
       }),
     });
     const order = await response.json();

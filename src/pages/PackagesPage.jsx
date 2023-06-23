@@ -22,7 +22,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
 const initialOptions = {
   "client-id":
     "AeEuJ4sFBulMy2T3rCl60TOmWoIf3_ub1AUmUU-Cdg6M7fR32BSvR8Ij93A4lwe3LEkByX3YGXfUtlTr",
-  currency: "USD",
+  currency: "GBP",
   intent: "capture",
 };
 
