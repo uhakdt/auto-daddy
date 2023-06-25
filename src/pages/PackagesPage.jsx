@@ -11,6 +11,7 @@ import "./PackagesPage.css";
 import { Button } from "@mui/material";
 import CheckoutForm from "../components/CheckoutForm";
 import PaypPalPayment from "../components/PayPalPayment";
+import PayByStripeButton from "../components/PayByStripeButton";
 import Modal from "@mui/material/Modal";
 import LoginForm from "../components/Auth/LoginForm";
 import RegisterForm from "../components/Auth/RegisterForm";
@@ -32,7 +33,6 @@ const PackagesPage = () => {
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
   const [formType, setFormType] = useState("login");
-  const [paymentMethod, setPaymentMethod] = useState("");
 
   // Form states
   const [loginEmail, setLoginEmail] = useState("");
@@ -45,7 +45,6 @@ const PackagesPage = () => {
 
   const handleStripeSubmit = (price, vehicleFreeData) => {
     setOpen(true);
-    setPaymentMethod("stripe");
 
     if (typeof vehicleFreeData === "undefined") {
       alert("Please enter a license plate number.");
@@ -66,28 +65,6 @@ const PackagesPage = () => {
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  };
-
-  const handlePayPalSubmit = (price, vehicleFreeData) => {
-    setOpen(true);
-    setPaymentMethod("paypal");
-
-    if (typeof vehicleFreeData === "undefined") {
-      alert("Please enter a license plate number.");
-      navigate("/");
-      return;
-    }
-
-    fetch(`${process.env.REACT_APP_API_URL}/create-paypal-order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": process.env.REACT_APP_YOUR_DOMAIN,
-      },
-      body: JSON.stringify({
-        price,
-      }),
-    }).then((res) => res.json());
   };
 
   return (
@@ -157,23 +134,15 @@ const PackagesPage = () => {
             <div>Full Colour Change History</div>
             <div>Full Keeper Change History</div>
           </div>
-          <Button
+          <PayByStripeButton
             onClick={() => handleStripeSubmit(900, vehicleFreeData)}
-            type="submit"
-            variant="contained"
-          >
-            Purchase with Stripe
-          </Button>
-          <Button
-            onClick={() => handlePayPalSubmit(900, vehicleFreeData)}
-            type="submit"
-            variant="contained"
-          >
-            Purchase with PayPal
-          </Button>
+          />
+          <PayPalScriptProvider options={initialOptions}>
+            <PaypPalPayment />
+          </PayPalScriptProvider>
         </div>
       </div>
-      {clientSecret && paymentMethod === "stripe" && (
+      {clientSecret && (
         <Modal
           open={open}
           onClose={() => setOpen(false)}
@@ -228,9 +197,6 @@ const PackagesPage = () => {
           <PayPalForm price={900} />
         </Modal>
       )} */}
-      <PayPalScriptProvider options={initialOptions}>
-        <PaypPalPayment />
-      </PayPalScriptProvider>
     </div>
   );
 };
