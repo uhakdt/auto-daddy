@@ -1,6 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const ImportExport = ({ full, aiContent, goToImportExportSection }) => {
   if (!full.Imported && !full.Exported) {

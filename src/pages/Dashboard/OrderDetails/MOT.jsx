@@ -5,8 +5,8 @@ import {
   CalculateMOTFailedTests,
   CalculateTotalAdviceItems,
   CalculateTotalAdviceItemsFailed,
-} from "../../auxiliaryFunctions/orderFunctions";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+} from "../../../auxiliaryFunctions/orderFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const MOT = ({ free, basic, aiContent, goToMOTSection }) => {
   if (basic.MotHistory.RecordList.length === 0) {

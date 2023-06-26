@@ -1,6 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const Stolen = ({ full, aiContent, goToStolenSection }) => {
   if (!full.Stolen) {

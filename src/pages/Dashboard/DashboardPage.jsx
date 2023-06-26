@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
-import { auth, db } from "../firebase";
+import { auth, db } from "../../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
-import { AppContext } from "../appContext";
+import { AppContext } from "../../appContext";
 import Box from "@mui/material/Box";
-import CarLoader from "../components/SVGs/CarLoader";
+import CarLoader from "../../components/SVGs/CarLoader";
 import "./DashboardPage.css";
 
-import Sidebar from "../components/Sidebar";
-import OrderDetails from "../components/OrderDetails";
-import Settings from "../components/Settings";
+import Sidebar from "./Sidebar";
+import OrderDetails from "./OrderDetails";
+import Settings from "./Settings";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);

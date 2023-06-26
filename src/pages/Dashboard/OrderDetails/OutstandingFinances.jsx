@@ -1,6 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const OutstandingFinances = ({ full, aiContent, goToFinanceSection }) => {
   if (full.FinanceRecordList.length === 0) {

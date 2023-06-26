@@ -1,6 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
   if (full.PlateChangeCount === 0) {

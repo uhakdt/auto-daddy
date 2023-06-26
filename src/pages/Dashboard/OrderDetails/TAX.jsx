@@ -1,10 +1,10 @@
 import React from "react";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 import {
   CalculateTaxDaysLeft,
   CalculateTaxSingle12MonthPayment,
-} from "../../auxiliaryFunctions/orderFunctions";
+} from "../../../auxiliaryFunctions/orderFunctions";
 
 const TAX = ({ free, basic, full, aiContent, goToTAXSection }) => {
   return (

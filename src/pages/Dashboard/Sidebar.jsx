@@ -6,9 +6,11 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+
 import "./Sidebar.css";
 import CarSidebar from "./SVGs/CarSidebar";
-import { CheckOrderCriteria } from "../auxiliaryFunctions/orderFunctions";
+
+import { CheckOrderCriteria } from "../../auxiliaryFunctions/orderFunctions";
 
 function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
   const theme = useTheme();

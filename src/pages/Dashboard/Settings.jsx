@@ -2,7 +2,7 @@ import React from "react";
 
 import { doc, deleteDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { db, logout } from "../firebase";
+import { db, logout } from "../../firebase";
 
 import { Button } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";

@@ -9,12 +9,12 @@ import {
   Legend,
 } from "recharts";
 import TableRow from "./TableRow";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 import {
   CalcAvgMileAYear,
   CalcLastYearMile,
-} from "../../auxiliaryFunctions/orderFunctions";
-import { CapitalizeEachWord } from "../../auxiliaryFunctions/stringFunctions";
+} from "../../../auxiliaryFunctions/orderFunctions";
+import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
 const Mileage = ({ full, aiContent, goToMileageSection }) => {
   const data = full.MileageRecordList.map((record) => ({

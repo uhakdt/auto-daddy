@@ -1,5 +1,5 @@
 import React from "react";
-import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const ImportantChecks = ({ basic, aiContent }) => {
   return (

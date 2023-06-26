@@ -1,6 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
-import { CapitalizeEachWord } from "../../auxiliaryFunctions/stringFunctions";
+import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 
 const VehicleDetails = ({ free, basic, aiContent, imageUrl }) => {

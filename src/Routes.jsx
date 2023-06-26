@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import AuthPage from "./pages/AuthAndAccount/AuthPage";
-import DashboardPage from "./pages/DashboardPage";
+import AuthPage from "./pages/Authentication/AuthPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 import PackagesPage from "./pages/PackagesPage";
 import PrivacyPage from "./pages/Policy/PrivacyPage";
 import TermsPage from "./pages/Policy/TermsPage";

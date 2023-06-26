@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
+
+import { storage, db } from "../../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
 import { getAuth } from "firebase/auth";
+import { ref, getDownloadURL } from "firebase/storage";
+
 import Box from "@mui/material/Box";
-import FormatDate from "../auxiliaryFunctions/dateFunctions";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 import "./OrderDetails.css";
-import { storage } from "../firebase";
-import { ref, getDownloadURL } from "firebase/storage";
+
 import VehicleMain from "./OrderDetails/VehicleMain";
 import AIMainSummary from "./OrderDetails/AIMainSummary";
-
 import StatusWindow from "./OrderDetails/StatusWindow";
 import VehicleDetails from "./OrderDetails/VehicleDetails";
 import EnergyConsumption from "./OrderDetails/EnergyConsumption";
@@ -26,11 +26,13 @@ import ImportExport from "./OrderDetails/ImportExport";
 import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
-import { useOrderDetails } from "../auxiliaryHooks/orderHooks";
+
+import { useOrderDetails } from "../../auxiliaryHooks/orderHooks";
 import {
   handleDownloadReport,
   handleEmailReport,
-} from "../auxiliaryHooks/reportHooks";
+} from "../../auxiliaryHooks/reportHooks";
+import FormatDate from "../../auxiliaryFunctions/dateFunctions";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;

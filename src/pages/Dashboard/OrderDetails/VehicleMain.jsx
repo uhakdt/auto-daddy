@@ -1,6 +1,6 @@
 import React from "react";
 import Snackbar from "@mui/material/Snackbar";
-import { CapitalizeEachWord } from "../../auxiliaryFunctions/stringFunctions";
+import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 
 const VehicleMain = ({
