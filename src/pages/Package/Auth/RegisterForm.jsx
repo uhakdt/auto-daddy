@@ -53,7 +53,7 @@ const RegisterForm = ({
         <img
           alt="Google Logo"
           className="modal-content-auth-google-logo"
-          src={`${process.env.PUBLIC_URL}/google-logo.png`}
+          src={`${process.env.PUBLIC_URL}/logos/google-logo.png`}
         ></img>
       </button>
       <button

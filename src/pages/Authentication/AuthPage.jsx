@@ -44,7 +44,7 @@ function AuthPage() {
         <a href="/">
           <img
             className="auth__logo"
-            src={`${process.env.PUBLIC_URL}/autodaddy-logo.png`}
+            src={`${process.env.PUBLIC_URL}/logos/autodaddy-logo.png`}
             alt="Logo"
           />
         </a>

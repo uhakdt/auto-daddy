@@ -46,7 +46,7 @@ function RegisterForm() {
         <img
           alt="Google Logo"
           className="auth__google__logo"
-          src={`${process.env.PUBLIC_URL}/google-logo.png`}
+          src={`${process.env.PUBLIC_URL}/logos/google-logo.png`}
         ></img>
       </button>
       <a className="auth__link__simple" href="/auth/login">

@@ -157,12 +157,12 @@ const PackagePage = () => {
         </div>
         <div className="logos-container">
           <img
-            src={`${process.env.PUBLIC_URL}/ukvd-logo.svg`}
+            src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
             height={100}
             alt="UKVD"
           />
           <img
-            src={`${process.env.PUBLIC_URL}/dvla-logo.svg`}
+            src={`${process.env.PUBLIC_URL}/logos/dvla-logo.svg`}
             height={100}
             alt="UKVD"
           />
