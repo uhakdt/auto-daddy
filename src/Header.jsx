@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useHandleLogout } from "./auxiliaryHooks/authHooks";
+import { useHandleLogout } from "./hooks/authHooks";
 import { useNavigate } from "react-router-dom";
 import {
   AppBar,

@@ -36,7 +36,7 @@ function LandingPage() {
     setIsSubmitted(true);
     if (pattern.test(registrationNumber)) {
       setIsValid(true);
-      setIsLoading(true); // Set loading state to true on form submit
+      setIsLoading(true);
       try {
         await axios
           .post(
@@ -46,19 +46,19 @@ function LandingPage() {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);
             setResponseStatus(true);
-            setIsLoading(false); // Set loading state to false after data fetch
+            setIsLoading(false);
           });
       } catch (error) {
         console.log(error);
-        setSnackbarMessage(error.response.data.message); // Set error message state
-        setSnackbarOpen(true); // Open the Snackbar
+        setSnackbarMessage(error.response.data.message);
+        setSnackbarOpen(true);
         setResponseStatus(false);
-        setIsLoading(false); // Set loading state to false in case of error
+        setIsLoading(false);
       }
     } else {
       setIsValid(false);
-      setSnackbarMessage("Invalid UK license plate number"); // Set error message state
-      setSnackbarOpen(true); // Open the Snackbar
+      setSnackbarMessage("Invalid UK license plate number");
+      setSnackbarOpen(true);
     }
   };
 

@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 import CarLoader from "../../SVGs/CarLoader";
 import "./DashboardPage.css";
 
-import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
-import Settings from "./Settings";
+import Settings from "./Settings/Settings";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);

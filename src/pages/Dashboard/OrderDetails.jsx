@@ -27,11 +27,11 @@ import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
 
-import { useOrderDetails } from "../../auxiliaryHooks/orderHooks";
+import { useOrderDetails } from "../../hooks/orderHooks";
 import {
   handleDownloadReport,
   handleEmailReport,
-} from "../../auxiliaryHooks/reportHooks";
+} from "../../hooks/reportHooks";
 import FormatDate from "../../auxiliaryFunctions/dateFunctions";
 
 const Alert = React.forwardRef(function Alert(props, ref) {

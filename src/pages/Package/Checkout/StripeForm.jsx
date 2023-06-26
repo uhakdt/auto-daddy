@@ -5,9 +5,9 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import "./CheckoutForm.css";
+import "./StripeForm.css";
 
-const CheckoutForm = forwardRef(({ userEmail }, ref) => {
+const StripeForm = forwardRef(({ userEmail }, ref) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -31,7 +31,6 @@ const CheckoutForm = forwardRef(({ userEmail }, ref) => {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          console.log("Payment succeeded!");
           setMessage("Payment succeeded!");
           break;
         case "processing":
@@ -103,4 +102,4 @@ const CheckoutForm = forwardRef(({ userEmail }, ref) => {
   );
 });
 
-export default CheckoutForm;
+export default StripeForm;

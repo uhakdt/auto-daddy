@@ -1,20 +1,22 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-import { AppContext } from "../appContext";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
-import "./PackagesPage.css";
-import { Button } from "@mui/material";
-import CheckoutForm from "../components/CheckoutForm";
-import PaypPalPayment from "../components/PayPalPayment";
-import PayByStripeButton from "../components/PayByStripeButton";
 import Modal from "@mui/material/Modal";
-import LoginForm from "../components/Auth/LoginForm";
-import RegisterForm from "../components/Auth/RegisterForm";
+
+import { AppContext } from "../../appContext";
+
+import StripeForm from "./Checkout/StripeForm";
+import PayPalForm from "./Checkout/PayPalForm";
+import PayByStripeButton from "./Checkout/PayByStripeButton";
+import LoginForm from "./Auth/LoginForm";
+import RegisterForm from "./Auth/RegisterForm";
+
+import "./PackagePage.css";
 
 const auth = getAuth();
 
@@ -27,7 +29,7 @@ const initialOptions = {
   intent: "capture",
 };
 
-const PackagesPage = () => {
+const PackagePage = () => {
   const { vehicleFreeData } = useContext(AppContext);
   const [clientSecret, setClientSecret] = useState("");
   const [open, setOpen] = React.useState(false);
@@ -138,7 +140,7 @@ const PackagesPage = () => {
             onClick={() => handleStripeSubmit(900, vehicleFreeData)}
           />
           <PayPalScriptProvider options={initialOptions}>
-            <PaypPalPayment />
+            <PayPalForm />
           </PayPalScriptProvider>
         </div>
       </div>
@@ -180,7 +182,7 @@ const PackagesPage = () => {
                   }}
                   stripe={stripePromise}
                 >
-                  <CheckoutForm userEmail={auth.currentUser.email} />
+                  <StripeForm userEmail={auth.currentUser.email} />
                 </Elements>
               </div>
             )}
@@ -201,4 +203,4 @@ const PackagesPage = () => {
   );
 };
 
-export default PackagesPage;
+export default PackagePage;

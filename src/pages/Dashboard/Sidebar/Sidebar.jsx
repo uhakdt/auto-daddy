@@ -8,9 +8,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 import "./Sidebar.css";
-import CarSidebar from "../../SVGs/CarSidebar";
+import CarSidebar from "../../../SVGs/CarSidebar";
 
-import { CheckOrderCriteria } from "../../auxiliaryFunctions/orderFunctions";
+import { CheckOrderCriteria } from "../../../auxiliaryFunctions/orderFunctions";
 
 function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
   const theme = useTheme();
@@ -29,7 +29,6 @@ function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
           key={order.id}
           onClick={() => {
             onSelectOrder(order.id);
-            console.log(order);
           }}
           className="order-button"
         >

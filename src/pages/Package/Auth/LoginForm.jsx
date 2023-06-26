@@ -1,5 +1,5 @@
 import React from "react";
-import { logInWithEmailAndPassword, signInWithGoogle } from "../../firebase";
+import { logInWithEmailAndPassword, signInWithGoogle } from "../../../firebase";
 
 import "./LoginForm.css";
 

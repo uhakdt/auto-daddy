@@ -3,13 +3,12 @@ import { getAuth } from "firebase/auth";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { toast } from "react-hot-toast";
 
-import { AppContext } from "../appContext";
+import { AppContext } from "../../../appContext";
 
 const auth = getAuth();
 
-const PaypPalPayment = () => {
+const PayPalForm = () => {
   const { vehicleFreeData } = useContext(AppContext);
-  console.log(window);
 
   const createOrder = async (data, actions) => {
     const response = await fetch(
@@ -26,12 +25,10 @@ const PaypPalPayment = () => {
       }
     );
     const order = await response.json();
-    console.log("ordercreate data", order);
     return order.id;
   };
 
   const onApprove = async (data) => {
-    console.log("onapprovedata", data);
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/capture-paypal-order`,
@@ -58,7 +55,6 @@ const PaypPalPayment = () => {
       return await response.json();
     } catch (err) {
       toast.error("Payment Failed!");
-      console.log("Payment Error", err);
     }
   };
 
@@ -72,4 +68,4 @@ const PaypPalPayment = () => {
   );
 };
 
-export default PaypPalPayment;
+export default PayPalForm;

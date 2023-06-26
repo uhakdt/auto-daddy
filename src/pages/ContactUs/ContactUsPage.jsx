@@ -1,5 +1,5 @@
 import React from "react";
-import "./Policy/PolicyPageStyles.css";
+import "../Policy/PolicyPageStyles.css";
 
 const ContactUsPage = () => {
   return (
