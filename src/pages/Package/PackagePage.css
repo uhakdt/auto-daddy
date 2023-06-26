@@ -6,13 +6,13 @@
 
 .main-container {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .freedata-container,
-.package-container {
+.report-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -22,7 +22,7 @@
   margin: 10px;
   flex: 1 1 45%;
   box-sizing: border-box;
-  max-width: 45%;
+  min-width: 50%;
 }
 
 .freedata-container div,

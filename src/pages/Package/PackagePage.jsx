@@ -17,6 +17,7 @@ import LoginForm from "./Auth/LoginForm";
 import RegisterForm from "./Auth/RegisterForm";
 
 import "./PackagePage.css";
+import FAQs from "./FAQs";
 
 const auth = getAuth();
 
@@ -118,7 +119,24 @@ const PackagePage = () => {
             <div>Wheel Plan: {vehicleFreeData.wheelPlan}</div>
           )}
         </div>
-        <div className="package-container">
+        <div className="pay-container">
+          <PayByStripeButton
+            onClick={() => handleStripeSubmit(1500, vehicleFreeData)}
+          />
+          <PayPalScriptProvider options={initialOptions}>
+            <PayPalForm />
+          </PayPalScriptProvider>
+        </div>
+        <div className="accuracy-statement-container">
+          <h3>Accuracy Statement</h3>
+          <p>
+            The information provided by this service is not guaranteed to be
+            accurate and is provided for informational purposes only. The
+            information provided is not intended to replace any official
+            documents.
+          </p>
+        </div>
+        <div className="report-container">
           <h3>Buy the Full Package</h3>
           <h2>£9</h2>
           <div className="package-list">
@@ -136,13 +154,30 @@ const PackagePage = () => {
             <div>Full Colour Change History</div>
             <div>Full Keeper Change History</div>
           </div>
-          <PayByStripeButton
-            onClick={() => handleStripeSubmit(900, vehicleFreeData)}
-          />
-          <PayPalScriptProvider options={initialOptions}>
-            <PayPalForm />
-          </PayPalScriptProvider>
         </div>
+        <div className="logos-container">
+          <img
+            src={`${process.env.PUBLIC_URL}/ukvd-logo.svg`}
+            height={100}
+            alt="UKVD"
+          />
+          <img
+            src={`${process.env.PUBLIC_URL}/dvla-logo.svg`}
+            height={100}
+            alt="UKVD"
+          />
+        </div>
+        <div className="how-it-works-container">
+          <h3>How it Works</h3>
+          <div>Enter a Vehicle Registration Number</div>
+          <div>
+            Enter a vehicle registration number to get started. We will search
+            our database for the vehicle. Once found, you can purchase the full
+            vehicle history, you can do so by clicking the "Buy Full Package"
+            button.
+          </div>
+        </div>
+        <FAQs />
       </div>
       {clientSecret && (
         <Modal
@@ -189,16 +224,6 @@ const PackagePage = () => {
           </div>
         </Modal>
       )}
-      {/* {paymentMethod === "paypal" && (
-        <Modal
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <PayPalForm price={900} />
-        </Modal>
-      )} */}
     </div>
   );
 };

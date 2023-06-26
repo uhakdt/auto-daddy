@@ -20,7 +20,7 @@ const PayPalForm = () => {
         },
         body: JSON.stringify({
           description: "Full Car Check",
-          cost: "9.00",
+          cost: "15.00",
         }),
       }
     );
