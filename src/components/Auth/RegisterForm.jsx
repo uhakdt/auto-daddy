@@ -1,6 +1,7 @@
 import React from "react";
-import "./RegisterForm.css";
 import { registerWithEmailAndPassword, signInWithGoogle } from "../../firebase";
+
+import "./RegisterForm.css";
 
 const RegisterForm = ({
   setFormType,

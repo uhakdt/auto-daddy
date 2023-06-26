@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { AppContext } from "../appContext";
 import { getAuth } from "firebase/auth";
-
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { toast } from "react-hot-toast";
+
+import { AppContext } from "../appContext";
 
 const auth = getAuth();
 

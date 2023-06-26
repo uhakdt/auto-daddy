@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 import { Box } from "@mui/material";
-import MyRoutes from "./Routes";
+import Routing from "./Routing";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Navigation.css";
@@ -14,7 +14,7 @@ function Navigation() {
     <>
       {!isAuthPage && <Header />}
       {!isAuthPage && <Box sx={{ height: "64px" }} />}
-      <MyRoutes />
+      <Routing />
       {!isAuthPage && <Footer />}
     </>
   );

@@ -1,13 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 import { useNavigate, Routes, Route, useLocation } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import { auth } from "../../firebase";
 import { AppContext } from "../../appContext";
-import "./AuthPage.css";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
+
+import "./AuthPage.css";
 
 function AuthPage() {
   const { previousPage, vehicleFreeData } = useContext(AppContext);
@@ -24,7 +26,6 @@ function AuthPage() {
 
   useEffect(() => {
     if (loading) {
-      // maybe trigger a loading screen
       return;
     }
     if (user) {

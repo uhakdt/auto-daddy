@@ -1,13 +1,14 @@
-import React from "react";
-import { Box, Grid, TextField } from "@mui/material";
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../appContext";
-import { VehicleFreeData } from "../models/VehicleFreeData";
-import CarLoader from "../components/SVGs/CarLoader";
+import axios from "axios";
+
+import { Box, Grid, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { Snackbar } from "@mui/material"; // import Snackbar
+import { Snackbar } from "@mui/material";
+
+import { AppContext } from "../../appContext";
+import { VehicleFreeData } from "../../models/VehicleFreeData";
+import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
 function LandingPage() {
@@ -23,8 +24,8 @@ function LandingPage() {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar open state
-  const [snackbarMessage, setSnackbarMessage] = useState(""); // Snackbar message state
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -70,7 +71,6 @@ function LandingPage() {
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
 
-  // Add a loading state render
   if (isLoading) {
     return (
       <div className="loader">

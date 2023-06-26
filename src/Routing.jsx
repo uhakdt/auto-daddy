@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./pages/Landing/LandingPage";
 import AuthPage from "./pages/Authentication/AuthPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import PackagesPage from "./pages/PackagesPage";
@@ -12,7 +12,7 @@ import GDPRPage from "./pages/Policy/GDPRPage";
 import MoneyBackPage from "./pages/Policy/MoneyBackPage";
 import ContactUsPage from "./pages/ContactUsPage";
 
-function MyRoutes() {
+function Routing() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
@@ -30,4 +30,4 @@ function MyRoutes() {
   );
 }
 
-export default MyRoutes;
+export default Routing;

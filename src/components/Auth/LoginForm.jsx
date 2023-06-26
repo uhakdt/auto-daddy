@@ -1,6 +1,7 @@
 import React from "react";
-import "./LoginForm.css";
 import { logInWithEmailAndPassword, signInWithGoogle } from "../../firebase";
+
+import "./LoginForm.css";
 
 const LoginForm = ({
   setFormType,

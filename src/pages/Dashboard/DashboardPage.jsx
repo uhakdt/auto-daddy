@@ -3,7 +3,7 @@ import { auth, db } from "../../firebase";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { AppContext } from "../../appContext";
 import Box from "@mui/material/Box";
-import CarLoader from "../../components/SVGs/CarLoader";
+import CarLoader from "../../SVGs/CarLoader";
 import "./DashboardPage.css";
 
 import Sidebar from "./Sidebar";

@@ -8,7 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 
 import "./Sidebar.css";
-import CarSidebar from "./SVGs/CarSidebar";
+import CarSidebar from "../../SVGs/CarSidebar";
 
 import { CheckOrderCriteria } from "../../auxiliaryFunctions/orderFunctions";
 
