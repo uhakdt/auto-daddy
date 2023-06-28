@@ -36,6 +36,8 @@ const PackagePage = () => {
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
   const [formType, setFormType] = useState("login");
+  const [payments, setPayments] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   // Form states
   const [loginEmail, setLoginEmail] = useState("");
@@ -46,8 +48,20 @@ const PackagePage = () => {
 
   const navigate = useNavigate();
 
-  const handleStripeSubmit = (price, vehicleFreeData) => {
+  const handleDrive = () => {
     setOpen(true);
+    setPayments(true);
+
+    if (typeof vehicleFreeData === "undefined") {
+      alert("Please enter a license plate number.");
+      navigate("/");
+      return;
+    }
+  };
+
+  const handleStripeSubmit = (price, vehicleFreeData) => {
+    setPaymentMethod("");
+    setPayments(false);
 
     if (typeof vehicleFreeData === "undefined") {
       alert("Please enter a license plate number.");
@@ -119,13 +133,10 @@ const PackagePage = () => {
             <div>Wheel Plan: {vehicleFreeData.wheelPlan}</div>
           )}
         </div>
-        <div className="pay-container">
-          <PayByStripeButton
-            onClick={() => handleStripeSubmit(1500, vehicleFreeData)}
-          />
-          <PayPalScriptProvider options={initialOptions}>
-            <PayPalForm />
-          </PayPalScriptProvider>
+        <div className="drive-container">
+          <button className="drive-btn" onClick={handleDrive}>
+            Drive
+          </button>
         </div>
         <div className="accuracy-statement-container">
           <h3>Accuracy Statement</h3>
@@ -179,51 +190,64 @@ const PackagePage = () => {
         </div>
         <FAQs />
       </div>
-      {clientSecret && (
-        <Modal
-          open={open}
-          onClose={() => setOpen(false)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <div>
-            {!user && formType === "login" && (
-              <LoginForm
-                setFormType={setFormType}
-                loginEmail={loginEmail}
-                setLoginEmail={setLoginEmail}
-                loginPassword={loginPassword}
-                setLoginPassword={setLoginPassword}
-              />
-            )}
-            {!user && formType === "register" && (
-              <RegisterForm
-                setFormType={setFormType}
-                registerName={registerName}
-                setRegisterName={setRegisterName}
-                registerEmail={registerEmail}
-                setRegisterEmail={setRegisterEmail}
-                registerPassword={registerPassword}
-                setRegisterPassword={setRegisterPassword}
-              />
-            )}
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+          setPayments(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div>
+          {!user && formType === "login" && (
+            <LoginForm
+              setFormType={setFormType}
+              loginEmail={loginEmail}
+              setLoginEmail={setLoginEmail}
+              loginPassword={loginPassword}
+              setLoginPassword={setLoginPassword}
+            />
+          )}
+          {!user && formType === "register" && (
+            <RegisterForm
+              setFormType={setFormType}
+              registerName={registerName}
+              setRegisterName={setRegisterName}
+              registerEmail={registerEmail}
+              setRegisterEmail={setRegisterEmail}
+              registerPassword={registerPassword}
+              setRegisterPassword={setRegisterPassword}
+            />
+          )}
+          {user && payments && (
+            <div className="pay-container">
+              <button onClick={() => handleStripeSubmit(1500, vehicleFreeData)}>
+                Stripe
+              </button>
+              <button onClick={() => setPaymentMethod("paypal")}>
+                <PayPalScriptProvider options={initialOptions}>
+                  <PayPalForm />
+                </PayPalScriptProvider>
+              </button>
+            </div>
+          )}
 
-            {user && (
-              <div className="modal-content-checkout" style={{ width: "80%" }}>
-                <Elements
-                  options={{
-                    clientSecret,
-                    theme: "stripe",
-                  }}
-                  stripe={stripePromise}
-                >
-                  <StripeForm userEmail={auth.currentUser.email} />
-                </Elements>
-              </div>
-            )}
-          </div>
-        </Modal>
-      )}
+          {user && !payments && clientSecret && (
+            <div className="modal-content-checkout" style={{ width: "80%" }}>
+              <Elements
+                options={{
+                  clientSecret,
+                  theme: "stripe",
+                }}
+                stripe={stripePromise}
+              >
+                <StripeForm userEmail={auth.currentUser.email} />
+              </Elements>
+            </div>
+          )}
+        </div>
+      </Modal>
     </div>
   );
 };

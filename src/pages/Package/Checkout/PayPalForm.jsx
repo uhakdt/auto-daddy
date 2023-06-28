@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { getAuth } from "firebase/auth";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { toast } from "react-hot-toast";
@@ -9,6 +11,8 @@ const auth = getAuth();
 
 const PayPalForm = () => {
   const { vehicleFreeData } = useContext(AppContext);
+
+  const navigate = useNavigate();
 
   const createOrder = async (data, actions) => {
     const response = await fetch(
@@ -43,15 +47,25 @@ const PayPalForm = () => {
             vehicleFreeData: vehicleFreeData,
           }),
         }
-      );
-      toast("Payment successful!", {
-        icon: "🥳",
-        style: {
-          borderRadius: "5px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
+      )
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            toast("Payment successful!", {
+              icon: "🥳",
+              style: {
+                borderRadius: "5px",
+                background: "#333",
+                color: "#fff",
+              },
+            });
+            navigate("/dashboard");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
       return await response.json();
     } catch (err) {
       toast.error("Payment Failed!");
