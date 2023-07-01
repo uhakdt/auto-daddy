@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { getAuth } from "firebase/auth";
 import { PayPalButtons } from "@paypal/react-paypal-js";
-import { toast } from "react-hot-toast";
 
 import { AppContext } from "../../../appContext";
 
@@ -32,7 +31,7 @@ const PayPalForm = () => {
     return order.id;
   };
 
-  const onApprove = async (data) => {
+  const onApprove = async (data, actions) => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/capture-paypal-order`,
@@ -47,28 +46,14 @@ const PayPalForm = () => {
             vehicleFreeData: vehicleFreeData,
           }),
         }
-      )
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            toast("Payment successful!", {
-              icon: "🥳",
-              style: {
-                borderRadius: "5px",
-                background: "#333",
-                color: "#fff",
-              },
-            });
-            navigate("/dashboard");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-        });
+      ).then((res) => {
+        if (res.status === 200) {
+          navigate("/dashboard");
+        }
+      });
       return await response.json();
     } catch (err) {
-      toast.error("Payment Failed!");
+      console.error(err);
     }
   };
 
