@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -8,7 +8,9 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+
 import TableRow from "./TableRow";
+
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 import {
   CalcAvgMileAYear,
@@ -17,10 +19,34 @@ import {
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
 const Mileage = ({ full, aiContent, goToMileageSection }) => {
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  });
+
+  useEffect(() => {
+    function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth,
+      });
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.6;
+  const chartHeight = dimensions.width > 500 ? 300 : dimensions.width * 0.6;
+
   const data = full.MileageRecordList.map((record) => ({
     date: record.DateOfInformation,
     mileage: record.Mileage,
   })).reverse();
+
   return (
     <section ref={goToMileageSection} className="section">
       <div className="section-title">Mileage</div>
@@ -90,8 +116,8 @@ const Mileage = ({ full, aiContent, goToMileageSection }) => {
           </table>
         </div>
         <LineChart
-          width={500}
-          height={300}
+          width={chartWidth}
+          height={chartHeight}
           data={data}
           margin={{
             top: 5,
