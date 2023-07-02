@@ -1,22 +1,6 @@
 export const handleDownloadReport = async (orderId, free, auth) => {
   try {
-    const vehicleRegMark = free.RegistrationNumber;
-    const userId = auth.currentUser.uid;
-    const url = `${process.env.REACT_APP_API_URL}/download-report`;
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ orderId, vehicleRegMark, userId }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const { url: downloadUrl } = await response.json();
+    const downloadUrl = await getReportUrl(orderId, free, auth);
 
     // Create new link and trigger click event on it
     const link = document.createElement("a");
@@ -63,5 +47,32 @@ export const handleEmailReport = async (
   } catch (err) {
     setEmailStatus({ success: false, message: err.toString() });
     setSnackbarOpen(true);
+  }
+};
+
+export const getReportUrl = async (orderId, free, auth) => {
+  try {
+    console.log("getReportUrl");
+    const vehicleRegMark = free.RegistrationNumber;
+    const userId = auth.currentUser.uid;
+    const url = `${process.env.REACT_APP_API_URL}/download-report`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId, vehicleRegMark, userId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { url: downloadUrl } = await response.json();
+    console.log(downloadUrl);
+    return downloadUrl;
+  } catch (err) {
+    console.error("Error getting report URL:", err);
   }
 };

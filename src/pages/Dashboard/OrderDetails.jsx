@@ -346,6 +346,8 @@ const OrderDetails = ({ orderId }) => {
             <VehicleMain
               free={free}
               basic={basic}
+              orderId={orderId}
+              auth={auth}
               handleDownloadReport={() =>
                 handleDownloadReport(orderId, free, auth)
               }
