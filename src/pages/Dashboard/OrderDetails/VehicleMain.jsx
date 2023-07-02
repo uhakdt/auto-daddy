@@ -70,7 +70,7 @@ const VehicleMain = ({
               <FaShareSquare />
             </button>
           )}
-          <button onClick={() => navigate("/contact")} className="button">
+          <button onClick={() => navigate("/contact-us")} className="button">
             Contact Us
           </button>
         </div>

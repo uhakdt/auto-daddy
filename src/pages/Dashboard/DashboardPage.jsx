@@ -9,6 +9,7 @@ import "./DashboardPage.css";
 import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
 import Settings from "./Settings/Settings";
+import NewOrder from "./NewOrder/NewOrder";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
@@ -16,6 +17,7 @@ function DashboardPage() {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const [showNewOrder, setShowNewOrder] = useState(false);
 
   const getPaymentIntentFromUrl = () => {
     return new URLSearchParams(window.location.search).get("payment_intent");
@@ -98,10 +100,20 @@ function DashboardPage() {
         onSelectOrder={(orderId) => {
           setSelectedOrder(orderId);
           setShowSettings(false);
+          setShowNewOrder(false);
         }}
-        onSelectSettings={() => setShowSettings(true)}
+        onSelectSettings={() => {
+          setShowSettings(true);
+          setShowNewOrder(false);
+        }}
+        onSelectNewOrder={() => {
+          setShowNewOrder(true);
+          setShowSettings(false);
+        }}
       />
-      {showSettings ? (
+      {showNewOrder ? (
+        <NewOrder />
+      ) : showSettings ? (
         <Settings />
       ) : (
         <OrderDetails className="order-details" orderId={selectedOrder} />
