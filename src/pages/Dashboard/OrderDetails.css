@@ -258,3 +258,17 @@
   border-style: solid;
   border-width: 0.1rem;
 }
+
+/* NEW ORDER */
+
+.new-order-transition {
+  transition: max-height 0.75s ease-in-out, opacity 0.75s ease-in-out;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+.new-order-transition.show {
+  opacity: 1;
+  max-height: 500px;
+}

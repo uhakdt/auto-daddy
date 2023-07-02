@@ -1,11 +1,15 @@
 .new-order {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-.new-order__heading {
-  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-color: rgb(228, 228, 228);
+  border-style: solid;
+  border-radius: 5px;
+  padding: 1rem;
+  justify-content: space-between; /* Distribute the space evenly between children */
+  margin: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .new-order__GB {

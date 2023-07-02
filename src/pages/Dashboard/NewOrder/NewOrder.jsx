@@ -19,7 +19,6 @@ function NewOrder() {
   const [isValid, setIsValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [responseStatus, setResponseStatus] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const theme = useTheme();
@@ -36,7 +35,6 @@ function NewOrder() {
     setIsSubmitted(true);
     if (pattern.test(registrationNumber)) {
       setIsValid(true);
-      setIsLoading(true);
       try {
         await axios
           .post(
@@ -46,14 +44,12 @@ function NewOrder() {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);
             setResponseStatus(true);
-            setIsLoading(false);
           });
       } catch (error) {
         console.log(error);
         setSnackbarMessage(error.response.data.message);
         setSnackbarOpen(true);
         setResponseStatus(false);
-        setIsLoading(false);
       }
     } else {
       setIsValid(false);
@@ -71,24 +67,10 @@ function NewOrder() {
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
 
-  if (isLoading) {
-    return (
-      <div className="loader">
-        <CarLoader />
-      </div>
-    );
-  }
-
   return (
     <div className="new-order">
-      <h1 className="new-order__heading">New Order</h1>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <div className="new-order__GB">
-              <span>GB</span>
-            </div>
-          </Grid>
           <Grid item xs>
             <TextField
               fullWidth

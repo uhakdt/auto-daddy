@@ -14,12 +14,7 @@ import CarSidebar from "../../../SVGs/CarSidebar";
 
 import { CheckOrderCriteria } from "../../../auxiliaryFunctions/orderFunctions";
 
-function Sidebar({
-  orders,
-  onSelectOrder,
-  onSelectSettings,
-  onSelectNewOrder,
-}) {
+function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -51,9 +46,6 @@ function Sidebar({
           </div>
         </IconButton>
       ))}
-      <IconButton onClick={onSelectNewOrder} className="new-order-button">
-        <AddIcon />
-      </IconButton>
 
       <IconButton onClick={onSelectSettings} className="settings-button">
         <SettingsIcon />

@@ -27,6 +27,8 @@ import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
 
+import NewOrder from "./NewOrder/NewOrder";
+
 import { useOrderDetails } from "../../hooks/orderHooks";
 import {
   handleDownloadReport,
@@ -62,6 +64,9 @@ const OrderDetails = ({ orderId }) => {
   const [aiContentList, setAIContentList] = useState(aiContentListSample);
   const [imageUrl, setImageUrl] = useState(null);
   const [windowData, setWindowData] = useState(null);
+  const [showNewOrder, setShowNewOrder] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   console.log("Free: \n", free);
   console.log("Basic: \n", basic);
   console.log("Full: \n", full);
@@ -322,6 +327,7 @@ const OrderDetails = ({ orderId }) => {
             noHover: true,
           },
         ]);
+        setIsLoading(false);
       } else {
         handleError("No such order!");
       }
@@ -338,9 +344,16 @@ const OrderDetails = ({ orderId }) => {
     setSnackbarOpen(false);
   };
 
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div className="order-details">
+        <div className={`new-order-transition ${showNewOrder ? "show" : ""}`}>
+          <NewOrder />
+        </div>
         {order ? (
           <div>
             <VehicleMain
@@ -363,6 +376,8 @@ const OrderDetails = ({ orderId }) => {
               emailStatus={emailStatus}
               snackbarOpen={snackbarOpen}
               handleSnackbarClose={handleSnackbarClose}
+              showNewOrder={showNewOrder}
+              setShowNewOrder={setShowNewOrder}
             />
 
             <AIMainSummary aiContentList={aiContentList} />
@@ -458,7 +473,7 @@ const OrderDetails = ({ orderId }) => {
             </section>
           </div>
         ) : (
-          <p>Create an Order here! TODO:</p>
+          <NewOrder />
         )}
       </div>
       <Snackbar

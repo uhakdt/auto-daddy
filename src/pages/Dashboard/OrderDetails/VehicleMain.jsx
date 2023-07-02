@@ -1,7 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import IconButton from "@mui/material/IconButton";
 import { FaRegEnvelope, FaDownload, FaShareSquare } from "react-icons/fa";
 import Snackbar from "@mui/material/Snackbar";
+
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 import { getReportUrl } from "../../../hooks/reportHooks";
@@ -16,6 +21,8 @@ const VehicleMain = ({
   emailStatus,
   snackbarOpen,
   handleSnackbarClose,
+  showNewOrder,
+  setShowNewOrder,
 }) => {
   const navigate = useNavigate();
 
@@ -41,6 +48,10 @@ const VehicleMain = ({
       navigator.userAgent
     );
 
+  const newOrderContainer = {
+    float: "right",
+  };
+
   return (
     <section className="section">
       <div className="section-title">
@@ -58,6 +69,15 @@ const VehicleMain = ({
             </div>
           </div>
         )}
+        <div style={newOrderContainer}>
+          <IconButton
+            onClick={() => setShowNewOrder((prevState) => !prevState)}
+            color="primary"
+            aria-label="toggle new order"
+          >
+            {showNewOrder ? <RemoveIcon /> : <AddIcon />}
+          </IconButton>
+        </div>
         <div className="buttons-container">
           <button onClick={handleDownloadReport} className="button">
             <FaDownload />
@@ -74,6 +94,7 @@ const VehicleMain = ({
             Contact Us
           </button>
         </div>
+
         <Snackbar
           open={snackbarOpen}
           autoHideDuration={2000}
