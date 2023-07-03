@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-import { Box, Grid, TextField } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { Snackbar } from "@mui/material";
 
 import { AppContext } from "../../appContext";
@@ -22,7 +20,6 @@ function LandingPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -73,60 +70,67 @@ function LandingPage() {
 
   if (isLoading) {
     return (
-      <div className="loader">
+      <div className="landing-loader">
         <CarLoader />
       </div>
     );
   }
 
   return (
-    <>
-      <Box pt={theme.spacing(20)}>
-        <div className="landing__container">
-          <h1 className="landing__heading">Search For Your Car</h1>
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item>
-                <div className="landing__GB">
-                  <span>GB</span>
-                </div>
-              </Grid>
-              <Grid item xs style={{ paddingLeft: "0" }}>
-                <TextField
-                  fullWidth
-                  id="outlined-basic"
-                  label="License Plate"
-                  variant="outlined"
-                  value={registrationNumber}
-                  onChange={(event) =>
-                    setRegistrationNumber(event.target.value)
-                  }
-                  InputProps={{
-                    className: "landing__text__input",
-                  }}
-                />
-              </Grid>
-              <Grid item>
-                <button type="submit" className="button-go">
-                  Go
-                </button>
-              </Grid>
-            </Grid>
+    <div className="landing-container">
+      <div className="landing-left">
+        <h2 className="landing-logo">AutoDaddy</h2>
+        <div className="landing-form-container">
+          <h2 className="landing-title">
+            Your AI Copilot in car buying decisions
+          </h2>
+          <p className="landing-description">
+            Guiding your car-buying journey with deep data dives, insights and
+            comprehensive reports!
+          </p>
+
+          <form className="landing-form" onSubmit={handleSubmit}>
+            <div className="landing-GB">
+              <span>GB</span>
+            </div>
+            <input
+              type="text"
+              className="landing-input"
+              placeholder="License Plate"
+              value={registrationNumber}
+              onChange={(event) => setRegistrationNumber(event.target.value)}
+            />
+            <button type="submit" className="landing-button-go">
+              Go
+            </button>
           </form>
         </div>
-        <img
-          className="landing__image"
-          src={`${process.env.PUBLIC_URL}/landing-page-image.png`}
-          alt="Landing page illustration"
-        />
-      </Box>
+        <div className="landing-footer-container">
+          <div className="landing-logos">
+            {/* TODO: Logos would be here... */}
+          </div>
+          <p className="landing-footer">
+            <Link to="/privacy">Privacy</Link> |
+            <Link to="/terms">Terms and Conditions</Link> |
+            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
+            <Link to="/contactus">Contact Us</Link>
+          </p>
+          <p className="landing-copyright">© 2023 AutoDaddy</p>
+        </div>
+      </div>
+
+      <div className="landing-right">
+        <div className="landing-button-login-container">
+          <button className="landing-button-login">Login</button>
+        </div>
+      </div>
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
       />
-    </>
+    </div>
   );
 }
 
