@@ -1,5 +1,6 @@
 import React from "react";
 import TableRow from "./TableRow";
+import EmissionsLabel from "../../../SVGs/EmissionsLabel";
 
 const EnergyConsumption = ({ basic, aiContent }) => {
   return (
@@ -59,13 +60,13 @@ const EnergyConsumption = ({ basic, aiContent }) => {
               </TableRow>
               <TableRow
                 item={basic.TechnicalDetails.Performance.Co2}
-                title='CO<span style={{ fontSize: "0.70rem" }}>2</span> Emissions'
+                title="CO2 Emissions"
               >
                 {basic.TechnicalDetails.Performance.Co2} g/Km
               </TableRow>
             </tbody>
           </table>
-          {/* TODO: IMPLEMENT THE EMISSIONS FIGURE */}
+          <EmissionsLabel emission={basic.TechnicalDetails.Performance.Co2} />
         </div>
       </div>
       <div>
