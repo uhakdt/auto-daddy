@@ -14,11 +14,20 @@
   box-sizing: border-box;
 }
 
-/* LOGO */
+/* HEADER */
+
+.landing-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .landing-logo {
   font-size: 1.5rem;
   color: #42224d;
+}
+
+.landing-menu-button {
 }
 
 /* FORM */
@@ -40,6 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .landing-GB {
@@ -75,6 +85,7 @@
   height: 3.3rem;
   width: 5rem;
   font-size: 1.2rem;
+  order: 2;
 }
 
 .landing-button-go:hover {
@@ -90,6 +101,14 @@
 
 /* FOOTER */
 
+.landing-footer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
 .landing-logos {
 }
 
@@ -98,6 +117,8 @@
   grid-auto-flow: column;
   justify-content: start;
   gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .landing-footer a {
@@ -158,4 +179,34 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+  }
+
+  .landing-form {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .landing-GB,
+  .landing-input {
+    width: 8%;
+  }
+
+  .landing-button-go {
+    width: 95%;
+    border-radius: 5px;
+    margin-top: 1rem;
+  }
+
+  .landing-right {
+    display: none;
+  }
+
+  .landing-button-login-container {
+    display: none;
+  }
 }
