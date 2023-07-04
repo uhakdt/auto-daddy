@@ -204,13 +204,13 @@ function LandingPage() {
               alt="Logo"
             />
           </div>
-          <p className="landing-footer">
+          <div className="landing-footer">
             <Link to="/privacy">Privacy</Link> |
             <Link to="/terms">Terms and Conditions</Link> |
             <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
             <Link to="/contactus">Contact Us</Link>
-          </p>
-          <p className="landing-copyright">© 2023 AutoDaddy</p>
+          </div>
+          <div className="landing-copyright">© 2023 AutoDaddy</div>
         </div>
       </div>
       {!isMobile &&
