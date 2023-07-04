@@ -213,90 +213,112 @@ function LandingPage() {
           <p className="landing-copyright">© 2023 AutoDaddy</p>
         </div>
       </div>
-
-      <div className="landing-right">
-        <div className="landing-button-login-container">
-          <button className="landing-button-login" onClick={handleLogin}>
-            Login
-          </button>
-        </div>
-      </div>
+      {!isMobile &&
+        (user === null ? (
+          <div className="landing-right"></div>
+        ) : user ? (
+          <div className="landing-right">
+            <div className="landing-button-login-container">
+              <button
+                className="landing-button-login"
+                onClick={() => navigate("/dashboard")}
+              >
+                Dashboard
+              </button>
+            </div>
+            <div className="landing-button-login-container">
+              <button className="landing-button-login" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="landing-right">
+            <div className="landing-button-login-container">
+              <button className="landing-button-login" onClick={handleLogin}>
+                Login
+              </button>
+            </div>
+          </div>
+        ))}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
       />
-      <SwipeableDrawer
-        className="landing-drawer"
-        anchor="right"
-        open={drawerOpen}
-        onClose={handleDrawerClose}
-        onOpen={handleDrawerOpen}
-        sx={{
-          "& .MuiDrawer-paperAnchorLeft, & .MuiDrawer-paperAnchorRight": {
-            width: "50%",
-          },
-        }}
-      >
-        <div>
-          <List>
-            <div>
-              {loading ? null : user ? (
-                <>
-                  <Button
-                    color="inherit"
-                    onClick={() => navigate("/dashboard")}
-                    sx={{
-                      color: "black",
-                      fontSize: "14px",
-                      mr: "16px",
-                    }}
-                  >
-                    Dashboard
-                  </Button>
-                  <Button
-                    color="inherit"
-                    onClick={handleLogout}
-                    sx={{
-                      color: "black",
-                      fontSize: "14px",
-                    }}
-                  >
-                    Log out
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    color="inherit"
-                    onClick={() => {
-                      navigate("/auth/login");
-                      setPreviousPage("/");
-                    }}
-                    sx={{
-                      color: "black",
-                      fontSize: "14px",
-                      mr: "16px",
-                    }}
-                  >
-                    Login
-                  </Button>
-                  <button
-                    className="auth__btn"
-                    onClick={() => {
-                      navigate("/auth/register");
-                      setPreviousPage("/");
-                    }}
-                  >
-                    Sign Up
-                  </button>
-                </>
-              )}
-            </div>
-          </List>
-        </div>
-      </SwipeableDrawer>
+      {isMobile && (
+        <SwipeableDrawer
+          className="landing-drawer"
+          anchor="right"
+          open={drawerOpen}
+          onClose={handleDrawerClose}
+          onOpen={handleDrawerOpen}
+          sx={{
+            "& .MuiDrawer-paperAnchorLeft, & .MuiDrawer-paperAnchorRight": {
+              width: "50%",
+            },
+          }}
+        >
+          <div>
+            <List>
+              <div>
+                {loading ? null : user ? (
+                  <>
+                    <Button
+                      color="inherit"
+                      onClick={() => navigate("/dashboard")}
+                      sx={{
+                        color: "black",
+                        fontSize: "14px",
+                        mr: "16px",
+                      }}
+                    >
+                      Dashboard
+                    </Button>
+                    <Button
+                      color="inherit"
+                      onClick={handleLogout}
+                      sx={{
+                        color: "black",
+                        fontSize: "14px",
+                      }}
+                    >
+                      Log out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      color="inherit"
+                      onClick={() => {
+                        navigate("/auth/login");
+                        setPreviousPage("/");
+                      }}
+                      sx={{
+                        color: "black",
+                        fontSize: "14px",
+                        mr: "16px",
+                      }}
+                    >
+                      Login
+                    </Button>
+                    <button
+                      className="auth__btn"
+                      onClick={() => {
+                        navigate("/auth/register");
+                        setPreviousPage("/");
+                      }}
+                    >
+                      Sign Up
+                    </button>
+                  </>
+                )}
+              </div>
+            </List>
+          </div>
+        </SwipeableDrawer>
+      )}
     </div>
   );
 }
