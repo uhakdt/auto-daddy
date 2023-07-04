@@ -102,14 +102,18 @@
 /* FOOTER */
 
 .landing-footer-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
 }
 
-.landing-logos {
+.landing-logos-container {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.landing-logo {
+  height: 1.25rem;
+  padding-right: 0.5rem;
 }
 
 .landing-footer {
@@ -124,13 +128,13 @@
 .landing-footer a {
   text-decoration: none;
   color: inherit;
-}
-
-.landing-footer a:hover {
-  color: #753c88;
+  font-size: 0.8rem;
+  color: #42224d;
 }
 
 .landing-copyright {
+  font-size: 0.6rem;
+  color: #42224d;
 }
 
 /* RIGHT */
@@ -186,6 +190,10 @@
     flex-direction: column;
   }
 
+  .landing-title {
+    font-size: 2.2rem;
+  }
+
   .landing-form {
     flex-direction: row;
     justify-content: space-between;
@@ -200,6 +208,7 @@
     width: 95%;
     border-radius: 5px;
     margin-top: 1rem;
+    margin-bottom: 5rem;
   }
 
   .landing-right {
@@ -208,5 +217,15 @@
 
   .landing-button-login-container {
     display: none;
+  }
+
+  .landing-logo {
+    height: 0.75rem;
+    padding-right: 0.5rem;
+  }
+
+  .landing-footer a {
+    font-size: 0.6rem;
+    align-self: center;
   }
 }

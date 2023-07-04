@@ -39,6 +39,13 @@ function LandingPage() {
       navigator.userAgent
     );
 
+  const handleLogout = useHandleLogout();
+
+  const handleLogin = () => {
+    setPreviousPage("/");
+    navigate("/auth/login");
+  };
+
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
   };
@@ -160,8 +167,42 @@ function LandingPage() {
           </form>
         </div>
         <div className="landing-footer-container">
-          <div className="landing-logos">
-            {/* TODO: Logos would be here... */}
+          <div className="landing-logos-container">
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/stripe-logo.svg`}
+              alt="Logo"
+            />
+            <img
+              className="landing-logo"
+              src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
+              alt="Logo"
+            />
           </div>
           <p className="landing-footer">
             <Link to="/privacy">Privacy</Link> |
@@ -175,18 +216,11 @@ function LandingPage() {
 
       <div className="landing-right">
         <div className="landing-button-login-container">
-          <button className="landing-button-login" onClick={handleDrawerOpen}>
+          <button className="landing-button-login" onClick={handleLogin}>
             Login
           </button>
         </div>
       </div>
-      {!isMobile && (
-        <div>
-          <Button onClick={handleDrawerClose} className="landing-button-login">
-            Login
-          </Button>
-        </div>
-      )}
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
@@ -223,7 +257,7 @@ function LandingPage() {
                   </Button>
                   <Button
                     color="inherit"
-                    onClick={useHandleLogout}
+                    onClick={handleLogout}
                     sx={{
                       color: "black",
                       fontSize: "14px",
