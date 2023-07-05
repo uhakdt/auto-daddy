@@ -39,6 +39,8 @@ function LandingPage() {
       navigator.userAgent
     );
 
+  console.log(user);
+
   const handleLogout = useHandleLogout();
 
   const handleLogin = () => {
@@ -214,9 +216,7 @@ function LandingPage() {
         </div>
       </div>
       {!isMobile &&
-        (user === null ? (
-          <div className="landing-right"></div>
-        ) : user ? (
+        (user ? (
           <div className="landing-right">
             <div className="landing-button-login-container">
               <button
