@@ -57,6 +57,7 @@
 .package-logo {
   height: 1.25rem;
   padding-right: 0.5rem;
+  cursor: pointer;
 }
 
 .package-footer {

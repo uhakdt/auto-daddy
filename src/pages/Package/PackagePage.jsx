@@ -91,8 +91,11 @@ const PackagePage = () => {
     <div className="package-container">
       <div className="package-left">
         <div className="package-header-container">
-          <h2 className="package-logo">AutoDaddy</h2>
+          <h2 onClick={() => navigate("/")} className="package-logo">
+            AutoDaddy
+          </h2>
         </div>
+        <div className="package-content-container"></div>
         <div className="landing-footer-container">
           <div className="landing-logos-container">
             <img

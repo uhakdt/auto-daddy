@@ -12,7 +12,6 @@ import {
   SwipeableDrawer,
   Button,
   List,
-  ListItem,
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,8 +37,6 @@ function LandingPage() {
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
-
-  console.log(user);
 
   const handleLogout = useHandleLogout();
 
