@@ -1,5 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,7 +11,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import Modal from "@mui/material/Modal";
-import { Link } from "@mui/material";
+import { Link, Snackbar } from "@mui/material";
 
 import { AppContext } from "../../appContext";
 
@@ -21,6 +22,8 @@ import LoginForm from "./Auth/LoginForm";
 import RegisterForm from "./Auth/RegisterForm";
 
 import "./PackagePage.css";
+
+import { VehicleFreeData } from "../../models/VehicleFreeData";
 
 const auth = getAuth();
 
@@ -34,15 +37,32 @@ const initialOptions = {
 };
 
 const PackagePage = () => {
-  const { vehicleFreeData } = useContext(AppContext);
-  const [clientSecret, setClientSecret] = useState("");
+  const { vehicleFreeData, setVehicleFreeData, setPreviousPage } =
+    useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
+
+  // Registration Form states
+  const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [isValid, setIsValid] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [responseStatus, setResponseStatus] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  // Payment Form states
+  const [clientSecret, setClientSecret] = useState("");
   const [formType, setFormType] = useState("login");
   const [payments, setPayments] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
 
-  // Form states
+  // Auth Form states
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [registerName, setRegisterName] = useState("");
@@ -87,6 +107,46 @@ const PackagePage = () => {
       .then((data) => setClientSecret(data.clientSecret));
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitted(true);
+    if (pattern.test(registrationNumber)) {
+      setIsValid(true);
+      setIsLoading(true);
+      try {
+        await axios
+          .post(
+            `${process.env.REACT_APP_API_URL}/vehicledata/free/${registrationNumber}`
+          )
+          .then((res) => {
+            const vehicleFreeData = new VehicleFreeData(res.data);
+            setVehicleFreeData(vehicleFreeData);
+            setResponseStatus(true);
+            setIsLoading(false);
+          });
+      } catch (error) {
+        console.log(error);
+        setSnackbarMessage(error.response.data.message);
+        setSnackbarOpen(true);
+        setResponseStatus(false);
+        setIsLoading(false);
+      }
+    } else {
+      setIsValid(false);
+      setSnackbarMessage("Invalid UK license plate number");
+      setSnackbarOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    if (isValid && isSubmitted && responseStatus) {
+      setPreviousPage("/packages");
+      navigate("/packages", { state: { vehicleFreeData } });
+    } else {
+      setPreviousPage("/");
+    }
+  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
+
   return (
     <div className="package-container">
       <div className="package-left">
@@ -95,37 +155,54 @@ const PackagePage = () => {
             AutoDaddy
           </h2>
         </div>
+        <div className="package-form-container">
+          <form className="package-form" onSubmit={handleSubmit}>
+            <div className="package-GB">
+              <span>GB</span>
+            </div>
+            <input
+              type="text"
+              className="package-input"
+              placeholder="License Plate"
+              value={registrationNumber}
+              onChange={(event) => setRegistrationNumber(event.target.value)}
+            />
+            <button type="submit" className="package-button-go">
+              Check again
+            </button>
+          </form>
+        </div>
         <div className="package-content-container"></div>
-        <div className="landing-footer-container">
-          <div className="landing-logos-container">
+        <div className="package-footer-container">
+          <div className="package-logos-container">
             <img
-              className="landing-logo"
+              className="package-logo"
               src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
               alt="Logo"
             />
             <img
-              className="landing-logo"
+              className="package-logo"
               src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
               alt="Logo"
             />
             <img
-              className="landing-logo"
+              className="package-logo"
               src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
               alt="Logo"
             />
             <img
-              className="landing-logo"
+              className="package-logo"
               src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
               alt="Logo"
             />
           </div>
-          <div className="landing-footer">
+          <div className="package-footer">
             <Link to="/privacy">Privacy</Link> |
             <Link to="/terms">Terms and Conditions</Link> |
             <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
             <Link to="/contactus">Contact Us</Link>
           </div>
-          <div className="landing-copyright">© 2023 AutoDaddy</div>
+          <div className="package-copyright">© 2023 AutoDaddy</div>
         </div>
       </div>
 
@@ -238,6 +315,12 @@ const PackagePage = () => {
           )}
         </div>
       </Modal>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+      />
     </div>
   );
 };
