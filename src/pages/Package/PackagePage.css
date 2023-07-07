@@ -20,6 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .package-logo {
@@ -33,15 +34,19 @@
 /* FORM */
 
 .package-form-container {
-  margin-bottom: 0px !important;
+  margin-bottom: 3rem;
 }
 
 .package-form {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   flex-wrap: wrap;
   margin-bottom: 0px !important;
+}
+
+.package-input-container {
+  display: flex;
 }
 
 .package-GB {
@@ -97,6 +102,33 @@
   background-color: #8b3150;
   transform: scale(0.95);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* CONTENT */
+
+.package-content-container {
+  margin-bottom: 3rem;
+}
+
+.package-carmake-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: x-large;
+  font-weight: bold;
+  color: #6f508c;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.package-tax-and-mot-container {
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+
+.package-other-details-container {
+  margin-top: 3rem;
 }
 
 /* RIGHT */
@@ -180,14 +212,8 @@
 }
 
 @media screen and (max-width: 768px) {
-  .main-container {
-    flex-direction: column;
-  }
-
-  .freedata-container,
   .package-container {
-    flex: 1 1 100%;
-    max-width: 100%;
+    flex-direction: column;
   }
 }
 

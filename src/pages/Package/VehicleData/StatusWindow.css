@@ -1,0 +1,48 @@
+/* STATUS WINDOWS */
+
+.status-windows-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.3rem;
+  justify-content: center;
+}
+
+.status-window {
+  width: 10rem;
+  min-height: 4.5rem;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #bdbdbd;
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+}
+
+.status-window-title {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-window-divider {
+  width: 114%; /* TODO: Too fidly */
+  height: 1px;
+  background-color: #bdbdbd;
+  margin-top: 0.5rem;
+  margin-left: -0.6rem; /* TODO: Too fidly */
+}
+
+.status-window-details {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+
+.status-window-details-value {
+  font-weight: bold;
+}

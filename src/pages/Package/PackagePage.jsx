@@ -10,6 +10,8 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
+import { RiCarLine } from "react-icons/ri";
+
 import Modal from "@mui/material/Modal";
 import { Link, Snackbar } from "@mui/material";
 
@@ -24,6 +26,8 @@ import RegisterForm from "./Auth/RegisterForm";
 import "./PackagePage.css";
 
 import { VehicleFreeData } from "../../models/VehicleFreeData";
+import StatusWindow from "./VehicleData/StatusWindow";
+import TableRow from "./VehicleData/TableRow";
 
 const auth = getAuth();
 
@@ -41,6 +45,7 @@ const PackagePage = () => {
     useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
+  console.log(vehicleFreeData);
 
   // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
@@ -147,63 +152,136 @@ const PackagePage = () => {
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
 
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
   return (
     <div className="package-container">
       <div className="package-left">
-        <div className="package-header-container">
-          <h2 onClick={() => navigate("/")} className="package-logo">
-            AutoDaddy
-          </h2>
-        </div>
-        <div className="package-form-container">
-          <form className="package-form" onSubmit={handleSubmit}>
-            <div className="package-GB">
-              <span>GB</span>
+        <div>
+          <div className="package-header-container">
+            <h2 onClick={() => navigate("/")} className="package-logo">
+              AutoDaddy
+            </h2>
+          </div>
+          <div className="package-form-container">
+            <form className="package-form" onSubmit={handleSubmit}>
+              <div className="package-input-container">
+                <div className="package-GB">
+                  <span>GB</span>
+                </div>
+                <input
+                  type="text"
+                  className="package-input"
+                  placeholder="License Plate"
+                  value={registrationNumber}
+                  onChange={(event) =>
+                    setRegistrationNumber(event.target.value)
+                  }
+                />
+              </div>
+              <button type="submit" className="package-button-go">
+                Check again
+              </button>
+            </form>
+          </div>
+          <div className="package-content-container">
+            <div className="package-carmake-container">
+              <RiCarLine color="#6f508c" size={22} />
+              {vehicleFreeData.make}
             </div>
-            <input
-              type="text"
-              className="package-input"
-              placeholder="License Plate"
-              value={registrationNumber}
-              onChange={(event) => setRegistrationNumber(event.target.value)}
-            />
-            <button type="submit" className="package-button-go">
-              Check again
-            </button>
-          </form>
-        </div>
-        <div className="package-content-container"></div>
-        <div className="package-footer-container">
-          <div className="package-logos-container">
-            <img
-              className="package-logo"
-              src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
-              alt="Logo"
-            />
-            <img
-              className="package-logo"
-              src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="package-logo"
-              src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="package-logo"
-              src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
-              alt="Logo"
-            />
+            <div className="package-tax-and-mot-container">
+              <StatusWindow
+                title={"TAX"}
+                dueDate={vehicleFreeData.taxDueDate}
+                status={vehicleFreeData.taxStatus}
+                colour={
+                  vehicleFreeData.taxStatus === "Taxed" ? "#6f508c" : "#d55a6f"
+                }
+              />
+              <StatusWindow
+                title={"MOT"}
+                dueDate={vehicleFreeData.motExpiryDate}
+                status={vehicleFreeData.motStatus}
+                colour={
+                  vehicleFreeData.motStatus === "Valid" ? "#6f508c" : "#d55a6f"
+                }
+              />
+              <div className="package-mot-container"></div>
+            </div>
+            <div className="package-other-details-container">
+              <TableRow
+                item={vehicleFreeData.monthOfFirstRegistration}
+                title="Registration Date:"
+                colour="#6f508c"
+                last={false}
+              >
+                {vehicleFreeData.monthOfFirstRegistration}
+              </TableRow>
+              <TableRow
+                item={vehicleFreeData.colour}
+                title="Colour:"
+                colour="#6f508c"
+                last={false}
+              >
+                {vehicleFreeData.colour}
+              </TableRow>
+              <TableRow
+                item={vehicleFreeData.fuelType}
+                title="Fuel Type:"
+                colour="#6f508c"
+                last={false}
+              >
+                {vehicleFreeData.fuelType}
+              </TableRow>
+              <TableRow
+                item={vehicleFreeData.co2Emissions}
+                title="CO2 emissions:"
+                colour="#6f508c"
+                last={true}
+              >
+                {vehicleFreeData.co2Emissions}
+              </TableRow>
+            </div>
           </div>
-          <div className="package-footer">
-            <Link to="/privacy">Privacy</Link> |
-            <Link to="/terms">Terms and Conditions</Link> |
-            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
-            <Link to="/contactus">Contact Us</Link>
-          </div>
-          <div className="package-copyright">© 2023 AutoDaddy</div>
         </div>
+        {isMobile ? (
+          <></>
+        ) : (
+          <div className="package-footer-container">
+            <div className="package-logos-container">
+              <img
+                className="package-logo"
+                src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
+                alt="Logo"
+              />
+              <img
+                className="package-logo"
+                src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
+                alt="Logo"
+              />
+              <img
+                className="package-logo"
+                src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
+                alt="Logo"
+              />
+              <img
+                className="package-logo"
+                src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
+                alt="Logo"
+              />
+            </div>
+            <div className="package-footer">
+              <Link to="/privacy">Privacy</Link> |
+              <Link to="/terms">Terms and Conditions</Link> |
+              <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
+              <Link to="/contactus">Contact Us</Link>
+            </div>
+            <div className="package-copyright">© 2023 AutoDaddy</div>
+          </div>
+        )}
       </div>
 
       <div className="package-right"></div>
