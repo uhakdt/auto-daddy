@@ -28,9 +28,6 @@
   color: #42224d;
 }
 
-.package-menu-button {
-}
-
 /* FORM */
 
 .package-form-container {
@@ -144,9 +141,6 @@
 }
 
 /* FOOTER */
-
-.package-footer-container {
-}
 
 .package-logos-container {
   display: flex;
