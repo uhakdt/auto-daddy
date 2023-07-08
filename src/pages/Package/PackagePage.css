@@ -115,6 +115,24 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+@media screen and (max-width: 768px) {
+  .package-left-form {
+    display: block;
+  }
+  .package-left-form-container {
+    margin-top: -2rem;
+  }
+
+  .package-left-input {
+    margin-right: 0;
+  }
+
+  .package-left-button-go {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
 /* CONTENT */
 
 .package-left-content-container {
@@ -140,6 +158,12 @@
 
 .package-left-other-details-container {
   margin-top: 3rem;
+}
+
+@media screen and (max-width: 768px) {
+  .package-left-tax-and-mot-container {
+    flex-wrap: nowrap;
+  }
 }
 
 /* FOOTER */
@@ -196,13 +220,13 @@
   width: 100%;
 }
 
+/* HEADER */
+
 .package-right-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-/* HEADER */
 
 .package-right-header-button-container {
   background-color: white;
@@ -231,6 +255,12 @@
   transition: all 0.3s ease;
   font-size: 1.2rem;
   margin-right: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .package-right-header {
+    justify-content: center;
+  }
 }
 
 /* CONTENT */
@@ -314,6 +344,12 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+@media screen and (max-width: 768px) {
+  .package-right-content-openai-logo {
+    margin-right: -1rem;
+  }
+}
+
 /* FOOTER */
 
 .package-right-logos-container {
@@ -327,6 +363,13 @@
 .package-right-logo {
   height: 1.25rem;
   padding-right: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .package-footer-mobile {
+    padding: 1rem;
+  }
 }
 
 /* OTHER */

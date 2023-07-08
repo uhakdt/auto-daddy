@@ -288,38 +288,55 @@ const PackagePage = () => {
       <div className="package-right">
         <div className="package-right-container">
           <div className="package-right-header">
-            <div className="package-right-header-icon">
-              <IoDocumentTextOutline />
-            </div>
-            <div className="package-right-header-button-container">
-              <button
-                className="package-right-header-button"
-                onClick={() => {
-                  console.log("sample report");
-                }}
-              >
-                View sample report
-              </button>
-              {user ? (
-                <button
-                  className="package-right-header-button"
-                  onClick={() => {
-                    console.log("Dashboard");
-                  }}
-                >
-                  Dashboard
-                </button>
-              ) : (
-                <button
-                  className="package-right-header-button"
-                  onClick={() => {
-                    console.log("login");
-                  }}
-                >
-                  Login
-                </button>
-              )}
-            </div>
+            {isMobile ? (
+              <>
+                <div className="package-right-header-button-container">
+                  <button
+                    className="package-right-header-button"
+                    onClick={() => {
+                      console.log("sample report");
+                    }}
+                  >
+                    View sample report
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="package-right-header-icon">
+                  <IoDocumentTextOutline />
+                </div>
+                <div className="package-right-header-button-container">
+                  <button
+                    className="package-right-header-button"
+                    onClick={() => {
+                      console.log("sample report");
+                    }}
+                  >
+                    View sample report
+                  </button>
+                  {user ? (
+                    <button
+                      className="package-right-header-button"
+                      onClick={() => {
+                        console.log("Dashboard");
+                      }}
+                    >
+                      Dashboard
+                    </button>
+                  ) : (
+                    <button
+                      className="package-right-header-button"
+                      onClick={() => {
+                        console.log("login");
+                      }}
+                    >
+                      Login
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
           </div>
           <div className="package-right-content">
             <div className="package-right-content-title">Full Report</div>
@@ -386,6 +403,19 @@ const PackagePage = () => {
           </div>
         </div>
       </div>
+      {isMobile ? (
+        <div className="package-footer-mobile">
+          <div className="package-left-footer">
+            <Link to="/privacy">Privacy</Link> |
+            <Link to="/terms">Terms and Conditions</Link> |
+            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
+            <Link to="/contactus">Contact Us</Link>
+          </div>
+          <div className="package-left-copyright">© 2023 AutoDaddy</div>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <Modal
         open={open}
