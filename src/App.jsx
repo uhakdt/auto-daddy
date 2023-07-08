@@ -15,6 +15,10 @@ export const App = ({ children }) => {
     setData((prevData) => ({ ...prevData, userId: value }));
   };
 
+  const setRegistrationNumber = (value) => {
+    setData((prevData) => ({ ...prevData, registrationNumber: value }));
+  };
+
   const setVehicleFreeData = (value) => {
     setData((prevData) => ({ ...prevData, vehicleFreeData: value }));
   };
@@ -39,6 +43,7 @@ export const App = ({ children }) => {
       value={{
         ...data,
         setUserId,
+        setRegistrationNumber,
         setVehicleFreeData,
         setVehicleDataBasic,
         setVehicleDataFull,

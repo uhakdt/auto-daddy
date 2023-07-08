@@ -43,15 +43,19 @@ const initialOptions = {
 };
 
 const PackagePage = () => {
-  const { vehicleFreeData, setVehicleFreeData, setPreviousPage } =
-    useContext(AppContext);
+  const {
+    registrationNumber,
+    setRegistrationNumber,
+    vehicleFreeData,
+    setVehicleFreeData,
+    setPreviousPage,
+  } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
   console.log(vehicleFreeData);
 
   // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
-  const [registrationNumber, setRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [responseStatus, setResponseStatus] = useState(false);
@@ -128,6 +132,7 @@ const PackagePage = () => {
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);
+            setRegistrationNumber(registrationNumber);
             setResponseStatus(true);
             setIsLoading(false);
           });
@@ -147,6 +152,8 @@ const PackagePage = () => {
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
+      setSnackbarMessage("All good!");
+      setSnackbarOpen(true);
       setPreviousPage("/packages");
       navigate("/packages", { state: { vehicleFreeData } });
     } else {
@@ -416,7 +423,6 @@ const PackagePage = () => {
       ) : (
         <></>
       )}
-
       <Modal
         open={open}
         onClose={() => {
@@ -476,10 +482,12 @@ const PackagePage = () => {
         </div>
       </Modal>
       <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
+        key={"top" + "center"}
       />
     </div>
   );

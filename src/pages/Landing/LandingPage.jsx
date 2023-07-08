@@ -22,11 +22,15 @@ import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
 function LandingPage() {
-  const { vehicleFreeData, setVehicleFreeData, setPreviousPage } =
-    useContext(AppContext);
+  const {
+    setRegistrationNumber,
+    vehicleFreeData,
+    setVehicleFreeData,
+    setPreviousPage,
+  } = useContext(AppContext);
   const [user, loading] = useAuthState(auth);
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
-  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [responseStatus, setResponseStatus] = useState(false);
@@ -65,17 +69,18 @@ function LandingPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitted(true);
-    if (pattern.test(registrationNumber)) {
+    if (pattern.test(tempRegistrationNumber)) {
       setIsValid(true);
       setIsLoading(true);
       try {
         await axios
           .post(
-            `${process.env.REACT_APP_API_URL}/vehicledata/free/${registrationNumber}`
+            `${process.env.REACT_APP_API_URL}/vehicledata/free/${tempRegistrationNumber}`
           )
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);
+            setRegistrationNumber(vehicleFreeData.registrationNumber);
             setResponseStatus(true);
             setIsLoading(false);
           });
@@ -157,8 +162,10 @@ function LandingPage() {
               type="text"
               className="landing-input"
               placeholder="License Plate"
-              value={registrationNumber}
-              onChange={(event) => setRegistrationNumber(event.target.value)}
+              value={tempRegistrationNumber}
+              onChange={(event) =>
+                setTempRegistrationNumber(event.target.value)
+              }
             />
             <button type="submit" className="landing-button-go">
               Go
