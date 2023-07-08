@@ -11,6 +11,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import { RiCarLine } from "react-icons/ri";
+import { IoDocumentTextOutline } from "react-icons/io5";
 
 import Modal from "@mui/material/Modal";
 import { Link, Snackbar } from "@mui/material";
@@ -161,20 +162,20 @@ const PackagePage = () => {
     <div className="package-container">
       <div className="package-left">
         <div>
-          <div className="package-header-container">
-            <h2 onClick={() => navigate("/")} className="package-logo">
+          <div className="package-left-header-container">
+            <h2 onClick={() => navigate("/")} className="package-left-logo">
               AutoDaddy
             </h2>
           </div>
-          <div className="package-form-container">
-            <form className="package-form" onSubmit={handleSubmit}>
-              <div className="package-input-container">
-                <div className="package-GB">
+          <div className="package-left-form-container">
+            <form className="package-left-form" onSubmit={handleSubmit}>
+              <div className="package-left-input-container">
+                <div className="package-left-GB">
                   <span>GB</span>
                 </div>
                 <input
                   type="text"
-                  className="package-input"
+                  className="package-left-input"
                   placeholder="License Plate"
                   value={registrationNumber}
                   onChange={(event) =>
@@ -182,17 +183,17 @@ const PackagePage = () => {
                   }
                 />
               </div>
-              <button type="submit" className="package-button-go">
+              <button type="submit" className="package-left-button-go">
                 Check again
               </button>
             </form>
           </div>
-          <div className="package-content-container">
-            <div className="package-carmake-container">
+          <div className="package-left-content-container">
+            <div className="package-left-carmake-container">
               <RiCarLine color="#6f508c" size={22} />
               {vehicleFreeData.make}
             </div>
-            <div className="package-tax-and-mot-container">
+            <div className="package-left-tax-and-mot-container">
               <StatusWindow
                 title={"TAX"}
                 dueDate={vehicleFreeData.taxDueDate}
@@ -209,9 +210,8 @@ const PackagePage = () => {
                   vehicleFreeData.motStatus === "Valid" ? "#6f508c" : "#d55a6f"
                 }
               />
-              <div className="package-mot-container"></div>
             </div>
-            <div className="package-other-details-container">
+            <div className="package-left-other-details-container">
               <TableRow
                 item={vehicleFreeData.monthOfFirstRegistration}
                 title="Registration Date:"
@@ -250,91 +250,81 @@ const PackagePage = () => {
         {isMobile ? (
           <></>
         ) : (
-          <div className="package-footer-container">
-            <div className="package-logos-container">
+          <div className="package-left-footer-container">
+            <div className="package-left-logos-container">
               <img
-                className="package-logo"
+                className="package-left-logo"
                 src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
                 alt="Logo"
               />
               <img
-                className="package-logo"
+                className="package-left-logo"
                 src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
                 alt="Logo"
               />
               <img
-                className="package-logo"
+                className="package-left-logo"
                 src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
                 alt="Logo"
               />
               <img
-                className="package-logo"
+                className="package-left-logo"
                 src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
                 alt="Logo"
               />
             </div>
-            <div className="package-footer">
+            <div className="package-left-footer">
               <Link to="/privacy">Privacy</Link> |
               <Link to="/terms">Terms and Conditions</Link> |
               <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
               <Link to="/contactus">Contact Us</Link>
             </div>
-            <div className="package-copyright">© 2023 AutoDaddy</div>
+            <div className="package-left-copyright">© 2023 AutoDaddy</div>
           </div>
         )}
       </div>
 
-      <div className="package-right"></div>
-
-      {/* <div className="freedata-container">
-        {vehicleFreeData.registrationNumber && (
-          <div>Registration Number{vehicleFreeData.registrationNumber}</div>
-        )}
-        {vehicleFreeData.make && <div>Make: {vehicleFreeData.make}</div>}
-        {vehicleFreeData.colour && <div>Colour: {vehicleFreeData.colour}</div>}
-        {vehicleFreeData.fuelType && (
-          <div>Fuel Type: {vehicleFreeData.fuelType}</div>
-        )}
-        {vehicleFreeData.monthOfFirstRegistration && (
-          <div>
-            Date of Registration: {vehicleFreeData.monthOfFirstRegistration}
+      <div className="package-right">
+        <div className="package-right-container">
+          <div className="package-right-header">
+            <div className="package-right-header-icon">
+              <IoDocumentTextOutline />
+            </div>
+            <div className="package-right-header-button-container">
+              <button
+                className="package-right-header-button"
+                onClick={() => {
+                  console.log("sample report");
+                }}
+              >
+                View sample report
+              </button>
+              {user ? (
+                <button
+                  className="package-right-header-button"
+                  onClick={() => {
+                    console.log("Dashboard");
+                  }}
+                >
+                  Dashboard
+                </button>
+              ) : (
+                <button
+                  className="package-right-header-button"
+                  onClick={() => {
+                    console.log("login");
+                  }}
+                >
+                  Login
+                </button>
+              )}
+            </div>
           </div>
-        )}
-        {vehicleFreeData.enginerCapacity && (
-          <div>Engine Capacity: {vehicleFreeData.enginerCapacity}</div>
-        )}
-        {vehicleFreeData.co2Emissions && (
-          <div>CO2 Emissions: {vehicleFreeData.co2Emissions}</div>
-        )}
-        {vehicleFreeData.dateofLastV5Issued && (
-          <div>
-            Date of Last V5 Issued: {vehicleFreeData.dateofLastV5Issued}
-          </div>
-        )}
-        {vehicleFreeData.markedForExport && (
-          <div>Marked for Export: {vehicleFreeData.markedForExport}</div>
-        )}
-        {vehicleFreeData.motExpiryDate && (
-          <div>MOT Expiry Date: {vehicleFreeData.motExpiryDate}</div>
-        )}
-        {vehicleFreeData.motStatus && (
-          <div>MOT Status: {vehicleFreeData.motStatus}</div>
-        )}
-        {vehicleFreeData.taxDueDate && (
-          <div>Tax Due Date: {vehicleFreeData.taxDueDate}</div>
-        )}
-        {vehicleFreeData.taxStatus && (
-          <div>Tax Status: {vehicleFreeData.taxStatus}</div>
-        )}
-        {vehicleFreeData.wheelPlan && (
-          <div>Wheel Plan: {vehicleFreeData.wheelPlan}</div>
-        )}
+          <div className="package-right-content"></div>
+          <div className="package-right-footer"></div>
+        </div>
       </div>
-      <div className="drive-container">
-        <button className="drive-btn" onClick={handleDrive}>
-          Drive
-        </button>
-      </div> */}
+
       <Modal
         open={open}
         onClose={() => {

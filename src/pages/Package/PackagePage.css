@@ -1,3 +1,10 @@
+:root {
+  --orange: #d55a6f;
+  --light-purple: #faf5ff;
+  --medium-purple: #6f508c;
+  --dark-purple: #42224d;
+}
+
 .package-container {
   display: flex;
   height: 100vh;
@@ -16,25 +23,25 @@
 
 /* HEADER */
 
-.package-header-container {
+.package-left-header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 3rem;
 }
 
-.package-logo {
+.package-left-logo {
   font-size: 1.5rem;
-  color: #42224d;
+  color: var(--dark-purple);
 }
 
 /* FORM */
 
-.package-form-container {
+.package-left-form-container {
   margin-bottom: 3rem;
 }
 
-.package-form {
+.package-left-form {
   display: flex;
   justify-content: left;
   align-items: center;
@@ -42,11 +49,11 @@
   margin-bottom: 0px !important;
 }
 
-.package-input-container {
+.package-left-input-container {
   display: flex;
 }
 
-.package-GB {
+.package-left-GB {
   padding: 1rem;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
@@ -54,10 +61,10 @@
   border-bottom-right-radius: 0;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #42224d;
+  color: var(--dark-purple);
 }
 
-.package-input {
+.package-left-input {
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   border-top-left-radius: 0;
@@ -67,18 +74,18 @@
   height: 3.3rem;
   padding-left: 1rem;
   margin-right: 1rem;
-  color: #42224d;
+  color: var(--dark-purple);
 }
 
-.package-input::placeholder {
-  color: #42224d;
+.package-left-input::placeholder {
+  color: var(--dark-purple);
   opacity: 0.7;
 }
 
-.package-button-go {
+.package-left-button-go {
   background-color: white;
-  border: 1px solid #d55a6f;
-  color: #d55a6f;
+  border: 1px solid var(--orange);
+  color: var(--orange);
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
@@ -90,41 +97,43 @@
   font-weight: bold;
 }
 
-.package-button-go:hover {
+.package-left-button-go:hover {
   background-color: #b84361;
+  color: white;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.package-button-go:active {
+.package-left-button-go:active {
   background-color: #8b3150;
+  color: white;
   transform: scale(0.95);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* CONTENT */
 
-.package-content-container {
+.package-left-content-container {
   margin-bottom: 3rem;
 }
 
-.package-carmake-container {
+.package-left-carmake-container {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   font-size: x-large;
   font-weight: bold;
-  color: #6f508c;
+  color: var(--medium-purple);
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-.package-tax-and-mot-container {
+.package-left-tax-and-mot-container {
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
 }
 
-.package-other-details-container {
+.package-left-other-details-container {
   margin-top: 3rem;
 }
 
@@ -132,7 +141,7 @@
 
 .package-right {
   flex: 1;
-  background-color: #faf5ff;
+  background-color: var(--light-purple);
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;
@@ -140,22 +149,52 @@
   border-radius: 5px;
 }
 
+.package-right-container {
+}
+
+.package-right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* HEADER */
+
+.package-right-header-button-container {
+  background-color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  border-bottom-left-radius: 5px;
+}
+
+.package-right-header-button {
+  background-color: white;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
 /* FOOTER */
 
-.package-logos-container {
+.package-left-logos-container {
   display: flex;
   justify-content: left;
   align-items: center;
   margin-bottom: 1rem;
 }
 
-.package-logo {
+.package-left-logo {
   height: 1.25rem;
   padding-right: 0.5rem;
   cursor: pointer;
 }
 
-.package-footer {
+.package-left-footer {
   display: grid;
   grid-auto-flow: column;
   justify-content: flex-start;
@@ -164,21 +203,21 @@
   flex-wrap: wrap;
 }
 
-.package-footer a {
+.package-left-footer a {
   text-decoration: none;
   color: inherit;
   font-size: 0.8rem;
-  color: #42224d;
+  color: var(--dark-purple);
 }
 
-.package-copyright {
+.package-left-copyright {
   font-size: 0.6rem;
-  color: #42224d;
+  color: var(--dark-purple);
 }
 
 /* OTHER */
 
-.packages-page-title {
+.packages-left-page-title {
   font-size: 42px;
   text-align: center;
   margin-bottom: 10%;
