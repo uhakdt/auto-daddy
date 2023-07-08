@@ -8,22 +8,22 @@ const PayByStripeButton = ({ onClick }) => {
         <span className="btn-text">Pay with</span>
         <img
           className="logo"
-          src={`${process.env.PUBLIC_URL}/logos/visa-logo.svg.png`}
+          src={`${process.env.PUBLIC_URL}/logos/visa-logo.png`}
           alt="Visa"
         />
         <img
           className="logo"
-          src={`${process.env.PUBLIC_URL}/logos/mastercard-logo.svg.png`}
+          src={`${process.env.PUBLIC_URL}/logos/mastercard-logo.png`}
           alt="Mastercard"
         />
         <img
           className="logo"
-          src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg.png`}
+          src={`${process.env.PUBLIC_URL}/logos/applepay-logo.png`}
           alt="Apple Pay"
         />
         <img
           className="logo"
-          src={`${process.env.PUBLIC_URL}/logos/googlepay-logo.svg.png`}
+          src={`${process.env.PUBLIC_URL}/logos/googlepay-logo.png`}
           alt="Google Pay"
         />
       </button>

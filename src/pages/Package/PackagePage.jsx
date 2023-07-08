@@ -29,6 +29,7 @@ import "./PackagePage.css";
 import { VehicleFreeData } from "../../models/VehicleFreeData";
 import StatusWindow from "./VehicleData/StatusWindow";
 import TableRow from "./VehicleData/TableRow";
+import FullReportList from "./GetFullReport/FullReportList";
 
 const auth = getAuth();
 
@@ -320,8 +321,69 @@ const PackagePage = () => {
               )}
             </div>
           </div>
-          <div className="package-right-content"></div>
-          <div className="package-right-footer"></div>
+          <div className="package-right-content">
+            <div className="package-right-content-title">Full Report</div>
+            <div className="package-right-content-description">
+              We extract extensive Vehicle data and feed it into OpenAI ChatGPT,
+              which privides detailed insights about the car, including an
+              assessment of its value.
+            </div>
+            <div className="package-right-content-description-bold">
+              That's it! Buying a car has never been so informed and
+              straightforward.
+            </div>
+            <div className="package-right-content-divider"></div>
+            <div className="package-right-content-list-openai-container">
+              <FullReportList />
+              <div className="package-right-content-openai">
+                <img
+                  className="package-right-content-openai-logo"
+                  src={`${process.env.PUBLIC_URL}/logos/chatgpt-logo.png`}
+                  alt="Logo"
+                />
+              </div>
+            </div>
+            <div className="package-right-content-description">
+              Receive a detailed report with all of ChatGPT's insights,
+              equipping you with the knowledge you need for a confident purchase
+              decision.
+            </div>
+            <div
+              className="package-right-content-button-container"
+              onClick={() => {
+                console.log("buy now");
+              }}
+            >
+              Get Full Report
+            </div>
+          </div>
+          <div className="package-right-logos-container">
+            <img
+              className="package-right-logo"
+              src={`${process.env.PUBLIC_URL}/logos/visa-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="package-right-logo"
+              src={`${process.env.PUBLIC_URL}/logos/mastercard-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="package-right-logo"
+              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.png`}
+              alt="Logo"
+            />
+            <img
+              className="package-right-logo"
+              src={`${process.env.PUBLIC_URL}/logos/stripe-logo.svg`}
+              alt="Logo"
+            />
+            <img
+              className="package-right-logo"
+              src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
+              alt="Logo"
+            />
+          </div>
         </div>
       </div>
 

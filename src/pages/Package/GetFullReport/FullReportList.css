@@ -1,0 +1,19 @@
+:root {
+  --orange: #d55a6f;
+  --light-purple: #faf5ff;
+  --light-medium-purple: #eee5f7;
+  --medium-purple: #6f508c;
+  --dark-purple: #42224d;
+}
+
+.full-report-list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: var(--dark-purple);
+  font-size: 0.9rem;
+}
+
+.full-report-list-item .check-icon {
+  margin-right: 1rem;
+}
