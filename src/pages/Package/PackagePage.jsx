@@ -487,7 +487,7 @@ const PackagePage = () => {
         autoHideDuration={2000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
-        key={"top" + "center"}
+        key={"top-center"}
       />
     </div>
   );
