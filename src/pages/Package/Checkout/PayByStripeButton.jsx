@@ -18,7 +18,7 @@ const PayByStripeButton = ({ onClick }) => {
         />
         <img
           className="logo"
-          src={`${process.env.PUBLIC_URL}/logos/applepay-logo.png`}
+          src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg`}
           alt="Apple Pay"
         />
         <img

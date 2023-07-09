@@ -425,21 +425,133 @@
   }
 }
 
-.pay-container {
+/* MODAL 
+----------------------------------------
+*/
+
+/* PAY LEFT*/
+
+.package-pay-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
+  padding: 2.5rem;
   border-radius: 8px;
   outline: none;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-around;
+  width: 80%;
   gap: 10px;
+  width: 80%;
+  box-shadow: 0 -0.2rem 0.9rem rgb(0 0 0 / 0.4);
 }
+
+.package-pay-left-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-pay-left-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--dark-purple);
+  margin-bottom: 2rem;
+}
+
+.package-pay-left-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--dark-purple);
+  margin-bottom: 2rem;
+}
+
+.package-pay-left-subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--dark-purple);
+  margin-bottom: 2rem;
+}
+
+.package-pay-left-description {
+  font-size: 1rem;
+  color: var(--dark-purple);
+  margin-bottom: 2rem;
+}
+
+.package-pay-left-cost {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--dark-purple);
+}
+
+.package-pay-left-cost-price {
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--dark-purple);
+  margin-left: 1rem;
+}
+
+.package-pay-left-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: small;
+  margin-top: 2rem;
+  opacity: 0.4;
+}
+
+.package-pay-left-stripe-logo {
+  font-weight: bolder;
+  margin-left: -0.5rem;
+  font-size: medium;
+}
+
+.package-pay-left-footer-divider {
+  height: 100%;
+  width: 1px;
+  background-color: var(--dark-purple);
+  opacity: 0.2;
+}
+
+/* PAY RIGHT */
+
+.package-pay-right-container {
+  flex: 1;
+}
+
+.package-pay-right-content {
+  background-color: white;
+  min-height: 2rem;
+  width: 80%;
+  border-radius: 10px;
+  box-shadow: 0 -0.1rem 0.8rem rgb(0 0 0 / 0.4);
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.package-pay-right-content-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.package-pay-right-content-button-apple {
+  cursor: pointer;
+  margin-right: 1rem;
+  background-color: black;
+}
+
+.package-pay-right-button-close {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+/* --------- */
 
 .modal-content-checkout {
   position: absolute;

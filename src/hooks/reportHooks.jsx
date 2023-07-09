@@ -13,6 +13,25 @@ export const handleDownloadReport = async (orderId, free, auth) => {
   }
 };
 
+export const handleDownloadSampleReport = async () => {
+  try {
+    const downloadUrl = await getSampleReportUrl(
+      "f91d459d-0992-4ca5-be6e-adc013fae2b4",
+      "AB12CDE",
+      "SbsFM2GpAWeDSLs38nc8hCEWCce2"
+    );
+
+    // Create new link and trigger click event on it
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.target = "_blank"; // to open in a new tab
+    link.download = "report.pdf";
+    link.click();
+  } catch (err) {
+    console.error("Error downloading file:", err);
+  }
+};
+
 export const handleEmailReport = async (
   orderId,
   free,
@@ -55,6 +74,36 @@ export const getReportUrl = async (orderId, free, auth) => {
     console.log("getReportUrl");
     const vehicleRegMark = free.RegistrationNumber;
     const userId = auth.currentUser.uid;
+    const url = `${process.env.REACT_APP_API_URL}/download-report`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId, vehicleRegMark, userId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const { url: downloadUrl } = await response.json();
+    console.log(downloadUrl);
+    return downloadUrl;
+  } catch (err) {
+    console.error("Error getting report URL:", err);
+  }
+};
+
+export const getSampleReportUrl = async (
+  orderId,
+  registrationNumber,
+  userId
+) => {
+  try {
+    console.log("getReportUrl");
+    const vehicleRegMark = registrationNumber;
     const url = `${process.env.REACT_APP_API_URL}/download-report`;
 
     const response = await fetch(url, {

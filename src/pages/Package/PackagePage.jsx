@@ -31,6 +31,8 @@ import StatusWindow from "./VehicleData/StatusWindow";
 import TableRow from "./VehicleData/TableRow";
 import FullReportList from "./GetFullReport/FullReportList";
 
+import { handleDownloadSampleReport } from "../../hooks/reportHooks";
+
 const auth = getAuth();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUB_KEY);
@@ -300,9 +302,7 @@ const PackagePage = () => {
                 <div className="package-right-header-button-container">
                   <button
                     className="package-right-header-button"
-                    onClick={() => {
-                      console.log("sample report");
-                    }}
+                    onClick={handleDownloadSampleReport}
                   >
                     View sample report
                   </button>
@@ -374,9 +374,7 @@ const PackagePage = () => {
             </div>
             <div
               className="package-right-content-button-container"
-              onClick={() => {
-                console.log("buy now");
-              }}
+              onClick={handleDrive}
             >
               Get Full Report
             </div>
@@ -394,7 +392,7 @@ const PackagePage = () => {
             />
             <img
               className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.png`}
+              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg`}
               alt="Logo"
             />
             <img
@@ -454,19 +452,60 @@ const PackagePage = () => {
             />
           )}
           {user && payments && (
-            <div className="pay-container">
-              <button onClick={() => handleStripeSubmit(1500, vehicleFreeData)}>
+            <div className="package-pay-container">
+              <div className="package-pay-left-container">
+                <div className="package-pay-left-logo">AutoDaddy</div>
+                <div className="package-pay-left-title">Full Report</div>
+                <div className="package-pay-left-description">
+                  Receive a detailed report with all of ChatGPT's insights,
+                  equipping you with the knowledge you need for a confident
+                  purchase decision.
+                </div>
+                <div className="package-pay-left-subtitle">
+                  For License Plate {registrationNumber}
+                </div>
+                <div className="package-pay-left-cost">
+                  Total
+                  <span className="package-pay-left-cost-price">£14.90</span>
+                </div>
+                <div className="package-pay-left-footer">
+                  Powered by
+                  <span className="package-pay-left-stripe-logo">stripe</span>
+                  <div className="package-pay-left-footer-divider"></div>
+                  <a href="/terms">Terms</a>
+                  <a href="/privacy">Privacy</a>
+                </div>
+              </div>
+
+              <div className="package-pay-right-container">
+                <div className="package-pay-right-content">
+                  <div className="package-pay-right-content-buttons-container">
+                    <button className="package-pay-right-content-button-apple">
+                      <img
+                        height={50}
+                        src={`${process.env.PUBLIC_URL}/logos/applepay-white-logo.svg`}
+                        alt="Logo"
+                      />
+                    </button>
+                    <button className="package-pay-right-content-button-paypal">
+                      PayPal Button
+                    </button>
+                  </div>
+                </div>
+                <div className="package-pay-right-button-close"></div>
+              </div>
+              {/* <button onClick={() => handleStripeSubmit(1500, vehicleFreeData)}>
                 Stripe
               </button>
               <button onClick={() => setPaymentMethod("paypal")}>
                 <PayPalScriptProvider options={initialOptions}>
                   <PayPalForm />
                 </PayPalScriptProvider>
-              </button>
+              </button> */}
             </div>
           )}
 
-          {user && !payments && clientSecret && (
+          {/* {user && !payments && clientSecret && (
             <div className="modal-content-checkout" style={{ width: "80%" }}>
               <Elements
                 options={{
@@ -478,7 +517,7 @@ const PackagePage = () => {
                 <StripeForm userEmail={auth.currentUser.email} />
               </Elements>
             </div>
-          )}
+          )} */}
         </div>
       </Modal>
       <Snackbar
