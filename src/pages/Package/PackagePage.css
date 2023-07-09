@@ -164,6 +164,9 @@
   .package-left-tax-and-mot-container {
     flex-wrap: nowrap;
   }
+  .package-left-other-details-container {
+    margin-bottom: -3rem;
+  }
 }
 
 /* FOOTER */
@@ -200,6 +203,16 @@
 .package-left-copyright {
   font-size: 0.6rem;
   color: var(--dark-purple);
+}
+
+@media screen and (max-width: 768px) {
+  .package-left-footer {
+    justify-content: center;
+  }
+
+  .package-left-copyright {
+    margin-top: 1rem;
+  }
 }
 
 /* RIGHT 
@@ -258,6 +271,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .package-right {
+    margin: 0rem;
+  }
   .package-right-header {
     justify-content: center;
   }
@@ -372,7 +388,9 @@
   }
 }
 
-/* OTHER */
+/* OTHER 
+----------------------------------------
+*/
 
 .packages-left-page-title {
   font-size: 42px;
