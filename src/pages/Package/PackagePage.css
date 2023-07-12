@@ -519,6 +519,7 @@
 
 .package-pay-right-container {
   flex: 1;
+  display: flex;
 }
 
 .package-pay-right-content {
@@ -541,12 +542,44 @@
   cursor: pointer;
   margin-right: 1rem;
   background-color: black;
+  padding: 0.5rem;
+  height: 3rem;
+  width: 10rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+}
+
+.package-pay-right-content-button-paypal {
+  cursor: pointer;
+  background-color: white;
+  border-color: #93999d;
+  padding: 0.5rem;
+  height: 3rem;
+  width: 10rem;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 5px;
+}
+
+.package-pay-right-content-divider {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid var(--dark-purple);
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+  margin-top: 2rem;
+  opacity: 0.3;
+}
+
+.package-pay-right-content-divider span {
+  background: #fff;
+  padding: 0 10px;
 }
 
 .package-pay-right-button-close {
-  background-color: transparent;
-  border: none;
-  outline: none;
   cursor: pointer;
   margin-left: auto;
 }

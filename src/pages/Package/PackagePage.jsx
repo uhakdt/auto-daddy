@@ -12,6 +12,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 import { RiCarLine } from "react-icons/ri";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { MdOutlineClose } from "react-icons/md";
 
 import Modal from "@mui/material/Modal";
 import { Link, Snackbar } from "@mui/material";
@@ -96,8 +97,8 @@ const PackagePage = () => {
   };
 
   const handleStripeSubmit = (price, vehicleFreeData) => {
-    setPaymentMethod("");
-    setPayments(false);
+    setOpen(true);
+    setPayments(true);
 
     if (typeof vehicleFreeData === "undefined") {
       alert("Please enter a license plate number.");
@@ -374,7 +375,7 @@ const PackagePage = () => {
             </div>
             <div
               className="package-right-content-button-container"
-              onClick={handleDrive}
+              onClick={() => handleStripeSubmit(1490, vehicleFreeData)}
             >
               Get Full Report
             </div>
@@ -482,17 +483,45 @@ const PackagePage = () => {
                   <div className="package-pay-right-content-buttons-container">
                     <button className="package-pay-right-content-button-apple">
                       <img
-                        height={50}
+                        height={35}
+                        width={150}
                         src={`${process.env.PUBLIC_URL}/logos/applepay-white-logo.svg`}
                         alt="Logo"
                       />
                     </button>
                     <button className="package-pay-right-content-button-paypal">
-                      PayPal Button
+                      <img
+                        height={35}
+                        width={150}
+                        src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
+                        alt="Logo"
+                      />
                     </button>
                   </div>
+                  <div className="package-pay-right-content-divider">
+                    <span>Or pay with card</span>
+                  </div>
+                  {clientSecret && (
+                    <Elements
+                      options={{
+                        clientSecret,
+                        theme: "stripe",
+                      }}
+                      stripe={stripePromise}
+                    >
+                      <StripeForm userEmail={auth.currentUser.email} />
+                    </Elements>
+                  )}
                 </div>
-                <div className="package-pay-right-button-close"></div>
+                <div
+                  className="package-pay-right-button-close"
+                  onClick={() => {
+                    setOpen(false);
+                    setPayments(false);
+                  }}
+                >
+                  <MdOutlineClose size={25} />
+                </div>
               </div>
               {/* <button onClick={() => handleStripeSubmit(1500, vehicleFreeData)}>
                 Stripe
@@ -504,20 +533,6 @@ const PackagePage = () => {
               </button> */}
             </div>
           )}
-
-          {/* {user && !payments && clientSecret && (
-            <div className="modal-content-checkout" style={{ width: "80%" }}>
-              <Elements
-                options={{
-                  clientSecret,
-                  theme: "stripe",
-                }}
-                stripe={stripePromise}
-              >
-                <StripeForm userEmail={auth.currentUser.email} />
-              </Elements>
-            </div>
-          )} */}
         </div>
       </Modal>
       <Snackbar
