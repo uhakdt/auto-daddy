@@ -327,7 +327,7 @@ const PackagePage = () => {
                     <button
                       className="package-right-header-button"
                       onClick={() => {
-                        console.log("Dashboard");
+                        navigate("/dashboard");
                       }}
                     >
                       Dashboard
