@@ -1,3 +1,13 @@
+:root {
+  --orange: #d55a6f;
+  --medium-orange: #b84361;
+  --dark-orange: #8b3150;
+  --light-purple: #faf5ff;
+  --light-medium-purple: #eee5f7;
+  --medium-purple: #6f508c;
+  --dark-purple: #42224d;
+}
+
 .sidebar-box {
   transition: width 0.3s;
   border-right: 1px solid #ddd;
@@ -11,13 +21,79 @@
   align-self: flex-end;
 }
 
-.order-button {
-  justify-content: flex-start;
-  text-align: left;
+.order-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  padding: 1rem 0;
+}
+
+.order-button-container:hover {
+  background-color: var(--light-purple);
+  cursor: pointer;
+}
+
+.order-button-container:active {
+  background-color: var(--light-medium-purple);
+}
+
+.order-button-container-selected {
+  background-color: var(--light-purple);
+}
+
+.order-button-results-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  color: var(--dark-purple);
+  width: 8rem;
+}
+
+.order-button-results-registration-number {
+  font-size: 1.1rem;
+}
+
+.order-button-results-model {
+  font-size: 0.9rem;
+}
+
+.order-button-results-registration-number span {
+  color: var(--dark-purple);
 }
 
 .settings-button {
   position: absolute;
   bottom: 0;
+  color: var(--medium-purple);
+}
+
+.new-search-button-container {
+  margin: 1rem;
+  width: 10rem;
+}
+
+.new-search-button {
+  background-color: var(--orange);
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 3rem;
+  width: 10rem;
+  font-size: 1.2rem;
+  order: 2;
+}
+
+.new-search-button:hover {
+  background-color: var(--medium-orange);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.new-search-button:active {
+  background-color: var(--dark-orange);
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }

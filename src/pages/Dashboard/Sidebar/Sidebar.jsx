@@ -1,50 +1,54 @@
 import React, { useState } from "react";
 
+import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
+
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import AddIcon from "@mui/icons-material/Add";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
+import { TbReportAnalytics } from "react-icons/tb";
 
 import "./Sidebar.css";
-import CarSidebar from "../../../SVGs/CarSidebar";
-
-import { CheckOrderCriteria } from "../../../auxiliaryFunctions/orderFunctions";
 
 function Sidebar({ orders, onSelectOrder, onSelectSettings }) {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
-  const [open, setOpen] = useState(matches);
-  const toggleOpen = () => setOpen(!open);
+  const handleOrderSelect = (id) => {
+    onSelectOrder(id);
+    setSelectedOrder(id);
+  };
 
   return (
     <Box className="sidebar-box">
-      <IconButton onClick={toggleOpen} className="toggle-button">
-        {open ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-      </IconButton>
+      <div className="new-search-button-container">
+        <button type="submit" className="new-search-button">
+          New Search
+        </button>
+      </div>
       {orders.map((order) => (
-        <IconButton
+        <div
           key={order.id}
           onClick={() => {
-            onSelectOrder(order.id);
+            handleOrderSelect(order.id);
           }}
-          className="order-button"
+          className={`order-button-container ${
+            selectedOrder === order.id ? "order-button-container-selected" : ""
+          }`}
         >
-          <CarSidebar
-            colour={CheckOrderCriteria(order) ? "#e8f653" : "#FF0000"}
-          />
-          <div
-            style={{
-              fontSize: "1rem",
-            }}
-          >
-            {open && (order?.vehicleFreeData.RegistrationNumber || "N/A")}
+          <div>
+            <TbReportAnalytics size={25} color="#42224d" />
           </div>
-        </IconButton>
+          <div className="order-button-results-container">
+            <div className="order-button-results-registration-number">
+              <span style={{ fontWeight: "bold" }}>GB</span>{" "}
+              <span>{order?.vehicleFreeData.RegistrationNumber}</span>
+            </div>
+            <div className="order-button-results-model">
+              {CapitalizeEachWord(
+                order?.data.VehicleAndMotHistory.VehicleRegistration.MakeModel
+              )}
+            </div>
+          </div>
+        </div>
       ))}
 
       <IconButton onClick={onSelectSettings} className="settings-button">
