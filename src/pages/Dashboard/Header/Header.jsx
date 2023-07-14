@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { auth } from "../../../firebase";
-import { signOut } from "firebase/auth";
 import "./Header.css";
 import ProfileModal from "./ProfileModal";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +7,6 @@ import { MdOutlinePersonOutline } from "react-icons/md";
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut(auth);
-    setShowModal(false);
-  };
 
   return (
     <div className="header">
