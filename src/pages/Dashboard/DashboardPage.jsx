@@ -9,6 +9,7 @@ import "./DashboardPage.css";
 import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
 import Settings from "./Settings/Settings";
+import Header from "./Header/Header";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
@@ -91,23 +92,29 @@ function DashboardPage() {
   }
 
   return (
-    <Box className="dashboard" sx={{ display: "flex" }}>
-      <Sidebar
-        className="sidebar"
-        orders={orders}
-        onSelectOrder={(orderId) => {
-          setSelectedOrder(orderId);
-          setShowSettings(false);
-        }}
-        onSelectSettings={() => {
-          setShowSettings(true);
-        }}
-      />
-      {showSettings ? (
-        <Settings />
-      ) : (
-        <OrderDetails className="order-details" orderId={selectedOrder} />
-      )}
+    <Box
+      className="dashboard"
+      sx={{ display: "flex", flexDirection: "column" }}
+    >
+      <Header />
+      <Box className="dashboard-content" sx={{ display: "flex", flex: "1" }}>
+        <Sidebar
+          className="sidebar"
+          orders={orders}
+          onSelectOrder={(orderId) => {
+            setSelectedOrder(orderId);
+            setShowSettings(false);
+          }}
+          onSelectSettings={() => {
+            setShowSettings(true);
+          }}
+        />
+        {showSettings ? (
+          <Settings />
+        ) : (
+          <OrderDetails className="order-details" orderId={selectedOrder} />
+        )}
+      </Box>
     </Box>
   );
 }

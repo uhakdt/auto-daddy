@@ -1,0 +1,33 @@
+:root {
+  --orange: #d55a6f;
+  --medium-orange: #b84361;
+  --dark-orange: #8b3150;
+  --light-purple: #faf5ff;
+  --light-medium-purple: #eee5f7;
+  --medium-purple: #6f508c;
+  --dark-purple: #42224d;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: var(--dark-purple);
+  cursor: pointer;
+  padding-left: 1rem;
+}
+
+.profile {
+  position: relative;
+}
+
+.profile-icon {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  padding-right: 1rem;
+}

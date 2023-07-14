@@ -1,0 +1,55 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../firebase";
+
+import Modal from "@mui/material/Modal";
+import {
+  MdOutlinePersonOutline,
+  MdQuestionAnswer,
+  MdExitToApp,
+} from "react-icons/md";
+
+import "./ProfileModal.css";
+
+function ProfileModal({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    onClose();
+    navigate("/dashboard");
+  };
+
+  return (
+    <Modal open={isOpen} onClose={onClose}>
+      <div className="container">
+        <div
+          className="sub-container"
+          onClick={() => {
+            onClose();
+            navigate("/dashboard");
+          }}
+        >
+          <MdOutlinePersonOutline size={20} />
+          Profile
+        </div>
+        <div
+          className="sub-container"
+          onClick={() => {
+            onClose();
+            navigate("/contact-us");
+          }}
+        >
+          <MdQuestionAnswer size={20} />
+          Contact Us
+        </div>
+        <div className="sub-container" onClick={handleLogout}>
+          <MdExitToApp size={20} />
+          Logout
+        </div>
+      </div>
+    </Modal>
+  );
+}
+
+export default ProfileModal;
