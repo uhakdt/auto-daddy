@@ -5,11 +5,13 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import IconButton from "@mui/material/IconButton";
 import { FaRegEnvelope, FaDownload, FaShareSquare } from "react-icons/fa";
+import { AiOutlineCar } from "react-icons/ai";
 import Snackbar from "@mui/material/Snackbar";
 
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 import { getReportUrl } from "../../../hooks/reportHooks";
+import RegistrationNumber from "../../../SVGs/RegistrationNumber";
 
 const VehicleMain = ({
   basic,
@@ -54,12 +56,25 @@ const VehicleMain = ({
 
   return (
     <section className="section">
-      <div className="section-title">
-        {basic.VehicleRegistration.MakeModel && (
-          <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
-        )}
+      <div style={style.vehicleModelContainer}>
+        <div>
+          <AiOutlineCar size={"2rem"} color={"#59396d"} />
+        </div>
+        <div style={style.title}>
+          {basic.VehicleRegistration.MakeModel && (
+            <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
+          )}
+        </div>
       </div>
-      <div className="section-divider"></div>
+      <div style={style.vehicleRegistrationContainer}>
+        <div>
+          <RegistrationNumber />
+        </div>
+        <div style={style.title}>
+          <span>GB</span> <span>{free.RegistrationNumber}</span>
+        </div>
+      </div>
+
       <div className="section-content">
         {free.RegistrationNumber && (
           <div className="registration-number-container">
@@ -104,6 +119,27 @@ const VehicleMain = ({
       </div>
     </section>
   );
+};
+
+const style = {
+  vehicleModelContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
+    marginBottom: "1rem",
+  },
+  title: {
+    fontSize: "1.5rem",
+    fontWeight: "bold",
+    color: "#59396d",
+    paddingLeft: "1rem",
+  },
+  vehicleRegistrationContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "left",
+    marginBottom: "1rem",
+  },
 };
 
 export default VehicleMain;
