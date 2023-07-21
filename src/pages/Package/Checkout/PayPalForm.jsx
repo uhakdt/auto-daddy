@@ -15,7 +15,7 @@ const PayPalForm = () => {
 
   const createOrder = async (data, actions) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/create-paypal-order`,
+      `${process.env.REACT_APP_API_URL}/paypal/create-paypal-order`,
       {
         method: "POST",
         headers: {
@@ -34,7 +34,7 @@ const PayPalForm = () => {
   const onApprove = async (data, actions) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/capture-paypal-order`,
+        `${process.env.REACT_APP_API_URL}/paypal/capture-paypal-order`,
         {
           method: "POST",
           headers: {

@@ -37,9 +37,7 @@ function NewOrder() {
       setIsValid(true);
       try {
         await axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/vehicledata/free/${registrationNumber}`
-          )
+          .post(`${process.env.REACT_APP_API_URL}/dvla/${registrationNumber}`)
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);

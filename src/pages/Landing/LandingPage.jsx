@@ -75,7 +75,7 @@ function LandingPage() {
       try {
         await axios
           .post(
-            `${process.env.REACT_APP_API_URL}/vehicledata/free/${tempRegistrationNumber}`
+            `${process.env.REACT_APP_API_URL}/dvla/${tempRegistrationNumber}`
           )
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);

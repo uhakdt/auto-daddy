@@ -45,7 +45,7 @@ export const handleEmailReport = async (
     const email = auth.currentUser.email;
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/email-report`,
+      `${process.env.REACT_APP_API_URL}/email/send-report`,
       {
         method: "POST",
         headers: {
@@ -74,7 +74,7 @@ export const getReportUrl = async (orderId, free, auth) => {
     console.log("getReportUrl");
     const vehicleRegMark = free.RegistrationNumber;
     const userId = auth.currentUser.uid;
-    const url = `${process.env.REACT_APP_API_URL}/download-report`;
+    const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -104,7 +104,7 @@ export const getSampleReportUrl = async (
   try {
     console.log("getReportUrl");
     const vehicleRegMark = registrationNumber;
-    const url = `${process.env.REACT_APP_API_URL}/download-report`;
+    const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
 
     const response = await fetch(url, {
       method: "POST",
