@@ -49,11 +49,11 @@ const VehicleDetails = ({ free, basic, aiContent, imageUrl }) => {
               </TableRow>
               <TableRow
                 item={
-                  basic.TechnicalDetails.Performance.Acceleration.ZeroTo60Mph
+                  basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph
                 }
                 title="Acceleration"
               >
-                {basic.TechnicalDetails.Performance.Acceleration.ZeroTo60Mph}
+                {basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph}
               </TableRow>
               <TableRow
                 item={basic.TechnicalDetails.Performance.MaxSpeed.Mph}
