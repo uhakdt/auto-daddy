@@ -1,4 +1,8 @@
 import React from "react";
+
+import TableRow from "../../Package/VehicleData/TableRow";
+import AISummaryComponent from "./AISummaryComponent";
+
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const WriteOff = ({
@@ -22,60 +26,38 @@ const WriteOff = ({
       <div className="section-title">Write Off</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContentLoading ? (
-          <div>Loading...</div> // replace this with your loading spinner
-        ) : (
-          aiContent && (
-            <div className="ai-summary-container">
-              <div className="ai-summary-content">{aiContent}</div>
-              <div className="ai-summary-by">Powered By ChatGPT</div>
-            </div>
-          )
-        )}
+        <AISummaryComponent
+          aiContentLoading={aiContentLoading}
+          aiContent={aiContent}
+        />
+
         <div className="table-figure-container">
-          <table rules="all" className="section-table">
-            <tbody>
-              <tr>
-                <td className="section-table-first-column">
-                  <div
-                    className="section-table-row-status"
-                    style={{
-                      backgroundColor: "rgb(225, 249, 9)",
-                      borderColor: "rgb(121, 130, 45)",
-                    }}
-                  ></div>
-                </td>
-                <td className="section-table-second-column">Date</td>
-                <td>{FormatDate(full.WriteOffDate)}</td>
-              </tr>
-              <tr>
-                <td className="section-table-first-column">
-                  <div
-                    className="section-table-row-status"
-                    style={{
-                      backgroundColor: "rgb(225, 249, 9)",
-                      borderColor: "rgb(121, 130, 45)",
-                    }}
-                  ></div>
-                </td>
-                <td className="section-table-second-column">Category</td>
-                <td>{full.WriteOffCategory}</td>
-              </tr>
-              <tr>
-                <td className="section-table-first-column">
-                  <div
-                    className="section-table-row-status"
-                    style={{
-                      backgroundColor: "rgb(225, 249, 9)",
-                      borderColor: "rgb(121, 130, 45)",
-                    }}
-                  ></div>
-                </td>
-                <td className="section-table-second-column">Record Count</td>
-                <td>{full.WriteOffRecordCount}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div rules="all" className="section-table">
+            <TableRow
+              item={FormatDate(full.WriteOffDate)}
+              title="Date"
+              colour="#6f508c"
+              last={false}
+            >
+              {FormatDate(full.WriteOffDate)}
+            </TableRow>
+            <TableRow
+              item={full.WriteOffCategory}
+              title="Category"
+              colour="#6f508c"
+              last={false}
+            >
+              {full.WriteOffCategory}
+            </TableRow>
+            <TableRow
+              item={full.WriteOffRecordCount}
+              title="Record Count"
+              colour="#6f508c"
+              last={true}
+            >
+              {full.WriteOffRecordCount}
+            </TableRow>
+          </div>
         </div>
         {full.WriteOffRecordList > 0 ? (
           <>

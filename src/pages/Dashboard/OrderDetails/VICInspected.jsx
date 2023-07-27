@@ -1,4 +1,8 @@
 import React from "react";
+
+import TableRow from "../../Package/VehicleData/TableRow";
+import AISummaryComponent from "./AISummaryComponent";
+
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const VICInspected = ({ full, aiContent, aiContentLoading }) => {
@@ -17,47 +21,30 @@ const VICInspected = ({ full, aiContent, aiContentLoading }) => {
       <div className="section-title">VIC Inspected</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContentLoading ? (
-          <div>Loading...</div> // replace this with your loading spinner
-        ) : (
-          aiContent && (
-            <div className="ai-summary-container">
-              <div className="ai-summary-content">{aiContent}</div>
-              <div className="ai-summary-by">Powered By ChatGPT</div>
-            </div>
-          )
-        )}
+        <AISummaryComponent
+          aiContentLoading={aiContentLoading}
+          aiContent={aiContent}
+        />
+
         <div className="table-figure-container">
-          <table rules="all" className="section-table">
-            <tbody>
-              <tr>
-                <td className="section-table-first-column">
-                  <div
-                    className="section-table-row-status"
-                    style={{
-                      backgroundColor: "rgb(225, 249, 9)",
-                      borderColor: "rgb(121, 130, 45)",
-                    }}
-                  ></div>
-                </td>
-                <td className="section-table-second-column">Date</td>
-                <td>{FormatDate(full.VicTestDate)}</td>
-              </tr>
-              <tr>
-                <td className="section-table-first-column">
-                  <div
-                    className="section-table-row-status"
-                    style={{
-                      backgroundColor: "rgb(225, 249, 9)",
-                      borderColor: "rgb(121, 130, 45)",
-                    }}
-                  ></div>
-                </td>
-                <td className="section-table-second-column">Test Result</td>
-                <td>{full.VicTestResult}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div rules="all" className="section-table">
+            <TableRow
+              item={FormatDate(full.VicTestDate)}
+              title="Date"
+              colour="#6f508c"
+              last={false}
+            >
+              {FormatDate(full.VicTestDate)}
+            </TableRow>
+            <TableRow
+              item={full.VicTestResult}
+              title="Test Result"
+              colour="#6f508c"
+              last={false}
+            >
+              {full.VicTestResult}
+            </TableRow>
+          </div>
         </div>
       </div>
     </section>

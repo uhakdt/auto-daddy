@@ -1,5 +1,7 @@
 import React from "react";
 import TableRow from "../../Package/VehicleData/TableRow";
+import AISummaryComponent from "./AISummaryComponent";
+
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const ImportExport = ({
@@ -23,16 +25,11 @@ const ImportExport = ({
       <div className="section-title">Import / Export</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContentLoading ? (
-          <div>Loading...</div> // replace this with your loading spinner
-        ) : (
-          aiContent && (
-            <div className="ai-summary-container">
-              <div className="ai-summary-content">{aiContent}</div>
-              <div className="ai-summary-by">Powered By ChatGPT</div>
-            </div>
-          )
-        )}
+        <AISummaryComponent
+          aiContentLoading={aiContentLoading}
+          aiContent={aiContent}
+        />
+
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow

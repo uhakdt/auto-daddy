@@ -9,6 +9,8 @@ import {
   Legend,
 } from "recharts";
 
+import AISummaryComponent from "./AISummaryComponent";
+
 import TableRow from "../../Package/VehicleData/TableRow";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
@@ -52,16 +54,11 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
       <div className="section-title">Mileage</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContentLoading ? (
-          <div>Loading...</div> // replace this with your loading spinner
-        ) : (
-          aiContent && (
-            <div className="ai-summary-container">
-              <div className="ai-summary-content">{aiContent}</div>
-              <div className="ai-summary-by">Powered By ChatGPT</div>
-            </div>
-          )
-        )}
+        <AISummaryComponent
+          aiContentLoading={aiContentLoading}
+          aiContent={aiContent}
+        />
+
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
@@ -165,34 +162,32 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
         {full.MileageRecordList.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
-              <table rules="all" className="section-table">
-                <tbody>
-                  <TableRow
-                    item={x.DateOfInformation}
-                    title="Date of Information"
-                    colour="#6f508c"
-                    last={false}
-                  >
-                    {FormatDate(x.DateOfInformation)}
-                  </TableRow>
-                  <TableRow
-                    item={x.Mileage}
-                    title="Mileage"
-                    colour="#6f508c"
-                    last={false}
-                  >
-                    {x.Mileage}
-                  </TableRow>
-                  <TableRow
-                    item={x.SourceOfInformation}
-                    title="Source of Information"
-                    colour="#6f508c"
-                    last={true}
-                  >
-                    {x.SourceOfInformation}
-                  </TableRow>
-                </tbody>
-              </table>
+              <div className="section-table">
+                <TableRow
+                  item={x.DateOfInformation}
+                  title="Date of Information"
+                  colour="#6f508c"
+                  last={false}
+                >
+                  {FormatDate(x.DateOfInformation)}
+                </TableRow>
+                <TableRow
+                  item={x.Mileage}
+                  title="Mileage"
+                  colour="#6f508c"
+                  last={false}
+                >
+                  {x.Mileage}
+                </TableRow>
+                <TableRow
+                  item={x.SourceOfInformation}
+                  title="Source of Information"
+                  colour="#6f508c"
+                  last={true}
+                >
+                  {x.SourceOfInformation}
+                </TableRow>
+              </div>
             </div>
           );
         })}
