@@ -1,5 +1,7 @@
 import React from "react";
-import TableRow from "./TableRow";
+
+import TableRow from "../../Package/VehicleData/TableRow";
+
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
@@ -27,16 +29,24 @@ const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
         {full.PlateChangeList.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
-              <table rules="all" className="section-table">
-                <tbody>
-                  <TableRow item={x.DateChanged} title="Date Changed">
-                    {FormatDate(x.DateChanged)}
-                  </TableRow>
-                  <TableRow item={x.PreviousVrm} title="Previous Plate Number">
-                    {x.PreviousVrm}
-                  </TableRow>
-                </tbody>
-              </table>
+              <div className="section-table">
+                <TableRow
+                  item={x.DateChanged}
+                  title="Date Changed"
+                  colour="#6f508c"
+                  last={false}
+                >
+                  {FormatDate(x.DateChanged)}
+                </TableRow>
+                <TableRow
+                  item={x.PreviousVrm}
+                  title="Previous Plate Number"
+                  colour="#6f508c"
+                  last={true}
+                >
+                  {x.PreviousVrm}
+                </TableRow>
+              </div>
             </div>
           );
         })}

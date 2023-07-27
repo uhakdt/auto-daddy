@@ -1,5 +1,7 @@
 import React from "react";
-import TableRow from "./TableRow";
+
+import TableRow from "../../Package/VehicleData/TableRow";
+
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 
@@ -20,49 +22,71 @@ const VehicleDetails = ({ free, basic, aiContent, imageUrl }) => {
           </div>
         ) : null}
         <div className="table-figure-container">
-          <table rules="all" className="section-table">
-            <tbody>
-              <TableRow
-                item={basic.VehicleRegistration.MakeModel}
-                title="Model"
-              >
-                {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
-              </TableRow>
-              <TableRow item={free.FuelType} title="Fuel Type">
-                {CapitalizeEachWord(free.FuelType)}
-              </TableRow>
-              <TableRow item={free.Colour} title="Colour">
-                {CapitalizeEachWord(free.Colour)}
-              </TableRow>
-              <TableRow item={free.EngineCapacity} title="Engine">
-                {free.EngineCapacity} cc
-              </TableRow>
-              <TableRow
-                item={
-                  basic.SmmtDetails.Transmission &&
-                  basic.SmmtDetails.NumberOfGears
-                }
-                title="Gearbox"
-              >
-                {basic.SmmtDetails.NumberOfGears} speed{" "}
-                {CapitalizeEachWord(basic.SmmtDetails.Transmission)}
-              </TableRow>
-              <TableRow
-                item={
-                  basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph
-                }
-                title="Acceleration"
-              >
-                {basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph}
-              </TableRow>
-              <TableRow
-                item={basic.TechnicalDetails.Performance.MaxSpeed.Mph}
-                title="Top Speed"
-              >
-                {basic.TechnicalDetails.Performance.MaxSpeed.Mph} Mph
-              </TableRow>
-            </tbody>
-          </table>
+          <div className="section-table">
+            <TableRow
+              item={basic.VehicleRegistration.MakeModel}
+              title="Model"
+              colour="#6f508c"
+              last={false}
+            >
+              {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
+            </TableRow>
+            <TableRow
+              item={free.FuelType}
+              title="Fuel Type"
+              colour="#6f508c"
+              last={false}
+            >
+              {CapitalizeEachWord(free.FuelType)}
+            </TableRow>
+            <TableRow
+              item={free.Colour}
+              title="Colour"
+              colour="#6f508c"
+              last={false}
+            >
+              {CapitalizeEachWord(free.Colour)}
+            </TableRow>
+            <TableRow
+              item={free.EngineCapacity}
+              title="Engine"
+              colour="#6f508c"
+              last={false}
+            >
+              {free.EngineCapacity} cc
+            </TableRow>
+            <TableRow
+              item={
+                basic.SmmtDetails.Transmission &&
+                basic.SmmtDetails.NumberOfGears
+              }
+              title="Gearbox"
+              colour="#6f508c"
+              last={false}
+            >
+              {basic.SmmtDetails.NumberOfGears} speed{" "}
+              {CapitalizeEachWord(basic.SmmtDetails.Transmission)}
+            </TableRow>
+            <TableRow
+              item={
+                basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph
+              }
+              title="Acceleration"
+              colour="#6f508c"
+              last={false}
+            >
+              {basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph}
+            </TableRow>
+            <TableRow
+              item={basic.TechnicalDetails.Performance.MaxSpeed.Mph}
+              title="Top Speed"
+              colour="#6f508c"
+              last={true}
+            >
+              {basic.TechnicalDetails.Performance.MaxSpeed.Mph} Mph
+            </TableRow>
+          </div>
+
           {imageUrl ? (
             <div>
               <img width={"100%"} src={imageUrl} alt="Car" />

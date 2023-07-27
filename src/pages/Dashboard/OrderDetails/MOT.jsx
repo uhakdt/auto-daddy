@@ -1,5 +1,7 @@
 import React from "react";
-import TableRow from "./TableRow";
+
+import TableRow from "../../Package/VehicleData/TableRow";
+
 import {
   CalculateMOTPassRate,
   CalculateMOTFailedTests,
@@ -31,67 +33,99 @@ const MOT = ({ free, basic, aiContent, goToMOTSection }) => {
           </div>
         ) : null}
         <div className="table-figure-container">
-          <table rules="all" className="section-table">
-            <tbody>
-              <TableRow
-                item={basic.MotHistory.RecordList.length}
-                title="Pass Rate"
-              >
-                {basic.MotHistory.RecordList.length ? (
-                  <>{CalculateMOTPassRate(basic.MotHistory.RecordList)}</>
-                ) : (
-                  <>No MOT History</>
-                )}
-              </TableRow>
-              <TableRow item={basic.MotHistory.RecordList} title="Failed Tests">
-                {CalculateMOTFailedTests(basic.MotHistory.RecordList)}
-              </TableRow>
-              <TableRow
-                item={basic.MotHistory.RecordList}
-                title="Total Advice Items"
-              >
-                {CalculateTotalAdviceItems(basic.MotHistory.RecordList)}
-              </TableRow>
-              <TableRow
-                item={basic.MotHistory.RecordList}
-                title="Total Items Failed"
-              >
-                {CalculateTotalAdviceItemsFailed(basic.MotHistory.RecordList)}
-              </TableRow>
-              <TableRow item={free.MotExpiryDate} title="Expiry Date">
-                {FormatDate(free.MotExpiryDate)}
-              </TableRow>
-            </tbody>
-          </table>
+          <div className="section-table">
+            <TableRow
+              title="Pass Rate"
+              item={basic.MotHistory.RecordList.length}
+              colour="#6f508c"
+              last={false}
+            >
+              {basic.MotHistory.RecordList.length
+                ? CalculateMOTPassRate(basic.MotHistory.RecordList)
+                : "No MOT History"}
+            </TableRow>
+            <TableRow
+              title="Failed Tests"
+              item={basic.MotHistory.RecordList}
+              colour="#6f508c"
+              last={false}
+            >
+              {CalculateMOTFailedTests(basic.MotHistory.RecordList)}
+            </TableRow>
+            <TableRow
+              title="Total Advice Items"
+              item={basic.MotHistory.RecordList}
+              colour="#6f508c"
+              last={false}
+            >
+              {CalculateTotalAdviceItems(basic.MotHistory.RecordList)}
+            </TableRow>
+            <TableRow
+              title="Total Items Failed"
+              item={basic.MotHistory.RecordList}
+              colour="#6f508c"
+              last={false}
+            >
+              {CalculateTotalAdviceItemsFailed(basic.MotHistory.RecordList)}
+            </TableRow>
+            <TableRow
+              title="Expiry Date"
+              item={free.MotExpiryDate}
+              colour="#6f508c"
+              last={true}
+            >
+              {FormatDate(free.MotExpiryDate)}
+            </TableRow>
+          </div>
         </div>
 
         {basic.MotHistory.RecordList.map((x, i) => (
           <div className="table-figure-container" key={i}>
-            <table
-              style={{ width: "100%" }}
-              rules="all"
-              className="section-table"
-            >
-              <tbody>
-                <TableRow item={x.TestDate} title={`Test Nr. ${i + 1}`}>
-                  {FormatDate(x.TestDate)}
+            <div className="section-table" style={{ width: "100%" }}>
+              <TableRow
+                item={x.TestDate}
+                title={`Test Nr. ${i + 1}`}
+                colour="#6f508c"
+                last={false}
+              >
+                {FormatDate(x.TestDate)}
+              </TableRow>
+              <TableRow
+                item={x.TestNumber}
+                title="Test Number"
+                colour="#6f508c"
+                last={false}
+              >
+                {x.TestNumber}
+              </TableRow>
+              <TableRow
+                item={x.TestResult}
+                title="Test Result"
+                colour="#6f508c"
+                last={false}
+              >
+                {x.TestResult}
+              </TableRow>
+              <TableRow
+                item={x.ExpiryDate}
+                title="Expiry Date"
+                colour="#6f508c"
+                last={false}
+              >
+                {FormatDate(x.ExpiryDate)}
+              </TableRow>
+              {x.AnnotationDetailsList.map((y, j) => (
+                <TableRow
+                  key={j}
+                  item={y.Type}
+                  title="MOT Advise"
+                  colour="#6f508c"
+                  last={j === x.AnnotationDetailsList.length - 1}
+                >
+                  Type: {y.Type} <br /> {y.Text}
                 </TableRow>
-                <TableRow item={x.TestNumber} title="Test Number">
-                  {x.TestNumber}
-                </TableRow>
-                <TableRow item={x.TestResult} title="Test Result">
-                  {x.TestResult}
-                </TableRow>
-                <TableRow item={x.ExpiryDate} title="Expiry Date">
-                  {FormatDate(x.ExpiryDate)}
-                </TableRow>
-                {x.AnnotationDetailsList.map((y, j) => (
-                  <TableRow key={j} item={y.Type} title="MOT Advise">
-                    Type: {y.Type} <br /> {y.Text}
-                  </TableRow>
-                ))}
-              </tbody>
-            </table>
+              ))}
+            </div>
           </div>
         ))}
       </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import TableRow from "./TableRow";
+import TableRow from "../../Package/VehicleData/TableRow";
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const ImportExport = ({ full, aiContent, goToImportExportSection }) => {
@@ -25,50 +25,78 @@ const ImportExport = ({ full, aiContent, goToImportExportSection }) => {
           </div>
         ) : null}
         <div className="table-figure-container">
-          <table rules="all" className="section-table">
-            <tbody>
+          <div className="section-table">
+            <TableRow
+              item={full.DateFirstRegistered}
+              title="Date First Registered"
+              colour="#6f508c"
+              last={false}
+            >
+              {FormatDate(full.DateFirstRegistered)}
+            </TableRow>
+
+            {full.Imported ? (
               <TableRow
-                item={full.DateFirstRegistered}
-                title="Date First Registered"
+                item={full.ImportDate}
+                title="Import Date"
+                colour="#6f508c"
+                last={false}
               >
-                {FormatDate(full.DateFirstRegistered)}
+                {FormatDate(full.ImportDate)}
               </TableRow>
-              {full.Imported ? (
-                <TableRow item={full.ImportDate} title="Import Date">
-                  {FormatDate(full.ImportDate)}
-                </TableRow>
-              ) : (
-                <TableRow item={false} title="Imported">
-                  False
-                </TableRow>
-              )}
-              {full.ImportUsedBeforeUkRegistration && (
-                <TableRow
-                  item={full.ImportUsedBeforeUkRegistration}
-                  title="Import Used before UK Registration"
-                >
-                  {full.ImportUsedBeforeUkRegistration}
-                </TableRow>
-              )}
-              {full.ImportedFromOutsideEu && (
-                <TableRow
-                  item={full.ImportedFromOutsideEu}
-                  title="Imported From Outside EU"
-                >
-                  {full.ImportedFromOutsideEu}
-                </TableRow>
-              )}
-              {full.Exported ? (
-                <TableRow item={full.ExportDate} title="Export Date">
-                  {FormatDate(full.ExportDate)}
-                </TableRow>
-              ) : (
-                <TableRow item={false} title="Exported">
-                  False
-                </TableRow>
-              )}
-            </tbody>
-          </table>
+            ) : (
+              <TableRow
+                item={false}
+                title="Imported"
+                colour="#6f508c"
+                last={false}
+              >
+                False
+              </TableRow>
+            )}
+
+            {full.ImportUsedBeforeUkRegistration && (
+              <TableRow
+                item={full.ImportUsedBeforeUkRegistration}
+                title="Import Used before UK Registration"
+                colour="#6f508c"
+                last={false}
+              >
+                {full.ImportUsedBeforeUkRegistration}
+              </TableRow>
+            )}
+
+            {full.ImportedFromOutsideEu && (
+              <TableRow
+                item={full.ImportedFromOutsideEu}
+                title="Imported From Outside EU"
+                colour="#6f508c"
+                last={false}
+              >
+                {full.ImportedFromOutsideEu}
+              </TableRow>
+            )}
+
+            {full.Exported ? (
+              <TableRow
+                item={full.ExportDate}
+                title="Export Date"
+                colour="#6f508c"
+                last={true}
+              >
+                {FormatDate(full.ExportDate)}
+              </TableRow>
+            ) : (
+              <TableRow
+                item={false}
+                title="Exported"
+                colour="#6f508c"
+                last={true}
+              >
+                False
+              </TableRow>
+            )}
+          </div>
         </div>
       </div>
     </section>

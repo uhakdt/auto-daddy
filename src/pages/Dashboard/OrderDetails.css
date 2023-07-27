@@ -234,6 +234,7 @@
 .table-figure-container {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
