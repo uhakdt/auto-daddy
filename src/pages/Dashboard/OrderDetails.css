@@ -1,21 +1,34 @@
+:root {
+  --orange: #d55a6f;
+  --medium-orange: #b84361;
+  --dark-orange: #8b3150;
+  --light-purple: #faf5ff;
+  --light-medium-purple: #eee5f7;
+  --medium-purple: #6f508c;
+  --dark-purple: #42224d;
+}
+
 /* MAIN */
 
 .section {
   background-color: rgb(255, 255, 255);
   border-width: 1px;
-  border-color: rgb(228, 228, 228);
+  border-color: rgb(167, 167, 167);
   border-style: solid;
   border-radius: 5px;
   padding: 1rem;
   justify-content: space-between;
   margin: 0.3rem;
   flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
 .section-title {
   padding-right: 0.5rem;
   font-size: x-large;
   font-weight: bold;
+  padding-bottom: 1rem;
+  color: var(--dark-purple);
 }
 
 .section-title-sub {
@@ -120,17 +133,14 @@
 .ai-summary-container {
   position: relative; /* This allows us to position .ai-summary-by relative to this container */
   padding: 1rem;
-  background-color: #f8f9fa;
+  background-color: var(--light-medium-purple);
   border-radius: 5px;
-  border-color: #dddddd;
-  border-width: 1px;
-  border-style: solid;
 }
 
 .ai-summary-content {
   font-size: 1rem;
   font-weight: 500;
-  color: #2f2f2f;
+  color: var(--dark-purple);
   margin-bottom: 1rem;
 }
 
@@ -140,8 +150,9 @@
   bottom: 0;
   right: 0;
   font-size: 0.75rem;
-  color: #9f00d0;
+  color: var(--dark-purple);
   padding: 0.5rem;
+  font-weight: bold;
 }
 
 /* STATUS WINDOWS */

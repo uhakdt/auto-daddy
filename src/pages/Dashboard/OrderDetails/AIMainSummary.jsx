@@ -4,11 +4,7 @@ import "../OrderDetails.css";
 const AIMainSummary = ({ aiContentList }) => {
   return (
     <section className="section">
-      <div className="section-title">
-        AutoDaddy <br />
-        <span className="section-title-sub">AI Summary</span>
-      </div>
-      <div className="section-divider"></div>
+      <div className="section-title">AutoDaddy AI Summary</div>
       <div className="section-content">
         {aiContentList[0] && (
           <div className="ai-summary-container">
