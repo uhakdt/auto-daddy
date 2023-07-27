@@ -29,6 +29,12 @@ function DashboardPage() {
     return redirectStatus === "succeeded";
   };
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   useEffect(() => {
     setPreviousPage(false);
     setVehicleFreeData(undefined);
@@ -108,6 +114,8 @@ function DashboardPage() {
           onSelectSettings={() => {
             setShowSettings(true);
           }}
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
         />
         {showSettings ? (
           <Settings />
