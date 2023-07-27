@@ -4,7 +4,12 @@ import TableRow from "../../Package/VehicleData/TableRow";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
+const PlateChangesSection = ({
+  full,
+  aiContent,
+  goToPlateSection,
+  aiContentLoading,
+}) => {
   if (full.PlateChangeCount === 0) {
     return (
       <section ref={goToPlateSection} className="section">
@@ -20,11 +25,15 @@ const PlateChangesSection = ({ full, aiContent, goToPlateSection }) => {
       <div className="section-title">Plate Changes</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent && (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
         )}
         {full.PlateChangeList.map((x, i) => {
           return (

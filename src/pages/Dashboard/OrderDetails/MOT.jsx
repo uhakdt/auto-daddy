@@ -10,7 +10,7 @@ import {
 } from "../../../auxiliaryFunctions/orderFunctions";
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const MOT = ({ free, basic, aiContent, goToMOTSection }) => {
+const MOT = ({ free, basic, aiContent, goToMOTSection, aiContentLoading }) => {
   if (basic.MotHistory.RecordList.length === 0) {
     return (
       <section ref={goToMOTSection} className="section">
@@ -26,12 +26,16 @@ const MOT = ({ free, basic, aiContent, goToMOTSection }) => {
       <div className="section-title">MOT</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow

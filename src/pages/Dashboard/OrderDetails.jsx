@@ -62,6 +62,7 @@ const aiContentListSample = [
 const OrderDetails = ({ orderId }) => {
   const { order, free, basic, full } = useOrderDetails(orderId);
   const [aiContentList, setAIContentList] = useState(aiContentListSample);
+  const [aiContentLoading, setAIContentLoading] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
   const [windowData, setWindowData] = useState(null);
   const [showNewOrder, setShowNewOrder] = useState(false);
@@ -323,6 +324,12 @@ const OrderDetails = ({ orderId }) => {
           },
         ]);
         setIsLoading(false);
+
+        const data = docSnap.data(); // suppose this is your order details
+
+        // Initialize AI content loading states
+        const loadingStates = new Array(aiContentListSample.length).fill(true);
+        setAIContentLoading(loadingStates);
       } else {
         handleError("No such order!");
       }
@@ -375,7 +382,10 @@ const OrderDetails = ({ orderId }) => {
               setShowNewOrder={setShowNewOrder}
             />
 
-            <AIMainSummary aiContentList={aiContentList} />
+            <AIMainSummary
+              aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
+            />
 
             {/* STATUS WINDOWS */}
             <section className="status-windows-container">
@@ -396,15 +406,21 @@ const OrderDetails = ({ orderId }) => {
               free={free}
               basic={basic}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               imageUrl={imageUrl}
             />
 
-            <EnergyConsumption basic={basic} aiContent={aiContentList[0]} />
+            <EnergyConsumption
+              basic={basic}
+              aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
+            />
 
             <MOT
               free={free}
               basic={basic}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToMOTSection={goToMOTSection}
             />
 
@@ -413,48 +429,63 @@ const OrderDetails = ({ orderId }) => {
               basic={basic}
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToTAXSection={goToTAXSection}
             />
 
             <Mileage
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToMileageSection={goToMileageSection}
             />
 
             <PlateChanges
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToPlateSection={goToPlateSection}
             />
 
             <OutstandingFinances
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToFinanceSection={goToFinanceSection}
             />
 
             <Stolen
               full={full}
               aiContentList={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToStolenSection={goToStolenSection}
             />
 
             <ImportExport
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToImportExportSection={goToImportExportSection}
             />
 
             <WriteOff
               full={full}
               aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
               goToWriteOffSection={goToWriteOffSection}
             />
 
-            <VICInspected full={full} aiContent={aiContentList[0]} />
+            <VICInspected
+              full={full}
+              aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
+            />
 
-            <ImportantChecks basic={basic} aiContent={aiContentList[0]} />
+            <ImportantChecks
+              basic={basic}
+              aiContent={aiContentList[0]}
+              aiContentLoading={aiContentLoading[0]}
+            />
 
             {/* ABOUT THIS REPORT */}
             <section className="section">

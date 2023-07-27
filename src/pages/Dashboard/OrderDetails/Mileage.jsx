@@ -18,7 +18,7 @@ import {
 } from "../../../auxiliaryFunctions/orderFunctions";
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
-const Mileage = ({ full, aiContent, goToMileageSection }) => {
+const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -52,11 +52,15 @@ const Mileage = ({ full, aiContent, goToMileageSection }) => {
       <div className="section-title">Mileage</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent && (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
         )}
         <div className="table-figure-container">
           <div className="section-table">

@@ -1,7 +1,7 @@
 import React from "react";
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const VICInspected = ({ full, aiContent }) => {
+const VICInspected = ({ full, aiContent, aiContentLoading }) => {
   if (!full.VicTested) {
     return (
       <section className="section">
@@ -17,12 +17,16 @@ const VICInspected = ({ full, aiContent }) => {
       <div className="section-title">VIC Inspected</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         <div className="table-figure-container">
           <table rules="all" className="section-table">
             <tbody>

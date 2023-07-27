@@ -5,7 +5,13 @@ import TableRow from "../../Package/VehicleData/TableRow";
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 
-const VehicleDetails = ({ free, basic, aiContent, imageUrl }) => {
+const VehicleDetails = ({
+  free,
+  basic,
+  aiContent,
+  imageUrl,
+  aiContentLoading,
+}) => {
   return (
     <section className="section">
       <div className="section-title">
@@ -15,12 +21,16 @@ const VehicleDetails = ({ free, basic, aiContent, imageUrl }) => {
       </div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow

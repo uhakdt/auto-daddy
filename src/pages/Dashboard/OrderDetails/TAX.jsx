@@ -8,17 +8,28 @@ import {
   CalculateTaxSingle12MonthPayment,
 } from "../../../auxiliaryFunctions/orderFunctions";
 
-const TAX = ({ free, basic, full, aiContent, goToTAXSection }) => {
+const TAX = ({
+  free,
+  basic,
+  full,
+  aiContent,
+  goToTAXSection,
+  aiContentLoading,
+}) => {
   return (
     <section ref={goToTAXSection} className="section">
       <div className="section-title">TAX</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent && (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
         )}
         <div className="table-figure-container">
           <div className="section-table">

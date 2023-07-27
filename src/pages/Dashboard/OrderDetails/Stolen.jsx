@@ -4,7 +4,7 @@ import TableRow from "../../Package/VehicleData/TableRow";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const Stolen = ({ full, aiContent, goToStolenSection }) => {
+const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
   if (!full.Stolen) {
     return (
       <section ref={goToStolenSection} className="section">
@@ -20,12 +20,16 @@ const Stolen = ({ full, aiContent, goToStolenSection }) => {
       <div className="section-title">Stolen</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow

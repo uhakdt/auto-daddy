@@ -2,18 +2,22 @@ import React from "react";
 import TableRow from "../../Package/VehicleData/TableRow";
 import EmissionsLabel from "../../../SVGs/EmissionsLabel";
 
-const EnergyConsumption = ({ basic, aiContent }) => {
+const EnergyConsumption = ({ basic, aiContent, aiContentLoading }) => {
   return (
     <section className="section">
       <div className="section-title">Energy & Consumption</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChatGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow

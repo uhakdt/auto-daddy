@@ -1,7 +1,12 @@
 import React from "react";
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const WriteOff = ({ full, aiContent, goToWriteOffSection }) => {
+const WriteOff = ({
+  full,
+  aiContent,
+  goToWriteOffSection,
+  aiContentLoading,
+}) => {
   if (!full.WrittenOff && full.WriteOffRecordCount === 0) {
     return (
       <section ref={goToWriteOffSection} className="section">
@@ -17,13 +22,15 @@ const WriteOff = ({ full, aiContent, goToWriteOffSection }) => {
       <div className="section-title">Write Off</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
         ) : (
-          <></>
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
         )}
         <div className="table-figure-container">
           <table rules="all" className="section-table">

@@ -4,7 +4,12 @@ import TableRow from "../../Package/VehicleData/TableRow";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const OutstandingFinances = ({ full, aiContent, goToFinanceSection }) => {
+const OutstandingFinances = ({
+  full,
+  aiContent,
+  goToFinanceSection,
+  aiContentLoading,
+}) => {
   if (full.FinanceRecordList.length === 0) {
     return (
       <section ref={goToFinanceSection} className="section">
@@ -20,12 +25,16 @@ const OutstandingFinances = ({ full, aiContent, goToFinanceSection }) => {
       <div className="section-title">Outstanding Finances</div>
       <div className="section-divider"></div>
       <div className="section-content">
-        {aiContent ? (
-          <div className="ai-summary-container">
-            <div className="ai-summary-content">{aiContent}</div>
-            <div className="ai-summary-by">Powered By ChadGPT</div>
-          </div>
-        ) : null}
+        {aiContentLoading ? (
+          <div>Loading...</div> // replace this with your loading spinner
+        ) : (
+          aiContent && (
+            <div className="ai-summary-container">
+              <div className="ai-summary-content">{aiContent}</div>
+              <div className="ai-summary-by">Powered By ChatGPT</div>
+            </div>
+          )
+        )}
         {full.FinanceRecordList.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
