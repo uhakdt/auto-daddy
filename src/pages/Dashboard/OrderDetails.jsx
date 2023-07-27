@@ -132,8 +132,8 @@ const OrderDetails = ({ orderId }) => {
             onClick: () => scrollToRef(goToTAXSection),
             gradientColor:
               docSnap.data().vehicleFreeData.TaxStatus === "Taxed"
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: false,
           },
           {
@@ -144,8 +144,8 @@ const OrderDetails = ({ orderId }) => {
             onClick: () => scrollToRef(goToMOTSection),
             gradientColor:
               docSnap.data().vehicleFreeData.MotStatus === "Valid"
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: false,
           },
           {
@@ -162,8 +162,8 @@ const OrderDetails = ({ orderId }) => {
                 : null,
             gradientColor:
               docSnap.data().data.VdiCheckFull.FinanceRecordCount === 0
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: false,
           },
           {
@@ -182,8 +182,8 @@ const OrderDetails = ({ orderId }) => {
             gradientColor:
               docSnap.data().data.VdiCheckFull.WrittenOff === false &&
               docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover:
               docSnap.data().data.VdiCheckFull.WrittenOff === false &&
               docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0,
@@ -203,8 +203,8 @@ const OrderDetails = ({ orderId }) => {
             gradientColor:
               docSnap.data().data.VdiCheckFull.Imported === false &&
               docSnap.data().data.VdiCheckFull.Exported === false
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover:
               docSnap.data().data.VdiCheckFull.Imported === false &&
               docSnap.data().data.VdiCheckFull.Exported === false,
@@ -220,30 +220,25 @@ const OrderDetails = ({ orderId }) => {
             onClick: null,
             gradientColor:
               docSnap.data().data.VdiCheckFull.Scrapped === false
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: true,
           },
           {
             title: "Colour",
             details:
-              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
-                .ColourChangeCount === null ||
-              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
-                .ColourChangeCount === 0
+              docSnap.data().data.VdiCheckFull.ColourChangeCount === null ||
+              docSnap.data().data.VdiCheckFull.ColourChangeCount === 0
                 ? "No Records"
                 : `Number of Records: ${
-                    docSnap.data().data.VehicleAndMotHistory.VehicleHistory
-                      .ColourChangeCount
+                    docSnap.data().data.VdiCheckFull.ColourChangeCount
                   }`,
             onClick: null,
             gradientColor:
-              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
-                .ColourChangeCount === null ||
-              docSnap.data().data.VehicleAndMotHistory.VehicleHistory
-                .ColourChangeCount === 0
-                ? "#e1f909"
-                : "#f6514b",
+              docSnap.data().data.VdiCheckFull.ColourChangeCount === null ||
+              docSnap.data().data.VdiCheckFull.ColourChangeCount === 0
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: true,
           },
           {
@@ -261,8 +256,8 @@ const OrderDetails = ({ orderId }) => {
                 : null,
             gradientColor:
               docSnap.data().data.VdiCheckFull.PlateChangeCount < 2
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover:
               docSnap.data().data.VdiCheckFull.PlateChangeCount === 0 ||
               docSnap.data().data.VdiCheckFull.PlateChangeCount === null,
@@ -278,8 +273,8 @@ const OrderDetails = ({ orderId }) => {
               ? () => scrollToRef(goToStolenSection)
               : null,
             gradientColor: !docSnap.data().data.VdiCheckFull.Stolen
-              ? "#e1f909"
-              : "#f6514b",
+              ? "#6f508c"
+              : "#d55a6f",
             noHover: !docSnap.data().data.VdiCheckFull.Stolen,
           },
           {
@@ -295,8 +290,8 @@ const OrderDetails = ({ orderId }) => {
             onClick: () => scrollToRef(goToMileageSection),
             gradientColor: docSnap.data().data.VdiCheckFull
               .MileageAnomalyDetected
-              ? "#f6514b"
-              : "#e1f909",
+              ? "#d55a6f"
+              : "#6f508c",
             noHover: false,
           },
           {
@@ -311,8 +306,8 @@ const OrderDetails = ({ orderId }) => {
             onClick: null,
             gradientColor:
               docSnap.data().data.VdiCheckFull.PreviousKeeperCount < 2
-                ? "#e1f909"
-                : "#f6514b",
+                ? "#6f508c"
+                : "#d55a6f",
             noHover: true,
           },
           {
@@ -322,8 +317,8 @@ const OrderDetails = ({ orderId }) => {
             )}`,
             onClick: null,
             gradientColor: docSnap.data().data.VdiCheckFull.LatestV5cIssuedDate
-              ? "#e1f909"
-              : "#f6514b",
+              ? "#6f508c"
+              : "#d55a6f",
             noHover: true,
           },
         ]);

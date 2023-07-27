@@ -165,17 +165,19 @@
 }
 
 .status-window {
-  width: 6.5rem;
   min-height: 4.5rem;
   background-color: white;
   border-radius: 5px;
+  border: 1px solid #bdbdbd;
   padding: 0.5rem;
   padding-left: 1.5rem;
   margin-right: 1rem;
   margin-bottom: 0.5rem;
   display: flex;
-  transition: all 0.3s ease; /* Enable smooth transition */
-  cursor: pointer; /* Change cursor to pointer to indicate clickable area */
+}
+
+.status-window-content-container {
+  width: 100%;
 }
 
 .status-window:hover {
@@ -201,21 +203,31 @@
 }
 
 .status-window-title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-bottom: 0.2rem;
   font-weight: bold;
-  color: #575757;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-window-divider {
+  width: auto;
+  height: 1px;
+  background-color: #bdbdbd;
+  margin-top: 0.5rem;
+  margin-left: -0.6rem;
+  margin-right: -0.5rem;
 }
 
 .status-window-details {
-  font-size: 0.75rem;
-  margin-top: 1rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  font-weight: 400;
 }
 
-.status-window-details-count {
+.status-window-details-value {
   font-weight: bold;
-  font-size: 1rem;
-  color: #f6514b;
 }
 
 /* TABLES */
