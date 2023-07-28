@@ -14,10 +14,10 @@ const StatusWindow = ({ title, details, onClick, gradientColor, noHover }) => (
     <div className="status-window-content-container">
       <div className="status-window-title">
         <span style={{ color: "#42224d" }}>{title}</span>
-        {gradientColor === "#42224d" ? (
+        {gradientColor === "#6f508c" ? (
           <FaCheck color={"#42224d"} />
         ) : (
-          <FaRegTimesCircle color={"#42224d"} />
+          <FaRegTimesCircle color={"#d55a6f"} />
         )}
       </div>
       <div className="status-window-divider"></div>

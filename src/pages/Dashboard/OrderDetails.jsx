@@ -42,35 +42,14 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const auth = getAuth();
 
-const aiContentListSample = [
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam interdum odio luctus feugiat cursus. Praesent aliquam augue nulla, a porttitor justo pellentesque sit amet. Fusce ac sem sit amet ante sagittis condimentum. Fusce sit amet erat magna. Etiam vehicula lectus orci, eget bibendum mi scelerisque nec. Aliquam nec blandit risus. Mauris pretium ornare ornare. Curabitur molestie purus est, at aliquam diam porttitor eget. Mauris malesuada, ante ac blandit ultrices, lacus mauris laoreet ex, id tempor erat sem a justo.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse bibendum ipsum quis magna feugiat, sed interdum nunc aliquet. Ut hendrerit bibendum consequat.",
-];
-
 const OrderDetails = ({ orderId }) => {
   const { order, free, basic, full } = useOrderDetails(orderId);
-  const [aiContentList, setAIContentList] = useState(aiContentListSample);
-  const [aiContentLoading, setAIContentLoading] = useState([]);
+  const [aiContentList, setAIContentList] = useState(null);
+  const [aiContentLoading, setAIContentLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
   const [windowData, setWindowData] = useState(null);
   const [showNewOrder, setShowNewOrder] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  console.log("Free: \n", free);
-  console.log("Basic: \n", basic);
-  console.log("Full: \n", full);
 
   const [emailStatus, setEmailStatus] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -84,6 +63,8 @@ const OrderDetails = ({ orderId }) => {
   const goToStolenSection = React.useRef();
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
+
+  console.log(aiContentList);
 
   const handleError = (message) => {
     setError({ status: true, message });
@@ -122,6 +103,8 @@ const OrderDetails = ({ orderId }) => {
     const fetchOrder = async () => {
       const orderRef = doc(db, "orders", orderId);
       const docSnap = await getDoc(orderRef);
+
+      localStorage.clear();
 
       if (docSnap.exists()) {
         setWindowData([
@@ -327,9 +310,44 @@ const OrderDetails = ({ orderId }) => {
 
         const data = docSnap.data(); // suppose this is your order details
 
-        // Initialize AI content loading states
-        const loadingStates = new Array(aiContentListSample.length).fill(true);
-        setAIContentLoading(loadingStates);
+        // Check if data is in localStorage
+        const aiContentCache = localStorage.getItem("aiContent");
+        if (aiContentCache) {
+          setAIContentList(JSON.parse(aiContentCache));
+
+          const loadingStates = new Array(
+            JSON.parse(aiContentCache).length
+          ).fill(false);
+          setAIContentLoading(false);
+          setIsLoading(false);
+        } else {
+          // If cache doesn't exist, fetch from server and cache it
+          fetch("https://autodaddy-gpt.uhakdt.repl.co/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then((aiContent) => {
+              setAIContentList(aiContent);
+
+              setAIContentLoading(false);
+
+              // Cache the aiContent
+              localStorage.setItem("aiContent", JSON.stringify(aiContent));
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              setIsLoading(false);
+            });
+        }
       } else {
         handleError("No such order!");
       }
@@ -383,8 +401,8 @@ const OrderDetails = ({ orderId }) => {
             />
 
             <AIMainSummary
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["summary"]}
+              aiContentLoading={aiContentLoading}
             />
 
             {/* STATUS WINDOWS */}
@@ -405,22 +423,22 @@ const OrderDetails = ({ orderId }) => {
             <VehicleDetails
               free={free}
               basic={basic}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["main_details_analysis"]}
+              aiContentLoading={aiContentLoading}
               imageUrl={imageUrl}
             />
 
             <EnergyConsumption
               basic={basic}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["energy_&_consumption_analysis"]}
+              aiContentLoading={aiContentLoading}
             />
 
             <MOT
               free={free}
               basic={basic}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["mot_metrics_analysis"]}
+              aiContentLoading={aiContentLoading}
               goToMOTSection={goToMOTSection}
             />
 
@@ -428,63 +446,63 @@ const OrderDetails = ({ orderId }) => {
               free={free}
               basic={basic}
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["tax_details_analysis"]}
+              aiContentLoading={aiContentLoading}
               goToTAXSection={goToTAXSection}
             />
 
             <Mileage
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["mileage_analysis"]}
+              aiContentLoading={aiContentLoading}
               goToMileageSection={goToMileageSection}
             />
 
             <PlateChanges
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["plate_changes"]}
+              aiContentLoading={aiContentLoading}
               goToPlateSection={goToPlateSection}
             />
 
             <OutstandingFinances
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["outstanding_finances"]}
+              aiContentLoading={aiContentLoading}
               goToFinanceSection={goToFinanceSection}
             />
 
             <Stolen
               full={full}
-              aiContentList={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContentList={aiContentList?.["stolen"]}
+              aiContentLoading={aiContentLoading}
               goToStolenSection={goToStolenSection}
             />
 
             <ImportExport
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["import_/_export"]}
+              aiContentLoading={aiContentLoading}
               goToImportExportSection={goToImportExportSection}
             />
 
             <WriteOff
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["write_off"]}
+              aiContentLoading={aiContentLoading}
               goToWriteOffSection={goToWriteOffSection}
             />
 
             <VICInspected
               full={full}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["vic_inspected"]}
+              aiContentLoading={aiContentLoading}
             />
 
             <ImportantChecks
               basic={basic}
-              aiContent={aiContentList[0]}
-              aiContentLoading={aiContentLoading[0]}
+              aiContent={aiContentList?.["important_checks"]}
+              aiContentLoading={aiContentLoading}
             />
 
             {/* ABOUT THIS REPORT */}
