@@ -36,20 +36,20 @@ const PlateChangesSection = ({
             <div key={i} className="table-figure-container">
               <div className="section-table">
                 <TableRow
-                  item={x.DateChanged}
+                  item={x?.DateChanged}
                   title="Date Changed"
-                  colour="#6f508c"
+                  color="#6f508c"
                   last={false}
                 >
-                  {FormatDate(x.DateChanged)}
+                  {FormatDate(x?.DateChanged)}
                 </TableRow>
                 <TableRow
-                  item={x.PreviousVrm}
+                  item={x?.PreviousVrm}
                   title="Previous Plate Number"
-                  colour="#6f508c"
+                  color="#6f508c"
                   last={true}
                 >
-                  {x.PreviousVrm}
+                  {x?.PreviousVrm}
                 </TableRow>
               </div>
             </div>

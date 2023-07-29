@@ -29,20 +29,20 @@ const VICInspected = ({ full, aiContent, aiContentLoading }) => {
         <div className="table-figure-container">
           <div rules="all" className="section-table">
             <TableRow
-              item={FormatDate(full.VicTestDate)}
+              item={FormatDate(full?.VicTestDate)}
               title="Date"
               colour="#6f508c"
               last={false}
             >
-              {FormatDate(full.VicTestDate)}
+              {FormatDate(full?.VicTestDate)}
             </TableRow>
             <TableRow
-              item={full.VicTestResult}
+              item={full?.VicTestResult}
               title="Test Result"
               colour="#6f508c"
               last={false}
             >
-              {full.VicTestResult}
+              {full?.VicTestResult}
             </TableRow>
           </div>
         </div>

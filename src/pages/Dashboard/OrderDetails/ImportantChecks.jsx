@@ -25,30 +25,32 @@ const ImportantChecks = ({ basic, aiContent, aiContentLoading }) => {
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={basic.VehicleRegistration.VinLast5}
+              item={basic?.VehicleRegistration?.VinLast5}
               title="VIN Last 5 Digits"
               colour="#6f508c"
               last={false}
             >
-              {basic.VehicleRegistration.VinLast5}
+              {basic?.VehicleRegistration?.VinLast5 || "Unknown"}
             </TableRow>
             <TableRow
-              item={basic.VehicleRegistration.EngineNumber}
+              item={basic?.VehicleRegistration?.EngineNumber}
               title="Engine Number"
               colour="#6f508c"
               last={false}
             >
-              {basic.VehicleRegistration.EngineNumber}
+              {basic?.VehicleRegistration?.EngineNumber || "Unknown"}
             </TableRow>
             <TableRow
-              item={basic.VehicleHistory.V5CCertificateList[0].CertificateDate}
+              item={
+                basic?.VehicleHistory?.V5CCertificateList?.[0]?.CertificateDate
+              }
               title="V5C Issue Date"
               colour="#6f508c"
               last={true}
             >
               {FormatDate(
-                basic.VehicleHistory.V5CCertificateList[0].CertificateDate
-              )}
+                basic?.VehicleHistory?.V5CCertificateList?.[0]?.CertificateDate
+              ) || "Unknown"}
             </TableRow>
           </div>
         </div>

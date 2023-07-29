@@ -1,92 +1,76 @@
 const CheckOrderCriteria = (o) => {
-  // TODO: "Check order criteria";
-
+  if (!o) return false;
   return Math.random() >= 0.5;
 };
 
 const CalculateMOTPassRate = (l) => {
-  if (!Array.isArray(l)) {
-    throw new Error("The argument must be an array.");
+  if (!l || !Array.isArray(l) || l.length === 0) {
+    return "0.00%";
   }
 
-  // Ensure the array is not empty
-  if (l.length === 0) {
-    throw new Error("The array must not be empty.");
-  }
-
-  // Count the number of "Pass" results
   const passCount = l.reduce((count, item) => {
     return count + (item.TestResult === "Pass" ? 1 : 0);
   }, 0);
 
-  // Calculate the percentage of "Pass" results and format it as a string
   const passRate = ((passCount / l.length) * 100).toFixed(2);
   return `${passRate}%`;
 };
 
-const CalculateMOTFailedTests = (l) => {
-  if (!Array.isArray(l)) {
-    throw new Error("The argument must be an array.");
+const CalculateMOTFailedTests = (motTests) => {
+  if (!motTests || !Array.isArray(motTests) || motTests.length === 0) {
+    return 0;
   }
 
-  // Ensure the array is not empty
-  if (l.length === 0) {
-    throw new Error("The array must not be empty.");
-  }
-
-  // Count the number of "Failed" results
-  const failedTests = l.reduce((count, item) => {
-    return count + (item.TestResult === "Fail" ? 1 : 0);
+  const failCount = motTests.reduce((count, test) => {
+    return count + (test.testResult === "Fail" ? 1 : 0);
   }, 0);
 
-  return failedTests;
+  return failCount;
 };
 
 const CalculateTotalAdviceItems = (l) => {
-  if (!Array.isArray(l)) {
-    throw new Error("The argument must be an array.");
+  if (!Array.isArray(l) || l.length === 0) {
+    return 0;
   }
 
-  // Ensure the array is not empty
-  if (l.length === 0) {
-    throw new Error("The array must not be empty.");
-  }
-
-  // Count the number of items in each item in the array within AnnotationDetailsList property within each item in l
-  const adviceItems = l.reduce((count, item) => {
-    return count + item.AnnotationDetailsList.length;
+  const totalAdviceItems = l.reduce((count, item) => {
+    if (Array.isArray(item.AnnotationDetailsList)) {
+      return count + item.AnnotationDetailsList.length;
+    } else {
+      return count;
+    }
   }, 0);
 
-  return adviceItems;
+  return totalAdviceItems;
 };
 
 const CalculateTotalAdviceItemsFailed = (l) => {
-  if (!Array.isArray(l)) {
-    throw new Error("The argument must be an array.");
+  if (!Array.isArray(l) || l.length === 0) {
+    return 0;
   }
 
-  // Ensure the array is not empty
-  if (l.length === 0) {
-    throw new Error("The array must not be empty.");
-  }
-
-  // Add MajorFailureCount property from each item in l
-  const adviceItemsFailed = l.reduce((count, item) => {
-    return count + item.MajorFailureCount;
+  const totalAdviceItemsFailed = l.reduce((count, item) => {
+    if (typeof item.MajorFailureCount === "number") {
+      return count + item.MajorFailureCount;
+    } else {
+      return count;
+    }
   }, 0);
 
-  return adviceItemsFailed;
+  return totalAdviceItemsFailed;
 };
 
 const CalculateTaxDaysLeft = (d) => {
-  // Convert string into a Date object
+  if (!d) {
+    return "Invalid Date";
+  }
+
   d = new Date(d);
 
   if (!(d instanceof Date)) {
-    throw new Error("The argument must be a Date object.");
+    return "Invalid Date";
   }
 
-  // Calculate the number of days between the current date and the date passed in
   const daysLeft = Math.floor(
     (d.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
   );
@@ -100,11 +84,19 @@ const CalculateTaxSingle12MonthPayment = (
   isElectric,
   fuelType
 ) => {
+  if (
+    !vehicleClass ||
+    co2Emissions === undefined ||
+    isElectric === undefined ||
+    !fuelType
+  ) {
+    return "Missing Parameters";
+  }
+
   if (isElectric || vehicleClass !== "Car") {
     return "£0";
   }
 
-  // Lookup table for CO2 emissions and corresponding tax rates
   const rates = [
     { limit: 50, diesel: "£30", petrol: "£10", alternative: "£20" },
     { limit: 75, diesel: "£130", petrol: "£30", alternative: "£120" },
@@ -125,10 +117,8 @@ const CalculateTaxSingle12MonthPayment = (
     },
   ];
 
-  // Select rate based on CO2 emissions
   let rate = rates.find((r) => co2Emissions <= r.limit);
 
-  // Apply fuel type adjustment
   switch (fuelType) {
     case "DIESEL":
       return rate.diesel;
@@ -140,62 +130,56 @@ const CalculateTaxSingle12MonthPayment = (
 };
 
 const CalcAvgMileAYear = (mileageRecordList) => {
-  if (mileageRecordList.length > 0) {
-    // Sort array in descending order by DateOfInformation
-    let sortedRecordList = [...mileageRecordList].sort(
-      (a, b) => new Date(b.DateOfInformation) - new Date(a.DateOfInformation)
-    );
-
-    let firstElement = sortedRecordList[0];
-    let firstElementDate = new Date(firstElement.DateOfInformation);
-    let firstElementMileage = firstElement.Mileage;
-
-    if (sortedRecordList.length > 1) {
-      let lastElement = sortedRecordList[sortedRecordList.length - 1];
-      let lastElementDate = new Date(lastElement.DateOfInformation);
-
-      // Calculate difference in years
-      let diffInYears =
-        firstElementDate.getFullYear() - lastElementDate.getFullYear();
-
-      // Calculate average mileage per year
-      return firstElementMileage / diffInYears;
-    } else {
-      return firstElementMileage;
-    }
+  if (!mileageRecordList || mileageRecordList.length === 0) {
+    return 0;
   }
 
-  return 0;
+  let sortedRecordList = [...mileageRecordList].sort(
+    (a, b) => new Date(b.DateOfInformation) - new Date(a.DateOfInformation)
+  );
+
+  let firstElement = sortedRecordList[0];
+  let firstElementDate = new Date(firstElement.DateOfInformation);
+  let firstElementMileage = firstElement.Mileage;
+
+  if (sortedRecordList.length > 1) {
+    let lastElement = sortedRecordList[sortedRecordList.length - 1];
+    let lastElementDate = new Date(lastElement.DateOfInformation);
+
+    let diffInYears =
+      firstElementDate.getFullYear() - lastElementDate.getFullYear();
+
+    return firstElementMileage / diffInYears;
+  } else {
+    return firstElementMileage;
+  }
 };
 
 const CalcLastYearMile = (mileageRecordList) => {
-  if (mileageRecordList.length > 0) {
-    // Sort array in descending order by DateOfInformation
-    let sortedRecordList = [...mileageRecordList].sort(
-      (a, b) => new Date(b.DateOfInformation) - new Date(a.DateOfInformation)
-    );
+  if (!mileageRecordList || mileageRecordList.length === 0) {
+    return 0;
+  }
 
-    let firstElement = sortedRecordList[0];
-    let firstElementDate = new Date(firstElement.DateOfInformation);
-    let firstElementMileage = firstElement.Mileage;
+  let sortedRecordList = [...mileageRecordList].sort(
+    (a, b) => new Date(b.DateOfInformation) - new Date(a.DateOfInformation)
+  );
 
-    if (sortedRecordList.length > 1) {
-      let lastYearDate = new Date(
-        firstElementDate.getFullYear() - 1,
-        firstElementDate.getMonth(),
-        firstElementDate.getDate()
-      );
+  let firstElement = sortedRecordList[0];
+  let firstElementDate = new Date(firstElement.DateOfInformation);
+  let firstElementMileage = firstElement.Mileage;
 
-      let lastYearElement = sortedRecordList.reduce((closest, current) => {
-        return Math.abs(new Date(current.DateOfInformation) - lastYearDate) <
-          Math.abs(new Date(closest.DateOfInformation) - lastYearDate)
-          ? current
-          : closest;
-      });
+  if (sortedRecordList.length > 1) {
+    let lastElement;
+    for (let i = 1; i < sortedRecordList.length; i++) {
+      let recordDate = new Date(sortedRecordList[i].DateOfInformation);
+      if (firstElementDate.getFullYear() - recordDate.getFullYear() === 1) {
+        lastElement = sortedRecordList[i];
+        break;
+      }
+    }
 
-      return firstElementMileage - lastYearElement.Mileage;
-    } else {
-      return firstElementMileage;
+    if (lastElement) {
+      return firstElementMileage - lastElement.Mileage;
     }
   }
 

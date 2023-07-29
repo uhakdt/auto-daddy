@@ -20,6 +20,7 @@ function Sidebar({
   const handleOrderSelect = (id) => {
     onSelectOrder(id);
     setSelectedOrder(id);
+    localStorage.clear();
   };
 
   return (

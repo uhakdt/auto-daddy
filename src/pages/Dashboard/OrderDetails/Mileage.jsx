@@ -44,10 +44,11 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
   const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.6;
   const chartHeight = dimensions.width > 500 ? 300 : dimensions.width * 0.6;
 
-  const data = full.MileageRecordList.map((record) => ({
-    date: record.DateOfInformation,
-    mileage: record.Mileage,
-  })).reverse();
+  const data =
+    full?.MileageRecordList?.map((record) => ({
+      date: record.DateOfInformation,
+      mileage: record.Mileage,
+    })).reverse() || [];
 
   return (
     <section ref={goToMileageSection} className="section">
@@ -70,71 +71,76 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
               In miles
             </TableRow>
             <TableRow
-              item={full.MileageRecordCount}
+              item={full?.MileageRecordCount}
               title="No. of Registrations"
               colour="#6f508c"
               last={false}
             >
-              {full.MileageRecordCount}
+              {full?.MileageRecordCount || "Unknown"}
             </TableRow>
             <TableRow
-              item={full.MileageAnomalyDetected}
+              item={full?.MileageAnomalyDetected}
               title="Anomaly"
               colour="#6f508c"
               last={false}
             >
-              {CapitalizeEachWord(full.MileageAnomalyDetected.toString())}
+              {CapitalizeEachWord(
+                (full?.MileageAnomalyDetected || "").toString()
+              )}
             </TableRow>
-            {full.MileageRecordList.length > 0 && (
+            {full?.MileageRecordList?.length > 0 && (
               <>
                 <TableRow
                   item={
-                    full.MileageRecordList[full.MileageRecordList.length - 1]
+                    full?.MileageRecordList[full.MileageRecordList.length - 1]
                   }
                   title="First Registration"
                   colour="#6f508c"
                   last={false}
                 >
-                  {
-                    full.MileageRecordList[full.MileageRecordList.length - 1]
-                      .DateOfInformation
-                  }
+                  {full?.MileageRecordList[full.MileageRecordList.length - 1]
+                    .DateOfInformation || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={full.MileageRecordList[0]}
+                  item={full?.MileageRecordList[0]}
                   title="Last Registration"
                   colour="#6f508c"
                   last={false}
                 >
-                  {full.MileageRecordList[0].DateOfInformation}
+                  {full?.MileageRecordList[0]?.DateOfInformation || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={full.MileageRecordList[0]}
+                  item={full?.MileageRecordList[0]}
                   title="Last MOT Mileage"
                   colour="#6f508c"
                   last={false}
                 >
-                  {full.MileageRecordList[0].Mileage}
+                  {full?.MileageRecordList[0]?.Mileage || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={CalcAvgMileAYear(full.MileageRecordList)}
+                  item={CalcAvgMileAYear(full?.MileageRecordList)}
                   title="Average Mileage"
                   colour="#6f508c"
                   last={false}
                 >
-                  {`${CalcAvgMileAYear(full.MileageRecordList)} p/year`}
+                  {`${
+                    CalcAvgMileAYear(full?.MileageRecordList) || "Unknown"
+                  } p/year`}
                 </TableRow>
                 <TableRow
-                  item={CalcLastYearMile(full.MileageRecordList)}
+                  item={CalcLastYearMile(full?.MileageRecordList)}
                   title="Mileage Last Year"
                   colour="#6f508c"
                   last={true}
                 >
-                  {`${CalcLastYearMile(full.MileageRecordList)} miles`}
+                  {`${
+                    CalcLastYearMile(full?.MileageRecordList) || "Unknown"
+                  } miles`}
                 </TableRow>
               </>
             )}
           </div>
+          {/* Be sure to handle potential undefined values in LineChart and data */}
           <LineChart
             width={chartWidth}
             height={chartHeight}
@@ -159,33 +165,33 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
             />
           </LineChart>
         </div>
-        {full.MileageRecordList.map((x, i) => {
+        {full?.MileageRecordList?.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
               <div className="section-table">
                 <TableRow
-                  item={x.DateOfInformation}
+                  item={x?.DateOfInformation}
                   title="Date of Information"
                   colour="#6f508c"
                   last={false}
                 >
-                  {FormatDate(x.DateOfInformation)}
+                  {FormatDate(x?.DateOfInformation || "Unknown")}
                 </TableRow>
                 <TableRow
-                  item={x.Mileage}
+                  item={x?.Mileage}
                   title="Mileage"
                   colour="#6f508c"
                   last={false}
                 >
-                  {x.Mileage}
+                  {x?.Mileage || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={x.SourceOfInformation}
+                  item={x?.SourceOfInformation}
                   title="Source of Information"
                   colour="#6f508c"
                   last={true}
                 >
-                  {x.SourceOfInformation}
+                  {x?.SourceOfInformation || "Unknown"}
                 </TableRow>
               </div>
             </div>

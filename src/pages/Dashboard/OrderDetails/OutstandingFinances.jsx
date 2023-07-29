@@ -31,69 +31,69 @@ const OutstandingFinances = ({
           aiContent={aiContent}
         />
 
-        {full.FinanceRecordList.map((x, i) => {
+        {full?.FinanceRecordList?.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
               <div className="section-table">
                 <TableRow
-                  item={x.AgreementDate}
+                  item={x?.AgreementDate}
                   title="Agreement Date"
                   colour="#6f508c"
                   last={false}
                 >
-                  {FormatDate(x.AgreementDate)}
+                  {FormatDate(x?.AgreementDate)}
                 </TableRow>
-                {x.AgreementNumber !== "REDACTED" && (
+                {x?.AgreementNumber !== "REDACTED" && (
                   <TableRow
-                    item={x.AgreementNumber}
+                    item={x?.AgreementNumber}
                     title="Agreement Number"
                     colour="#6f508c"
                     last={false}
                   >
-                    {x.AgreementNumber}
+                    {x?.AgreementNumber}
                   </TableRow>
                 )}
                 <TableRow
-                  item={x.AgreementTerm}
+                  item={x?.AgreementTerm}
                   title="Agreement Term"
                   colour="#6f508c"
                   last={false}
                 >
-                  {x.AgreementTerm}
+                  {x?.AgreementTerm}
                 </TableRow>
                 <TableRow
-                  item={x.AgreementType}
+                  item={x?.AgreementType}
                   title="Agreement Type"
                   colour="#6f508c"
                   last={false}
                 >
-                  {x.AgreementType}
+                  {x?.AgreementType}
                 </TableRow>
-                {x.ContactNumber !== "REDACTED" && (
+                {x?.ContactNumber !== "REDACTED" && (
                   <TableRow
-                    item={x.ContactNumber}
+                    item={x?.ContactNumber}
                     title="Contact Number"
                     colour="#6f508c"
                     last={false}
                   >
-                    {x.ContactNumber}
+                    {x?.ContactNumber}
                   </TableRow>
                 )}
                 <TableRow
-                  item={x.FinanceCompany}
+                  item={x?.FinanceCompany}
                   title="Finance Company"
                   colour="#6f508c"
                   last={false}
                 >
-                  {x.FinanceCompany}
+                  {x?.FinanceCompany}
                 </TableRow>
                 <TableRow
-                  item={x.VehicleDescription}
+                  item={x?.VehicleDescription}
                   title="Vehicle Description"
                   colour="#6f508c"
                   last={true}
                 >
-                  {x.VehicleDescription}
+                  {x?.VehicleDescription}
                 </TableRow>
               </div>
             </div>

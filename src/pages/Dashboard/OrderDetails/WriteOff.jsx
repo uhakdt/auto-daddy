@@ -34,28 +34,28 @@ const WriteOff = ({
         <div className="table-figure-container">
           <div rules="all" className="section-table">
             <TableRow
-              item={FormatDate(full.WriteOffDate)}
+              item={FormatDate(full?.WriteOffDate)}
               title="Date"
               colour="#6f508c"
               last={false}
             >
-              {FormatDate(full.WriteOffDate)}
+              {FormatDate(full?.WriteOffDate)}
             </TableRow>
             <TableRow
-              item={full.WriteOffCategory}
+              item={full?.WriteOffCategory}
               title="Category"
               colour="#6f508c"
               last={false}
             >
-              {full.WriteOffCategory}
+              {full?.WriteOffCategory}
             </TableRow>
             <TableRow
-              item={full.WriteOffRecordCount}
+              item={full?.WriteOffRecordCount}
               title="Record Count"
               colour="#6f508c"
               last={true}
             >
-              {full.WriteOffRecordCount}
+              {full?.WriteOffRecordCount}
             </TableRow>
           </div>
         </div>

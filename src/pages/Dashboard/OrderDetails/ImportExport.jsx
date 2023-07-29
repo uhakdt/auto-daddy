@@ -33,22 +33,22 @@ const ImportExport = ({
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={full.DateFirstRegistered}
+              item={full?.DateFirstRegistered}
               title="Date First Registered"
               colour="#6f508c"
               last={false}
             >
-              {FormatDate(full.DateFirstRegistered)}
+              {FormatDate(full?.DateFirstRegistered || "Unknown")}
             </TableRow>
 
-            {full.Imported ? (
+            {full?.Imported ? (
               <TableRow
-                item={full.ImportDate}
+                item={full?.ImportDate}
                 title="Import Date"
                 colour="#6f508c"
                 last={false}
               >
-                {FormatDate(full.ImportDate)}
+                {FormatDate(full?.ImportDate || "Unknown")}
               </TableRow>
             ) : (
               <TableRow
@@ -61,36 +61,36 @@ const ImportExport = ({
               </TableRow>
             )}
 
-            {full.ImportUsedBeforeUkRegistration && (
+            {full?.ImportUsedBeforeUkRegistration && (
               <TableRow
-                item={full.ImportUsedBeforeUkRegistration}
+                item={full?.ImportUsedBeforeUkRegistration}
                 title="Import Used before UK Registration"
                 colour="#6f508c"
                 last={false}
               >
-                {full.ImportUsedBeforeUkRegistration}
+                {full?.ImportUsedBeforeUkRegistration || "Unknown"}
               </TableRow>
             )}
 
-            {full.ImportedFromOutsideEu && (
+            {full?.ImportedFromOutsideEu && (
               <TableRow
-                item={full.ImportedFromOutsideEu}
+                item={full?.ImportedFromOutsideEu}
                 title="Imported From Outside EU"
                 colour="#6f508c"
                 last={false}
               >
-                {full.ImportedFromOutsideEu}
+                {full?.ImportedFromOutsideEu || "Unknown"}
               </TableRow>
             )}
 
-            {full.Exported ? (
+            {full?.Exported ? (
               <TableRow
-                item={full.ExportDate}
+                item={full?.ExportDate}
                 title="Export Date"
                 colour="#6f508c"
                 last={true}
               >
-                {FormatDate(full.ExportDate)}
+                {FormatDate(full?.ExportDate || "Unknown")}
               </TableRow>
             ) : (
               <TableRow

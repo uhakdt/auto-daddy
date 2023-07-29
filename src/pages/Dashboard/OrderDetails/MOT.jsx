@@ -12,7 +12,7 @@ import {
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
 const MOT = ({ free, basic, aiContent, goToMOTSection, aiContentLoading }) => {
-  if (basic.MotHistory.RecordList.length === 0) {
+  if (basic?.MotHistory?.RecordList?.length === 0) {
     return (
       <section ref={goToMOTSection} className="section">
         <div className="section-title">MOT</div>
@@ -36,93 +36,95 @@ const MOT = ({ free, basic, aiContent, goToMOTSection, aiContentLoading }) => {
           <div className="section-table">
             <TableRow
               title="Pass Rate"
-              item={basic.MotHistory.RecordList.length}
+              item={basic?.MotHistory?.RecordList?.length}
               colour="#6f508c"
               last={false}
             >
-              {basic.MotHistory.RecordList.length
+              {basic?.MotHistory?.RecordList?.length
                 ? CalculateMOTPassRate(basic.MotHistory.RecordList)
                 : "No MOT History"}
             </TableRow>
             <TableRow
               title="Failed Tests"
-              item={basic.MotHistory.RecordList}
+              item={basic?.MotHistory?.RecordList}
               colour="#6f508c"
               last={false}
             >
-              {CalculateMOTFailedTests(basic.MotHistory.RecordList)}
+              {CalculateMOTFailedTests(basic?.MotHistory?.RecordList || [])}
             </TableRow>
             <TableRow
               title="Total Advice Items"
-              item={basic.MotHistory.RecordList}
+              item={basic?.MotHistory?.RecordList}
               colour="#6f508c"
               last={false}
             >
-              {CalculateTotalAdviceItems(basic.MotHistory.RecordList)}
+              {CalculateTotalAdviceItems(basic?.MotHistory?.RecordList || [])}
             </TableRow>
             <TableRow
               title="Total Items Failed"
-              item={basic.MotHistory.RecordList}
+              item={basic?.MotHistory?.RecordList}
               colour="#6f508c"
               last={false}
             >
-              {CalculateTotalAdviceItemsFailed(basic.MotHistory.RecordList)}
+              {CalculateTotalAdviceItemsFailed(
+                basic?.MotHistory?.RecordList || []
+              )}
             </TableRow>
             <TableRow
               title="Expiry Date"
-              item={free.MotExpiryDate}
+              item={free?.MotExpiryDate}
               colour="#6f508c"
               last={true}
             >
-              {FormatDate(free.MotExpiryDate)}
+              {FormatDate(free?.MotExpiryDate)}
             </TableRow>
           </div>
         </div>
 
-        {basic.MotHistory.RecordList.map((x, i) => (
+        {basic?.MotHistory?.RecordList?.map((x, i) => (
           <div className="table-figure-container" key={i}>
             <div className="section-table" style={{ width: "100%" }}>
               <TableRow
-                item={x.TestDate}
+                item={x?.TestDate}
                 title={`Test Nr. ${i + 1}`}
                 colour="#6f508c"
                 last={false}
               >
-                {FormatDate(x.TestDate)}
+                {FormatDate(x?.TestDate)}
               </TableRow>
               <TableRow
-                item={x.TestNumber}
+                item={x?.TestNumber}
                 title="Test Number"
                 colour="#6f508c"
                 last={false}
               >
-                {x.TestNumber}
+                {x?.TestNumber}
               </TableRow>
               <TableRow
-                item={x.TestResult}
+                item={x?.TestResult}
                 title="Test Result"
                 colour="#6f508c"
                 last={false}
               >
-                {x.TestResult}
+                {x?.TestResult}
               </TableRow>
               <TableRow
-                item={x.ExpiryDate}
+                item={x?.ExpiryDate}
                 title="Expiry Date"
                 colour="#6f508c"
                 last={false}
               >
-                {FormatDate(x.ExpiryDate)}
+                {FormatDate(x?.ExpiryDate)}
               </TableRow>
-              {x.AnnotationDetailsList.map((y, j) => (
+              {x?.AnnotationDetailsList?.map((y, j) => (
                 <TableRow
                   key={j}
-                  item={y.Type}
+                  item={y?.Type}
                   title="MOT Advise"
                   colour="#6f508c"
-                  last={j === x.AnnotationDetailsList.length - 1}
+                  last={j === x?.AnnotationDetailsList?.length - 1}
                 >
-                  Type: {y.Type} <br /> {y.Text}
+                  Type: {y?.Type} <br /> {y?.Text}
                 </TableRow>
               ))}
             </div>

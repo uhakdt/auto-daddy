@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { storage, db } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
 
@@ -44,7 +44,7 @@ const auth = getAuth();
 
 const OrderDetails = ({ orderId }) => {
   const { order, free, basic, full } = useOrderDetails(orderId);
-  const [aiContentList, setAIContentList] = useState(null);
+  const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
   const [windowData, setWindowData] = useState(null);
@@ -63,8 +63,6 @@ const OrderDetails = ({ orderId }) => {
   const goToStolenSection = React.useRef();
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
-
-  console.log(aiContentList);
 
   const handleError = (message) => {
     setError({ status: true, message });
@@ -101,11 +99,11 @@ const OrderDetails = ({ orderId }) => {
 
   useEffect(() => {
     const fetchOrder = async () => {
+      // Get order details from Firebase
       const orderRef = doc(db, "orders", orderId);
       const docSnap = await getDoc(orderRef);
 
-      localStorage.clear();
-
+      // Check if order exists
       if (docSnap.exists()) {
         setWindowData([
           {
@@ -308,20 +306,15 @@ const OrderDetails = ({ orderId }) => {
         ]);
         setIsLoading(false);
 
-        const data = docSnap.data(); // suppose this is your order details
+        // Get data from order
+        const data = docSnap.data();
 
-        // Check if data is in localStorage
-        const aiContentCache = localStorage.getItem("aiContent");
-        if (aiContentCache) {
-          setAIContentList(JSON.parse(aiContentCache));
-
-          const loadingStates = new Array(
-            JSON.parse(aiContentCache).length
-          ).fill(false);
+        // Check if GPT data is in firebase
+        if (data["aiContent"] !== undefined) {
+          setAIContent(data["aiContent"]);
           setAIContentLoading(false);
-          setIsLoading(false);
         } else {
-          // If cache doesn't exist, fetch from server and cache it
+          // If cache doesn't exist in Firebase, fetch from server
           fetch("https://autodaddy-gpt.uhakdt.repl.co/chat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -334,12 +327,16 @@ const OrderDetails = ({ orderId }) => {
               return response.json();
             })
             .then((aiContent) => {
-              setAIContentList(aiContent);
-
+              console.log("Loading from server");
+              setAIContent(aiContent);
               setAIContentLoading(false);
 
-              // Cache the aiContent
-              localStorage.setItem("aiContent", JSON.stringify(aiContent));
+              // Here we add a function to save aiContent to Firebase
+              saveAIContentToFirebase(
+                orderId,
+                aiContent,
+                orderRef
+              );
             })
             .catch((error) => {
               console.log(error);
@@ -355,6 +352,16 @@ const OrderDetails = ({ orderId }) => {
 
     if (orderId) fetchOrder();
   }, [orderId]);
+
+  const saveAIContentToFirebase = async (orderId, aiContent, orderRef) => {
+    await setDoc(orderRef, { aiContent }, { merge: true })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -401,7 +408,7 @@ const OrderDetails = ({ orderId }) => {
             />
 
             <AIMainSummary
-              aiContent={aiContentList?.["summary"]}
+              aiContent={aiContent?.["summary"]}
               aiContentLoading={aiContentLoading}
             />
 
@@ -423,21 +430,21 @@ const OrderDetails = ({ orderId }) => {
             <VehicleDetails
               free={free}
               basic={basic}
-              aiContent={aiContentList?.["main_details_analysis"]}
+              aiContent={aiContent?.["main_details_analysis"]}
               aiContentLoading={aiContentLoading}
               imageUrl={imageUrl}
             />
 
             <EnergyConsumption
               basic={basic}
-              aiContent={aiContentList?.["energy_&_consumption_analysis"]}
+              aiContent={aiContent?.["energy_&_consumption_analysis"]}
               aiContentLoading={aiContentLoading}
             />
 
             <MOT
               free={free}
               basic={basic}
-              aiContent={aiContentList?.["mot_metrics_analysis"]}
+              aiContent={aiContent?.["mot_metrics_analysis"]}
               aiContentLoading={aiContentLoading}
               goToMOTSection={goToMOTSection}
             />
@@ -446,62 +453,62 @@ const OrderDetails = ({ orderId }) => {
               free={free}
               basic={basic}
               full={full}
-              aiContent={aiContentList?.["tax_details_analysis"]}
+              aiContent={aiContent?.["tax_details_analysis"]}
               aiContentLoading={aiContentLoading}
               goToTAXSection={goToTAXSection}
             />
 
             <Mileage
               full={full}
-              aiContent={aiContentList?.["mileage_analysis"]}
+              aiContent={aiContent?.["mileage_analysis"]}
               aiContentLoading={aiContentLoading}
               goToMileageSection={goToMileageSection}
             />
 
             <PlateChanges
               full={full}
-              aiContent={aiContentList?.["plate_changes"]}
+              aiContent={aiContent?.["plate_changes"]}
               aiContentLoading={aiContentLoading}
               goToPlateSection={goToPlateSection}
             />
 
             <OutstandingFinances
               full={full}
-              aiContent={aiContentList?.["outstanding_finances"]}
+              aiContent={aiContent?.["outstanding_finances"]}
               aiContentLoading={aiContentLoading}
               goToFinanceSection={goToFinanceSection}
             />
 
             <Stolen
               full={full}
-              aiContentList={aiContentList?.["stolen"]}
+              aiContent={aiContent?.["stolen"]}
               aiContentLoading={aiContentLoading}
               goToStolenSection={goToStolenSection}
             />
 
             <ImportExport
               full={full}
-              aiContent={aiContentList?.["import_/_export"]}
+              aiContent={aiContent?.["import_/_export"]}
               aiContentLoading={aiContentLoading}
               goToImportExportSection={goToImportExportSection}
             />
 
             <WriteOff
               full={full}
-              aiContent={aiContentList?.["write_off"]}
+              aiContent={aiContent?.["write_off"]}
               aiContentLoading={aiContentLoading}
               goToWriteOffSection={goToWriteOffSection}
             />
 
             <VICInspected
               full={full}
-              aiContent={aiContentList?.["vic_inspected"]}
+              aiContent={aiContent?.["vic_inspected"]}
               aiContentLoading={aiContentLoading}
             />
 
             <ImportantChecks
               basic={basic}
-              aiContent={aiContentList?.["important_checks"]}
+              aiContent={aiContent?.["important_checks"]}
               aiContentLoading={aiContentLoading}
             />
 

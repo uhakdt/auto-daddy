@@ -30,23 +30,23 @@ const TAX = ({
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={free.TaxDueDate}
+              item={free?.TaxDueDate}
               title="Tax Status"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {FormatDate(free.TaxDueDate)}
+              {FormatDate(free?.TaxDueDate)}
             </TableRow>
             <TableRow
-              item={free.TaxDueDate}
+              item={free?.TaxDueDate}
               title="Days Left"
-              colour="#6f508c"
+              color="#6f508c"
               last={true}
             >
-              {CalculateTaxDaysLeft(free.TaxDueDate) > 0 ? (
-                <>{CalculateTaxDaysLeft(free.TaxDueDate)} days left</>
+              {CalculateTaxDaysLeft(free?.TaxDueDate) > 0 ? (
+                <>{CalculateTaxDaysLeft(free?.TaxDueDate)} days left</>
               ) : (
-                <>{CalculateTaxDaysLeft(free.TaxDueDate) * -1} days too late</>
+                <>{CalculateTaxDaysLeft(free?.TaxDueDate) * -1} days too late</>
               )}
             </TableRow>
           </div>
@@ -54,37 +54,37 @@ const TAX = ({
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={basic.VehicleRegistration.VehicleClass}
+              item={basic?.VehicleRegistration?.VehicleClass}
               title="Vehicle Class"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {basic.VehicleRegistration.VehicleClass}
+              {basic?.VehicleRegistration?.VehicleClass}
             </TableRow>
             <TableRow
-              item={basic.VehicleRegistration.Co2Emissions}
+              item={basic?.VehicleRegistration?.Co2Emissions}
               title="CO2 Emissions"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {basic.VehicleRegistration.Co2Emissions}g/km
+              {basic?.VehicleRegistration?.Co2Emissions}g/km
             </TableRow>
             <TableRow
               item={CalculateTaxSingle12MonthPayment(
-                basic.VehicleRegistration.VehicleClass,
-                basic.VehicleRegistration.Co2Emissions,
-                basic.ClassificationDetails.Ukvd.IsElectricVehicle,
-                full.FuelType
+                basic?.VehicleRegistration?.VehicleClass,
+                basic?.VehicleRegistration?.Co2Emissions,
+                basic?.ClassificationDetails?.Ukvd?.IsElectricVehicle,
+                full?.FuelType
               )}
               title="Single 12 Months Payment"
-              colour="#6f508c"
+              color="#6f508c"
               last={true}
             >
               {CalculateTaxSingle12MonthPayment(
-                basic.VehicleRegistration.VehicleClass,
-                basic.VehicleRegistration.Co2Emissions,
-                basic.ClassificationDetails.Ukvd.IsElectricVehicle,
-                full.FuelType
+                basic?.VehicleRegistration?.VehicleClass,
+                basic?.VehicleRegistration?.Co2Emissions,
+                basic?.ClassificationDetails?.Ukvd?.IsElectricVehicle,
+                full?.FuelType
               )}
             </TableRow>
           </div>

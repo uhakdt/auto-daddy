@@ -29,44 +29,44 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={full.StolenStatus}
+              item={full?.StolenStatus}
               title="Status"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {full.StolenStatus}
+              {full?.StolenStatus}
             </TableRow>
             <TableRow
-              item={full.StolenContactNumber}
+              item={full?.StolenContactNumber}
               title="Contact Number"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {full.StolenContactNumber}
+              {full?.StolenContactNumber}
             </TableRow>
             <TableRow
-              item={full.StolenDate}
+              item={full?.StolenDate}
               title="Date"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {FormatDate(full.StolenDate)}
+              {FormatDate(full?.StolenDate)}
             </TableRow>
             <TableRow
-              item={full.StolenPoliceForce}
+              item={full?.StolenPoliceForce}
               title="Police Force"
-              colour="#6f508c"
+              color="#6f508c"
               last={false}
             >
-              {full.StolenPoliceForce}
+              {full?.StolenPoliceForce}
             </TableRow>
             <TableRow
-              item={full.StolenInfoSource}
+              item={full?.StolenInfoSource}
               title="Information Source"
-              colour="#6f508c"
+              color="#6f508c"
               last={true}
             >
-              {full.StolenInfoSource}
+              {full?.StolenInfoSource}
             </TableRow>
           </div>
         </div>

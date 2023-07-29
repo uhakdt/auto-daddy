@@ -17,65 +17,75 @@ const EnergyConsumption = ({ basic, aiContent, aiContentLoading }) => {
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={basic.TechnicalDetails.Performance.Power.Bhp}
+              item={basic?.TechnicalDetails?.Performance?.Power?.Bhp}
               title="Power"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Performance.Power.Bhp} BHP
-              {" / "}
-              {basic.TechnicalDetails.Performance.Power.Kw} KW
-              {" / "}
-              {basic.TechnicalDetails.Performance.Power.Rpm} RPM
+              {(basic?.TechnicalDetails?.Performance?.Power?.Bhp || "Unknown") +
+                " BHP / " +
+                (basic?.TechnicalDetails?.Performance?.Power?.Kw || "Unknown") +
+                " KW / " +
+                (basic?.TechnicalDetails?.Performance?.Power?.Rpm ||
+                  "Unknown") +
+                " RPM"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Performance.Torque.Nm}
+              item={basic?.TechnicalDetails?.Performance?.Torque?.Nm}
               title="Torque"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Performance.Torque.Nm} Nm at
-              {basic.TechnicalDetails.Performance.Torque.Rpm} RPM
+              {(basic?.TechnicalDetails?.Performance?.Torque?.Nm || "Unknown") +
+                " Nm at " +
+                (basic?.TechnicalDetails?.Performance?.Torque?.Rpm ||
+                  "Unknown") +
+                " RPM"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.General.Engine.NumberOfCylinders}
+              item={basic?.TechnicalDetails?.General?.Engine?.NumberOfCylinders}
               title="Cylinders"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.General.Engine.NumberOfCylinders}
+              {basic?.TechnicalDetails?.General?.Engine?.NumberOfCylinders ||
+                "Unknown"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Consumption.UrbanCold.Mpg}
+              item={basic?.TechnicalDetails?.Consumption?.UrbanCold?.Mpg}
               title="Urban"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Consumption.UrbanCold.Mpg} Mpg
+              {(basic?.TechnicalDetails?.Consumption?.UrbanCold?.Mpg ||
+                "Unknown") + " Mpg"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Consumption.ExtraUrban.Mpg}
+              item={basic?.TechnicalDetails?.Consumption?.ExtraUrban?.Mpg}
               title="Extra Urban"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Consumption.ExtraUrban.Mpg} Mpg
+              {(basic?.TechnicalDetails?.Consumption?.ExtraUrban?.Mpg ||
+                "Unknown") + " Mpg"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Consumption.Combined.Mpg}
+              item={basic?.TechnicalDetails?.Consumption?.Combined?.Mpg}
               title="Combined"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Consumption.Combined.Mpg} Mpg
+              {(basic?.TechnicalDetails?.Consumption?.Combined?.Mpg ||
+                "Unknown") + " Mpg"}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Performance.Co2}
+              item={basic?.TechnicalDetails?.Performance?.Co2}
               title="CO2 Emissions"
               colour="#6f508c"
               last={true}
             >
-              {basic.TechnicalDetails.Performance.Co2} g/Km
+              {(basic?.TechnicalDetails?.Performance?.Co2 || "Unknown") +
+                " g/Km"}
             </TableRow>
           </div>
 

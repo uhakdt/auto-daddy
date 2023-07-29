@@ -30,66 +30,66 @@ const VehicleDetails = ({
         <div className="table-figure-container">
           <div className="section-table">
             <TableRow
-              item={basic.VehicleRegistration.MakeModel}
+              item={basic?.VehicleRegistration?.MakeModel}
               title="Model"
               colour="#6f508c"
               last={false}
             >
-              {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
+              {CapitalizeEachWord(basic?.VehicleRegistration?.MakeModel)}
             </TableRow>
             <TableRow
-              item={free.FuelType}
+              item={free?.FuelType}
               title="Fuel Type"
               colour="#6f508c"
               last={false}
             >
-              {CapitalizeEachWord(free.FuelType)}
+              {CapitalizeEachWord(free?.FuelType)}
             </TableRow>
             <TableRow
-              item={free.Colour}
+              item={free?.Colour}
               title="Colour"
               colour="#6f508c"
               last={false}
             >
-              {CapitalizeEachWord(free.Colour)}
+              {CapitalizeEachWord(free?.Colour)}
             </TableRow>
             <TableRow
-              item={free.EngineCapacity}
+              item={free?.EngineCapacity}
               title="Engine"
               colour="#6f508c"
               last={false}
             >
-              {free.EngineCapacity} cc
+              {free?.EngineCapacity} cc
             </TableRow>
             <TableRow
               item={
-                basic.SmmtDetails.Transmission &&
-                basic.SmmtDetails.NumberOfGears
+                basic?.SmmtDetails?.Transmission &&
+                basic?.SmmtDetails?.NumberOfGears
               }
               title="Gearbox"
               colour="#6f508c"
               last={false}
             >
-              {basic.SmmtDetails.NumberOfGears} speed{" "}
-              {CapitalizeEachWord(basic.SmmtDetails.Transmission)}
+              {basic?.SmmtDetails?.NumberOfGears} speed{" "}
+              {CapitalizeEachWord(basic?.SmmtDetails?.Transmission)}
             </TableRow>
             <TableRow
               item={
-                basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph
+                basic?.TechnicalDetails?.Performance?.Acceleration?.ZeroTo60Mph
               }
               title="Acceleration"
               colour="#6f508c"
               last={false}
             >
-              {basic.TechnicalDetails.Performance.Acceleration?.ZeroTo60Mph}
+              {basic?.TechnicalDetails?.Performance?.Acceleration?.ZeroTo60Mph}
             </TableRow>
             <TableRow
-              item={basic.TechnicalDetails.Performance.MaxSpeed.Mph}
+              item={basic?.TechnicalDetails?.Performance?.MaxSpeed?.Mph}
               title="Top Speed"
               colour="#6f508c"
               last={true}
             >
-              {basic.TechnicalDetails.Performance.MaxSpeed.Mph} Mph
+              {basic?.TechnicalDetails?.Performance?.MaxSpeed?.Mph} Mph
             </TableRow>
           </div>
 
