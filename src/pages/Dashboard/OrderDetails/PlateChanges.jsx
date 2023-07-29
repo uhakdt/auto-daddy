@@ -38,7 +38,7 @@ const PlateChangesSection = ({
                 <TableRow
                   item={x?.DateChanged}
                   title="Date Changed"
-                  color="#6f508c"
+                  colour="#6f508c"
                   last={false}
                 >
                   {FormatDate(x?.DateChanged)}
@@ -46,7 +46,7 @@ const PlateChangesSection = ({
                 <TableRow
                   item={x?.PreviousVrm}
                   title="Previous Plate Number"
-                  color="#6f508c"
+                  colour="#6f508c"
                   last={true}
                 >
                   {x?.PreviousVrm}

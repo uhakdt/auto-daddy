@@ -32,7 +32,7 @@ const TAX = ({
             <TableRow
               item={free?.TaxDueDate}
               title="Tax Status"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {FormatDate(free?.TaxDueDate)}
@@ -40,7 +40,7 @@ const TAX = ({
             <TableRow
               item={free?.TaxDueDate}
               title="Days Left"
-              color="#6f508c"
+              colour="#6f508c"
               last={true}
             >
               {CalculateTaxDaysLeft(free?.TaxDueDate) > 0 ? (
@@ -56,7 +56,7 @@ const TAX = ({
             <TableRow
               item={basic?.VehicleRegistration?.VehicleClass}
               title="Vehicle Class"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {basic?.VehicleRegistration?.VehicleClass}
@@ -64,7 +64,7 @@ const TAX = ({
             <TableRow
               item={basic?.VehicleRegistration?.Co2Emissions}
               title="CO2 Emissions"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {basic?.VehicleRegistration?.Co2Emissions}g/km
@@ -77,7 +77,7 @@ const TAX = ({
                 full?.FuelType
               )}
               title="Single 12 Months Payment"
-              color="#6f508c"
+              colour="#6f508c"
               last={true}
             >
               {CalculateTaxSingle12MonthPayment(

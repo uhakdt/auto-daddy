@@ -31,7 +31,7 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
             <TableRow
               item={full?.StolenStatus}
               title="Status"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {full?.StolenStatus}
@@ -39,7 +39,7 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
             <TableRow
               item={full?.StolenContactNumber}
               title="Contact Number"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {full?.StolenContactNumber}
@@ -47,7 +47,7 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
             <TableRow
               item={full?.StolenDate}
               title="Date"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {FormatDate(full?.StolenDate)}
@@ -55,7 +55,7 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
             <TableRow
               item={full?.StolenPoliceForce}
               title="Police Force"
-              color="#6f508c"
+              colour="#6f508c"
               last={false}
             >
               {full?.StolenPoliceForce}
@@ -63,7 +63,7 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
             <TableRow
               item={full?.StolenInfoSource}
               title="Information Source"
-              color="#6f508c"
+              colour="#6f508c"
               last={true}
             >
               {full?.StolenInfoSource}
