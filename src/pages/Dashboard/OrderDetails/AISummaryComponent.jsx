@@ -24,11 +24,11 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
               >
                 Rating: {aiContent?.["rating"]}
               </span>{" "}
-              {aiContent?.["valuation"] === undefined ? (
+              {aiContent?.["estimated_valuation"] === undefined ? (
                 <></>
               ) : (
                 <span style={{ fontWeight: "bolder", fontSize: "1.2rem" }}>
-                  Valuation: £{aiContent["valuation"]}
+                  Valuation: £{aiContent["estimated_valuation"]}
                 </span>
               )}
               <br />
