@@ -33,14 +33,16 @@ const WriteOff = ({
 
         <div className="table-figure-container">
           <div rules="all" className="section-table">
-            <TableRow
-              item={FormatDate(full?.WriteOffDate)}
-              title="Date"
-              colour="#6f508c"
-              last={false}
-            >
-              {FormatDate(full?.WriteOffDate)}
-            </TableRow>
+            {full.WriteOffDate && (
+              <TableRow
+                item={FormatDate(full.WriteOffDate)}
+                title="Date"
+                colour="#6f508c"
+                last={false}
+              >
+                {FormatDate(full.WriteOffDate)}
+              </TableRow>
+            )}
             <TableRow
               item={full?.WriteOffCategory}
               title="Category"
@@ -59,18 +61,45 @@ const WriteOff = ({
             </TableRow>
           </div>
         </div>
-        {full.WriteOffRecordList > 0 ? (
+        {full.WriteOffRecordList && full.WriteOffRecordList.length > 0 ? (
           <>
             {full.WriteOffRecordList.map((x, i) => {
               return (
-                <div className="table-figure-container">
-                  <table
-                    style={{ width: "100%" }}
-                    rules="all"
-                    className="section-table"
-                  >
-                    <tbody>{/* TODO: Needs to be checked and added */}</tbody>
-                  </table>
+                <div className="table-figure-container" key={i}>
+                  <div rules="all" className="section-table">
+                    <TableRow
+                      item={FormatDate(x.MiaftrEntryDate)}
+                      title="Miaftr Entry Date"
+                      colour="#6f508c"
+                      last={false}
+                    >
+                      {FormatDate(x.MiaftrEntryDate)}
+                    </TableRow>
+                    <TableRow
+                      item={FormatDate(x.LossDate)}
+                      title="Loss Date"
+                      colour="#6f508c"
+                      last={false}
+                    >
+                      {FormatDate(x.LossDate)}
+                    </TableRow>
+                    <TableRow
+                      item={x.LossType}
+                      title="Loss Type"
+                      colour="#6f508c"
+                      last={false}
+                    >
+                      {x.LossType}
+                    </TableRow>
+                    <TableRow
+                      item={x.Category}
+                      title="Category"
+                      colour="#6f508c"
+                      last={true}
+                    >
+                      {x.Category}
+                    </TableRow>
+                  </div>
                 </div>
               );
             })}
