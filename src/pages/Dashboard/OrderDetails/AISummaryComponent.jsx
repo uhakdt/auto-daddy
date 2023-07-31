@@ -22,18 +22,20 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
                   marginRight: "1rem",
                 }}
               >
-                Rating: {aiContent?.["rating"]}
+                ChatGPT Rating: {aiContent?.["rating"]}
               </span>{" "}
               {aiContent?.["estimated_valuation"] === undefined ? (
                 <></>
               ) : (
                 <span style={{ fontWeight: "bolder", fontSize: "1.2rem" }}>
-                  Valuation: £{aiContent["estimated_valuation"]} (Conservative
-                  Estimate of retail price)
+                  Valuation: £{aiContent["estimated_valuation"]}{" "}
+                  <span style={{ fontSize: "1rem" }}>
+                    (Conservative Estimate of retail value)
+                  </span>
                 </span>
               )}
               <br />
-              <div style={{ fontSize: "1.2rem", paddingTop: "1rem" }}>
+              <div style={{ fontSize: "1.4rem", paddingTop: "1rem" }}>
                 {aiContent?.["content"]}
               </div>
             </>
