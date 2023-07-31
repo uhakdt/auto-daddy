@@ -345,9 +345,7 @@ const PackagePage = () => {
             )}
           </div>
           <div className="package-right-content">
-            <div className="package-right-content-title">
-              Full Report for Car Dealerships (Beta)
-            </div>
+            <div className="package-right-content-title">Full Car Report</div>
             <div className="package-right-content-description">
               We extract extensive Vehicle data and feed it into OpenAI ChatGPT,
               which privides detailed insights about the car, including an
@@ -456,9 +454,7 @@ const PackagePage = () => {
             <div className="package-pay-container">
               <div className="package-pay-left-container">
                 <div className="package-pay-left-logo">AutoDaddy</div>
-                <div className="package-pay-left-title">
-                  Full Report Pricing for Dealerships
-                </div>
+                <div className="package-pay-left-title">Full Car Report</div>
                 <div className="package-pay-left-description">
                   Receive a detailed report with all of ChatGPT's insights,
                   equipping you with the knowledge you need for a confident
