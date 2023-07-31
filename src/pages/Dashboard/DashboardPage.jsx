@@ -10,6 +10,8 @@ import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
 import Settings from "./Settings/Settings";
 import Header from "./Header/Header";
+import { Style } from "@mui/icons-material";
+import Chat from "./Chat/Chat";
 
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
@@ -123,6 +125,7 @@ function DashboardPage() {
           <OrderDetails className="order-details" orderId={selectedOrder} />
         )}
       </Box>
+      {/* <Chat /> */}
     </Box>
   );
 }

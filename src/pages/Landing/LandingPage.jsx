@@ -222,6 +222,13 @@ function LandingPage() {
       {!isMobile &&
         (user ? (
           <div className="landing-right">
+            <div className="landing-right-video-container">
+              <img
+                className="landing-right-video"
+                src={`${process.env.PUBLIC_URL}/landing-page-video-1.gif`}
+                alt="Logo"
+              />
+            </div>
             <div className="landing-button-login-container">
               <button
                 className="landing-button-login"

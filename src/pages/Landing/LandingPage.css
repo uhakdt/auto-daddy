@@ -143,6 +143,16 @@
   border-radius: 5px;
 }
 
+.landing-right-video-container {
+  display: flex;
+  align-items: center;
+}
+
+.landing-right-video {
+  width: 100%;
+  border-radius: 5px;
+}
+
 .landing-button-login-container {
   background-color: white;
   padding-left: 1rem;

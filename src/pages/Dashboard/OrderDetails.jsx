@@ -315,7 +315,7 @@ const OrderDetails = ({ orderId }) => {
           setAIContentLoading(false);
         } else {
           // If cache doesn't exist in Firebase, fetch from server
-          fetch("https://autodaddy-gpt.uhakdt.repl.co/chat", {
+          fetch(`${process.env.REACT_APP_API_GPT_URL}/chat`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -332,11 +332,7 @@ const OrderDetails = ({ orderId }) => {
               setAIContentLoading(false);
 
               // Here we add a function to save aiContent to Firebase
-              saveAIContentToFirebase(
-                orderId,
-                aiContent,
-                orderRef
-              );
+              saveAIContentToFirebase(orderId, aiContent, orderRef);
             })
             .catch((error) => {
               console.log(error);
