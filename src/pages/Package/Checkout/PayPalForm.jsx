@@ -59,7 +59,11 @@ const PayPalForm = () => {
 
   return (
     <PayPalButtons
-      style={{ color: "white", label: "pay", layout: "horizontal" }}
+      style={{
+        color: "white",
+        label: "pay",
+        layout: "horizontal",
+      }}
       createOrder={(data, actions) => createOrder(data, actions)}
       onApprove={(data, actions) => onApprove(data, actions)}
       showSpinner={true}

@@ -479,22 +479,17 @@ const PackagePage = () => {
               <div className="package-pay-right-container">
                 <div className="package-pay-right-content">
                   <div className="package-pay-right-content-buttons-container">
-                    <button className="package-pay-right-content-button-apple">
+                    {/* <button className="package-pay-right-content-button-apple">
                       <img
                         height={35}
                         width={150}
                         src={`${process.env.PUBLIC_URL}/logos/applepay-white-logo.svg`}
                         alt="Logo"
                       />
-                    </button>
-                    <button className="package-pay-right-content-button-paypal">
-                      <img
-                        height={35}
-                        width={150}
-                        src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
-                        alt="Logo"
-                      />
-                    </button>
+                    </button> */}
+                    <PayPalScriptProvider options={initialOptions}>
+                      <PayPalForm />
+                    </PayPalScriptProvider>
                   </div>
                   <div className="package-pay-right-content-divider">
                     <span>Or pay with card</span>

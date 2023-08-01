@@ -28,7 +28,7 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
                 <></>
               ) : (
                 <span style={{ fontWeight: "bolder", fontSize: "1.2rem" }}>
-                  Valuation: £{aiContent["estimated_valuation"]}{" "}
+                  Valuation: {aiContent["estimated_valuation"]}{" "}
                   <span style={{ fontSize: "1rem" }}>
                     (Conservative Estimate of retail value)
                   </span>
