@@ -31,7 +31,7 @@ function CarLoader() {
           <ellipse
             className="car__wheel--left"
             strokeWidth="3.2"
-            fill="#f5ff86"
+            fill="#6f508c"
             cx="83.493"
             cy="30.25"
             rx="6.922"
@@ -40,7 +40,7 @@ function CarLoader() {
           <ellipse
             className="car__wheel--right"
             strokeWidth="3.2"
-            fill="#f5ff86"
+            fill="#6f508c"
             cx="46.511"
             cy="30.25"
             rx="6.922"
