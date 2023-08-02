@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import { storage, db } from "../../firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref, getDownloadURL } from "firebase/storage";
+import { AppContext } from "../../appContext";
 
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
@@ -43,6 +44,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const auth = getAuth();
 
 const OrderDetails = ({ orderId }) => {
+  const { setSelectedOrderContext } = useContext(AppContext);
   const { order, free, basic, full } = useOrderDetails(orderId);
   const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
@@ -311,9 +313,11 @@ const OrderDetails = ({ orderId }) => {
 
         // Check if GPT data is in firebase
         if (data["aiContent"] !== undefined) {
+          setSelectedOrderContext(data);
           setAIContent(data["aiContent"]);
           setAIContentLoading(false);
         } else {
+          setSelectedOrderContext(data);
           // If cache doesn't exist in Firebase, fetch from server
           fetch(`${process.env.REACT_APP_API_GPT_URL}/chat`, {
             method: "POST",

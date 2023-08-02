@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
 import io from "socket.io-client";
+import { AppContext } from "../../../appContext";
+
+// const socket = io("https://autodaddy-chat-14e1f991f726.herokuapp.com");
+const socket = io("http://localhost:1234");
 
 const Chat = () => {
+  const { selectedOrderContext } = useContext(AppContext);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
-  const [socket, setSocket] = useState(null); // <-- added socket state
 
   useEffect(() => {
-    const socket = io("https://average-quail-56.loca.lt");
-
-    setSocket(socket); // <-- Save socket connection in state
-
     socket.on("connect", () => {
       console.log("connected");
     });
 
-    socket.on("message", (data) => {
+    const messageListener = (data) => {
+      console.log("Received message from server", data);
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
       ]);
-    });
+    };
+
+    socket.on("message", messageListener);
 
     return () => {
-      socket.disconnect();
+      socket.off("message", messageListener);
     };
-  }, []);
+  }, [socket]);
 
   const send = () => {
-    // add user message to messages array
     setMessages([...messages, { from: "user", text: input }]);
     setInput("");
 
-    // send user message to the server
     if (socket !== null) {
-      // <-- Check if the socket connection exists
-      socket.emit("message", input); // <-- emit message
+      socket.emit("message", { input: input, order: selectedOrderContext });
+    } else {
+      console.log("Failed to send message: Socket connection does not exist.");
     }
   };
 

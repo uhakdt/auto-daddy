@@ -38,6 +38,13 @@ export const App = ({ children }) => {
     }));
   };
 
+  const setSelectedOrderContext = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      selectedOrderContext: value,
+    }));
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -48,6 +55,7 @@ export const App = ({ children }) => {
         setVehicleDataBasic,
         setVehicleDataFull,
         setPreviousPage,
+        setSelectedOrderContext,
       }}
     >
       <BrowserRouter>
