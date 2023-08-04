@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { AppContext } from "../../../appContext";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../firebase";
 
@@ -12,6 +14,7 @@ import {
 import "./ProfileModal.css";
 
 function ProfileModal({ isOpen, onClose }) {
+  const { user, setUser } = useContext(AppContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {

@@ -19,6 +19,7 @@ export const initialData = getStoredData() || {
   previousPage: false,
   orders: [],
   currentOrder: null,
+  user: null,
 };
 
 export const AppContext = createContext(initialData);

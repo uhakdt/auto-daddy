@@ -52,6 +52,13 @@ export const App = ({ children }) => {
     }));
   };
 
+  const setUser = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      user: value,
+    }));
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -64,6 +71,7 @@ export const App = ({ children }) => {
         setPreviousPage,
         setOrders,
         setCurrentOrder,
+        setUser,
       }}
     >
       <BrowserRouter>
