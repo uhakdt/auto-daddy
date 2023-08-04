@@ -14,8 +14,7 @@ import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 
 function DashboardPage() {
-  const { setPreviousPage, setVehicleFreeData, selectedOrderContext } =
-    useContext(AppContext);
+  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -126,7 +125,7 @@ function DashboardPage() {
           <OrderDetails className="order-details" orderId={selectedOrder} />
         )}
       </Box>
-      {selectedOrderContext && <Chat />}
+      <Chat />
     </Box>
   );
 }

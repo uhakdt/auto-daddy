@@ -44,7 +44,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const auth = getAuth();
 
 const OrderDetails = ({ orderId }) => {
-  const { setSelectedOrderContext } = useContext(AppContext);
+  const { currentOrder, setCurrentOrder } = useContext(AppContext);
   const { order, free, basic, full } = useOrderDetails(orderId);
   const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
@@ -107,15 +107,16 @@ const OrderDetails = ({ orderId }) => {
 
       // Check if order exists
       if (docSnap.exists()) {
+        setCurrentOrder(docSnap.data());
         setWindowData([
           {
             title: "TAX",
             details: `Expires: ${FormatDate(
-              docSnap.data().vehicleFreeData.TaxDueDate
+              currentOrder.vehicleFreeData.TaxDueDate
             )}`,
             onClick: () => scrollToRef(goToTAXSection),
             gradientColor:
-              docSnap.data().vehicleFreeData.TaxStatus === "Taxed"
+              currentOrder.vehicleFreeData.TaxStatus === "Taxed"
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: false,
@@ -123,11 +124,11 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "MOT",
             details: `Expires: ${FormatDate(
-              docSnap.data().vehicleFreeData.MotExpiryDate
+              currentOrder.vehicleFreeData.MotExpiryDate
             )}`,
             onClick: () => scrollToRef(goToMOTSection),
             gradientColor:
-              docSnap.data().vehicleFreeData.MotStatus === "Valid"
+              currentOrder.vehicleFreeData.MotStatus === "Valid"
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: false,
@@ -135,17 +136,15 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "Finances",
             details:
-              docSnap.data().data.VdiCheckFull.FinanceRecordCount === 0
+              currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.FinanceRecordCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
             onClick:
-              docSnap.data().data.VdiCheckFull.FinanceRecordCount !== 0
+              currentOrder.data.VdiCheckFull.FinanceRecordCount !== 0
                 ? () => scrollToRef(goToFinanceSection)
                 : null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.FinanceRecordCount === 0
+              currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: false,
@@ -153,57 +152,55 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "Write Off",
             details:
-              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0
+              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.WriteOffRecordCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
             onClick:
-              docSnap.data().data.VdiCheckFull.WrittenOff !== false &&
-              docSnap.data().data.VdiCheckFull.WriteOffRecordCount !== 0
+              currentOrder.data.VdiCheckFull.WrittenOff !== false &&
+              currentOrder.data.VdiCheckFull.WriteOffRecordCount !== 0
                 ? () => scrollToRef(goToWriteOffSection)
                 : null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.WrittenOff === false &&
-              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0
+              currentOrder.data.VdiCheckFull.WrittenOff === false &&
+              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
                 ? "#6f508c"
                 : "#d55a6f",
             noHover:
-              docSnap.data().data.VdiCheckFull.WrittenOff === false &&
-              docSnap.data().data.VdiCheckFull.WriteOffRecordCount === 0,
+              currentOrder.data.VdiCheckFull.WrittenOff === false &&
+              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0,
           },
           {
             title: "Export",
             details:
-              docSnap.data().data.VdiCheckFull.Imported === false &&
-              docSnap.data().data.VdiCheckFull.Exported === false
+              currentOrder.data.VdiCheckFull.Imported === false &&
+              currentOrder.data.VdiCheckFull.Exported === false
                 ? "No Records"
                 : "Click to View Details",
             onClick:
-              docSnap.data().data.VdiCheckFull.Imported !== false &&
-              docSnap.data().data.VdiCheckFull.Exported !== false
+              currentOrder.data.VdiCheckFull.Imported !== false &&
+              currentOrder.data.VdiCheckFull.Exported !== false
                 ? () => scrollToRef(goToImportExportSection)
                 : null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.Imported === false &&
-              docSnap.data().data.VdiCheckFull.Exported === false
+              currentOrder.data.VdiCheckFull.Imported === false &&
+              currentOrder.data.VdiCheckFull.Exported === false
                 ? "#6f508c"
                 : "#d55a6f",
             noHover:
-              docSnap.data().data.VdiCheckFull.Imported === false &&
-              docSnap.data().data.VdiCheckFull.Exported === false,
+              currentOrder.data.VdiCheckFull.Imported === false &&
+              currentOrder.data.VdiCheckFull.Exported === false,
           },
           {
             title: "Scrapped",
             details:
-              docSnap.data().data.VdiCheckFull.Scrapped === false
+              currentOrder.data.VdiCheckFull.Scrapped === false
                 ? "No Records"
                 : `Scrap Date: ${FormatDate(
-                    docSnap.data().data.VdiCheckFull.ScrapDate
+                    currentOrder.data.VdiCheckFull.ScrapDate
                   )}`,
             onClick: null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.Scrapped === false
+              currentOrder.data.VdiCheckFull.Scrapped === false
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: true,
@@ -211,16 +208,14 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "Colour",
             details:
-              docSnap.data().data.VdiCheckFull.ColourChangeCount === null ||
-              docSnap.data().data.VdiCheckFull.ColourChangeCount === 0
+              currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
+              currentOrder.data.VdiCheckFull.ColourChangeCount === 0
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.ColourChangeCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
             onClick: null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.ColourChangeCount === null ||
-              docSnap.data().data.VdiCheckFull.ColourChangeCount === 0
+              currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
+              currentOrder.data.VdiCheckFull.ColourChangeCount === 0
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: true,
@@ -228,52 +223,46 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "Plate",
             details:
-              docSnap.data().data.VdiCheckFull.PlateChangeCount === null ||
-              docSnap.data().data.VdiCheckFull.PlateChangeCount === 0
+              currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
+              currentOrder.data.VdiCheckFull.PlateChangeCount === 0
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.PlateChangeCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
             onClick:
-              docSnap.data().data.VdiCheckFull.PlateChangeCount > 0
+              currentOrder.data.VdiCheckFull.PlateChangeCount > 0
                 ? () => scrollToRef(goToPlateSection)
                 : null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.PlateChangeCount < 2
+              currentOrder.data.VdiCheckFull.PlateChangeCount < 2
                 ? "#6f508c"
                 : "#d55a6f",
             noHover:
-              docSnap.data().data.VdiCheckFull.PlateChangeCount === 0 ||
-              docSnap.data().data.VdiCheckFull.PlateChangeCount === null,
+              currentOrder.data.VdiCheckFull.PlateChangeCount === 0 ||
+              currentOrder.data.VdiCheckFull.PlateChangeCount === null,
           },
           {
             title: "Stolen",
             details:
-              docSnap.data().data.VdiCheckFull.Stolen === false ||
-              docSnap.data().data.VdiCheckFull.Stolen === null
+              currentOrder.data.VdiCheckFull.Stolen === false ||
+              currentOrder.data.VdiCheckFull.Stolen === null
                 ? "No Records"
                 : "Click to View Details",
-            onClick: docSnap.data().data.VdiCheckFull.Stolen
+            onClick: currentOrder.data.VdiCheckFull.Stolen
               ? () => scrollToRef(goToStolenSection)
               : null,
-            gradientColor: !docSnap.data().data.VdiCheckFull.Stolen
+            gradientColor: !currentOrder.data.VdiCheckFull.Stolen
               ? "#6f508c"
               : "#d55a6f",
-            noHover: !docSnap.data().data.VdiCheckFull.Stolen,
+            noHover: !currentOrder.data.VdiCheckFull.Stolen,
           },
           {
             title: "Mileage",
             details:
-              docSnap.data().data.VdiCheckFull.MileageAnomalyDetected ===
-                false &&
-              docSnap.data().data.VdiCheckFull.MileageAnomalyDetected === null
+              currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false &&
+              currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.MileageRecordCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
             onClick: () => scrollToRef(goToMileageSection),
-            gradientColor: docSnap.data().data.VdiCheckFull
-              .MileageAnomalyDetected
+            gradientColor: currentOrder.data.VdiCheckFull.MileageAnomalyDetected
               ? "#d55a6f"
               : "#6f508c",
             noHover: false,
@@ -281,15 +270,13 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "Keepers",
             details:
-              docSnap.data().data.VdiCheckFull.PreviousKeeperCount === null ||
-              docSnap.data().data.VdiCheckFull.PreviousKeeperCount === 0
+              currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
+              currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0
                 ? "No Records"
-                : `Number of Records: ${
-                    docSnap.data().data.VdiCheckFull.PreviousKeeperCount
-                  }`,
+                : `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
             onClick: null,
             gradientColor:
-              docSnap.data().data.VdiCheckFull.PreviousKeeperCount < 2
+              currentOrder.data.VdiCheckFull.PreviousKeeperCount < 2
                 ? "#6f508c"
                 : "#d55a6f",
             noHover: true,
@@ -297,10 +284,10 @@ const OrderDetails = ({ orderId }) => {
           {
             title: "V5C",
             details: `Date Issued: ${FormatDate(
-              docSnap.data().data.VdiCheckFull.LatestV5cIssuedDate
+              currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
             )}`,
             onClick: null,
-            gradientColor: docSnap.data().data.VdiCheckFull.LatestV5cIssuedDate
+            gradientColor: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
               ? "#6f508c"
               : "#d55a6f",
             noHover: true,
@@ -308,21 +295,15 @@ const OrderDetails = ({ orderId }) => {
         ]);
         setIsLoading(false);
 
-        // Get data from order
-        const data = docSnap.data();
-
         // Check if GPT data is in firebase
-        if (data["aiContent"] !== undefined) {
-          setSelectedOrderContext(data);
-          setAIContent(data["aiContent"]);
+        if (currentOrder["aiContent"] !== undefined) {
+          setAIContent(currentOrder["aiContent"]);
           setAIContentLoading(false);
         } else {
-          setSelectedOrderContext(data);
-          // If cache doesn't exist in Firebase, fetch from server
           fetch(`${process.env.REACT_APP_API_GPT_URL}/chat`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
+            body: JSON.stringify(currentOrder["extractedData"]),
           })
             .then((response) => {
               if (!response.ok) {

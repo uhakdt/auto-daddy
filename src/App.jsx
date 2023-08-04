@@ -38,10 +38,10 @@ export const App = ({ children }) => {
     }));
   };
 
-  const setSelectedOrderContext = (value) => {
+  const setCurrentOrder = (value) => {
     setData((prevData) => ({
       ...prevData,
-      selectedOrderContext: value,
+      currentOrder: value,
     }));
   };
 
@@ -55,7 +55,7 @@ export const App = ({ children }) => {
         setVehicleDataBasic,
         setVehicleDataFull,
         setPreviousPage,
-        setSelectedOrderContext,
+        setCurrentOrder,
       }}
     >
       <BrowserRouter>

@@ -17,7 +17,7 @@ export const initialData = getStoredData() || {
   vehicleFreeData: new VehicleFreeData({}),
   vehicleFullData: new VehicleFullData({}),
   previousPage: false,
-  selectedOrderContext: null,
+  currentOrder: null,
 };
 
 export const AppContext = createContext(initialData);

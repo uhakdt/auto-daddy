@@ -8,11 +8,12 @@ import { AppContext } from "../../../appContext";
 const socket = io("http://localhost:1234");
 
 const Chat = () => {
-  const { selectedOrderContext } = useContext(AppContext);
+  const { currentOrder } = useContext(AppContext);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
 
+  console.log(currentOrder);
   useEffect(() => {
     socket.on("connect", () => {
       console.log("connected");
@@ -25,7 +26,6 @@ const Chat = () => {
         { from: "server", text: data },
       ]);
     };
-
     socket.on("message", messageListener);
 
     return () => {
@@ -38,7 +38,10 @@ const Chat = () => {
     setInput("");
 
     if (socket !== null) {
-      socket.emit("message", { input: input, order: selectedOrderContext });
+      socket.emit("message", {
+        input: input,
+        order: currentOrder["extractedData"],
+      });
     } else {
       console.log("Failed to send message: Socket connection does not exist.");
     }
@@ -78,7 +81,11 @@ const Chat = () => {
             {message.from === "user" ? (
               <FaUserAlt style={{ marginRight: "10px" }} />
             ) : (
-              <img style={styles.avatar} src="https://picsum.photos/200" />
+              <img
+                style={styles.avatar}
+                src="https://picsum.photos/200"
+                alt="avatar"
+              />
             )}
             <div>{message.text}</div>
           </div>
