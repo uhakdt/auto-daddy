@@ -17,6 +17,7 @@ export const initialData = getStoredData() || {
   vehicleFreeData: new VehicleFreeData({}),
   vehicleFullData: new VehicleFullData({}),
   previousPage: false,
+  orders: [],
   currentOrder: null,
 };
 

@@ -136,7 +136,6 @@ function EmissionsLabel({ emission }) {
         emission >= range.min &&
         (range.max === undefined || emission <= range.max)
       ) {
-        console.log(range);
         return {
           color: range.color,
           label: range.label,

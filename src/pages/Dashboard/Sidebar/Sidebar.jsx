@@ -1,25 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../../../appContext";
+
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
+
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import SettingsIcon from "@mui/icons-material/Settings";
 import { TbReportAnalytics } from "react-icons/tb";
-import Button from "@mui/material/Button";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 
-function Sidebar({
-  orders,
-  onSelectOrder,
-  onSelectSettings,
-  isSidebarOpen,
-  toggleSidebar,
-}) {
-  const [selectedOrder, setSelectedOrder] = useState(null);
+function Sidebar({ isSidebarOpen, toggleSidebar }) {
+  const { orders, currentOrder, setCurrentOrder } = useContext(AppContext);
 
-  const handleOrderSelect = (id) => {
-    onSelectOrder(id);
-    setSelectedOrder(id);
+  const handleOrderSelect = (order) => {
+    setCurrentOrder(order);
     localStorage.clear();
   };
 
@@ -42,12 +35,12 @@ function Sidebar({
           </div>
           {orders.map((order) => (
             <div
-              key={order.id}
+              key={order.orderId}
               onClick={() => {
-                handleOrderSelect(order.id);
+                handleOrderSelect(order);
               }}
               className={`order-button-container ${
-                selectedOrder === order.id
+                currentOrder.orderId === order.orderId
                   ? "order-button-container-selected"
                   : ""
               }`}
@@ -69,9 +62,9 @@ function Sidebar({
               </div>
             </div>
           ))}
-          <IconButton onClick={onSelectSettings} className="settings-button">
+          {/* <IconButton onClick={onSelectSettings} className="settings-button">
             <SettingsIcon />
-          </IconButton>
+          </IconButton> */}
         </>
       )}
     </Box>

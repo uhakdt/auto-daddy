@@ -14,22 +14,10 @@ import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 
 function DashboardPage() {
-  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
-  const [orders, setOrders] = useState([]);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const { setPreviousPage, setVehicleFreeData, setCurrentOrder, setOrders } =
+    useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [showSettings, setShowSettings] = useState(false);
-
-  const getPaymentIntentFromUrl = () => {
-    return new URLSearchParams(window.location.search).get("payment_intent");
-  };
-
-  const checkRedirectStatus = () => {
-    const redirectStatus = new URLSearchParams(window.location.search).get(
-      "redirect_status"
-    );
-    return redirectStatus === "succeeded";
-  };
+  // const [showSettings, setShowSettings] = useState(false);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -43,7 +31,6 @@ function DashboardPage() {
 
     const fetchOrders = async (user) => {
       const startTime = Date.now();
-      const paymentIntent = getPaymentIntentFromUrl();
 
       if (user) {
         const ordersRef = collection(db, "orders");
@@ -61,18 +48,8 @@ function DashboardPage() {
 
         setOrders(ordersList);
 
-        if (checkRedirectStatus() && paymentIntent) {
-          const recentOrder = ordersList.find(
-            (order) => order.paymentId === paymentIntent
-          );
-          if (recentOrder) {
-            setSelectedOrder(recentOrder.id); // select the recent order
-          } else {
-            fetchOrders(user); // refetch if no order with matching paymentId is found
-            return;
-          }
-        } else if (ordersList.length > 0) {
-          setSelectedOrder(ordersList[0].id); // select the first order by default
+        if (ordersList.length > 0) {
+          setCurrentOrder(ordersList[0]);
         }
 
         const timeDiff = Date.now() - startTime;
@@ -108,22 +85,10 @@ function DashboardPage() {
       <Box className="dashboard-content" sx={{ display: "flex", flex: "1" }}>
         <Sidebar
           className="sidebar"
-          orders={orders}
-          onSelectOrder={(orderId) => {
-            setSelectedOrder(orderId);
-            setShowSettings(false);
-          }}
-          onSelectSettings={() => {
-            setShowSettings(true);
-          }}
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={toggleSidebar}
         />
-        {showSettings ? (
-          <Settings />
-        ) : (
-          <OrderDetails className="order-details" orderId={selectedOrder} />
-        )}
+        <OrderDetails className="order-details" />
       </Box>
       <Chat />
     </Box>

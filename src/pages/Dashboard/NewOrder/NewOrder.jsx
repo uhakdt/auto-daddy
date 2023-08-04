@@ -44,7 +44,6 @@ function NewOrder() {
             setResponseStatus(true);
           });
       } catch (error) {
-        console.log(error);
         setSnackbarMessage(error.response.data.message);
         setSnackbarOpen(true);
         setResponseStatus(false);

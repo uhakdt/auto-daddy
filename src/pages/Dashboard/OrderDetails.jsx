@@ -43,9 +43,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const auth = getAuth();
 
-const OrderDetails = ({ orderId }) => {
+const OrderDetails = () => {
   const { currentOrder, setCurrentOrder } = useContext(AppContext);
-  const { order, free, basic, full } = useOrderDetails(orderId);
+  const { order, free, basic, full } = useOrderDetails(currentOrder.id);
   const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
@@ -87,7 +87,7 @@ const OrderDetails = ({ orderId }) => {
   useEffect(() => {
     const fetchImageUrl = async () => {
       try {
-        const fileName = `${orderId}_image_0.jpg`;
+        const fileName = `${currentOrder.orderId}_image_0.jpg`;
         const filePath = `user_files/${auth.currentUser.uid}/car_images/${fileName}`;
         const url = await getDownloadURL(ref(storage, filePath));
         setImageUrl(url);
@@ -102,12 +102,12 @@ const OrderDetails = ({ orderId }) => {
   useEffect(() => {
     const fetchOrder = async () => {
       // Get order details from Firebase
-      const orderRef = doc(db, "orders", orderId);
+      const orderRef = doc(db, "orders", currentOrder.orderId);
       const docSnap = await getDoc(orderRef);
 
       // Check if order exists
-      if (docSnap.exists()) {
-        setCurrentOrder(docSnap.data());
+      if (currentOrder) {
+        // setCurrentOrder(docSnap.data());
         setWindowData([
           {
             title: "TAX",
@@ -300,7 +300,7 @@ const OrderDetails = ({ orderId }) => {
           setAIContent(currentOrder["aiContent"]);
           setAIContentLoading(false);
         } else {
-          fetch(`${process.env.REACT_APP_API_GPT_URL}/chat`, {
+          fetch(`${process.env.REACT_APP_API_GPT_URL}/gpt-summary`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(currentOrder["extractedData"]),
@@ -312,12 +312,15 @@ const OrderDetails = ({ orderId }) => {
               return response.json();
             })
             .then((aiContent) => {
-              console.log("Loading from server");
               setAIContent(aiContent);
               setAIContentLoading(false);
 
               // Here we add a function to save aiContent to Firebase
-              saveAIContentToFirebase(orderId, aiContent, orderRef);
+              saveAIContentToFirebase(
+                currentOrder.orderId,
+                aiContent,
+                orderRef
+              );
             })
             .catch((error) => {
               console.log(error);
@@ -331,17 +334,13 @@ const OrderDetails = ({ orderId }) => {
       }
     };
 
-    if (orderId) fetchOrder();
-  }, [orderId]);
+    if (currentOrder.orderId) fetchOrder();
+  }, [currentOrder.orderId]);
 
   const saveAIContentToFirebase = async (orderId, aiContent, orderRef) => {
-    await setDoc(orderRef, { aiContent }, { merge: true })
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
+    await setDoc(orderRef, { aiContent }, { merge: true }).catch((error) => {
+      console.error("Error writing document: ", error);
+    });
   };
 
   const handleSnackbarClose = (event, reason) => {
@@ -362,19 +361,19 @@ const OrderDetails = ({ orderId }) => {
         <div className={`new-order-transition ${showNewOrder ? "show" : ""}`}>
           <NewOrder />
         </div>
-        {order ? (
+        {currentOrder ? (
           <div>
             <VehicleMain
               free={free}
               basic={basic}
-              orderId={orderId}
+              orderId={currentOrder.orderId}
               auth={auth}
               handleDownloadReport={() =>
-                handleDownloadReport(orderId, free, auth)
+                handleDownloadReport(currentOrder.orderId, free, auth)
               }
               handleEmailReport={() =>
                 handleEmailReport(
-                  orderId,
+                  currentOrder.orderId,
                   free,
                   auth,
                   setEmailStatus,
@@ -500,7 +499,7 @@ const OrderDetails = ({ orderId }) => {
               <div className="section-content">
                 <div>Date of Registration: {FormatDate(order.dateTime)}</div>
                 <br />
-                <div>Report Reference: {order.orderId}</div>
+                <div>Report Reference: {currentOrder.orderId}</div>
               </div>
             </section>
           </div>

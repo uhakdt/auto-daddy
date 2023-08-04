@@ -71,7 +71,6 @@ export const handleEmailReport = async (
 
 export const getReportUrl = async (orderId, free, auth) => {
   try {
-    console.log("getReportUrl");
     const vehicleRegMark = free.RegistrationNumber;
     const userId = auth.currentUser.uid;
     const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
@@ -89,7 +88,6 @@ export const getReportUrl = async (orderId, free, auth) => {
     }
 
     const { url: downloadUrl } = await response.json();
-    console.log(downloadUrl);
     return downloadUrl;
   } catch (err) {
     console.error("Error getting report URL:", err);
@@ -102,7 +100,6 @@ export const getSampleReportUrl = async (
   userId
 ) => {
   try {
-    console.log("getReportUrl");
     const vehicleRegMark = registrationNumber;
     const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
 
@@ -119,7 +116,6 @@ export const getSampleReportUrl = async (
     }
 
     const { url: downloadUrl } = await response.json();
-    console.log(downloadUrl);
     return downloadUrl;
   } catch (err) {
     console.error("Error getting report URL:", err);

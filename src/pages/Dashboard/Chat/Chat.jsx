@@ -13,14 +13,12 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
 
-  console.log(currentOrder);
   useEffect(() => {
     socket.on("connect", () => {
       console.log("connected");
     });
 
     const messageListener = (data) => {
-      console.log("Received message from server", data);
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
@@ -42,8 +40,6 @@ const Chat = () => {
         input: input,
         order: currentOrder["extractedData"],
       });
-    } else {
-      console.log("Failed to send message: Socket connection does not exist.");
     }
   };
 

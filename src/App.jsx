@@ -38,6 +38,13 @@ export const App = ({ children }) => {
     }));
   };
 
+  const setOrders = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      orders: value,
+    }));
+  };
+
   const setCurrentOrder = (value) => {
     setData((prevData) => ({
       ...prevData,
@@ -55,6 +62,7 @@ export const App = ({ children }) => {
         setVehicleDataBasic,
         setVehicleDataFull,
         setPreviousPage,
+        setOrders,
         setCurrentOrder,
       }}
     >

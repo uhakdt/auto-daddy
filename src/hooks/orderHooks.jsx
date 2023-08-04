@@ -18,8 +18,6 @@ export const useOrderDetails = (orderId) => {
         setVehicleFreeData(docSnap.data().vehicleFreeData);
         setVehicleAndMotHistory(docSnap.data().data.VehicleAndMotHistory);
         setVdiCheckFull(docSnap.data().data.VdiCheckFull);
-      } else {
-        console.log("No such order!");
       }
     };
 

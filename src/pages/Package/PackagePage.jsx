@@ -55,7 +55,6 @@ const PackagePage = () => {
   } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
-  console.log(vehicleFreeData);
 
   // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
@@ -138,7 +137,6 @@ const PackagePage = () => {
             setIsLoading(false);
           });
       } catch (error) {
-        console.log(error);
         setSnackbarMessage(error.response.data.message);
         setSnackbarOpen(true);
         setResponseStatus(false);
