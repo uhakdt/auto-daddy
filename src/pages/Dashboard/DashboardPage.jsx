@@ -14,8 +14,13 @@ import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 
 function DashboardPage() {
-  const { setPreviousPage, setVehicleFreeData, setCurrentOrder, setOrders } =
-    useContext(AppContext);
+  const {
+    setPreviousPage,
+    setVehicleFreeData,
+    currentOrder,
+    setCurrentOrder,
+    setOrders,
+  } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
   // const [showSettings, setShowSettings] = useState(false);
 
@@ -89,7 +94,7 @@ function DashboardPage() {
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={toggleSidebar}
         />
-        <OrderDetails className="order-details" />
+        {currentOrder && <OrderDetails className="order-details" />}
       </Box>
       <Chat />
     </Box>

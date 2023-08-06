@@ -45,7 +45,10 @@ const auth = getAuth();
 
 const OrderDetails = () => {
   const { currentOrder, setCurrentOrder } = useContext(AppContext);
-  const { order, free, basic, full } = useOrderDetails(currentOrder.id);
+  console.log(currentOrder);
+  const [free, setFree] = useState(null);
+  const [basic, setBasic] = useState(null);
+  const [full, setFull] = useState(null);
   const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
@@ -96,8 +99,8 @@ const OrderDetails = () => {
       }
     };
 
-    if (order) fetchImageUrl();
-  }, [order]);
+    if (currentOrder) fetchImageUrl();
+  }, [currentOrder]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -337,7 +340,7 @@ const OrderDetails = () => {
     };
 
     if (currentOrder.orderId) fetchOrder();
-  }, [currentOrder.orderId]);
+  }, [currentOrder]);
 
   const saveAIContentToFirebase = async (orderId, aiContent, orderRef) => {
     await setDoc(orderRef, { aiContent }, { merge: true }).catch((error) => {
@@ -353,6 +356,15 @@ const OrderDetails = () => {
     setSnackbarOpen(false);
   };
 
+  useEffect(() => {
+    if (currentOrder) {
+      console.log(currentOrder);
+      setFree(currentOrder.vehicleFreeData);
+      setBasic(currentOrder.data.VehicleAndMotHistory);
+      setFull(currentOrder.data.VdiCheckFull);
+    }
+  }, [currentOrder]);
+
   if (isLoading) {
     return <></>;
   }
@@ -363,7 +375,7 @@ const OrderDetails = () => {
         <div className={`new-order-transition ${showNewOrder ? "show" : ""}`}>
           <NewOrder />
         </div>
-        {currentOrder ? (
+        {currentOrder && (
           <div>
             <VehicleMain
               free={free}
@@ -499,14 +511,14 @@ const OrderDetails = () => {
               <div className="section-title">About This Report</div>
               <div className="section-divider"></div>
               <div className="section-content">
-                <div>Date of Registration: {FormatDate(order.dateTime)}</div>
+                <div>
+                  Date of Registration: {FormatDate(currentOrder.dateTime)}
+                </div>
                 <br />
                 <div>Report Reference: {currentOrder.orderId}</div>
               </div>
             </section>
           </div>
-        ) : (
-          <NewOrder />
         )}
       </div>
       <Snackbar

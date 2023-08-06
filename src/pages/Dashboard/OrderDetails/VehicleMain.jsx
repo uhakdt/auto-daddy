@@ -7,6 +7,8 @@ import RegistrationNumber from "../../../SVGs/RegistrationNumber";
 import "../OrderDetails.css";
 
 const VehicleMain = ({ basic, free }) => {
+  console.log("basic", basic);
+  console.log("free", free);
   return (
     <section className="section">
       <div style={style.vehicleModelContainer}>

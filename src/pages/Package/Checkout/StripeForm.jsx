@@ -83,6 +83,7 @@ const StripeForm = forwardRef(({ customerId }, ref) => {
       });
 
       if (error) {
+        console.log(error);
         if (error.type === "card_error" || error.type === "validation_error") {
           setMessage(error.message);
         } else {
