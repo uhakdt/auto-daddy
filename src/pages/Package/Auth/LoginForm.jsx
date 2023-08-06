@@ -1,5 +1,9 @@
 import React from "react";
-import { logInWithEmailAndPassword, signInWithGoogle } from "../../../firebase";
+import {
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+  signInAsGuest,
+} from "../../../firebase";
 
 import "./LoginForm.css";
 
@@ -12,6 +16,12 @@ const LoginForm = ({
 }) => {
   return (
     <div className="modal-content-auth">
+      <button
+        className="modal-content-auth-btn"
+        onClick={() => signInAsGuest()}
+      >
+        Continue as Guest
+      </button>
       <input
         type="text"
         className="modal-content-auth-input"

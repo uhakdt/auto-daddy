@@ -10,11 +10,14 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
+  signInAnonymously,
 } from "firebase/auth";
 import {
   getFirestore,
   query,
   getDocs,
+  doc,
+  getDoc,
   collection,
   where,
   addDoc,
@@ -55,6 +58,7 @@ const signInWithGoogle = async () => {
         email: user.email,
       });
     }
+    localStorage.setItem("user", user.uid);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -75,6 +79,7 @@ const signInWithApple = async () => {
         email: user.email,
       });
     }
+    localStorage.setItem("user", user.uid);
   } catch (err) {
     console.error(err);
     alert(err.message);
@@ -123,12 +128,36 @@ const signInWithTwitter = async () => {
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password);
+    const res = await signInWithEmailAndPassword(auth, email, password);
+
+    localStorage.setItem("user", res.user.uid);
     return { error: null };
   } catch (err) {
     console.error(err);
     // return the error instead of alerting
     return { error: err.message };
+  }
+};
+
+const signInAsGuest = async () => {
+  try {
+    localStorage.removeItem("user");
+    const res = await signInAnonymously(auth);
+
+    //add user and set the response into local storage
+    await addDoc(collection(db, "users"), {
+      uid: res.user.uid,
+      name: "Guest User",
+      authProvider: "local",
+      dateTime: new Date(),
+    });
+
+    localStorage.setItem("user", res.user.uid);
+
+    return { error: null };
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
   }
 };
 
@@ -142,6 +171,9 @@ const registerWithEmailAndPassword = async (name, email, password) => {
       authProvider: "local",
       email,
     });
+
+    localStorage.setItem("user", user.uid);
+
     return { error: null };
   } catch (err) {
     console.error(err);
@@ -173,6 +205,7 @@ export {
   signInWithFacebook,
   signInWithTwitter,
   logInWithEmailAndPassword,
+  signInAsGuest,
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,

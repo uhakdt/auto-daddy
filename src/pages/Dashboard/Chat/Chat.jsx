@@ -4,8 +4,7 @@ import { FaUserAlt } from "react-icons/fa";
 import io from "socket.io-client";
 import { AppContext } from "../../../appContext";
 
-// const socket = io("https://autodaddy-chat-14e1f991f726.herokuapp.com");
-const socket = io("http://localhost:1234");
+const socket = io(process.env.REACT_APP_API_CHAT_URL);
 
 const Chat = () => {
   const { currentOrder } = useContext(AppContext);

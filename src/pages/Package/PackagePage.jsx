@@ -71,6 +71,8 @@ const PackagePage = () => {
 
   // Payment Form states
   const [clientSecret, setClientSecret] = useState("");
+  const [customerId, setCustomerId] = useState("");
+
   const [formType, setFormType] = useState("login");
   const [payments, setPayments] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -117,7 +119,10 @@ const PackagePage = () => {
       }),
     })
       .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
+      .then((data) => {
+        setClientSecret(data.clientSecret);
+        setCustomerId(data.customerId);
+      });
   };
 
   const handleSubmit = async (event) => {
@@ -500,7 +505,7 @@ const PackagePage = () => {
                       }}
                       stripe={stripePromise}
                     >
-                      <StripeForm userEmail={auth.currentUser.email} />
+                      <StripeForm customerId={customerId} />
                     </Elements>
                   )}
                 </div>

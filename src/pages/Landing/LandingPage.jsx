@@ -22,6 +22,7 @@ import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
 function LandingPage() {
+  localStorage.clear();
   const {
     setRegistrationNumber,
     vehicleFreeData,

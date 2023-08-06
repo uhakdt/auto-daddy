@@ -1,17 +1,16 @@
 import React, { useEffect, useState, forwardRef } from "react";
 import {
   PaymentElement,
-  LinkAuthenticationElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
 import "./StripeForm.css";
 
-const StripeForm = forwardRef(({ userEmail }, ref) => {
+const StripeForm = forwardRef(({ customerId }, ref) => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState(userEmail);
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -49,13 +48,32 @@ const StripeForm = forwardRef(({ userEmail }, ref) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!stripe || !elements) {
-      return;
-    }
+    // if (!stripe || !elements) {
+    //   return;
+    // }
 
     setIsLoading(true);
 
     try {
+      const userId = localStorage.getItem("user");
+
+      // Add customer email to customer and also UserId
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/stripe/update-customer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ customerId, email, userId }),
+        }
+      );
+
+      if (response.status !== 204) {
+        throw new Error("Failed to update customer");
+      }
+
+      // Confirm the payment that was created server side
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
@@ -86,9 +104,15 @@ const StripeForm = forwardRef(({ userEmail }, ref) => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} ref={ref}>
-      <LinkAuthenticationElement
-        id="link-authentication-element"
-        onChange={(e) => setEmail(email)}
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{
+          width: "100%",
+          display: "block",
+        }}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">

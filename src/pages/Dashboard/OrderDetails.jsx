@@ -104,6 +104,7 @@ const OrderDetails = () => {
       // Get order details from Firebase
       const orderRef = doc(db, "orders", currentOrder.orderId);
       const docSnap = await getDoc(orderRef);
+      console.log(docSnap.data());
 
       // Check if order exists
       if (currentOrder) {
@@ -323,6 +324,7 @@ const OrderDetails = () => {
               );
             })
             .catch((error) => {
+              console.log("Error with GPT API call:");
               console.log(error);
             })
             .finally(() => {

@@ -47,6 +47,7 @@ function DashboardPage() {
         }));
 
         setOrders(ordersList);
+        console.log("ordersList", ordersList);
 
         if (ordersList.length > 0) {
           setCurrentOrder(ordersList[0]);
