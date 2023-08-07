@@ -20,8 +20,10 @@ function ProfileModal({ isOpen, onClose }) {
   const handleLogout = () => {
     logout();
     onClose();
-    navigate("/dashboard");
+    navigate("/");
   };
+
+  const email = user ? user.email : null;
 
   return (
     <Modal
@@ -40,7 +42,7 @@ function ProfileModal({ isOpen, onClose }) {
             }}
           >
             <MdOutlinePersonOutline size={20} />
-            Profile ({user.email})
+            Profile ({email === null ? <>Anonymous</> : <>{email}</>})
           </div>
           <div
             className="sub-container"

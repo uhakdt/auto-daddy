@@ -13,7 +13,6 @@ function Sidebar({ isSidebarOpen, toggleSidebar }) {
 
   const handleOrderSelect = (order) => {
     setCurrentOrder(order);
-    localStorage.clear();
   };
 
   return (

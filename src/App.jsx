@@ -11,10 +11,6 @@ export const App = ({ children }) => {
     saveDataToStorage(data);
   }, [data]);
 
-  const setUserId = (value) => {
-    setData((prevData) => ({ ...prevData, userId: value }));
-  };
-
   const setRegistrationNumber = (value) => {
     setData((prevData) => ({ ...prevData, registrationNumber: value }));
   };
@@ -52,18 +48,10 @@ export const App = ({ children }) => {
     }));
   };
 
-  const setUser = (value) => {
-    setData((prevData) => ({
-      ...prevData,
-      user: value,
-    }));
-  };
-
   return (
     <AppContext.Provider
       value={{
         ...data,
-        setUserId,
         setRegistrationNumber,
         setVehicleFreeData,
         setVehicleDataBasic,
@@ -71,7 +59,6 @@ export const App = ({ children }) => {
         setPreviousPage,
         setOrders,
         setCurrentOrder,
-        setUser,
       }}
     >
       <BrowserRouter>

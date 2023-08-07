@@ -11,12 +11,10 @@ export const useHandleLogout = () => {
     try {
       logout();
       sessionStorage.removeItem("appData");
-      appData.setUserId(initialData.userId);
       appData.setVehicleFreeData(initialData.vehicleFreeData);
       appData.setVehicleDataBasic(initialData.vehicleBasicData);
       appData.setVehicleDataFull(initialData.vehicleFullData);
       appData.setPreviousPage(initialData.previousPage);
-      appData.setUser(initialData.user);
       navigate("/");
     } catch (error) {
       console.error("Logout error:", error);

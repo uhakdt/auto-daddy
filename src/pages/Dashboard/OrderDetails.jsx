@@ -30,7 +30,6 @@ import ImportantChecks from "./OrderDetails/ImportantChecks";
 
 import NewOrder from "./NewOrder/NewOrder";
 
-import { useOrderDetails } from "../../hooks/orderHooks";
 import {
   handleDownloadReport,
   handleEmailReport,

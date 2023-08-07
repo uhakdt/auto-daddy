@@ -41,7 +41,7 @@ export const handleEmailReport = async (
 ) => {
   try {
     const vehicleRegMark = free.RegistrationNumber;
-    const userId = auth.currentUser.uid;
+    const uid = auth.currentUser.uid;
     const email = auth.currentUser.email;
 
     const response = await fetch(
@@ -51,7 +51,7 @@ export const handleEmailReport = async (
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ orderId, vehicleRegMark, userId, email }),
+        body: JSON.stringify({ orderId, vehicleRegMark, uid, email }),
       }
     );
 
@@ -72,7 +72,7 @@ export const handleEmailReport = async (
 export const getReportUrl = async (orderId, free, auth) => {
   try {
     const vehicleRegMark = free.RegistrationNumber;
-    const userId = auth.currentUser.uid;
+    const uid = auth.currentUser.uid;
     const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
 
     const response = await fetch(url, {
@@ -80,7 +80,7 @@ export const getReportUrl = async (orderId, free, auth) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ orderId, vehicleRegMark, userId }),
+      body: JSON.stringify({ orderId, vehicleRegMark, uid }),
     });
 
     if (!response.ok) {
@@ -94,11 +94,7 @@ export const getReportUrl = async (orderId, free, auth) => {
   }
 };
 
-export const getSampleReportUrl = async (
-  orderId,
-  registrationNumber,
-  userId
-) => {
+export const getSampleReportUrl = async (orderId, registrationNumber, uid) => {
   try {
     const vehicleRegMark = registrationNumber;
     const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
@@ -108,7 +104,7 @@ export const getSampleReportUrl = async (
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ orderId, vehicleRegMark, userId }),
+      body: JSON.stringify({ orderId, vehicleRegMark, uid }),
     });
 
     if (!response.ok) {

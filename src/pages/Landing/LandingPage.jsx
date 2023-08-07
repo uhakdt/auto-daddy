@@ -4,8 +4,6 @@ import axios from "axios";
 
 import { auth } from "../../firebase";
 
-import { useHandleLogout } from "../../hooks/authHooks";
-
 import {
   Snackbar,
   SwipeableDrawer,
@@ -21,7 +19,6 @@ import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
 function LandingPage() {
-  localStorage.clear();
   const {
     setRegistrationNumber,
     vehicleFreeData,
@@ -41,8 +38,6 @@ function LandingPage() {
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
-
-  const handleLogout = useHandleLogout();
 
   const handleLogin = () => {
     setPreviousPage("/");
@@ -129,7 +124,9 @@ function LandingPage() {
     <div className="landing-container">
       <div className="landing-left">
         <div className="landing-header-container">
-          <h2 className="landing-logo">AutoDaddy</h2>
+          <h2 className="landing-logo" onClick={() => navigate("/")}>
+            AutoDaddy
+          </h2>
           {isMobile && (
             <div className="landing-menu-button">
               <IconButton
@@ -236,11 +233,6 @@ function LandingPage() {
                 Dashboard
               </button>
             </div>
-            <div className="landing-button-login-container">
-              <button className="landing-button-login" onClick={handleLogout}>
-                Logout
-              </button>
-            </div>
           </div>
         ) : (
           <div className="landing-right">
@@ -285,16 +277,6 @@ function LandingPage() {
                       }}
                     >
                       Dashboard
-                    </Button>
-                    <Button
-                      color="inherit"
-                      onClick={handleLogout}
-                      sx={{
-                        color: "black",
-                        fontSize: "14px",
-                      }}
-                    >
-                      Log out
                     </Button>
                   </>
                 ) : (

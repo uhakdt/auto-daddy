@@ -302,9 +302,7 @@ const PackagePage = () => {
                 <div className="package-right-header-button-container">
                   <button
                     className="package-right-header-button"
-                    onClick={() => {
-                      console.log("sample report");
-                    }}
+                    onClick={handleDownloadSampleReport}
                   >
                     View sample report
                   </button>

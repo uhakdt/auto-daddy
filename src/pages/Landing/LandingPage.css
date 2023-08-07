@@ -25,6 +25,7 @@
 .landing-logo {
   font-size: 1.5rem;
   color: #42224d;
+  cursor: pointer;
 }
 
 /* FORM */
