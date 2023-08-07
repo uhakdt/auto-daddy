@@ -6,7 +6,10 @@ import {
 } from "@stripe/react-stripe-js";
 import "./StripeForm.css";
 
+import { auth } from "../../../firebase";
+
 const StripeForm = forwardRef(({ customerId }, ref) => {
+  const user = auth.currentUser;
   const stripe = useStripe();
   const elements = useElements();
 
@@ -55,8 +58,6 @@ const StripeForm = forwardRef(({ customerId }, ref) => {
     setIsLoading(true);
 
     try {
-      const userId = localStorage.getItem("user");
-
       // Add customer email to customer and also UserId
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/stripe/update-customer`,
@@ -65,7 +66,7 @@ const StripeForm = forwardRef(({ customerId }, ref) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ customerId, email, userId }),
+          body: JSON.stringify({ customerId, email, userId: user.uid }),
         }
       );
 

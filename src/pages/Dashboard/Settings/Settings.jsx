@@ -1,17 +1,16 @@
 import React from "react";
 
 import { doc, deleteDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import { db, logout } from "../../../firebase";
+import { db, logout, auth } from "../../../firebase";
 
 import { Button } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import "./Settings.css";
 
-const auth = getAuth();
-
 const Settings = () => {
+  const user = auth.currentUser;
+
   const handleDeleteAccount = async () => {
     if (
       window.confirm(
@@ -19,10 +18,10 @@ const Settings = () => {
       )
     ) {
       try {
-        const docRef = doc(db, "users", auth.currentUser.uid);
+        const docRef = doc(db, "users", user.uid);
         await deleteDoc(docRef);
 
-        await auth.currentUser.delete();
+        await user.delete();
 
         logout();
       } catch (error) {
@@ -39,7 +38,7 @@ const Settings = () => {
       <h1>Settings</h1>
 
       <div className="user-profile">
-        <h3 className="email">Email: {auth.currentUser.email}</h3>
+        <h3 className="email">Email: {user.email}</h3>
       </div>
 
       <Button

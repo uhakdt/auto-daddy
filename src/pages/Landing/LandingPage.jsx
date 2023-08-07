@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 
 import { useHandleLogout } from "../../hooks/authHooks";
@@ -29,7 +28,7 @@ function LandingPage() {
     setVehicleFreeData,
     setPreviousPage,
   } = useContext(AppContext);
-  const [user, loading] = useAuthState(auth);
+  const user = auth.currentUser;
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -274,7 +273,7 @@ function LandingPage() {
           <div>
             <List>
               <div>
-                {loading ? null : user ? (
+                {user ? (
                   <>
                     <Button
                       color="inherit"

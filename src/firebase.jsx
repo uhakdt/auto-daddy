@@ -12,16 +12,7 @@ import {
   signOut,
   signInAnonymously,
 } from "firebase/auth";
-import {
-  getFirestore,
-  query,
-  getDocs,
-  doc,
-  getDoc,
-  collection,
-  where,
-  addDoc,
-} from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -46,139 +37,71 @@ const appleProvider = new OAuthProvider("apple.com");
 
 const signInWithGoogle = async () => {
   try {
-    const res = await signInWithPopup(auth, googleProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-      });
-    }
-    localStorage.setItem("user", user.uid);
+    await signInWithPopup(auth, googleProvider);
+    return { error: null };
   } catch (err) {
-    console.error(err);
     alert(err.message);
+    return { error: err };
   }
 };
 
 const signInWithApple = async () => {
   try {
-    const res = await signInWithPopup(auth, appleProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "apple",
-        email: user.email,
-      });
-    }
-    localStorage.setItem("user", user.uid);
+    await signInWithPopup(auth, appleProvider);
+    return { error: null };
   } catch (err) {
-    console.error(err);
     alert(err.message);
+    return { error: err };
   }
 };
 
 const signInWithFacebook = async () => {
   try {
-    const res = await signInWithPopup(auth, facebookProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "facebook",
-        email: user.email,
-      });
-    }
+    await signInWithPopup(auth, facebookProvider);
+    return { error: null };
   } catch (err) {
-    console.error(err);
     alert(err.message);
+    return { error: err };
   }
 };
 
 const signInWithTwitter = async () => {
   try {
-    const res = await signInWithPopup(auth, twitterProvider);
-    const user = res.user;
-    const q = query(collection(db, "users"), where("uid", "==", user.uid));
-    const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        name: user.displayName,
-        authProvider: "twitter",
-        email: user.email,
-      });
-    }
+    await signInWithPopup(auth, twitterProvider);
+    return { error: null };
   } catch (err) {
-    console.error(err);
     alert(err.message);
+    return { error: err };
   }
 };
 
 const logInWithEmailAndPassword = async (email, password) => {
   try {
-    const res = await signInWithEmailAndPassword(auth, email, password);
-
-    localStorage.setItem("user", res.user.uid);
+    await signInWithEmailAndPassword(auth, email, password);
     return { error: null };
   } catch (err) {
-    console.error(err);
-    // return the error instead of alerting
-    return { error: err.message };
+    alert(err.message);
+    return { error: err };
   }
 };
 
 const signInAsGuest = async () => {
   try {
-    localStorage.removeItem("user");
-    const res = await signInAnonymously(auth);
-
-    //add user and set the response into local storage
-    await addDoc(collection(db, "users"), {
-      uid: res.user.uid,
-      name: "Guest User",
-      authProvider: "local",
-      dateTime: new Date(),
-    });
-
-    localStorage.setItem("user", res.user.uid);
-
+    await signInAnonymously(auth);
     return { error: null };
   } catch (err) {
-    console.error(err);
     alert(err.message);
+    return { error: err };
   }
 };
 
 const registerWithEmailAndPassword = async (name, email, password) => {
   try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      name,
-      authProvider: "local",
-      email,
-    });
-
-    localStorage.setItem("user", user.uid);
-
+    await createUserWithEmailAndPassword(auth, email, password);
     return { error: null };
   } catch (err) {
-    console.error(err);
-    // return the error instead of alerting
-    return { error: err.message };
+    alert(err.message);
+    return { error: err };
   }
 };
 

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { auth, db } from "../../firebase";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+
+import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
+import { auth } from "../../firebase";
+
 import { AppContext } from "../../appContext";
+
 import Box from "@mui/material/Box";
 import CarLoader from "../../SVGs/CarLoader";
 import "./DashboardPage.css";
@@ -22,8 +25,6 @@ function DashboardPage() {
     setOrders,
   } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(true);
-  // const [showSettings, setShowSettings] = useState(false);
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -34,44 +35,20 @@ function DashboardPage() {
     setPreviousPage(false);
     setVehicleFreeData(undefined);
 
-    const fetchOrders = async (user) => {
-      const startTime = Date.now();
-
+    const getOrders = async () => {
+      const user = auth.currentUser;
       if (user) {
-        const ordersRef = collection(db, "orders");
-        const q = query(
-          ordersRef,
-          where("userId", "==", user.uid),
-          orderBy("dateTime", "desc")
-        );
-        const snapshot = await getDocs(q);
-
-        let ordersList = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        const ordersList = await getOrdersByUserId(user.uid);
 
         setOrders(ordersList);
-        console.log("ordersList", ordersList);
-
         if (ordersList.length > 0) {
           setCurrentOrder(ordersList[0]);
         }
-
-        const timeDiff = Date.now() - startTime;
-        const remainingTime = Math.max(1000 - timeDiff, 0);
-        setTimeout(() => setIsLoading(false), remainingTime);
-      } else {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
 
-    const unsubscribe = auth.onAuthStateChanged(fetchOrders);
-
-    // Cleanup function:
-    return () => {
-      unsubscribe();
-    };
+    getOrders();
   }, []);
 
   if (isLoading) {

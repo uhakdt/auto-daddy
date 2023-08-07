@@ -8,8 +8,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-
 import { RiCarLine } from "react-icons/ri";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { MdOutlineClose } from "react-icons/md";
@@ -20,8 +18,6 @@ import { Link, Snackbar } from "@mui/material";
 import { AppContext } from "../../appContext";
 
 import StripeForm from "./Checkout/StripeForm";
-import PayPalForm from "./Checkout/PayPalForm";
-import PayByStripeButton from "./Checkout/PayByStripeButton";
 import LoginForm from "./Auth/LoginForm";
 import RegisterForm from "./Auth/RegisterForm";
 
@@ -75,7 +71,6 @@ const PackagePage = () => {
 
   const [formType, setFormType] = useState("login");
   const [payments, setPayments] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("");
 
   // Auth Form states
   const [loginEmail, setLoginEmail] = useState("");
@@ -86,18 +81,7 @@ const PackagePage = () => {
 
   const navigate = useNavigate();
 
-  const handleDrive = () => {
-    setOpen(true);
-    setPayments(true);
-
-    if (typeof vehicleFreeData === "undefined") {
-      alert("Please enter a license plate number.");
-      navigate("/");
-      return;
-    }
-  };
-
-  const handleStripeSubmit = (price, vehicleFreeData) => {
+  const openCheckoutAndCreatePaymentIntent = (price, vehicleFreeData) => {
     setOpen(true);
     setPayments(true);
 
@@ -376,7 +360,9 @@ const PackagePage = () => {
             </div>
             <div
               className="package-right-content-button-container"
-              onClick={() => handleStripeSubmit(1490, vehicleFreeData)}
+              onClick={() =>
+                openCheckoutAndCreatePaymentIntent(1490, vehicleFreeData)
+              }
             >
               Get Full Report
             </div>
@@ -481,22 +467,6 @@ const PackagePage = () => {
 
               <div className="package-pay-right-container">
                 <div className="package-pay-right-content">
-                  <div className="package-pay-right-content-buttons-container">
-                    {/* <button className="package-pay-right-content-button-apple">
-                      <img
-                        height={35}
-                        width={150}
-                        src={`${process.env.PUBLIC_URL}/logos/applepay-white-logo.svg`}
-                        alt="Logo"
-                      />
-                    </button> */}
-                    <PayPalScriptProvider options={initialOptions}>
-                      <PayPalForm />
-                    </PayPalScriptProvider>
-                  </div>
-                  <div className="package-pay-right-content-divider">
-                    <span>Or pay with card</span>
-                  </div>
                   {clientSecret && (
                     <Elements
                       options={{
@@ -519,14 +489,6 @@ const PackagePage = () => {
                   <MdOutlineClose size={25} />
                 </div>
               </div>
-              {/* <button onClick={() => handleStripeSubmit(1500, vehicleFreeData)}>
-                Stripe
-              </button>
-              <button onClick={() => setPaymentMethod("paypal")}>
-                <PayPalScriptProvider options={initialOptions}>
-                  <PayPalForm />
-                </PayPalScriptProvider>
-              </button> */}
             </div>
           )}
         </div>

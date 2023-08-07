@@ -1,8 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 
-import { AppContext } from "../../../appContext";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../firebase";
+import { logout, auth } from "../../../firebase";
 
 import Modal from "@mui/material/Modal";
 import {
@@ -14,7 +13,8 @@ import {
 import "./ProfileModal.css";
 
 function ProfileModal({ isOpen, onClose }) {
-  const { user, setUser } = useContext(AppContext);
+  const user = auth.currentUser;
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -40,7 +40,7 @@ function ProfileModal({ isOpen, onClose }) {
             }}
           >
             <MdOutlinePersonOutline size={20} />
-            Profile
+            Profile ({user.email})
           </div>
           <div
             className="sub-container"
