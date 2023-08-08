@@ -45,7 +45,7 @@ function Sidebar({
                     handleOrderSelect(order);
                   }}
                   className={`order-button-container ${
-                    currentOrder.orderId === order.orderId
+                    currentOrder && currentOrder.orderId === order.orderId
                       ? "order-button-container-selected"
                       : ""
                   }`}

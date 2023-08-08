@@ -8,10 +8,16 @@ import "@fontsource/roboto/700.css";
 import { App } from "./App.jsx";
 import reportWebVitals from "./reportWebVitals";
 
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

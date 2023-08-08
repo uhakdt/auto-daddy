@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
+import { useQuery } from "react-query";
+
 import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -17,44 +19,44 @@ import Header from "./Header/Header";
 import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 
+const fetchOrdersByAuthUser = async () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            const ordersList = await getOrdersByUserId(user.uid);
+            resolve(ordersList);
+          } catch (error) {
+            reject(error);
+          }
+        } else {
+          resolve([]);
+        }
+      });
+    }, 2000); // TODO: Need to be fixed
+  });
+};
+
 function DashboardPage() {
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
-  const [orders, setOrders] = useState([]);
   const [currentOrder, setCurrentOrder] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  useEffect(() => {
-    setPreviousPage(false);
-    setVehicleFreeData(undefined);
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getOrders(user.uid);
-      } else {
-        setIsLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [isLoading]);
-
-  const getOrders = async (uid) => {
-    try {
-      const ordersList = await getOrdersByUserId(uid);
-      setOrders(ordersList);
+  const {
+    data: orders,
+    isLoading,
+    error,
+  } = useQuery("orders", fetchOrdersByAuthUser, {
+    onSuccess: (ordersList) => {
       if (ordersList.length > 0) {
         setCurrentOrder(ordersList[0]);
       }
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Failed to fetch orders:", error);
-      setIsLoading(false);
-    }
+    },
+  });
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   if (isLoading) {
@@ -63,6 +65,11 @@ function DashboardPage() {
         <CarLoader />
       </div>
     );
+  }
+
+  if (error) {
+    console.error("Failed to fetch orders:", error);
+    // Handle the error accordingly
   }
 
   return (
