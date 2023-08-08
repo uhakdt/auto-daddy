@@ -3,8 +3,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "react-query";
 
 import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 import { AppContext } from "../../appContext";
 
@@ -18,6 +19,7 @@ import Settings from "./Settings/Settings";
 import Header from "./Header/Header";
 import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
+import { useLocation } from "react-router-dom";
 
 const fetchOrdersByAuthUser = async () => {
   return new Promise((resolve, reject) => {
@@ -38,7 +40,16 @@ const fetchOrdersByAuthUser = async () => {
   });
 };
 
+const getOrderById = async (orderId) => {
+  const ordersRef = collection(db, "orders");
+  const q = query(ordersRef, where("orderId", "==", orderId));
+  const querySnapshot = await getDocs(q);
+  const order = querySnapshot.docs.map((doc) => doc.data());
+  return order;
+};
+
 function DashboardPage() {
+  const location = useLocation();
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
   const [currentOrder, setCurrentOrder] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -54,6 +65,17 @@ function DashboardPage() {
       }
     },
   });
+
+  // Check for orderId in URL query parameters
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const orderIdFromUrl = params.get("orderId");
+    if (orderIdFromUrl) {
+      getOrderById(orderIdFromUrl).then((order) => {
+        setCurrentOrder(order[0]);
+      });
+    }
+  }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);

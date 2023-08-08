@@ -88,7 +88,7 @@ const OrderDetails = ({ currentOrder }) => {
     const fetchImageUrl = async () => {
       try {
         const fileName = `${currentOrder.orderId}_image_0.jpg`;
-        const filePath = `user_files/${auth.currentUser.uid}/car_images/${fileName}`;
+        const filePath = `user_files/${currentOrder.uid}/car_images/${fileName}`;
         const url = await getDownloadURL(ref(storage, filePath));
         setImageUrl(url);
       } catch (err) {
