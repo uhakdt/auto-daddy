@@ -6,8 +6,7 @@ import { AppContext } from "../../../appContext";
 
 const socket = io(process.env.REACT_APP_API_CHAT_URL);
 
-const Chat = () => {
-  const { currentOrder } = useContext(AppContext);
+const Chat = ({ currentOrder }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);

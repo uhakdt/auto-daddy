@@ -8,9 +8,14 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 
-function Sidebar({ isSidebarOpen, toggleSidebar }) {
-  const { orders, currentOrder, setCurrentOrder } = useContext(AppContext);
-
+function Sidebar({
+  orders,
+  currentOrder,
+  setCurrentOrder,
+  isSidebarOpen,
+  toggleSidebar,
+}) {
+  console.log("Sidebar Orders:", orders);
   const handleOrderSelect = (order) => {
     setCurrentOrder(order);
   };

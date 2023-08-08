@@ -42,9 +42,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const auth = getAuth();
 
-const OrderDetails = () => {
-  const { currentOrder, setCurrentOrder } = useContext(AppContext);
-  console.log(currentOrder);
+const OrderDetails = ({ currentOrder }) => {
+  console.log("OrderDetails");
+  console.log("OrderDetails currentOrder", currentOrder);
   const [free, setFree] = useState(null);
   const [basic, setBasic] = useState(null);
   const [full, setFull] = useState(null);
@@ -338,7 +338,7 @@ const OrderDetails = () => {
       }
     };
 
-    if (currentOrder.orderId) fetchOrder();
+    if (currentOrder) fetchOrder();
   }, [currentOrder]);
 
   const saveAIContentToFirebase = async (orderId, aiContent, orderRef) => {

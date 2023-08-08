@@ -42,6 +42,7 @@ const initialOptions = {
 };
 
 const PackagePage = () => {
+  console.log("PackagePage");
   const {
     registrationNumber,
     setRegistrationNumber,
@@ -67,7 +68,7 @@ const PackagePage = () => {
 
   // Payment Form states
   const [clientSecret, setClientSecret] = useState("");
-  const [customerId, setCustomerId] = useState("");
+  const [paymentIntentId, setPaymentIntentId] = useState("");
 
   const [formType, setFormType] = useState("login");
   const [payments, setPayments] = useState(false);
@@ -104,8 +105,8 @@ const PackagePage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setPaymentIntentId(data.paymentIntentId);
         setClientSecret(data.clientSecret);
-        setCustomerId(data.customerId);
       });
   };
 
@@ -473,7 +474,7 @@ const PackagePage = () => {
                       }}
                       stripe={stripePromise}
                     >
-                      <StripeForm customerId={customerId} />
+                      <StripeForm paymentIntentId={paymentIntentId} />
                     </Elements>
                   )}
                 </div>

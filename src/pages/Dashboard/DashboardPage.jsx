@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
 import { auth } from "../../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 import { AppContext } from "../../appContext";
 
@@ -17,13 +18,9 @@ import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 
 function DashboardPage() {
-  const {
-    setPreviousPage,
-    setVehicleFreeData,
-    currentOrder,
-    setCurrentOrder,
-    setOrders,
-  } = useContext(AppContext);
+  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
+  const [orders, setOrders] = useState([]);
+  const [currentOrder, setCurrentOrder] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -35,21 +32,30 @@ function DashboardPage() {
     setPreviousPage(false);
     setVehicleFreeData(undefined);
 
-    const getOrders = async () => {
-      const user = auth.currentUser;
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const ordersList = await getOrdersByUserId(user.uid);
+        getOrders(user.uid);
+      } else {
+        setIsLoading(false);
+      }
+    });
 
-        setOrders(ordersList);
-        if (ordersList.length > 0) {
-          setCurrentOrder(ordersList[0]);
-        }
+    return () => unsubscribe();
+  }, [isLoading]);
+
+  const getOrders = async (uid) => {
+    try {
+      const ordersList = await getOrdersByUserId(uid);
+      setOrders(ordersList);
+      if (ordersList.length > 0) {
+        setCurrentOrder(ordersList[0]);
       }
       setIsLoading(false);
-    };
-
-    getOrders();
-  }, []);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+      setIsLoading(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -65,15 +71,32 @@ function DashboardPage() {
       sx={{ display: "flex", flexDirection: "column" }}
     >
       <Header />
-      <Box className="dashboard-content" sx={{ display: "flex", flex: "1" }}>
-        <Sidebar
-          className="sidebar"
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-        />
-        {currentOrder && <OrderDetails className="order-details" />}
-      </Box>
-      <Chat />
+      {orders.length !== 0 ? (
+        <>
+          <Box
+            className="dashboard-content"
+            sx={{ display: "flex", flex: "1" }}
+          >
+            <Sidebar
+              className="sidebar"
+              orders={orders}
+              currentOrder={currentOrder}
+              setCurrentOrder={setCurrentOrder}
+              isSidebarOpen={isSidebarOpen}
+              toggleSidebar={toggleSidebar}
+            />
+            {currentOrder && (
+              <OrderDetails
+                currentOrder={currentOrder}
+                className="order-details"
+              />
+            )}
+          </Box>
+          <Chat currentOrder={currentOrder} />
+        </>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 }

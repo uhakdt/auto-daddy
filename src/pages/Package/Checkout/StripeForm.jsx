@@ -8,7 +8,7 @@ import "./StripeForm.css";
 
 import { auth } from "../../../firebase";
 
-const StripeForm = forwardRef(({ customerId }, ref) => {
+const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
   const user = auth.currentUser;
   const stripe = useStripe();
   const elements = useElements();
@@ -51,27 +51,26 @@ const StripeForm = forwardRef(({ customerId }, ref) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // if (!stripe || !elements) {
-    //   return;
-    // }
+    if (!stripe || !elements) {
+      return;
+    }
 
     setIsLoading(true);
 
     try {
-      // Add customer email to customer and also uid
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/stripe/update-customer`,
+      const updatePaymentIntentResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/stripe/update-payment-intent`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ customerId, email, uid: user.uid }),
+          body: JSON.stringify({ paymentIntentId, uid: user.uid }),
         }
       );
 
-      if (response.status !== 204) {
-        throw new Error("Failed to update customer");
+      if (updatePaymentIntentResponse.status !== 204) {
+        throw new Error("Failed to update payment intent");
       }
 
       // Confirm the payment that was created server side
