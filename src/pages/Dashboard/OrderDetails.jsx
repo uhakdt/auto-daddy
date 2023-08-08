@@ -43,8 +43,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const auth = getAuth();
 
 const OrderDetails = ({ currentOrder }) => {
-  console.log("OrderDetails");
-  console.log("OrderDetails currentOrder", currentOrder);
   const [free, setFree] = useState(null);
   const [basic, setBasic] = useState(null);
   const [full, setFull] = useState(null);
@@ -106,7 +104,6 @@ const OrderDetails = ({ currentOrder }) => {
       // Get order details from Firebase
       const orderRef = doc(db, "orders", currentOrder.orderId);
       const docSnap = await getDoc(orderRef);
-      console.log(docSnap.data());
 
       // Check if order exists
       if (currentOrder) {
@@ -357,7 +354,6 @@ const OrderDetails = ({ currentOrder }) => {
 
   useEffect(() => {
     if (currentOrder) {
-      console.log(currentOrder);
       setFree(currentOrder.vehicleFreeData);
       setBasic(currentOrder.data.VehicleAndMotHistory);
       setFull(currentOrder.data.VdiCheckFull);

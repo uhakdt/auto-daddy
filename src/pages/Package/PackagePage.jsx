@@ -42,7 +42,6 @@ const initialOptions = {
 };
 
 const PackagePage = () => {
-  console.log("PackagePage");
   const {
     registrationNumber,
     setRegistrationNumber,

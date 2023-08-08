@@ -9,12 +9,10 @@ export const getOrdersByUserId = async (uid) => {
     orderBy("dateTime", "desc")
   );
   const snapshot = await getDocs(q);
-  console.log(snapshot);
   const ordersList = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
 
-  console.log(ordersList);
   return ordersList;
 };

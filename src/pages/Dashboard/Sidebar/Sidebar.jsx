@@ -15,7 +15,6 @@ function Sidebar({
   isSidebarOpen,
   toggleSidebar,
 }) {
-  console.log("Sidebar Orders:", orders);
   const handleOrderSelect = (order) => {
     setCurrentOrder(order);
   };
@@ -37,35 +36,41 @@ function Sidebar({
               New Search
             </button>
           </div>
-          {orders.map((order) => (
-            <div
-              key={order.orderId}
-              onClick={() => {
-                handleOrderSelect(order);
-              }}
-              className={`order-button-container ${
-                currentOrder.orderId === order.orderId
-                  ? "order-button-container-selected"
-                  : ""
-              }`}
-            >
-              <div>
-                <TbReportAnalytics size={25} color="#42224d" />
-              </div>
-              <div className="order-button-results-container">
-                <div className="order-button-results-registration-number">
-                  <span style={{ fontWeight: "bold" }}>GB</span>{" "}
-                  <span>{order?.vehicleFreeData.RegistrationNumber}</span>
+          {orders.length !== 0 ? (
+            <>
+              {orders.map((order) => (
+                <div
+                  key={order.orderId}
+                  onClick={() => {
+                    handleOrderSelect(order);
+                  }}
+                  className={`order-button-container ${
+                    currentOrder.orderId === order.orderId
+                      ? "order-button-container-selected"
+                      : ""
+                  }`}
+                >
+                  <div>
+                    <TbReportAnalytics size={25} color="#42224d" />
+                  </div>
+                  <div className="order-button-results-container">
+                    <div className="order-button-results-registration-number">
+                      <span style={{ fontWeight: "bold" }}>GB</span>{" "}
+                      <span>{order?.vehicleFreeData.RegistrationNumber}</span>
+                    </div>
+                    <div className="order-button-results-model">
+                      {CapitalizeEachWord(
+                        order?.data.VehicleAndMotHistory.VehicleRegistration
+                          .MakeModel
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="order-button-results-model">
-                  {CapitalizeEachWord(
-                    order?.data.VehicleAndMotHistory.VehicleRegistration
-                      .MakeModel
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
           {/* <IconButton onClick={onSelectSettings} className="settings-button">
             <SettingsIcon />
           </IconButton> */}

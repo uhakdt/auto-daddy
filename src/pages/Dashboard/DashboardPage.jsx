@@ -71,32 +71,20 @@ function DashboardPage() {
       sx={{ display: "flex", flexDirection: "column" }}
     >
       <Header />
-      {orders.length !== 0 ? (
-        <>
-          <Box
-            className="dashboard-content"
-            sx={{ display: "flex", flex: "1" }}
-          >
-            <Sidebar
-              className="sidebar"
-              orders={orders}
-              currentOrder={currentOrder}
-              setCurrentOrder={setCurrentOrder}
-              isSidebarOpen={isSidebarOpen}
-              toggleSidebar={toggleSidebar}
-            />
-            {currentOrder && (
-              <OrderDetails
-                currentOrder={currentOrder}
-                className="order-details"
-              />
-            )}
-          </Box>
-          <Chat currentOrder={currentOrder} />
-        </>
-      ) : (
-        <></>
-      )}
+      <Box className="dashboard-content" sx={{ display: "flex", flex: "1" }}>
+        <Sidebar
+          className="sidebar"
+          orders={orders}
+          currentOrder={currentOrder}
+          setCurrentOrder={setCurrentOrder}
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+        />
+        {currentOrder && (
+          <OrderDetails currentOrder={currentOrder} className="order-details" />
+        )}
+      </Box>
+      <Chat currentOrder={currentOrder} />
     </Box>
   );
 }
