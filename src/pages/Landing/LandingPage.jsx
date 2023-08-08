@@ -26,7 +26,7 @@ function LandingPage() {
     setPreviousPage,
   } = useContext(AppContext);
   const user = auth.currentUser;
-  const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
+  const [pattern] = useState(/^[A-Za-z0-9]{1,7}$/);
   const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
