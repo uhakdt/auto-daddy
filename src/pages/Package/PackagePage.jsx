@@ -18,8 +18,8 @@ import { Link, Snackbar } from "@mui/material";
 import { AppContext } from "../../appContext";
 
 import StripeForm from "./Checkout/StripeForm";
-import LoginForm from "./Auth/LoginForm";
-import RegisterForm from "./Auth/RegisterForm";
+import LoginForm from "../../components/LoginForm";
+import RegisterForm from "../../components/RegisterForm";
 
 import "./PackagePage.css";
 
@@ -424,6 +424,8 @@ const PackagePage = () => {
               setLoginEmail={setLoginEmail}
               loginPassword={loginPassword}
               setLoginPassword={setLoginPassword}
+              setOpen={setOpen}
+              page="package"
             />
           )}
           {!user && formType === "register" && (

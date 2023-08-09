@@ -3,7 +3,7 @@ import {
   logInWithEmailAndPassword,
   signInWithGoogle,
   signInAsGuest,
-} from "../../../firebase";
+} from "../firebase";
 
 import "./LoginForm.css";
 
@@ -13,12 +13,23 @@ const LoginForm = ({
   setLoginEmail,
   loginPassword,
   setLoginPassword,
+  setOpen,
+  page,
 }) => {
+  const handleSetOpen = () => {
+    if (page === "landing") {
+      setOpen(false);
+    }
+  };
+
   return (
     <div className="modal-content-auth">
       <button
         className="modal-content-auth-btn"
-        onClick={() => signInAsGuest()}
+        onClick={() => {
+          signInAsGuest();
+          handleSetOpen();
+        }}
       >
         Continue as Guest
       </button>
@@ -41,11 +52,20 @@ const LoginForm = ({
       </a>
       <button
         className="modal-content-auth-btn"
-        onClick={() => logInWithEmailAndPassword(loginEmail, loginPassword)}
+        onClick={() => {
+          logInWithEmailAndPassword(loginEmail, loginPassword);
+          handleSetOpen();
+        }}
       >
         Login
       </button>
-      <button className="modal-content-auth-google" onClick={signInWithGoogle}>
+      <button
+        className="modal-content-auth-google"
+        onClick={() => {
+          signInWithGoogle();
+          handleSetOpen();
+        }}
+      >
         <img
           alt="Google Logo"
           className="modal-content-auth-google-logo"

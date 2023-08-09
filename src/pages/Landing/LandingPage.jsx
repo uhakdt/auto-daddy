@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import { auth } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import {
   Snackbar,
@@ -18,6 +19,10 @@ import { VehicleFreeData } from "../../models/VehicleFreeData";
 import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
+import Modal from "@mui/material/Modal";
+import LoginForm from "../../components/LoginForm";
+import RegisterForm from "../../components/RegisterForm";
+
 function LandingPage() {
   const {
     setRegistrationNumber,
@@ -25,7 +30,9 @@ function LandingPage() {
     setVehicleFreeData,
     setPreviousPage,
   } = useContext(AppContext);
-  const user = auth.currentUser;
+  const [user, loading] = useAuthState(auth);
+  // const user = auth.currentUser;
+  const [open, setOpen] = React.useState(false);
   const [pattern] = useState(/^[A-Za-z0-9]{1,7}$/);
   const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -34,15 +41,26 @@ function LandingPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [formType, setFormType] = useState("login");
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleModalOpen = () => {
+    setOpen(true);
+  };
+
   const isMobile =
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
-
-  const handleLogin = () => {
-    setPreviousPage("/");
-    navigate("/auth/login");
-  };
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -99,7 +117,7 @@ function LandingPage() {
     } else {
       setPreviousPage("/");
     }
-  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
+  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData, user]);
 
   if (isLoading) {
     return (
@@ -237,7 +255,10 @@ function LandingPage() {
         ) : (
           <div className="landing-right">
             <div className="landing-button-login-container">
-              <button className="landing-button-login" onClick={handleLogin}>
+              <button
+                className="landing-button-login"
+                onClick={handleModalOpen}
+              >
                 Login
               </button>
             </div>
@@ -280,37 +301,57 @@ function LandingPage() {
                     </Button>
                   </>
                 ) : (
-                  <>
-                    <Button
-                      color="inherit"
-                      onClick={() => {
-                        navigate("/auth/login");
-                        setPreviousPage("/");
-                      }}
-                      sx={{
-                        color: "black",
-                        fontSize: "14px",
-                        mr: "16px",
-                      }}
-                    >
-                      Login
-                    </Button>
-                    <button
-                      className="auth__btn"
-                      onClick={() => {
-                        navigate("/auth/register");
-                        setPreviousPage("/");
-                      }}
-                    >
-                      Sign Up
-                    </button>
-                  </>
+                  <Button
+                    color="inherit"
+                    onClick={handleModalOpen}
+                    sx={{
+                      color: "black",
+                      fontSize: "14px",
+                      mr: "16px",
+                    }}
+                  >
+                    Login
+                  </Button>
                 )}
               </div>
             </List>
           </div>
         </SwipeableDrawer>
       )}
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div>
+          {!user && formType === "login" && (
+            <LoginForm
+              setFormType={setFormType}
+              loginEmail={loginEmail}
+              setLoginEmail={setLoginEmail}
+              loginPassword={loginPassword}
+              setLoginPassword={setLoginPassword}
+              setOpen={setOpen}
+              page="landing"
+            />
+          )}
+          {!user && formType === "register" && (
+            <RegisterForm
+              setFormType={setFormType}
+              registerName={registerName}
+              setRegisterName={setRegisterName}
+              registerEmail={registerEmail}
+              setRegisterEmail={setRegisterEmail}
+              registerPassword={registerPassword}
+              setRegisterPassword={setRegisterPassword}
+              setOpen={setOpen}
+            />
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }

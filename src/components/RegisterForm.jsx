@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-} from "../../../firebase";
+import { registerWithEmailAndPassword, signInWithGoogle } from "../firebase";
 
 import "./RegisterForm.css";
 
