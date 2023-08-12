@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { AppContext } from "../../../appContext";
 
 const socket = io(process.env.REACT_APP_API_URL_WITHOUT_SUFFIX, {
-  path: "/api/v1",
+  path: "/api/v1/chat",
 });
 
 const Chat = ({ currentOrder }) => {
