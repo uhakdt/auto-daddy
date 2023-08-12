@@ -300,7 +300,7 @@ const OrderDetails = ({ currentOrder }) => {
           setAIContent(currentOrder["aiContent"]);
           setAIContentLoading(false);
         } else {
-          fetch(`${process.env.REACT_APP_API_GPT_URL}/gpt-summary`, {
+          fetch(`${process.env.REACT_APP_API_URL}/gpt/summary`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(currentOrder["extractedData"]),

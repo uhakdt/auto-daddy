@@ -4,7 +4,9 @@ import { FaUserAlt } from "react-icons/fa";
 import io from "socket.io-client";
 import { AppContext } from "../../../appContext";
 
-const socket = io(process.env.REACT_APP_API_CHAT_URL);
+const socket = io(process.env.REACT_APP_API_URL_WITHOUT_SUFFIX, {
+  path: "/api/v1",
+});
 
 const Chat = ({ currentOrder }) => {
   const [messages, setMessages] = useState([]);
