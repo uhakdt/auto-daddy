@@ -93,15 +93,18 @@ const OrderDetails = ({ currentOrder }) => {
 
   const fetchAIContent = async () => {
     try {
-      const response = await fetch("http://localhost:4242/api/v1/gpt/summary", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          extractedData: currentOrder["extractedData"],
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/gpt/summary`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            extractedData: currentOrder["extractedData"],
+          }),
+        }
+      );
 
       const aiContent = await response.json();
 
