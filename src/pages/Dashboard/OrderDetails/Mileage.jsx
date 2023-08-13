@@ -50,6 +50,13 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
       mileage: record.Mileage,
     })).reverse() || [];
 
+  const sortedMileageRecords =
+    full?.MileageRecordList?.slice().sort((a, b) => {
+      const dateA = new Date(a.DateOfInformation);
+      const dateB = new Date(b.DateOfInformation);
+      return dateB - dateA;
+    }) || [];
+
   return (
     <section ref={goToMileageSection} className="section">
       <div className="section-title">Mileage</div>
@@ -91,50 +98,39 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
             {full?.MileageRecordList?.length > 0 && (
               <>
                 <TableRow
-                  item={
-                    full?.MileageRecordList[full.MileageRecordList.length - 1]
-                  }
-                  title="First Registration"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {full?.MileageRecordList[full.MileageRecordList.length - 1]
-                    .DateOfInformation || "Unknown"}
-                </TableRow>
-                <TableRow
-                  item={full?.MileageRecordList[0]}
+                  item={sortedMileageRecords[0]?.DateOfInformation}
                   title="Last Registration"
                   colour="#6f508c"
                   last={false}
                 >
-                  {full?.MileageRecordList[0]?.DateOfInformation || "Unknown"}
+                  {sortedMileageRecords[0]?.DateOfInformation || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={full?.MileageRecordList[0]}
+                  item={sortedMileageRecords[0]?.Mileage}
                   title="Last MOT Mileage"
                   colour="#6f508c"
                   last={false}
                 >
-                  {full?.MileageRecordList[0]?.Mileage || "Unknown"}
+                  {sortedMileageRecords[0]?.Mileage || "Unknown"}
                 </TableRow>
                 <TableRow
-                  item={CalcAvgMileAYear(full?.MileageRecordList)}
+                  item={CalcAvgMileAYear(sortedMileageRecords)}
                   title="Average Mileage"
                   colour="#6f508c"
                   last={false}
                 >
                   {`${
-                    CalcAvgMileAYear(full?.MileageRecordList) || "Unknown"
+                    CalcAvgMileAYear(sortedMileageRecords) || "Unknown"
                   } p/year`}
                 </TableRow>
                 <TableRow
-                  item={CalcLastYearMile(full?.MileageRecordList)}
+                  item={CalcLastYearMile(sortedMileageRecords)}
                   title="Mileage Last Year"
                   colour="#6f508c"
                   last={true}
                 >
                   {`${
-                    CalcLastYearMile(full?.MileageRecordList) || "Unknown"
+                    CalcLastYearMile(sortedMileageRecords) || "Unknown"
                   } miles`}
                 </TableRow>
               </>
@@ -165,7 +161,7 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
             />
           </LineChart>
         </div>
-        {full?.MileageRecordList?.map((x, i) => {
+        {sortedMileageRecords?.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">
               <div className="section-table">
