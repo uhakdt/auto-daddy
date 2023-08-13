@@ -49,9 +49,9 @@ const getOrderById = async (orderId) => {
 };
 
 function DashboardPage() {
+  const { currentOrder, setCurrentOrder } = useContext(AppContext);
   const location = useLocation();
   const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
-  const [currentOrder, setCurrentOrder] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const {
@@ -66,16 +66,15 @@ function DashboardPage() {
     },
   });
 
-  // Check for orderId in URL query parameters
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const orderIdFromUrl = params.get("orderId");
-    if (orderIdFromUrl) {
-      getOrderById(orderIdFromUrl).then((order) => {
-        setCurrentOrder(order[0]);
-      });
-    }
-  }, [location]);
+  const params = new URLSearchParams(location.search);
+  const orderIdFromUrl = params.get("orderId");
+  if (orderIdFromUrl) {
+    getOrderById(orderIdFromUrl).then((order) => {
+      setCurrentOrder(order[0]);
+    });
+  }
+  // useEffect(() => {
+  // }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -104,8 +103,6 @@ function DashboardPage() {
         <Sidebar
           className="sidebar"
           orders={orders}
-          currentOrder={currentOrder}
-          setCurrentOrder={setCurrentOrder}
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={toggleSidebar}
         />

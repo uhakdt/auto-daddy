@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 
-import { storage, db } from "../../firebase";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { storage, db, auth } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { ref, getDownloadURL } from "firebase/storage";
-import { AppContext } from "../../appContext";
 
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
@@ -39,8 +37,6 @@ import FormatDate from "../../auxiliaryFunctions/dateFunctions";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
 });
-
-const auth = getAuth();
 
 const OrderDetails = ({ currentOrder }) => {
   const [free, setFree] = useState(null);
@@ -77,6 +73,17 @@ const OrderDetails = ({ currentOrder }) => {
     });
   };
 
+  const fetchImageUrl = async () => {
+    try {
+      const fileName = `${currentOrder.orderId}_image_0.jpg`;
+      const filePath = `user_files/${currentOrder.uid}/car_images/${fileName}`;
+      const url = await getDownloadURL(ref(storage, filePath));
+      setImageUrl(url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -84,271 +91,15 @@ const OrderDetails = ({ currentOrder }) => {
     setError({ status: false, message: "" });
   };
 
-  useEffect(() => {
-    const fetchImageUrl = async () => {
-      try {
-        const fileName = `${currentOrder.orderId}_image_0.jpg`;
-        const filePath = `user_files/${currentOrder.uid}/car_images/${fileName}`;
-        const url = await getDownloadURL(ref(storage, filePath));
-        setImageUrl(url);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    if (currentOrder) fetchImageUrl();
-  }, [currentOrder]);
-
-  useEffect(() => {
-    const fetchOrder = async () => {
-      // Get order details from Firebase
-      const orderRef = doc(db, "orders", currentOrder.orderId);
-      const docSnap = await getDoc(orderRef);
-
-      // Check if order exists
-      if (currentOrder) {
-        // setCurrentOrder(docSnap.data());
-        setWindowData([
-          {
-            title: "TAX",
-            details: `Expires: ${FormatDate(
-              currentOrder.vehicleFreeData.TaxDueDate
-            )}`,
-            onClick: () => scrollToRef(goToTAXSection),
-            gradientColor:
-              currentOrder.vehicleFreeData.TaxStatus === "Taxed"
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: false,
-          },
-          {
-            title: "MOT",
-            details: `Expires: ${FormatDate(
-              currentOrder.vehicleFreeData.MotExpiryDate
-            )}`,
-            onClick: () => scrollToRef(goToMOTSection),
-            gradientColor:
-              currentOrder.vehicleFreeData.MotStatus === "Valid"
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: false,
-          },
-          {
-            title: "Finances",
-            details:
-              currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
-            onClick:
-              currentOrder.data.VdiCheckFull.FinanceRecordCount !== 0
-                ? () => scrollToRef(goToFinanceSection)
-                : null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: false,
-          },
-          {
-            title: "Write Off",
-            details:
-              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
-            onClick:
-              currentOrder.data.VdiCheckFull.WrittenOff !== false &&
-              currentOrder.data.VdiCheckFull.WriteOffRecordCount !== 0
-                ? () => scrollToRef(goToWriteOffSection)
-                : null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.WrittenOff === false &&
-              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover:
-              currentOrder.data.VdiCheckFull.WrittenOff === false &&
-              currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0,
-          },
-          {
-            title: "Export",
-            details:
-              currentOrder.data.VdiCheckFull.Imported === false &&
-              currentOrder.data.VdiCheckFull.Exported === false
-                ? "No Records"
-                : "Click to View Details",
-            onClick:
-              currentOrder.data.VdiCheckFull.Imported !== false &&
-              currentOrder.data.VdiCheckFull.Exported !== false
-                ? () => scrollToRef(goToImportExportSection)
-                : null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.Imported === false &&
-              currentOrder.data.VdiCheckFull.Exported === false
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover:
-              currentOrder.data.VdiCheckFull.Imported === false &&
-              currentOrder.data.VdiCheckFull.Exported === false,
-          },
-          {
-            title: "Scrapped",
-            details:
-              currentOrder.data.VdiCheckFull.Scrapped === false
-                ? "No Records"
-                : `Scrap Date: ${FormatDate(
-                    currentOrder.data.VdiCheckFull.ScrapDate
-                  )}`,
-            onClick: null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.Scrapped === false
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: true,
-          },
-          {
-            title: "Colour",
-            details:
-              currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
-              currentOrder.data.VdiCheckFull.ColourChangeCount === 0
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
-            onClick: null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
-              currentOrder.data.VdiCheckFull.ColourChangeCount === 0
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: true,
-          },
-          {
-            title: "Plate",
-            details:
-              currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
-              currentOrder.data.VdiCheckFull.PlateChangeCount === 0
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
-            onClick:
-              currentOrder.data.VdiCheckFull.PlateChangeCount > 0
-                ? () => scrollToRef(goToPlateSection)
-                : null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.PlateChangeCount < 2
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover:
-              currentOrder.data.VdiCheckFull.PlateChangeCount === 0 ||
-              currentOrder.data.VdiCheckFull.PlateChangeCount === null,
-          },
-          {
-            title: "Stolen",
-            details:
-              currentOrder.data.VdiCheckFull.Stolen === false ||
-              currentOrder.data.VdiCheckFull.Stolen === null
-                ? "No Records"
-                : "Click to View Details",
-            onClick: currentOrder.data.VdiCheckFull.Stolen
-              ? () => scrollToRef(goToStolenSection)
-              : null,
-            gradientColor: !currentOrder.data.VdiCheckFull.Stolen
-              ? "#6f508c"
-              : "#d55a6f",
-            noHover: !currentOrder.data.VdiCheckFull.Stolen,
-          },
-          {
-            title: "Mileage",
-            details:
-              currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false &&
-              currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
-            onClick: () => scrollToRef(goToMileageSection),
-            gradientColor: currentOrder.data.VdiCheckFull.MileageAnomalyDetected
-              ? "#d55a6f"
-              : "#6f508c",
-            noHover: false,
-          },
-          {
-            title: "Keepers",
-            details:
-              currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
-              currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0
-                ? "No Records"
-                : `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
-            onClick: null,
-            gradientColor:
-              currentOrder.data.VdiCheckFull.PreviousKeeperCount < 2
-                ? "#6f508c"
-                : "#d55a6f",
-            noHover: true,
-          },
-          {
-            title: "V5C",
-            details: `Date Issued: ${FormatDate(
-              currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
-            )}`,
-            onClick: null,
-            gradientColor: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
-              ? "#6f508c"
-              : "#d55a6f",
-            noHover: true,
-          },
-        ]);
-        setIsLoading(false);
-
-        // Check if GPT data is in firebase
-        if (currentOrder["aiContent"] !== undefined) {
-          setAIContent(currentOrder["aiContent"]);
-          setAIContentLoading(false);
-        } else {
-          fetch(`${process.env.REACT_APP_API_URL}/gpt/summary`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(currentOrder["extractedData"]),
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then((aiContent) => {
-              setAIContent(aiContent);
-              setAIContentLoading(false);
-
-              // Here we add a function to save aiContent to Firebase
-              saveAIContentToFirebase(
-                currentOrder.orderId,
-                aiContent,
-                orderRef
-              );
-            })
-            .catch((error) => {
-              console.log("Error with GPT API call:");
-              console.log(error);
-            })
-            .finally(() => {
-              setIsLoading(false);
-            });
-        }
-      } else {
-        handleError("No such order!");
-      }
-    };
-
-    if (currentOrder) fetchOrder();
-  }, [currentOrder]);
-
-  const saveAIContentToFirebase = async (orderId, aiContent, orderRef) => {
-    await setDoc(orderRef, { aiContent }, { merge: true }).catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+  const saveAIContentToFirebase = async (orderId, aiContent) => {
+    const orderRef = doc(db, "orders", orderId);
+    await setDoc(orderRef, { aiContent }, { merge: true });
   };
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setSnackbarOpen(false);
   };
 
@@ -357,6 +108,230 @@ const OrderDetails = ({ currentOrder }) => {
       setFree(currentOrder.vehicleFreeData);
       setBasic(currentOrder.data.VehicleAndMotHistory);
       setFull(currentOrder.data.VdiCheckFull);
+      setWindowData([
+        {
+          title: "TAX",
+          details: `Expires: ${FormatDate(
+            currentOrder.vehicleFreeData.TaxDueDate
+          )}`,
+          onClick: () => scrollToRef(goToTAXSection),
+          gradientColor:
+            currentOrder.vehicleFreeData.TaxStatus === "Taxed"
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: false,
+        },
+        {
+          title: "MOT",
+          details: `Expires: ${FormatDate(
+            currentOrder.vehicleFreeData.MotExpiryDate
+          )}`,
+          onClick: () => scrollToRef(goToMOTSection),
+          gradientColor:
+            currentOrder.vehicleFreeData.MotStatus === "Valid"
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: false,
+        },
+        {
+          title: "Finances",
+          details:
+            currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
+          onClick:
+            currentOrder.data.VdiCheckFull.FinanceRecordCount !== 0
+              ? () => scrollToRef(goToFinanceSection)
+              : null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: false,
+        },
+        {
+          title: "Write Off",
+          details:
+            currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
+          onClick:
+            currentOrder.data.VdiCheckFull.WrittenOff !== false &&
+            currentOrder.data.VdiCheckFull.WriteOffRecordCount !== 0
+              ? () => scrollToRef(goToWriteOffSection)
+              : null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.WrittenOff === false &&
+            currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover:
+            currentOrder.data.VdiCheckFull.WrittenOff === false &&
+            currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0,
+        },
+        {
+          title: "Export",
+          details:
+            currentOrder.data.VdiCheckFull.Imported === false &&
+            currentOrder.data.VdiCheckFull.Exported === false
+              ? "No Records"
+              : "Click to View Details",
+          onClick:
+            currentOrder.data.VdiCheckFull.Imported !== false &&
+            currentOrder.data.VdiCheckFull.Exported !== false
+              ? () => scrollToRef(goToImportExportSection)
+              : null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.Imported === false &&
+            currentOrder.data.VdiCheckFull.Exported === false
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover:
+            currentOrder.data.VdiCheckFull.Imported === false &&
+            currentOrder.data.VdiCheckFull.Exported === false,
+        },
+        {
+          title: "Scrapped",
+          details:
+            currentOrder.data.VdiCheckFull.Scrapped === false
+              ? "No Records"
+              : `Scrap Date: ${FormatDate(
+                  currentOrder.data.VdiCheckFull.ScrapDate
+                )}`,
+          onClick: null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.Scrapped === false
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: true,
+        },
+        {
+          title: "Colour",
+          details:
+            currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
+            currentOrder.data.VdiCheckFull.ColourChangeCount === 0
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
+          onClick: null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
+            currentOrder.data.VdiCheckFull.ColourChangeCount === 0
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: true,
+        },
+        {
+          title: "Plate",
+          details:
+            currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
+            currentOrder.data.VdiCheckFull.PlateChangeCount === 0
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
+          onClick:
+            currentOrder.data.VdiCheckFull.PlateChangeCount > 0
+              ? () => scrollToRef(goToPlateSection)
+              : null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.PlateChangeCount < 2
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover:
+            currentOrder.data.VdiCheckFull.PlateChangeCount === 0 ||
+            currentOrder.data.VdiCheckFull.PlateChangeCount === null,
+        },
+        {
+          title: "Stolen",
+          details:
+            currentOrder.data.VdiCheckFull.Stolen === false ||
+            currentOrder.data.VdiCheckFull.Stolen === null
+              ? "No Records"
+              : "Click to View Details",
+          onClick: currentOrder.data.VdiCheckFull.Stolen
+            ? () => scrollToRef(goToStolenSection)
+            : null,
+          gradientColor: !currentOrder.data.VdiCheckFull.Stolen
+            ? "#6f508c"
+            : "#d55a6f",
+          noHover: !currentOrder.data.VdiCheckFull.Stolen,
+        },
+        {
+          title: "Mileage",
+          details:
+            currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false &&
+            currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
+          onClick: () => scrollToRef(goToMileageSection),
+          gradientColor: currentOrder.data.VdiCheckFull.MileageAnomalyDetected
+            ? "#d55a6f"
+            : "#6f508c",
+          noHover: false,
+        },
+        {
+          title: "Keepers",
+          details:
+            currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
+            currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0
+              ? "No Records"
+              : `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
+          onClick: null,
+          gradientColor:
+            currentOrder.data.VdiCheckFull.PreviousKeeperCount < 2
+              ? "#6f508c"
+              : "#d55a6f",
+          noHover: true,
+        },
+        {
+          title: "V5C",
+          details: `Date Issued: ${FormatDate(
+            currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
+          )}`,
+          onClick: null,
+          gradientColor: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
+            ? "#6f508c"
+            : "#d55a6f",
+          noHover: true,
+        },
+      ]);
+      setIsLoading(false);
+
+      fetchImageUrl();
+      if (currentOrder["aiContent"] === undefined) {
+        // Function to fetch the AI content
+        const fetchAIContent = async () => {
+          try {
+            // Using fetch to make a POST request
+            const response = await fetch(
+              "http://localhost:4242/api/v1/gpt/summary",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  extractedData: currentOrder["extractedData"],
+                }),
+              }
+            );
+
+            const data = await response.json();
+
+            saveAIContentToFirebase(currentOrder.orderId, data);
+
+            setAIContent(data);
+            setAIContentLoading(false);
+          } catch (error) {
+            console.error("Error fetching AI content:", error);
+          }
+        };
+
+        // Call the fetch function
+        fetchAIContent();
+      } else if (currentOrder && currentOrder["aiContent"] !== undefined) {
+        // If aiContent is already defined in currentOrder
+        setAIContent(currentOrder["aiContent"]);
+        setAIContentLoading(false);
+      }
     }
   }, [currentOrder]);
 

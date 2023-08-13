@@ -8,16 +8,8 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 
-function Sidebar({
-  orders,
-  currentOrder,
-  setCurrentOrder,
-  isSidebarOpen,
-  toggleSidebar,
-}) {
-  const handleOrderSelect = (order) => {
-    setCurrentOrder(order);
-  };
+function Sidebar({ orders, isSidebarOpen, toggleSidebar }) {
+  const { currentOrder, setCurrentOrder } = useContext(AppContext);
 
   return (
     <Box className="sidebar-box">
@@ -42,7 +34,7 @@ function Sidebar({
                 <div
                   key={order.orderId}
                   onClick={() => {
-                    handleOrderSelect(order);
+                    setCurrentOrder(order);
                   }}
                   className={`order-button-container ${
                     currentOrder && currentOrder.orderId === order.orderId
