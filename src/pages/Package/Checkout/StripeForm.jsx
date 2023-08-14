@@ -77,7 +77,7 @@ const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard`,
+          return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard?from=package`,
           receipt_email: email,
         },
       });

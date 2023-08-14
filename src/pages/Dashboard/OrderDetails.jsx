@@ -91,7 +91,7 @@ const OrderDetails = ({ currentOrder }) => {
     setError({ status: false, message: "" });
   };
 
-  const fetchAIContent = async () => {
+  const fetchAIContent = async (currentOrder) => {
     try {
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/gpt/summary`,
@@ -109,7 +109,11 @@ const OrderDetails = ({ currentOrder }) => {
       const aiContent = await response.json();
 
       const orderRef = doc(db, "orders", currentOrder.orderId);
-      await setDoc(orderRef, { aiContent }, { merge: true });
+      await setDoc(
+        orderRef,
+        { aiContent: aiContent, gptRequested: true },
+        { merge: true }
+      );
 
       setAIContent(aiContent);
       setAIContentLoading(false);
@@ -315,20 +319,27 @@ const OrderDetails = ({ currentOrder }) => {
   };
 
   useEffect(() => {
-    if (currentOrder) {
-      setFree(currentOrder.vehicleFreeData);
-      setBasic(currentOrder.data.VehicleAndMotHistory);
-      setFull(currentOrder.data.VdiCheckFull);
-      generateWindowData(currentOrder);
-      setIsLoading(false);
+    setFree(currentOrder.vehicleFreeData);
+    setBasic(currentOrder.data.VehicleAndMotHistory);
+    setFull(currentOrder.data.VdiCheckFull);
+    generateWindowData(currentOrder);
+    fetchImageUrl();
 
-      fetchImageUrl();
-      if (currentOrder["aiContent"] === undefined) {
-        fetchAIContent();
-      } else if (currentOrder && currentOrder["aiContent"] !== undefined) {
-        setAIContent(currentOrder["aiContent"]);
-        setAIContentLoading(false);
-      }
+    setIsLoading(false);
+  }, [currentOrder]);
+
+  useEffect(() => {
+    // This effect will only run once when the component mounts
+    if (currentOrder["gptRequested"] === true) {
+      console.log(
+        "AI Content already requested: \n",
+        currentOrder["aiContent"]
+      );
+      setAIContent(currentOrder["aiContent"]);
+      setAIContentLoading(false);
+    } else if (currentOrder["gptRequested"] === false) {
+      console.log("AI Content not requested");
+      fetchAIContent(currentOrder);
     }
   }, [currentOrder]);
 

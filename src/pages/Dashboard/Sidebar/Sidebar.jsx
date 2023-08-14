@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { AppContext } from "../../../appContext";
 
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
@@ -9,7 +9,13 @@ import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 
 function Sidebar({ orders, isSidebarOpen, toggleSidebar }) {
-  const { currentOrder, setCurrentOrder } = useContext(AppContext);
+  const { setCurrentOrder } = useContext(AppContext);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const handleOrderClick = (order) => {
+    setCurrentOrder(order);
+    setSelectedOrder(order.orderId);
+  };
 
   return (
     <Box className="sidebar-box">
@@ -33,11 +39,9 @@ function Sidebar({ orders, isSidebarOpen, toggleSidebar }) {
               {orders.map((order) => (
                 <div
                   key={order.orderId}
-                  onClick={() => {
-                    setCurrentOrder(order);
-                  }}
+                  onClick={() => handleOrderClick(order)}
                   className={`order-button-container ${
-                    currentOrder && currentOrder.orderId === order.orderId
+                    selectedOrder === order.orderId // Compare with selectedOrder instead of currentOrder
                       ? "order-button-container-selected"
                       : ""
                   }`}

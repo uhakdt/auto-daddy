@@ -23,20 +23,18 @@ import { useLocation } from "react-router-dom";
 
 const fetchOrdersByAuthUser = async () => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      onAuthStateChanged(auth, async (user) => {
-        if (user) {
-          try {
-            const ordersList = await getOrdersByUserId(user.uid);
-            resolve(ordersList);
-          } catch (error) {
-            reject(error);
-          }
-        } else {
-          resolve([]);
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const ordersList = await getOrdersByUserId(user.uid);
+          resolve(ordersList);
+        } catch (error) {
+          reject(error);
         }
-      });
-    }, 2000); // TODO: Need to be fixed
+      } else {
+        resolve([]);
+      }
+    });
   });
 };
 
@@ -49,38 +47,62 @@ const getOrderById = async (orderId) => {
 };
 
 function DashboardPage() {
-  const { currentOrder, setCurrentOrder } = useContext(AppContext);
-  const location = useLocation();
-  const { setPreviousPage, setVehicleFreeData } = useContext(AppContext);
+  const { currentOrder, setCurrentOrder, registrationNumber } =
+    useContext(AppContext);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isPolling, setIsPolling] = useState(false);
+
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const fromPackage = params.get("from") === "package";
+  const orderIdFromUrl = params.get("orderId");
+
+  useEffect(() => {
+    if (fromPackage) {
+      setIsPolling(true);
+    }
+  }, [fromPackage]);
 
   const {
     data: orders,
     isLoading,
     error,
+    refetch,
   } = useQuery("orders", fetchOrdersByAuthUser, {
     onSuccess: (ordersList) => {
-      if (ordersList.length > 0) {
+      if (
+        ordersList.length > 0 &&
+        ordersList[0].vehicleFreeData.RegistrationNumber === registrationNumber
+      ) {
         setCurrentOrder(ordersList[0]);
+        setIsPolling(false);
+      } else if (fromPackage) {
+        setIsPolling(true);
       }
     },
   });
 
-  const params = new URLSearchParams(location.search);
-  const orderIdFromUrl = params.get("orderId");
+  useEffect(() => {
+    if (isPolling) {
+      const intervalId = setInterval(() => {
+        refetch();
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isPolling, refetch]);
+
   if (orderIdFromUrl) {
     getOrderById(orderIdFromUrl).then((order) => {
       setCurrentOrder(order[0]);
     });
   }
-  // useEffect(() => {
-  // }, [location]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  if (isLoading) {
+  if (isPolling) {
     return (
       <div className="loader">
         <CarLoader />
@@ -99,18 +121,27 @@ function DashboardPage() {
       sx={{ display: "flex", flexDirection: "column" }}
     >
       <Header />
-      <Box className="dashboard-content" sx={{ display: "flex", flex: "1" }}>
-        <Sidebar
-          className="sidebar"
-          orders={orders}
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-        />
-        {currentOrder && (
-          <OrderDetails currentOrder={currentOrder} className="order-details" />
-        )}
-      </Box>
-      <Chat currentOrder={currentOrder} />
+      {orders && (
+        <>
+          <Box
+            className="dashboard-content"
+            sx={{ display: "flex", flex: "1" }}
+          >
+            <Sidebar
+              className="sidebar"
+              orders={orders}
+              isSidebarOpen={isSidebarOpen}
+              toggleSidebar={toggleSidebar}
+            />
+
+            <OrderDetails
+              currentOrder={currentOrder}
+              className="order-details"
+            />
+          </Box>
+          <Chat currentOrder={currentOrder} />
+        </>
+      )}
     </Box>
   );
 }
