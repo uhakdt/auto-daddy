@@ -112,7 +112,7 @@ const PackagePage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitted(true);
-    if (pattern.test(registrationNumber)) {
+    if (pattern.test(registrationNumber.replace(/\s/g, ""))) {
       setIsValid(true);
       setIsLoading(true);
       try {

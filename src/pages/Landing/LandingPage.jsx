@@ -82,7 +82,7 @@ function LandingPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsSubmitted(true);
-    if (pattern.test(tempRegistrationNumber)) {
+    if (pattern.test(tempRegistrationNumber.replace(/\s/g, ""))) {
       setIsValid(true);
       setIsLoading(true);
       try {
