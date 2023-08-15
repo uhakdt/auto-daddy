@@ -8,7 +8,13 @@ import { TbReportAnalytics } from "react-icons/tb";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 
-function Sidebar({ orders, isSidebarOpen, toggleSidebar }) {
+function Sidebar({
+  orders,
+  isSidebarOpen,
+  toggleSidebar,
+  selectedOrderId,
+  setSelectedOrderId,
+}) {
   const { setCurrentOrder } = useContext(AppContext);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -39,9 +45,12 @@ function Sidebar({ orders, isSidebarOpen, toggleSidebar }) {
               {orders.map((order) => (
                 <div
                   key={order.orderId}
-                  onClick={() => handleOrderClick(order)}
+                  onClick={() => {
+                    setCurrentOrder(order);
+                    setSelectedOrderId(order.orderId); // Update the selected order ID
+                  }}
                   className={`order-button-container ${
-                    selectedOrder === order.orderId // Compare with selectedOrder instead of currentOrder
+                    selectedOrderId === order.orderId
                       ? "order-button-container-selected"
                       : ""
                   }`}

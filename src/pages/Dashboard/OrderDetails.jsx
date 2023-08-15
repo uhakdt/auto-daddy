@@ -62,10 +62,6 @@ const OrderDetails = ({ currentOrder }) => {
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
 
-  const handleError = (message) => {
-    setError({ status: true, message });
-  };
-
   const scrollToRef = (ref) => {
     window.scrollTo({
       top: ref.current.offsetTop - 100,

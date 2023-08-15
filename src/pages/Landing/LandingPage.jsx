@@ -88,7 +88,9 @@ function LandingPage() {
       try {
         await axios
           .post(
-            `${process.env.REACT_APP_API_URL}/dvla/${tempRegistrationNumber}`
+            `${
+              process.env.REACT_APP_API_URL
+            }/dvla/${tempRegistrationNumber.replace(/\s/g, "")}`
           )
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);

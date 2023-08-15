@@ -92,11 +92,20 @@ function DashboardPage() {
     }
   }, [isPolling, refetch]);
 
-  if (orderIdFromUrl) {
-    getOrderById(orderIdFromUrl).then((order) => {
-      setCurrentOrder(order[0]);
-    });
-  }
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
+
+  useEffect(() => {
+    if (orderIdFromUrl) {
+      getOrderById(orderIdFromUrl).then((order) => {
+        if (order && order.length > 0) {
+          setCurrentOrder(order[0]);
+          setSelectedOrderId(order[0].orderId);
+        } else {
+          console.error("Order not found");
+        }
+      });
+    }
+  }, [orderIdFromUrl]);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -121,7 +130,7 @@ function DashboardPage() {
       sx={{ display: "flex", flexDirection: "column" }}
     >
       <Header />
-      {orders && (
+      {orders && currentOrder && (
         <>
           <Box
             className="dashboard-content"
@@ -132,6 +141,8 @@ function DashboardPage() {
               orders={orders}
               isSidebarOpen={isSidebarOpen}
               toggleSidebar={toggleSidebar}
+              selectedOrderId={selectedOrderId}
+              setSelectedOrderId={setSelectedOrderId}
             />
 
             <OrderDetails
