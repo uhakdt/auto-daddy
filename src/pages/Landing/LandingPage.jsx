@@ -350,6 +350,7 @@ function LandingPage() {
               registerPassword={registerPassword}
               setRegisterPassword={setRegisterPassword}
               setOpen={setOpen}
+              page="landing"
             />
           )}
         </div>
