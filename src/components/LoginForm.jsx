@@ -35,7 +35,11 @@ const LoginForm = ({
     <div className="auth">
       <div className="auth-header">
         <span>Login</span>
-        <img src={iconsUrl + "close.svg"} onClick={handleSetOpen} height={20} />
+        <img
+          src={iconsUrl + "close.svg"}
+          onClick={() => setOpen(false)}
+          height={20}
+        />
       </div>
       <div className="submit-btn">
         <button

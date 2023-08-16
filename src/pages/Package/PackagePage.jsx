@@ -321,14 +321,7 @@ const PackagePage = () => {
                       Dashboard
                     </button>
                   ) : (
-                    <button
-                      className="package-right-header-button"
-                      onClick={() => {
-                        console.log("login");
-                      }}
-                    >
-                      Login
-                    </button>
+                    <></>
                   )}
                 </div>
               </>
@@ -436,12 +429,12 @@ const PackagePage = () => {
           {!user && formType === "register" && (
             <RegisterForm
               setFormType={setFormType}
-              registerName={registerName}
-              setRegisterName={setRegisterName}
               registerEmail={registerEmail}
               setRegisterEmail={setRegisterEmail}
               registerPassword={registerPassword}
               setRegisterPassword={setRegisterPassword}
+              setOpen={setOpen}
+              page="package"
             />
           )}
           {user && payments && (
