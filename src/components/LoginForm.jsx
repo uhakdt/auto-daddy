@@ -67,9 +67,7 @@ const LoginForm = ({
           <span>Login with Facebook</span>
         </button>
       </div>
-      <div className="separator">
-        <span>Or</span>
-      </div>
+      <div className="separator">Or</div>
       <div className="input-field">
         <img src={iconsUrl + "email.svg"} height={20} />
         <input

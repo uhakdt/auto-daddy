@@ -63,6 +63,7 @@
   border: 1px solid var(--dark-orange);
   background-color: white;
   cursor: pointer;
+  width: 50%;
 }
 
 .social-auth-buttons button span {
