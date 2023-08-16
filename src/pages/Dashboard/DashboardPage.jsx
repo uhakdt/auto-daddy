@@ -12,6 +12,8 @@ import { AppContext } from "../../appContext";
 import Box from "@mui/material/Box";
 import CarLoader from "../../SVGs/CarLoader";
 import "./DashboardPage.css";
+import { useLottie } from "lottie-react";
+import jeep from "../../SVGs/jeep.json";
 
 import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
@@ -56,6 +58,16 @@ function DashboardPage() {
   const params = new URLSearchParams(location.search);
   const fromPackage = params.get("from") === "package";
   const orderIdFromUrl = params.get("orderId");
+
+  const options = {
+    animationData: jeep,
+    loop: true,
+    style: {
+      height: "10rem",
+    },
+  };
+
+  const { View } = useLottie(options);
 
   useEffect(() => {
     if (fromPackage) {
@@ -112,11 +124,7 @@ function DashboardPage() {
   };
 
   if (isPolling) {
-    return (
-      <div className="loader">
-        <CarLoader />
-      </div>
-    );
+    return <div className="loader">{View}</div>;
   }
 
   if (error) {

@@ -302,7 +302,12 @@ const PackagePage = () => {
             ) : (
               <>
                 <div className="package-right-header-icon">
-                  <IoDocumentTextOutline />
+                  <img
+                    alt="report"
+                    src={process.env.PUBLIC_URL + "/icons/report.svg"}
+                    height={40}
+                    style={{ opacity: 0.5 }}
+                  />
                 </div>
                 <div className="package-right-header-button-container">
                   <button

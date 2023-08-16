@@ -11,7 +11,11 @@ const VehicleMain = ({ basic, free }) => {
     <section className="section">
       <div style={style.vehicleModelContainer}>
         <div>
-          <AiOutlineCar size={"2rem"} color={"#59396d"} />
+          <img
+            alt="car"
+            src={process.env.PUBLIC_URL + "/icons/car.svg"}
+            height={40}
+          />
         </div>
         <div style={style.title}>
           {basic.VehicleRegistration.MakeModel && (

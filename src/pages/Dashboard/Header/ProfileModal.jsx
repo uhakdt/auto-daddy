@@ -41,7 +41,12 @@ function ProfileModal({ isOpen, onClose }) {
               navigate("/dashboard");
             }}
           >
-            <MdOutlinePersonOutline size={20} />
+            <img
+              alt="report"
+              src={process.env.PUBLIC_URL + "/icons/user.svg"}
+              height={20}
+              style={{ paddingRight: "0.5rem" }}
+            />
             Profile ({email === null ? <>Anonymous</> : <>{email}</>})
           </div>
           <div
@@ -51,11 +56,21 @@ function ProfileModal({ isOpen, onClose }) {
               navigate("/contact-us");
             }}
           >
-            <MdQuestionAnswer size={20} />
+            <img
+              alt="contact"
+              src={process.env.PUBLIC_URL + "/icons/contact.svg"}
+              height={20}
+              style={{ paddingRight: "0.5rem" }}
+            />
             Contact Us
           </div>
           <div className="sub-container" onClick={handleLogout}>
-            <MdExitToApp size={20} />
+            <img
+              alt="logout"
+              src={process.env.PUBLIC_URL + "/icons/logout.svg"}
+              height={20}
+              style={{ paddingRight: "0.5rem" }}
+            />
             Logout
           </div>
         </div>

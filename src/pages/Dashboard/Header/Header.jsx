@@ -15,9 +15,12 @@ function Header() {
       </h2>
       <div className="profile">
         <div className="profile-icon">
-          <MdOutlinePersonOutline
-            size={20}
+          <img
             onClick={() => setShowModal(true)}
+            alt="report"
+            src={process.env.PUBLIC_URL + "/icons/user.svg"}
+            height={20}
+            style={{ paddingRight: "0.3rem" }}
           />
         </div>
         <ProfileModal
