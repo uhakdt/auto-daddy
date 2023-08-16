@@ -15,11 +15,7 @@ export const handleDownloadReport = async (orderId, free, auth) => {
 
 export const handleDownloadSampleReport = async () => {
   try {
-    const downloadUrl = await getSampleReportUrl(
-      "f91d459d-0992-4ca5-be6e-adc013fae2b4",
-      "AB12CDE",
-      "SbsFM2GpAWeDSLs38nc8hCEWCce2"
-    );
+    const downloadUrl = await getSampleReportUrl();
 
     // Create new link and trigger click event on it
     const link = document.createElement("a");
@@ -94,9 +90,8 @@ export const getReportUrl = async (orderId, free, auth) => {
   }
 };
 
-export const getSampleReportUrl = async (orderId, registrationNumber, uid) => {
+export const getSampleReportUrl = async () => {
   try {
-    const vehicleRegMark = registrationNumber;
     const url = `${process.env.REACT_APP_API_URL}/firebase/download-report`;
 
     const response = await fetch(url, {
@@ -104,7 +99,6 @@ export const getSampleReportUrl = async (orderId, registrationNumber, uid) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ orderId, vehicleRegMark, uid }),
     });
 
     if (!response.ok) {

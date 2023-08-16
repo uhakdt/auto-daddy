@@ -36,6 +36,7 @@ const LoginForm = ({
       <div className="auth-header">
         <span>Login</span>
         <img
+          alt="close"
           src={iconsUrl + "close.svg"}
           onClick={() => setOpen(false)}
           height={20}
@@ -58,7 +59,7 @@ const LoginForm = ({
             handleSetOpen();
           }}
         >
-          <img src={iconsUrl + "google.svg"} height={20} />{" "}
+          <img alt="Google" src={iconsUrl + "google.svg"} height={20} />{" "}
           <span>Login with Google</span>
         </button>
         <button
@@ -67,13 +68,13 @@ const LoginForm = ({
             handleSetOpen();
           }}
         >
-          <img src={iconsUrl + "facebook.svg"} height={20} />{" "}
+          <img alt="Facebook" src={iconsUrl + "facebook.svg"} height={20} />{" "}
           <span>Login with Facebook</span>
         </button>
       </div>
       <div className="separator">Or</div>
       <div className="input-field">
-        <img src={iconsUrl + "email.svg"} height={20} />
+        <img alt="Email" src={iconsUrl + "email.svg"} height={20} />
         <input
           type="text"
           placeholder="Email"
@@ -83,6 +84,7 @@ const LoginForm = ({
       </div>
       <div className="input-field">
         <img
+          alt="Password"
           src={iconsUrl + (isPasswordVisible ? "unlocked.svg" : "locked.svg")}
           height={20}
         />
@@ -93,6 +95,7 @@ const LoginForm = ({
           onChange={(e) => setLoginPassword(e.target.value)}
         />
         <img
+          alt="Toggle Password Visibility"
           src={iconsUrl + (isPasswordVisible ? "nonhidden.svg" : "hidden.svg")}
           height={20}
           onClick={togglePasswordVisibility}

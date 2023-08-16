@@ -35,6 +35,7 @@ const RegisterForm = ({
       <div className="auth-header">
         <span>Register</span>
         <img
+          alt="close"
           src={iconsUrl + "close.svg"}
           onClick={() => setOpen(false)}
           height={20}
@@ -47,7 +48,7 @@ const RegisterForm = ({
             handleSetOpen();
           }}
         >
-          <img src={iconsUrl + "google.svg"} height={20} />
+          <img alt="Google" src={iconsUrl + "google.svg"} height={20} />
           <span>Register with Google</span>
         </button>
         <button
@@ -56,7 +57,7 @@ const RegisterForm = ({
             handleSetOpen();
           }}
         >
-          <img src={iconsUrl + "facebook.svg"} height={20} />{" "}
+          <img alt="Facebook" src={iconsUrl + "facebook.svg"} height={20} />{" "}
           <span>Login with Facebook</span>
         </button>
       </div>
@@ -64,7 +65,7 @@ const RegisterForm = ({
         <span>Or</span>
       </div>
       <div className="input-field">
-        <img src={iconsUrl + "email.svg"} height={20} />
+        <img alt="Email" src={iconsUrl + "email.svg"} height={20} />
         <input
           type="text"
           placeholder="E-mail Address"
@@ -74,6 +75,7 @@ const RegisterForm = ({
       </div>
       <div className="input-field">
         <img
+          alt="Password"
           src={iconsUrl + (isPasswordVisible ? "unlocked.svg" : "locked.svg")}
           height={20}
         />
@@ -84,6 +86,7 @@ const RegisterForm = ({
           onChange={(e) => setRegisterPassword(e.target.value)}
         />
         <img
+          alt="Toggle Password Visibility"
           src={iconsUrl + (isPasswordVisible ? "nonhidden.svg" : "hidden.svg")}
           height={20}
           onClick={togglePasswordVisibility}
