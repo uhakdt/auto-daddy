@@ -41,6 +41,8 @@ const initialOptions = {
   intent: "capture",
 };
 
+const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
 const PackagePage = () => {
   const {
     registrationNumber,
@@ -489,7 +491,12 @@ const PackagePage = () => {
                     setPayments(false);
                   }}
                 >
-                  <MdOutlineClose size={25} />
+                  <img
+                    alt="close"
+                    src={iconsUrl + "close.svg"}
+                    onClick={() => setOpen(false)}
+                    height={20}
+                  />
                 </div>
               </div>
             </div>

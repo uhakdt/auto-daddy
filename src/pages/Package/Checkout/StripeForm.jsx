@@ -8,6 +8,11 @@ import "./StripeForm.css";
 
 import { auth } from "../../../firebase";
 
+function isValidEmail(email) {
+  const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  return pattern.test(email);
+}
+
 const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
   const user = auth.currentUser;
   const stripe = useStripe();
@@ -52,6 +57,11 @@ const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
+      return;
+    }
+
+    if (user.isAnonymous && !isValidEmail(email)) {
+      setMessage("Please provide a valid email.");
       return;
     }
 
@@ -105,16 +115,19 @@ const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit} ref={ref}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={{
-          width: "100%",
-          display: "block",
-        }}
-      />
+      {user.isAnonymous && (
+        <input
+          className="email-input"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            width: "100%",
+            display: "block",
+          }}
+        />
+      )}
       <PaymentElement id="payment-element" options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">

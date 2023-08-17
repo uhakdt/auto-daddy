@@ -10,7 +10,6 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { AppContext } from "../../appContext";
 
 import Box from "@mui/material/Box";
-import CarLoader from "../../SVGs/CarLoader";
 import "./DashboardPage.css";
 import { useLottie } from "lottie-react";
 import jeep from "../../SVGs/jeep.json";
