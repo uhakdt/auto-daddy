@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import confetti from "https://esm.run/canvas-confetti@1";
 
 import {
   Snackbar,
@@ -86,18 +87,21 @@ function LandingPage() {
       setIsValid(true);
       setIsLoading(true);
       try {
-        await axios
-          .post(
-            `${
-              process.env.REACT_APP_API_URL
-            }/dvla/${tempRegistrationNumber.replace(/\s/g, "")}`
-          )
+        await axios.post(
+          `${process.env.REACT_APP_API_URL}/dvla/${tempRegistrationNumber.replace(/\s/g, "")}`
+        )
           .then((res) => {
             const vehicleFreeData = new VehicleFreeData(res.data);
             setVehicleFreeData(vehicleFreeData);
             setRegistrationNumber(vehicleFreeData.registrationNumber);
             setResponseStatus(true);
             setIsLoading(false);
+
+            // Confetti code here because the license plate was valid and the data fetch was successful
+            confetti({
+              particleCount: 50,
+              spread: 99
+            });
           });
       } catch (error) {
         setSnackbarMessage(error.response.data.message);
@@ -179,9 +183,7 @@ function LandingPage() {
               className="landing-input"
               placeholder="License Plate"
               value={tempRegistrationNumber}
-              onChange={(event) =>
-                setTempRegistrationNumber(event.target.value)
-              }
+              onChange={(event) => setTempRegistrationNumber(event.target.value)}
             />
             <button type="submit" className="landing-button-go">
               Go
