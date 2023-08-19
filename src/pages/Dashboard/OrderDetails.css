@@ -15,24 +15,25 @@
 /* MAIN */
 
 .section {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   border-width: 1px;
-  border-color: rgb(167, 167, 167);
+  border-color: #e0dfdf;
   border-style: solid;
   border-radius: 5px;
   padding: 1rem;
   justify-content: space-between;
-  margin: 0.3rem;
+  margin: 1rem;
   flex-direction: column;
   margin-bottom: 1.5rem;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .section-title {
   padding-right: 0.5rem;
-  font-size: x-large;
+  font-size: 2rem;
   font-weight: bold;
   padding-bottom: 1rem;
-  color: var(--dark-purple);
+  color: black;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -216,6 +217,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.status-window-title span {
+  font-size: 2rem;
 }
 
 .status-window-divider {

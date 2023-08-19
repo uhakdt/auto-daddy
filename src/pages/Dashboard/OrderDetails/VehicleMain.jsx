@@ -16,7 +16,7 @@ const VehicleMain = ({ free, basic, imageUrl }) => {
         </h2>
       </div>
       <div style={style.imageContainer}>
-        {imageUrl ? <img width={"50%"} src={imageUrl} alt="Car" /> : null}
+        {imageUrl ? <img width={"75%"} src={imageUrl} alt="Car" /> : null}
       </div>
     </section>
   );
@@ -29,7 +29,7 @@ const style = {
   title: {
     fontSize: "2rem",
     fontWeight: "bold",
-    color: "#59396d",
+    color: "black",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -39,11 +39,11 @@ const style = {
     border: "0",
     height: "1px",
     background: "#333",
-    backgroundImage: "linear-gradient(to right, #ccc, #333, #ccc)",
+    backgroundImage: "linear-gradient(to right, white, #E0DFDF, white)",
   },
   subTitle: {
     fontSize: "3rem",
-    color: "#59396d",
+    color: "black",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

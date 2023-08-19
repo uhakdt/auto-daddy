@@ -25,6 +25,8 @@ const StatusWindow = ({
       style={{
         backgroundImage: `linear-gradient(90deg, ${computedGradientColor} 0.8rem, white 0.8rem`,
         cursor: `${computedNoHover ? "default" : "pointer"}`,
+        borderColor: "#E0DFDF",
+        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
       }}
     >
       <div className="status-window-content-container">

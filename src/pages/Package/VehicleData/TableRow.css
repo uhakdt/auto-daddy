@@ -33,10 +33,10 @@
 }
 
 .table-row-value {
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: bold;
   text-align: right;
-  color: #6f508c;
+  color: black;
 }
 
 .table-row-divider {

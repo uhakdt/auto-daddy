@@ -32,7 +32,7 @@ const Stolen = ({
           <img
             alt="Google"
             src={iconsUrl + (condition ? "check.svg" : "close.svg")}
-            height={20}
+            height={40}
           />
         </div>
       </div>

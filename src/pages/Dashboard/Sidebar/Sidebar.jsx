@@ -22,6 +22,7 @@ function Sidebar({
     setCurrentOrder(order);
     setSelectedOrder(order.orderId);
   };
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
 
   return (
     <Box className="sidebar-box">
@@ -56,7 +57,7 @@ function Sidebar({
                   }`}
                 >
                   <div>
-                    <TbReportAnalytics size={25} color="#42224d" />
+                    <img alt="Google" src={iconsUrl + "car.svg"} height={20} />{" "}
                   </div>
                   <div className="order-button-results-container">
                     <div className="order-button-results-registration-number">
