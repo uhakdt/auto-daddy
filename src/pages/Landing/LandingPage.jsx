@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import confetti from "https://esm.run/canvas-confetti@1";
+import confetti from 'canvas-confetti';
 
 import {
   Snackbar,
