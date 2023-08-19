@@ -571,6 +571,37 @@
   margin-left: auto;
 }
 
+@media screen and (max-width: 768px) {
+  .package-pay-container {
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    max-height: 80vh;
+  }
+
+  .package-pay-left-container,
+  .package-pay-right-container {
+    width: 100%;
+  }
+
+  .package-pay-left-footer {
+    display: none;
+  }
+
+  .package-pay-left-logo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .package-pay-right-button-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+}
+
 /* --------- */
 
 .modal-content-checkout {
