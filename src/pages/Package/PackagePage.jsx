@@ -9,8 +9,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 import { RiCarLine } from "react-icons/ri";
-import { IoDocumentTextOutline } from "react-icons/io5";
-import { MdOutlineClose } from "react-icons/md";
 
 import Modal from "@mui/material/Modal";
 import { Link, Snackbar } from "@mui/material";
@@ -73,13 +71,6 @@ const PackagePage = () => {
 
   const [formType, setFormType] = useState("login");
   const [payments, setPayments] = useState(false);
-
-  // Auth Form states
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
-  const [registerName, setRegisterName] = useState("");
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -425,10 +416,6 @@ const PackagePage = () => {
           {!user && formType === "login" && (
             <LoginForm
               setFormType={setFormType}
-              loginEmail={loginEmail}
-              setLoginEmail={setLoginEmail}
-              loginPassword={loginPassword}
-              setLoginPassword={setLoginPassword}
               setOpen={setOpen}
               page="package"
             />
@@ -436,10 +423,6 @@ const PackagePage = () => {
           {!user && formType === "register" && (
             <RegisterForm
               setFormType={setFormType}
-              registerEmail={registerEmail}
-              setRegisterEmail={setRegisterEmail}
-              registerPassword={registerPassword}
-              setRegisterPassword={setRegisterPassword}
               setOpen={setOpen}
               page="package"
             />

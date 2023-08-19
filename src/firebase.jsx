@@ -95,7 +95,7 @@ const signInAsGuest = async () => {
   }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (email, password) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
     return { error: null };

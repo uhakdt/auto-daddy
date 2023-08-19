@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   registerWithEmailAndPassword,
   signInWithGoogle,
@@ -7,16 +7,10 @@ import {
 
 import "./AuthForm.css";
 
-const RegisterForm = ({
-  setFormType,
-  registerEmail,
-  setRegisterEmail,
-  registerPassword,
-  setRegisterPassword,
-  setOpen,
-  page,
-}) => {
-  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+const RegisterForm = ({ setFormType, setOpen, page }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const handleSetOpen = () => {
     if (page === "landing") {
@@ -69,8 +63,8 @@ const RegisterForm = ({
         <input
           type="text"
           placeholder="E-mail Address"
-          value={registerEmail}
-          onChange={(e) => setRegisterEmail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="input-field">
@@ -82,8 +76,8 @@ const RegisterForm = ({
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"
-          value={registerPassword}
-          onChange={(e) => setRegisterPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <img
           alt="Toggle Password Visibility"
@@ -99,7 +93,7 @@ const RegisterForm = ({
       <div className="submit-btn">
         <button
           onClick={() => {
-            registerWithEmailAndPassword(registerEmail, registerPassword);
+            registerWithEmailAndPassword(email, password);
             handleSetOpen();
           }}
         >

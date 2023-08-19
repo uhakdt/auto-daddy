@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   logInWithEmailAndPassword,
   signInWithGoogle,
@@ -8,22 +8,16 @@ import {
 
 import "./AuthForm.css";
 
-const LoginForm = ({
-  setFormType,
-  loginEmail,
-  setLoginEmail,
-  loginPassword,
-  setLoginPassword,
-  setOpen,
-  page,
-}) => {
+const LoginForm = ({ setFormType, setOpen, page }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleSetOpen = () => {
     if (page === "landing") {
       setOpen(false);
     }
   };
 
-  const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -78,8 +72,8 @@ const LoginForm = ({
         <input
           type="text"
           placeholder="Email"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div className="input-field">
@@ -91,8 +85,8 @@ const LoginForm = ({
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"
-          value={loginPassword}
-          onChange={(e) => setLoginPassword(e.target.value)}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <img
           alt="Toggle Password Visibility"
@@ -111,7 +105,7 @@ const LoginForm = ({
       <div className="submit-btn">
         <button
           onClick={() => {
-            logInWithEmailAndPassword(loginEmail, loginPassword);
+            logInWithEmailAndPassword(email, password);
             handleSetOpen();
           }}
         >
