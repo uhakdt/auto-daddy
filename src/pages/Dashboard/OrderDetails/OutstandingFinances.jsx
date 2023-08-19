@@ -10,7 +10,9 @@ const OutstandingFinances = ({
   aiContent,
   goToFinanceSection,
   aiContentLoading,
+  condition,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
   if (full.FinanceRecordList.length === 0) {
     return (
       <section ref={goToFinanceSection} className="section">
@@ -23,7 +25,16 @@ const OutstandingFinances = ({
 
   return (
     <section ref={goToFinanceSection} className="section">
-      <div className="section-title">Outstanding Finances</div>
+      <div className="section-title">
+        <div>Outstanding Finances</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

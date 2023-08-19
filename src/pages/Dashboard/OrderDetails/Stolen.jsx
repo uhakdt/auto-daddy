@@ -5,7 +5,15 @@ import AISummaryComponent from "./AISummaryComponent";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
+const Stolen = ({
+  full,
+  aiContent,
+  goToStolenSection,
+  aiContentLoading,
+  condition,
+}) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   if (!full.Stolen) {
     return (
       <section ref={goToStolenSection} className="section">
@@ -18,7 +26,16 @@ const Stolen = ({ full, aiContent, goToStolenSection, aiContentLoading }) => {
 
   return (
     <section ref={goToStolenSection} className="section">
-      <div className="section-title">Stolen</div>
+      <div className="section-title">
+        <div>Stolen</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

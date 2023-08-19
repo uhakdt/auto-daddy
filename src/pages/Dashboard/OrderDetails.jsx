@@ -27,6 +27,7 @@ import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
 
 import NewOrder from "./NewOrder/NewOrder";
+import MainStatusBar from "./MainStatusBar/MainStatusBar";
 
 import {
   handleDownloadReport,
@@ -45,7 +46,9 @@ const OrderDetails = ({ currentOrder }) => {
   const [aiContent, setAIContent] = useState(null);
   const [aiContentLoading, setAIContentLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState(null);
-  const [windowData, setWindowData] = useState(null);
+  const [allStatusGood, setAllStatusGood] = useState(true);
+  const [listOfConditions, setListOfConditions] = useState(null);
+  const [statusBoxList, setStatusBoxList] = useState(null);
   const [showNewOrder, setShowNewOrder] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -61,6 +64,7 @@ const OrderDetails = ({ currentOrder }) => {
   const goToStolenSection = React.useRef();
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
+  const goToNULL = React.useRef();
 
   const scrollToRef = (ref) => {
     window.scrollTo({
@@ -125,200 +129,134 @@ const OrderDetails = ({ currentOrder }) => {
     setSnackbarOpen(false);
   };
 
-  const generateWindowData = (currentOrder) => {
-    const windowData = [
-      {
-        title: "TAX",
-        details: `Expires: ${FormatDate(
-          currentOrder.vehicleFreeData.TaxDueDate
-        )}`,
-        onClick: () => scrollToRef(goToTAXSection),
-        gradientColor:
-          currentOrder.vehicleFreeData.TaxStatus === "Taxed"
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: false,
-      },
-      {
-        title: "MOT",
-        details: `Expires: ${FormatDate(
-          currentOrder.vehicleFreeData.MotExpiryDate
-        )}`,
-        onClick: () => scrollToRef(goToMOTSection),
-        gradientColor:
-          currentOrder.vehicleFreeData.MotStatus === "Valid"
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: false,
-      },
-      {
-        title: "Finances",
-        details:
-          currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
-        onClick:
-          currentOrder.data.VdiCheckFull.FinanceRecordCount !== 0
-            ? () => scrollToRef(goToFinanceSection)
-            : null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.FinanceRecordCount === 0
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: false,
-      },
-      {
-        title: "Write Off",
-        details:
-          currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
-        onClick:
-          currentOrder.data.VdiCheckFull.WrittenOff !== false &&
-          currentOrder.data.VdiCheckFull.WriteOffRecordCount !== 0
-            ? () => scrollToRef(goToWriteOffSection)
-            : null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.WrittenOff === false &&
-          currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover:
-          currentOrder.data.VdiCheckFull.WrittenOff === false &&
-          currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0,
-      },
-      {
-        title: "Export",
-        details:
-          currentOrder.data.VdiCheckFull.Imported === false &&
-          currentOrder.data.VdiCheckFull.Exported === false
-            ? "No Records"
-            : "Click to View Details",
-        onClick:
-          currentOrder.data.VdiCheckFull.Imported !== false &&
-          currentOrder.data.VdiCheckFull.Exported !== false
-            ? () => scrollToRef(goToImportExportSection)
-            : null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.Imported === false &&
-          currentOrder.data.VdiCheckFull.Exported === false
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover:
-          currentOrder.data.VdiCheckFull.Imported === false &&
-          currentOrder.data.VdiCheckFull.Exported === false,
-      },
-      {
-        title: "Scrapped",
-        details:
-          currentOrder.data.VdiCheckFull.Scrapped === false
-            ? "No Records"
-            : `Scrap Date: ${FormatDate(
-                currentOrder.data.VdiCheckFull.ScrapDate
-              )}`,
-        onClick: null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.Scrapped === false
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: true,
-      },
-      {
-        title: "Colour",
-        details:
-          currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
-          currentOrder.data.VdiCheckFull.ColourChangeCount === 0
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
-        onClick: null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
-          currentOrder.data.VdiCheckFull.ColourChangeCount === 0
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: true,
-      },
-      {
-        title: "Plate",
-        details:
-          currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
-          currentOrder.data.VdiCheckFull.PlateChangeCount === 0
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
-        onClick:
-          currentOrder.data.VdiCheckFull.PlateChangeCount > 0
-            ? () => scrollToRef(goToPlateSection)
-            : null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.PlateChangeCount < 2
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover:
-          currentOrder.data.VdiCheckFull.PlateChangeCount === 0 ||
-          currentOrder.data.VdiCheckFull.PlateChangeCount === null,
-      },
-      {
-        title: "Stolen",
-        details:
-          currentOrder.data.VdiCheckFull.Stolen === false ||
-          currentOrder.data.VdiCheckFull.Stolen === null
-            ? "No Records"
-            : "Click to View Details",
-        onClick: currentOrder.data.VdiCheckFull.Stolen
-          ? () => scrollToRef(goToStolenSection)
-          : null,
-        gradientColor: !currentOrder.data.VdiCheckFull.Stolen
-          ? "#6f508c"
-          : "#d55a6f",
-        noHover: !currentOrder.data.VdiCheckFull.Stolen,
-      },
-      {
-        title: "Mileage",
-        details:
-          currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false &&
-          currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
-        onClick: () => scrollToRef(goToMileageSection),
-        gradientColor: currentOrder.data.VdiCheckFull.MileageAnomalyDetected
-          ? "#d55a6f"
-          : "#6f508c",
-        noHover: false,
-      },
-      {
-        title: "Keepers",
-        details:
-          currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
-          currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0
-            ? "No Records"
-            : `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
-        onClick: null,
-        gradientColor:
-          currentOrder.data.VdiCheckFull.PreviousKeeperCount < 2
-            ? "#6f508c"
-            : "#d55a6f",
-        noHover: true,
-      },
-      {
-        title: "V5C",
-        details: `Date Issued: ${FormatDate(
+  const generateStatusBoxList = (currentOrder) => {
+    const listOfConditions = {
+      TAX: currentOrder.vehicleFreeData.TaxStatus === "Taxed",
+      MOT: currentOrder.vehicleFreeData.MotStatus === "Valid",
+      Finances:
+        currentOrder.data.VdiCheckFull.FinanceRecordCount === null ||
+        currentOrder.data.VdiCheckFull.FinanceRecordCount === 0,
+      WriteOff:
+        currentOrder.data.VdiCheckFull.WriteOffRecordCount === null ||
+        currentOrder.data.VdiCheckFull.WriteOffRecordCount === 0,
+      Export:
+        currentOrder.data.VdiCheckFull.Imported === false &&
+        currentOrder.data.VdiCheckFull.Exported === false,
+      Scrapped: currentOrder.data.VdiCheckFull.Scrapped === false,
+      Colour:
+        currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
+        currentOrder.data.VdiCheckFull.ColourChangeCount === 0,
+      Plate:
+        currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
+        currentOrder.data.VdiCheckFull.PlateChangeCount === 0,
+      Stolen:
+        currentOrder.data.VdiCheckFull.Stolen === false ||
+        currentOrder.data.VdiCheckFull.Stolen === null,
+      Mileage:
+        currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false ||
+        currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null,
+      Keepers:
+        currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
+        currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0,
+      V5C: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate,
+    };
+    setListOfConditions(listOfConditions);
+
+    const generateStatusBox = (title, details, onClick, condition) => {
+      const gradientColor = condition ? "#32ce57" : "#fd4438";
+      const noHover = condition ? true : false;
+      details = condition ? details : "No Records";
+      onClick = condition ? onClick : null;
+      return { title, details, onClick, gradientColor, noHover, condition };
+    };
+
+    const statusBoxList = [
+      generateStatusBox(
+        "TAX",
+        `Expires: ${FormatDate(currentOrder.vehicleFreeData.TaxDueDate)}`,
+        () => scrollToRef(goToTAXSection),
+        listOfConditions["TAX"]
+      ),
+      generateStatusBox(
+        "MOT",
+        `Expires: ${FormatDate(currentOrder.vehicleFreeData.MotExpiryDate)}`,
+        () => scrollToRef(goToMOTSection),
+        listOfConditions["MOT"]
+      ),
+      generateStatusBox(
+        "Finances",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
+        () => scrollToRef(goToFinanceSection),
+        listOfConditions["Finances"]
+      ),
+      generateStatusBox(
+        "Write Off",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
+        () => scrollToRef(goToWriteOffSection),
+        listOfConditions["WriteOff"]
+      ),
+      generateStatusBox(
+        "Export",
+        "Click to View Details",
+        () => scrollToRef(goToImportExportSection),
+        listOfConditions["Export"]
+      ),
+      generateStatusBox(
+        "Scrapped",
+        `Scrap Date: ${FormatDate(currentOrder.data.VdiCheckFull.ScrapDate)}`,
+        null,
+        listOfConditions["Scrapped"]
+      ),
+      generateStatusBox(
+        "Colour",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
+        null,
+        listOfConditions["Colour"]
+      ),
+      generateStatusBox(
+        "Plate",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
+        () => scrollToRef(goToPlateSection),
+        listOfConditions["Plate"]
+      ),
+      generateStatusBox(
+        "Stolen",
+        "Click to View Details",
+        () => scrollToRef(goToStolenSection),
+        listOfConditions["Stolen"]
+      ),
+      generateStatusBox(
+        "Mileage",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
+        () => scrollToRef(goToMileageSection),
+        listOfConditions["Mileage"]
+      ),
+      generateStatusBox(
+        "Keepers",
+        `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
+        null,
+        listOfConditions["Keepers"]
+      ),
+      generateStatusBox(
+        "V5C",
+        `Date Issued: ${FormatDate(
           currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
         )}`,
-        onClick: null,
-        gradientColor: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
-          ? "#6f508c"
-          : "#d55a6f",
-        noHover: true,
-      },
+        null,
+        listOfConditions["V5C"]
+      ),
     ];
-    setWindowData(windowData);
+    setStatusBoxList(statusBoxList);
+
+    const isAllStatusGood = statusBoxList.every((box) => box.condition);
+    setAllStatusGood(isAllStatusGood);
   };
 
   useEffect(() => {
     setFree(currentOrder.vehicleFreeData);
     setBasic(currentOrder.data.VehicleAndMotHistory);
     setFull(currentOrder.data.VdiCheckFull);
-    generateWindowData(currentOrder);
+    generateStatusBoxList(currentOrder);
     fetchImageUrl();
 
     setIsLoading(false);
@@ -346,14 +284,12 @@ const OrderDetails = ({ currentOrder }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <div className="order-details">
-        <div className={`new-order-transition ${showNewOrder ? "show" : ""}`}>
-          <NewOrder />
-        </div>
         {currentOrder && (
           <div>
             <VehicleMain
               free={free}
               basic={basic}
+              imageUrl={imageUrl}
               orderId={currentOrder.orderId}
               auth={auth}
               handleDownloadReport={() =>
@@ -375,37 +311,25 @@ const OrderDetails = ({ currentOrder }) => {
               setShowNewOrder={setShowNewOrder}
             />
 
-            <AIMainSummary
-              aiContent={aiContent?.["summary"]}
-              aiContentLoading={aiContentLoading}
-            />
+            <MainStatusBar allStatusGood={allStatusGood} />
 
-            {/* STATUS WINDOWS */}
             <section className="status-windows-container">
-              {windowData &&
-                windowData.map((window, index) => (
+              {statusBoxList &&
+                statusBoxList.map((statusBox, index) => (
                   <StatusWindow
                     key={index}
-                    title={window.title}
-                    details={window.details}
-                    onClick={window.onClick}
-                    gradientColor={window.gradientColor}
-                    noHover={window.noHover}
+                    title={statusBox.title}
+                    details={statusBox.details}
+                    onClick={statusBox.onClick}
+                    gradientColor={statusBox.gradientColor}
+                    noHover={statusBox.noHover}
+                    condition={statusBox.condition}
                   />
                 ))}
             </section>
 
-            <VehicleDetails
-              free={free}
-              basic={basic}
-              aiContent={aiContent?.["main_details_analysis"]}
-              aiContentLoading={aiContentLoading}
-              imageUrl={imageUrl}
-            />
-
-            <EnergyConsumption
-              basic={basic}
-              aiContent={aiContent?.["energy_&_consumption_analysis"]}
+            <AIMainSummary
+              aiContent={aiContent?.["summary"]}
               aiContentLoading={aiContentLoading}
             />
 
@@ -415,6 +339,7 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["mot_metrics_analysis"]}
               aiContentLoading={aiContentLoading}
               goToMOTSection={goToMOTSection}
+              condition={listOfConditions["MOT"]}
             />
 
             <TAX
@@ -424,6 +349,22 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["tax_details_analysis"]}
               aiContentLoading={aiContentLoading}
               goToTAXSection={goToTAXSection}
+              condition={listOfConditions["TAX"]}
+            />
+
+            <VehicleDetails
+              free={free}
+              basic={basic}
+              aiContent={aiContent?.["main_details_analysis"]}
+              aiContentLoading={aiContentLoading}
+              imageUrl={imageUrl}
+            />
+
+            <ImportantChecks
+              basic={basic}
+              aiContent={aiContent?.["important_checks"]}
+              aiContentLoading={aiContentLoading}
+              condition={listOfConditions["V5C"]}
             />
 
             <Mileage
@@ -431,13 +372,7 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["mileage_analysis"]}
               aiContentLoading={aiContentLoading}
               goToMileageSection={goToMileageSection}
-            />
-
-            <PlateChanges
-              full={full}
-              aiContent={aiContent?.["plate_changes"]}
-              aiContentLoading={aiContentLoading}
-              goToPlateSection={goToPlateSection}
+              condition={listOfConditions["Mileage"]}
             />
 
             <OutstandingFinances
@@ -445,6 +380,15 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["outstanding_finances"]}
               aiContentLoading={aiContentLoading}
               goToFinanceSection={goToFinanceSection}
+              condition={listOfConditions["Finances"]}
+            />
+
+            <PlateChanges
+              full={full}
+              aiContent={aiContent?.["plate_changes"]}
+              aiContentLoading={aiContentLoading}
+              goToPlateSection={goToPlateSection}
+              condition={listOfConditions["Plate"]}
             />
 
             <Stolen
@@ -452,6 +396,7 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["stolen"]}
               aiContentLoading={aiContentLoading}
               goToStolenSection={goToStolenSection}
+              condition={listOfConditions["Stolen"]}
             />
 
             <ImportExport
@@ -459,6 +404,7 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["import_/_export"]}
               aiContentLoading={aiContentLoading}
               goToImportExportSection={goToImportExportSection}
+              condition={listOfConditions["Export"]}
             />
 
             <WriteOff
@@ -466,6 +412,7 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["write_off"]}
               aiContentLoading={aiContentLoading}
               goToWriteOffSection={goToWriteOffSection}
+              condition={listOfConditions["WriteOff"]}
             />
 
             <VICInspected
@@ -474,9 +421,9 @@ const OrderDetails = ({ currentOrder }) => {
               aiContentLoading={aiContentLoading}
             />
 
-            <ImportantChecks
+            <EnergyConsumption
               basic={basic}
-              aiContent={aiContent?.["important_checks"]}
+              aiContent={aiContent?.["energy_&_consumption_analysis"]}
               aiContentLoading={aiContentLoading}
             />
 

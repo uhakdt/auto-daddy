@@ -10,7 +10,10 @@ const WriteOff = ({
   aiContent,
   goToWriteOffSection,
   aiContentLoading,
+  condition,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   if (!full.WrittenOff && full.WriteOffRecordCount === 0) {
     return (
       <section ref={goToWriteOffSection} className="section">
@@ -23,7 +26,16 @@ const WriteOff = ({
 
   return (
     <section ref={goToWriteOffSection} className="section">
-      <div className="section-title">Write Off</div>
+      <div className="section-title">
+        <div>Write Off</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

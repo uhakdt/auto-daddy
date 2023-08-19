@@ -16,10 +16,22 @@ const TAX = ({
   aiContent,
   goToTAXSection,
   aiContentLoading,
+  condition,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   return (
     <section ref={goToTAXSection} className="section">
-      <div className="section-title">TAX</div>
+      <div className="section-title">
+        <div>TAX</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

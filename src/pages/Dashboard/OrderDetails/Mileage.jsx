@@ -20,7 +20,15 @@ import {
 } from "../../../auxiliaryFunctions/orderFunctions";
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
-const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
+const Mileage = ({
+  full,
+  aiContent,
+  goToMileageSection,
+  aiContentLoading,
+  condition,
+}) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   const [dimensions, setDimensions] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -59,7 +67,16 @@ const Mileage = ({ full, aiContent, goToMileageSection, aiContentLoading }) => {
 
   return (
     <section ref={goToMileageSection} className="section">
-      <div className="section-title">Mileage</div>
+      <div className="section-title">
+        <div>Mileage</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

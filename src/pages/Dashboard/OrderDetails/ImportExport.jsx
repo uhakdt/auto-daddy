@@ -9,7 +9,10 @@ const ImportExport = ({
   goToImportExportSection,
   aiContent,
   aiContentLoading,
+  condition,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   if (!full.Imported && !full.Exported) {
     return (
       <section ref={goToImportExportSection} className="section">
@@ -22,7 +25,16 @@ const ImportExport = ({
 
   return (
     <section ref={goToImportExportSection} className="section">
-      <div className="section-title">Import / Export</div>
+      <div className="section-title">
+        <div>Import / Export</div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
+        </div>
+      </div>
       <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent

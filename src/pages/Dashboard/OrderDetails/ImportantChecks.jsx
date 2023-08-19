@@ -5,14 +5,25 @@ import AISummaryComponent from "./AISummaryComponent";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 
-const ImportantChecks = ({ basic, aiContent, aiContentLoading }) => {
+const ImportantChecks = ({ basic, aiContent, aiContentLoading, condition }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   return (
     <section className="section">
       <div className="section-title">
-        Important Checks <br />
-        <div className="section-title-sub">
-          It is important to check the following details before purchasing to
-          confirm the vehicle's identity.
+        <div>
+          Important Checks <br />
+          <div className="section-title-sub">
+            It is important to check the following details before purchasing to
+            confirm the vehicle's identity.
+          </div>
+        </div>
+        <div>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
         </div>
       </div>
       <div className="section-divider"></div>

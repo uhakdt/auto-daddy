@@ -2,9 +2,21 @@ import React from "react";
 import "../OrderDetails.css";
 import { FaCheck, FaRegTimesCircle } from "react-icons/fa";
 
-const StatusWindow = ({ title, details, onClick, gradientColor, noHover }) => {
-  const computedGradientColor = gradientColor || "#6f508c";
-  const computedNoHover = noHover || false;
+const StatusWindow = ({
+  title,
+  details,
+  onClick,
+  gradientColor,
+  noHover,
+  condition,
+}) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
+  const computedGradientColor = gradientColor;
+  const computedNoHover = noHover;
+
+  const green = "#32ce57";
+  const red = "#fd4438";
 
   return (
     <div
@@ -17,15 +29,15 @@ const StatusWindow = ({ title, details, onClick, gradientColor, noHover }) => {
     >
       <div className="status-window-content-container">
         <div className="status-window-title">
-          <span style={{ color: "#42224d" }}>{title}</span>
-          {gradientColor === "#6f508c" ? (
-            <FaCheck color={"#42224d"} />
-          ) : (
-            <FaRegTimesCircle color={"#d55a6f"} />
-          )}
+          <span>{title}</span>
+          <img
+            alt="Google"
+            src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+            height={20}
+          />
         </div>
         <div className="status-window-divider"></div>
-        <div className="status-window-details" style={{ color: "#42224d" }}>
+        <div className="status-window-details">
           <span className="status-window-details-value">{details}</span>
         </div>
       </div>

@@ -13,12 +13,12 @@ const VehicleDetails = ({
   imageUrl,
   aiContentLoading,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   return (
     <section className="section">
       <div className="section-title">
-        {CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}
-        <br />
-        <span className="section-title-sub">Details</span>
+        <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
       </div>
       <div className="section-divider"></div>
       <div className="section-content">

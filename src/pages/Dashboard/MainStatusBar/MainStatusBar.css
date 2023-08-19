@@ -1,0 +1,15 @@
+.main-status-bar {
+  color: #fff;
+  font-size: 1.6rem;
+  margin: 0.5rem 1rem 2rem 1rem;
+  padding: 0.5rem;
+  flex: auto;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.5);
+}
+
+.bold {
+  font-weight: bold;
+}

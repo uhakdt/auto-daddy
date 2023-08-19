@@ -33,6 +33,9 @@
   font-weight: bold;
   padding-bottom: 1rem;
   color: var(--dark-purple);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 .section-title-sub {

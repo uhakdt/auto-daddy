@@ -2,66 +2,58 @@ import React from "react";
 
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
-import { AiOutlineCar } from "react-icons/ai";
-import RegistrationNumber from "../../../SVGs/RegistrationNumber";
 import "../OrderDetails.css";
 
-const VehicleMain = ({ basic, free }) => {
+const VehicleMain = ({ free, basic, imageUrl }) => {
+  console.log(basic.VehicleRegistration);
   return (
-    <section className="section">
-      <div style={style.vehicleModelContainer}>
-        <div>
-          <img
-            alt="car"
-            src={process.env.PUBLIC_URL + "/icons/car.svg"}
-            height={40}
-          />
-        </div>
-        <div style={style.title}>
-          {basic.VehicleRegistration.MakeModel && (
-            <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
-          )}
-        </div>
+    <section>
+      <div style={style.titleContainer}>
+        <h1 style={style.title}>AutoDaddy Report</h1>
+        <hr style={style.line} />
+        <h2 style={style.subTitle}>
+          <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
+        </h2>
       </div>
-      <div style={style.vehicleRegistrationContainer}>
-        <div>
-          <RegistrationNumber />
-        </div>
-        <span style={style.gb}>GB</span>{" "}
-        <span style={style.registrationNumber}>{free.RegistrationNumber}</span>
+      <div style={style.imageContainer}>
+        {imageUrl ? <img width={"50%"} src={imageUrl} alt="Car" /> : null}
       </div>
     </section>
   );
 };
 
 const style = {
-  vehicleModelContainer: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "left",
+  titleContainer: {
     marginBottom: "1rem",
   },
   title: {
-    fontSize: "1.5rem",
+    fontSize: "2rem",
     fontWeight: "bold",
     color: "#59396d",
-    paddingLeft: "1rem",
-  },
-  vehicleRegistrationContainer: {
     display: "flex",
+    justifyContent: "center",
     alignItems: "center",
-    justifyContent: "left",
+    textAlign: "center",
   },
-  gb: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-    color: "#59396d",
-    paddingLeft: "1rem",
+  line: {
+    border: "0",
+    height: "1px",
+    background: "#333",
+    backgroundImage: "linear-gradient(to right, #ccc, #333, #ccc)",
   },
-  registrationNumber: {
-    fontSize: "1.5rem",
+  subTitle: {
+    fontSize: "3rem",
     color: "#59396d",
-    paddingLeft: "0.5rem",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
+  imageContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "1rem",
   },
 };
 

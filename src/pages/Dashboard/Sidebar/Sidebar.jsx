@@ -35,11 +35,11 @@ function Sidebar({
 
       {isSidebarOpen && (
         <>
-          <div className="new-search-button-container">
+          {/*<div className="new-search-button-container">
             <button type="submit" className="new-search-button">
               New Search
             </button>
-          </div>
+          </div> */}
           {orders.length !== 0 ? (
             <>
               {orders.map((order) => (
