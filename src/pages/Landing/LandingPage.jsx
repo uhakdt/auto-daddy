@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import confetti from 'canvas-confetti';
 
 import {
   Snackbar,
@@ -14,32 +12,21 @@ import {
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
-import { AppContext } from "../../appContext";
-import { VehicleFreeData } from "../../models/VehicleFreeData";
-import CarLoader from "../../SVGs/CarLoader";
 import "./LandingPage.css";
 
 import Modal from "@mui/material/Modal";
 import LoginForm from "../../components/LoginForm";
 import RegisterForm from "../../components/RegisterForm";
+import LandingFooter from "../NavMenus/LandingFooter";
+import LandingBody from "./LandingBody";
 
 function LandingPage() {
-  const {
-    setRegistrationNumber,
-    vehicleFreeData,
-    setVehicleFreeData,
-    setPreviousPage,
-  } = useContext(AppContext);
-  const [user, loading] = useAuthState(auth);
+
+  const [user] = useAuthState(auth);
+
   // const user = auth.currentUser;
+
   const [open, setOpen] = React.useState(false);
-  const [pattern] = useState(/^[A-Za-z0-9]{1,7}$/);
-  const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
-  const [isValid, setIsValid] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [responseStatus, setResponseStatus] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const [loginEmail, setLoginEmail] = useState("");
@@ -47,12 +34,8 @@ function LandingPage() {
   const [registerName, setRegisterName] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
   const [formType, setFormType] = useState("login");
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
 
   const handleModalOpen = () => {
     setOpen(true);
@@ -74,64 +57,12 @@ function LandingPage() {
   const navigate = useNavigate();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarMessage] = useState("");
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitted(true);
-    if (pattern.test(tempRegistrationNumber.replace(/\s/g, ""))) {
-      setIsValid(true);
-      setIsLoading(true);
-      try {
-        await axios.post(
-          `${process.env.REACT_APP_API_URL}/dvla/${tempRegistrationNumber.replace(/\s/g, "")}`
-        )
-          .then((res) => {
-            const vehicleFreeData = new VehicleFreeData(res.data);
-            setVehicleFreeData(vehicleFreeData);
-            setRegistrationNumber(vehicleFreeData.registrationNumber);
-            setResponseStatus(true);
-            setIsLoading(false);
-
-            // Confetti code here because the license plate was valid and the data fetch was successful
-            confetti({
-              particleCount: 50,
-              spread: 99
-            });
-          });
-      } catch (error) {
-        setSnackbarMessage(error.response.data.message);
-        setSnackbarOpen(true);
-        setResponseStatus(false);
-        setIsLoading(false);
-      }
-    } else {
-      setIsValid(false);
-      setSnackbarMessage("Invalid UK license plate number");
-      setSnackbarOpen(true);
-    }
-  };
-
-  useEffect(() => {
-    if (isValid && isSubmitted && responseStatus) {
-      setPreviousPage("/packages");
-      navigate("/packages", { state: { vehicleFreeData } });
-    } else {
-      setPreviousPage("/");
-    }
-  }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData, user]);
-
-  if (isLoading) {
-    return (
-      <div className="landing-loader">
-        <CarLoader />
-      </div>
-    );
-  }
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -151,7 +82,7 @@ function LandingPage() {
           <h2 className="landing-logo" onClick={() => navigate("/")}>
             AutoDaddy
           </h2>
-          {isMobile && (
+          {isMobile ? (
             <div className="landing-menu-button">
               <IconButton
                 edge="start"
@@ -163,112 +94,25 @@ function LandingPage() {
                 <MenuIcon />
               </IconButton>
             </div>
+          ) : (
+            <div className="landing-button-login-container">
+              {user ? (
+                <button className="landing-button-login" onClick={() => navigate("/dashboard")}>
+                  Dashboard
+                </button>
+              ) : (
+                <button className="landing-button-login" onClick={handleModalOpen}>
+                  Login
+                </button>
+              )}
+            </div>
           )}
         </div>
-        <div className="landing-form-container">
-          <h2 className="landing-title">
-            Your AI Copilot in car buying decisions
-          </h2>
-          <p className="landing-description">
-            Guiding your car-buying journey with deep data dives, insights and
-            comprehensive reports!
-          </p>
 
-          <form className="landing-form" onSubmit={handleSubmit}>
-            <div className="landing-GB">
-              <span>GB</span>
-            </div>
-            <input
-              type="text"
-              className="landing-input"
-              placeholder="License Plate"
-              value={tempRegistrationNumber}
-              onChange={(event) => setTempRegistrationNumber(event.target.value)}
-            />
-            <button type="submit" className="landing-button-go">
-              Go
-            </button>
-          </form>
-        </div>
-        <div className="landing-footer-container">
-          <div className="landing-logos-container">
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/stripe-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="landing-logo"
-              src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
-              alt="Logo"
-            />
-          </div>
-          <div className="landing-footer">
-            <Link to="/privacy">Privacy</Link> |
-            <Link to="/terms">Terms and Conditions</Link> |
-            {/* <Link to="/cookies">Cookies</Link> | */}
-            <Link to="/gdpr">GDPR</Link> |
-            <Link to="/contactus">Contact Us</Link>
-          </div>
-          <div className="landing-copyright">© 2023 AutoDaddy</div>
-        </div>
+        <LandingBody />
+        <LandingFooter />
       </div>
-      {!isMobile &&
-        (user ? (
-          <div className="landing-right">
-            <div className="landing-right-video-container">
-              <img
-                className="landing-right-video"
-                src={`${process.env.PUBLIC_URL}/landing-page-video-1.gif`}
-                alt="Logo"
-              />
-            </div>
-            <div className="landing-button-login-container">
-              <button
-                className="landing-button-login"
-                onClick={() => navigate("/dashboard")}
-              >
-                Dashboard
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="landing-right">
-            <div className="landing-button-login-container">
-              <button
-                className="landing-button-login"
-                onClick={handleModalOpen}
-              >
-                Login
-              </button>
-            </div>
-          </div>
-        ))}
+
       <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}

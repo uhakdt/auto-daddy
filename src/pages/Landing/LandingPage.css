@@ -3,8 +3,6 @@
   height: 100vh;
 }
 
-/* LEFT */
-
 .landing-left {
   flex: 1;
   display: flex;
@@ -13,8 +11,6 @@
   padding: 20px;
   box-sizing: border-box;
 }
-
-/* HEADER */
 
 .landing-header-container {
   display: flex;
@@ -28,138 +24,9 @@
   cursor: pointer;
 }
 
-/* FORM */
-
-.landing-title {
-  font-size: 2.5rem;
-  color: #42224d;
-  width: 75%;
-}
-
-.landing-description {
-  font-size: 1rem;
-  color: #42224d;
-  margin-bottom: 1rem;
-  width: 75%;
-}
-
-.landing-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.landing-GB {
-  padding: 1rem;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.landing-input {
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  flex-grow: 1;
-  font-size: 1.2rem;
-  height: 3.3rem;
-  padding-left: 1rem;
-  margin-right: 1rem;
-}
-
-.landing-button-go {
-  background-color: #d55a6f;
-  border: none;
-  color: white;
-  padding: 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  height: 3.3rem;
-  width: 5rem;
-  font-size: 1.2rem;
-  order: 2;
-}
-
-.landing-button-go:hover {
-  background-color: #b84361;
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.landing-button-go:active {
-  background-color: #8b3150;
-  transform: scale(0.95);
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* FOOTER */
-
-.landing-logos-container {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.landing-logo {
-  height: 1.25rem;
-  padding-right: 0.5rem;
-}
-
-.landing-footer {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: flex-start;
-  gap: 10px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.landing-footer a {
-  text-decoration: none;
-  color: inherit;
-  font-size: 0.8rem;
-  color: #42224d;
-}
-
-.landing-copyright {
-  font-size: 0.6rem;
-  color: #42224d;
-}
-
-/* RIGHT */
-
-.landing-right {
-  flex: 1;
-  background-color: #efefee;
-  display: flex;
-  justify-content: flex-end;
-  box-sizing: border-box;
-  margin: 1rem;
-  border-radius: 5px;
-}
-
-.landing-right-video-container {
-  display: flex;
-  align-items: center;
-}
-
-.landing-right-video {
-  width: 100%;
-  border-radius: 5px;
-}
-
 .landing-button-login-container {
-  background-color: white;
-  padding-left: 1rem;
-  padding-bottom: 1rem;
-  height: 35px;
-  border-bottom-left-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .landing-button-login {
@@ -180,6 +47,10 @@
   background-color: white;
   color: #42224d;
 }
+
+
+
+
 
 /* LOADER */
 

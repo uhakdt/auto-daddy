@@ -1,0 +1,125 @@
+
+
+/* FORM */
+
+.landing-title {
+    font-size: 2.5rem;
+    color: #42224d;
+    width: 75%;
+}
+
+.landing-description {
+    font-size: 1rem;
+    color: #42224d;
+    margin-bottom: 1rem;
+    width: 75%;
+}
+
+.landing-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.landing-GB {
+    padding: 1rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.landing-input {
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    flex-grow: 1;
+    font-size: 1.2rem;
+    height: 3.3rem;
+    padding-left: 1rem;
+    margin-right: 1rem;
+}
+
+.landing-button-go {
+    background-color: #d55a6f;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 3.3rem;
+    width: 5rem;
+    font-size: 1.2rem;
+    order: 2;
+}
+
+.landing-button-go:hover {
+    background-color: #b84361;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.landing-button-go:active {
+    background-color: #8b3150;
+    transform: scale(0.95);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* LOADER */
+
+.landing-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .landing-container {
+        flex-direction: column;
+    }
+
+    .landing-title {
+        font-size: 2.2rem;
+    }
+
+    .landing-form {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .landing-GB,
+    .landing-input {
+        width: 8%;
+    }
+
+    .landing-button-go {
+        width: 95%;
+        border-radius: 5px;
+        margin-top: 1rem;
+        margin-bottom: 5rem;
+    }
+
+    .landing-right {
+        display: none;
+    }
+
+    .landing-button-login-container {
+        display: none;
+    }
+
+    .landing-logo {
+        height: 0.75rem;
+        padding-right: 0.5rem;
+    }
+
+    .landing-footer a {
+        font-size: 0.6rem;
+        align-self: center;
+    }
+}
