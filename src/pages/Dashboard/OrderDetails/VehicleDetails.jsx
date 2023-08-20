@@ -38,6 +38,14 @@ const VehicleDetails = ({
               {CapitalizeEachWord(basic?.VehicleRegistration?.MakeModel)}
             </TableRow>
             <TableRow
+              item={free?.YearOfManufacture}
+              title="Year"
+              colour="#6f508c"
+              last={false}
+            >
+              {free?.YearOfManufacture}
+            </TableRow>
+            <TableRow
               item={free?.FuelType}
               title="Fuel Type"
               colour="#6f508c"

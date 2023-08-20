@@ -261,10 +261,11 @@ const PackagePage = () => {
               />
             </div>
             <div className="package-left-footer">
-              <Link to="/privacy">Privacy</Link> |
-              <Link to="/terms">Terms and Conditions</Link> |
-              <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
-              <a to="/contactus">Contact Us</a>
+              <a href="/privacy">Privacy</a> |
+              <a href="/terms">Terms and Conditions</a>{" "}
+              {/* |
+              <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> */}{" "}
+              |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
             </div>
             <div className="package-left-copyright">© 2023 AutoDaddy</div>
           </div>
@@ -319,11 +320,15 @@ const PackagePage = () => {
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
               <FullReportList />
-              <img
-                alt="Google"
-                src={iconsUrl + "icon_plus_small.png"}
-                height={80}
-              />{" "}
+              {isMobile ? (
+                <></>
+              ) : (
+                <img
+                  alt="Google"
+                  src={iconsUrl + "icon_plus_small.png"}
+                  height={80}
+                />
+              )}
               <div className="package-right-content-openai">
                 <img
                   className="package-right-content-openai-logo"
@@ -373,10 +378,11 @@ const PackagePage = () => {
       {isMobile ? (
         <div className="package-footer-mobile">
           <div className="package-left-footer">
-            <Link to="/privacy">Privacy</Link> |
-            <Link to="/terms">Terms and Conditions</Link> |
-            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
-            <Link to="/contactus">Contact Us</Link>
+            <a href="/privacy">Privacy</a> |
+            <a href="/terms">Terms and Conditions</a>{" "}
+            {/* |
+            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link>  */}
+            |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
           </div>
           <div className="package-left-copyright">© 2023 AutoDaddy</div>
         </div>
