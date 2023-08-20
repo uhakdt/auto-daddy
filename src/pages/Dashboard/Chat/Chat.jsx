@@ -91,6 +91,7 @@ const Chat = ({ currentOrder }) => {
         <input
           className="input"
           value={input}
+          placeholder="Ask any question about the car..."
           onChange={(e) => setInput(e.target.value)}
         />
         <button className="send-chat-button" onClick={send}>
