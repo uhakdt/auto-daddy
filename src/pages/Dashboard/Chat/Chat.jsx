@@ -111,7 +111,7 @@ const Chat = ({ currentOrder }) => {
           onChange={(e) => setInput(e.target.value)}
           onKeyPress={e => e.key === 'Enter' && send()} // To send message with Enter key
         />
-        <button className="send-chat-button" onClick={send}>
+        <button className="send-chat-button" onClick={() => send(input)}>
           Ask
         </button>
       </div>
