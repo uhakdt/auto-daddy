@@ -19,7 +19,7 @@ function Header() {
             onClick={() => setShowModal(true)}
             alt="report"
             src={process.env.PUBLIC_URL + "/icons/user.svg"}
-            height={20}
+            height={15}
             style={{ paddingRight: "0.3rem" }}
           />
         </div>
