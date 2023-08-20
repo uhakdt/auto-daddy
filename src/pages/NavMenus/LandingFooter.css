@@ -1,0 +1,34 @@
+/* FOOTER */
+
+.landing-logos-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.landing-logo {
+    height: 1.25rem;
+    padding-right: 0.5rem;
+}
+
+.landing-footer {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-start;
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.landing-footer a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.8rem;
+    color: #42224d;
+}
+
+.landing-copyright {
+    font-size: 0.6rem;
+    color: #42224d;
+}
