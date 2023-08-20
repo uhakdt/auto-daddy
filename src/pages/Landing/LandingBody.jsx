@@ -82,8 +82,9 @@ function LandingBody() {
 
                         // Confetti code here because the license plate was valid and the data fetch was successful
                         confetti({
-                            particleCount: 50,
-                            spread: 99
+                            particleCount: 20,
+                            spread: 50,
+                            startVelocity: 20,
                         });
                     });
             } catch (error) {
@@ -129,14 +130,19 @@ function LandingBody() {
 
     return (
         <div className="landing-footer-container">
+            <img src="/page-images/floating-plus.png" alt="plus" className="floating-plus" />
+            <img src="/page-images/floating-nut.png" alt="nut" className="floating-nut" />
+            {/* <img src="/page-images/floating-hand.png" alt="hand" className="floating-hand" /> */}
+
             <div className="landing-form-container">
                 <h2 className="landing-title">
-                    Your AI Copilot in car buying decisions
+                    Full Car History & Ask <span className="gradient-text">ChatGPT</span> any questions about your car.
                 </h2>
-                <p className="landing-description">
+                {/* <p className="landing-description">
                     Guiding your car-buying journey with deep data dives, insights and
                     comprehensive reports!
-                </p>
+                </p> */}
+                <hr className="landing-divider" />  {/* This is the line you're adding */}
 
                 <form className="landing-form" onSubmit={handleSubmit}>
                     <div className="landing-GB">
@@ -145,12 +151,12 @@ function LandingBody() {
                     <input
                         type="text"
                         className="landing-input"
-                        placeholder="License Plate"
+                        placeholder="AB12 CDE"
                         value={tempRegistrationNumber}
                         onChange={(event) => setTempRegistrationNumber(event.target.value)}
                     />
                     <button type="submit" className="landing-button-go">
-                        Go
+                        GO
                     </button>
                 </form>
             </div>
@@ -161,7 +167,6 @@ function LandingBody() {
                 message={snackbarMessage}
             />
         </div>
-
     );
 }
 
