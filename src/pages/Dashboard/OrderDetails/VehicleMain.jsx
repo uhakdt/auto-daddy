@@ -5,7 +5,6 @@ import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions"
 import "../OrderDetails.css";
 
 const VehicleMain = ({ free, basic, imageUrl }) => {
-  console.log(basic.VehicleRegistration);
   return (
     <section>
       <div style={style.titleContainer}>

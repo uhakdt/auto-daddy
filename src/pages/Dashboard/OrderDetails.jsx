@@ -34,6 +34,7 @@ import {
   handleEmailReport,
 } from "../../hooks/reportHooks";
 import FormatDate from "../../auxiliaryFunctions/dateFunctions";
+import { IsULEZCompliant } from "../../auxiliaryFunctions/orderFunctions";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
@@ -173,25 +174,25 @@ const OrderDetails = ({ currentOrder }) => {
     const statusBoxList = [
       generateStatusBox(
         "TAX",
-        `Expires: ${FormatDate(currentOrder.vehicleFreeData.TaxDueDate)}`,
+        `Expires: ${FormatDate(currentOrder?.vehicleFreeData?.TaxDueDate)}`,
         () => scrollToRef(goToTAXSection),
         listOfConditions["TAX"]
       ),
       generateStatusBox(
         "MOT",
-        `Expires: ${FormatDate(currentOrder.vehicleFreeData.MotExpiryDate)}`,
+        `Expires: ${FormatDate(currentOrder?.vehicleFreeData?.MotExpiryDate)}`,
         () => scrollToRef(goToMOTSection),
         listOfConditions["MOT"]
       ),
       generateStatusBox(
         "Finances",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.FinanceRecordCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.FinanceRecordCount}`,
         () => scrollToRef(goToFinanceSection),
         listOfConditions["Finances"]
       ),
       generateStatusBox(
         "Write Off",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.WriteOffRecordCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.WriteOffRecordCount}`,
         () => scrollToRef(goToWriteOffSection),
         listOfConditions["WriteOff"]
       ),
@@ -203,19 +204,21 @@ const OrderDetails = ({ currentOrder }) => {
       ),
       generateStatusBox(
         "Scrapped",
-        `Scrap Date: ${FormatDate(currentOrder.data.VdiCheckFull.ScrapDate)}`,
+        `Scrap Date: ${FormatDate(
+          currentOrder?.data?.VdiCheckFull?.ScrapDate
+        )}`,
         null,
         listOfConditions["Scrapped"]
       ),
       generateStatusBox(
         "Colour",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.ColourChangeCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.ColourChangeCount}`,
         null,
         listOfConditions["Colour"]
       ),
       generateStatusBox(
         "Plate",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.PlateChangeCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.PlateChangeCount}`,
         () => scrollToRef(goToPlateSection),
         listOfConditions["Plate"]
       ),
@@ -227,25 +230,56 @@ const OrderDetails = ({ currentOrder }) => {
       ),
       generateStatusBox(
         "Mileage",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.MileageRecordCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.MileageRecordCount}`,
         () => scrollToRef(goToMileageSection),
         listOfConditions["Mileage"]
       ),
       generateStatusBox(
         "Keepers",
-        `Number of Records: ${currentOrder.data.VdiCheckFull.PreviousKeeperCount}`,
+        `Number of Records: ${currentOrder?.data?.VdiCheckFull?.PreviousKeeperCount}`,
         null,
         listOfConditions["Keepers"]
       ),
       generateStatusBox(
         "V5C",
         `Date Issued: ${FormatDate(
-          currentOrder.data.VdiCheckFull.LatestV5cIssuedDate
+          currentOrder?.data?.VdiCheckFull?.LatestV5cIssuedDate
         )}`,
         null,
         listOfConditions["V5C"]
       ),
     ];
+
+    if (
+      currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration?.FuelType.toLowerCase() ===
+        "petrol" ||
+      currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration?.FuelType.toLowerCase() ===
+        "diesel"
+    ) {
+      statusBoxList.push(
+        generateStatusBox(
+          "ULEZ",
+          `Compliant: ${IsULEZCompliant(
+            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
+              ?.FuelType,
+            currentOrder?.data.VehicleAndMotHistory?.TechnicalDetails?.General
+              ?.EuroStatus,
+            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
+              ?.VehicleClass
+          )}`,
+          null,
+          IsULEZCompliant(
+            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
+              ?.FuelType,
+            currentOrder?.data.VehicleAndMotHistory?.TechnicalDetails?.General
+              ?.EuroStatus,
+            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
+              ?.VehicleClass
+          )
+        )
+      );
+    }
+
     setStatusBoxList(statusBoxList);
 
     const isAllStatusGood = statusBoxList.every((box) => box.condition);

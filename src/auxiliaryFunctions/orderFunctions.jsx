@@ -186,6 +186,31 @@ const CalcLastYearMile = (mileageRecordList) => {
   return 0;
 };
 
+function IsULEZCompliant(fuelType, euroScore, vehicleClass) {
+  if (!fuelType || !vehicleClass || euroScore === null || euroScore === "") {
+    return false;
+  }
+
+  fuelType = fuelType.toLowerCase();
+  vehicleClass = vehicleClass.toLowerCase();
+
+  if (vehicleClass === "motorcycle") {
+    return euroScore >= 3;
+  }
+
+  if (vehicleClass === "car") {
+    if (fuelType === "petrol") {
+      return euroScore >= 4;
+    } else if (fuelType === "diesel") {
+      return euroScore >= 6;
+    } else {
+      return false;
+    }
+  }
+
+  return false;
+}
+
 export {
   CheckOrderCriteria,
   CalculateMOTPassRate,
@@ -196,4 +221,5 @@ export {
   CalculateTaxSingle12MonthPayment,
   CalcAvgMileAYear,
   CalcLastYearMile,
+  IsULEZCompliant,
 };

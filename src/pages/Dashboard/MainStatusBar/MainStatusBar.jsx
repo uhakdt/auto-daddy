@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./MainStatusBar.css";
 
 function MainStatusBar({ allStatusGood }) {
-  console.log(allStatusGood);
   return { allStatusGood } ? (
     <div
       className="main-status-bar"

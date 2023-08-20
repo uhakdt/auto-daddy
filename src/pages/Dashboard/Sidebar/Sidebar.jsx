@@ -17,7 +17,6 @@ function Sidebar({
 }) {
   const { setCurrentOrder } = useContext(AppContext);
   const [selectedOrder, setSelectedOrder] = useState(null);
-
   const handleOrderClick = (order) => {
     setCurrentOrder(order);
     setSelectedOrder(order.orderId);
