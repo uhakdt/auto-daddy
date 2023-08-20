@@ -11,6 +11,7 @@ import "./Sidebar.css";
 function Sidebar({
   orders,
   isSidebarOpen,
+  setIsSidebarOpen,
   toggleSidebar,
   selectedOrderId,
   setSelectedOrderId,
@@ -22,6 +23,16 @@ function Sidebar({
     setSelectedOrder(order.orderId);
   };
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
+  const isMobile =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+
+  if (isMobile) {
+    setIsSidebarOpen(false);
+  }
+
   return (
     <Box className="sidebar-box">
       <button className="sidebar-toggle-button" onClick={toggleSidebar}>

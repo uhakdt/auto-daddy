@@ -50,7 +50,7 @@ const getOrderById = async (orderId) => {
 function DashboardPage() {
   const { currentOrder, setCurrentOrder, registrationNumber } =
     useContext(AppContext);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPolling, setIsPolling] = useState(false);
 
   const location = useLocation();
@@ -147,6 +147,7 @@ function DashboardPage() {
               className="sidebar"
               orders={orders}
               isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
               toggleSidebar={toggleSidebar}
               selectedOrderId={selectedOrderId}
               setSelectedOrderId={setSelectedOrderId}
