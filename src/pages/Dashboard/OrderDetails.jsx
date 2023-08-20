@@ -34,13 +34,13 @@ import {
   handleEmailReport,
 } from "../../hooks/reportHooks";
 import FormatDate from "../../auxiliaryFunctions/dateFunctions";
-import { IsULEZCompliant } from "../../auxiliaryFunctions/orderFunctions";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} variant="filled" ref={ref} {...props} />;
 });
 
 const OrderDetails = ({ currentOrder }) => {
+  console.log("currentOrder", currentOrder);
   const [free, setFree] = useState(null);
   const [basic, setBasic] = useState(null);
   const [full, setFull] = useState(null);
@@ -65,7 +65,6 @@ const OrderDetails = ({ currentOrder }) => {
   const goToStolenSection = React.useRef();
   const goToPlateSection = React.useRef();
   const goToMileageSection = React.useRef();
-  const goToNULL = React.useRef();
 
   const scrollToRef = (ref) => {
     window.scrollTo({
@@ -163,12 +162,10 @@ const OrderDetails = ({ currentOrder }) => {
     };
     setListOfConditions(listOfConditions);
 
-    const generateStatusBox = (title, details, onClick, condition) => {
-      const gradientColor = condition ? "#32ce57" : "#fd4438";
-      const noHover = condition ? true : false;
-      details = condition ? details : "No Records";
-      onClick = condition ? onClick : null;
-      return { title, details, onClick, gradientColor, noHover, condition };
+    const generateStatusBox = (title, details, onClick, IsEmpty) => {
+      const gradientColor = IsEmpty ? "#32ce57" : "#fd4438";
+      const noHover = false;
+      return { title, details, onClick, gradientColor, noHover, IsEmpty };
     };
 
     const statusBoxList = [
@@ -259,30 +256,16 @@ const OrderDetails = ({ currentOrder }) => {
       statusBoxList.push(
         generateStatusBox(
           "ULEZ",
-          `Compliant: ${IsULEZCompliant(
-            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
-              ?.FuelType,
-            currentOrder?.data.VehicleAndMotHistory?.TechnicalDetails?.General
-              ?.EuroStatus,
-            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
-              ?.VehicleClass
-          )}`,
+          `Compliant: ${currentOrder?.data.ulez}`,
           null,
-          IsULEZCompliant(
-            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
-              ?.FuelType,
-            currentOrder?.data.VehicleAndMotHistory?.TechnicalDetails?.General
-              ?.EuroStatus,
-            currentOrder?.data.VehicleAndMotHistory?.VehicleRegistration
-              ?.VehicleClass
-          )
+          currentOrder?.data.ulez
         )
       );
     }
 
     setStatusBoxList(statusBoxList);
 
-    const isAllStatusGood = statusBoxList.every((box) => box.condition);
+    const isAllStatusGood = statusBoxList.every((box) => box.IsEmpty);
     setAllStatusGood(isAllStatusGood);
   };
 
@@ -357,7 +340,7 @@ const OrderDetails = ({ currentOrder }) => {
                     onClick={statusBox.onClick}
                     gradientColor={statusBox.gradientColor}
                     noHover={statusBox.noHover}
-                    condition={statusBox.condition}
+                    condition={statusBox.IsEmpty}
                   />
                 ))}
             </section>
