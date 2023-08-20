@@ -88,9 +88,8 @@
 }
 
 .package-left-button-go {
-  background-color: white;
-  border: 1px solid var(--orange);
-  color: var(--orange);
+  background-color: #e0dfdf;
+  border: 1px transparent var(--orange);
   padding: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
@@ -100,6 +99,7 @@
   font-size: 1.2rem;
   order: 2;
   font-weight: bold;
+  box-shadow: (0, 0, 0, 0.2) 0px 5px 15px;
 }
 
 .package-left-button-go:hover {
@@ -143,9 +143,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  font-size: x-large;
+  font-size: 3rem;
   font-weight: bold;
-  color: var(--medium-purple);
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -335,7 +334,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--orange);
+  background: linear-gradient(to right, #8e60f7, #d832f7);
   margin-top: 1rem !important;
   margin: -2rem;
   height: 4.5rem;
@@ -348,12 +347,10 @@
 }
 
 .package-right-content-button-container:hover {
-  background-color: var(--medium-orange);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .package-right-content-button-container:active {
-  background-color: var(--medium-orange);
   transform: scale(1.05);
   border-radius: 10px;
   font-size: 1.3rem;

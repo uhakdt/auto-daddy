@@ -17,7 +17,16 @@ const WriteOff = ({
   if (!full.WrittenOff && full.WriteOffRecordCount === 0) {
     return (
       <section ref={goToWriteOffSection} className="section">
-        <div className="section-title">Write Off</div>
+        <div className="section-title">
+          <div>Write Off</div>
+          <div>
+            <img
+              alt="Google"
+              src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+              height={40}
+            />
+          </div>
+        </div>
         <div className="section-divider"></div>
         <div className="section-content">No Records - All Fine.</div>
       </section>

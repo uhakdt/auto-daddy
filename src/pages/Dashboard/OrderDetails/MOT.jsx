@@ -22,7 +22,16 @@ const MOT = ({
   if (basic?.MotHistory?.RecordList?.length === 0) {
     return (
       <section ref={goToMOTSection} className="section">
-        <div className="section-title">MOT</div>
+        <div className="section-title">
+          <div>MOT</div>
+          <div>
+            <img
+              alt="Google"
+              src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+              height={40}
+            />
+          </div>
+        </div>
         <div className="section-divider"></div>
         <div className="section-content">No Records - All Fine.</div>
       </section>

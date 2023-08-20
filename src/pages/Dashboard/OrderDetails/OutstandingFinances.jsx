@@ -16,7 +16,16 @@ const OutstandingFinances = ({
   if (full.FinanceRecordList.length === 0) {
     return (
       <section ref={goToFinanceSection} className="section">
-        <div className="section-title">Outstanding Finances</div>
+        <div className="section-title">
+          <div>Outstanding Finances</div>
+          <div>
+            <img
+              alt="Google"
+              src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+              height={40}
+            />
+          </div>
+        </div>
         <div className="section-divider"></div>
         <div className="section-content">No Records - All Fine.</div>
       </section>

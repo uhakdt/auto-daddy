@@ -28,7 +28,6 @@
 .table-row-title {
   font-size: 1rem;
   margin-left: 1rem;
-  color: #6f508c;
   font-weight: 500;
 }
 
@@ -36,11 +35,11 @@
   font-size: 1.5rem;
   font-weight: bold;
   text-align: right;
-  color: black;
 }
 
 .table-row-divider {
-  width: 100%;
-  height: 0.05rem;
-  background-color: #6f508c;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, white, #e0dfdf, white);
 }

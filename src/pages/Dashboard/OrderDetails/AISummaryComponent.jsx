@@ -18,7 +18,7 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
               <span
                 style={{
                   fontWeight: "bolder",
-                  fontSize: "1.2rem",
+                  fontSize: "1.5rem",
                   marginRight: "1rem",
                 }}
               >

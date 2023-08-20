@@ -17,7 +17,16 @@ const PlateChangesSection = ({
   if (full.PlateChangeCount === 0) {
     return (
       <section ref={goToPlateSection} className="section">
-        <div className="section-title">Plate Changes</div>
+        <div className="section-title">
+          <div>Plate changes</div>
+          <div>
+            <img
+              alt="Google"
+              src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+              height={40}
+            />
+          </div>
+        </div>
         <div className="section-divider"></div>
         <div className="section-content">No Records - All Fine.</div>
       </section>

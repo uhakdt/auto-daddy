@@ -184,7 +184,6 @@ const PackagePage = () => {
           </div>
           <div className="package-left-content-container">
             <div className="package-left-carmake-container">
-              <RiCarLine color="#6f508c" size={22} />
               {vehicleFreeData.make}
             </div>
             <div className="package-left-tax-and-mot-container">
@@ -192,17 +191,11 @@ const PackagePage = () => {
                 title={"TAX"}
                 dueDate={vehicleFreeData.taxDueDate}
                 status={vehicleFreeData.taxStatus}
-                colour={
-                  vehicleFreeData.taxStatus === "Taxed" ? "#6f508c" : "#d55a6f"
-                }
               />
               <StatusWindow
                 title={"MOT"}
                 dueDate={vehicleFreeData.motExpiryDate}
                 status={vehicleFreeData.motStatus}
-                colour={
-                  vehicleFreeData.motStatus === "Valid" ? "#6f508c" : "#d55a6f"
-                }
               />
             </div>
             <div className="package-left-other-details-container">
@@ -339,6 +332,11 @@ const PackagePage = () => {
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
               <FullReportList />
+              <img
+                alt="Google"
+                src={iconsUrl + "icon_plus_small.png"}
+                height={80}
+              />{" "}
               <div className="package-right-content-openai">
                 <img
                   className="package-right-content-openai-logo"

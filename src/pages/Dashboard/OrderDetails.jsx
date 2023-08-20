@@ -333,6 +333,21 @@ const OrderDetails = ({ currentOrder }) => {
               aiContentLoading={aiContentLoading}
             />
 
+            <ImportantChecks
+              basic={basic}
+              aiContent={aiContent?.["important_checks"]}
+              aiContentLoading={aiContentLoading}
+              condition={listOfConditions["V5C"]}
+            />
+
+            <VehicleDetails
+              free={free}
+              basic={basic}
+              aiContent={aiContent?.["main_details_analysis"]}
+              aiContentLoading={aiContentLoading}
+              imageUrl={imageUrl}
+            />
+
             <MOT
               free={free}
               basic={basic}
@@ -350,21 +365,6 @@ const OrderDetails = ({ currentOrder }) => {
               aiContentLoading={aiContentLoading}
               goToTAXSection={goToTAXSection}
               condition={listOfConditions["TAX"]}
-            />
-
-            <VehicleDetails
-              free={free}
-              basic={basic}
-              aiContent={aiContent?.["main_details_analysis"]}
-              aiContentLoading={aiContentLoading}
-              imageUrl={imageUrl}
-            />
-
-            <ImportantChecks
-              basic={basic}
-              aiContent={aiContent?.["important_checks"]}
-              aiContentLoading={aiContentLoading}
-              condition={listOfConditions["V5C"]}
             />
 
             <Mileage

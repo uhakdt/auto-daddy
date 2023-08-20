@@ -16,7 +16,16 @@ const ImportExport = ({
   if (!full.Imported && !full.Exported) {
     return (
       <section ref={goToImportExportSection} className="section">
-        <div className="section-title">Import / Export</div>
+        <div className="section-title">
+          <div>Import / Export</div>
+          <div>
+            <img
+              alt="Google"
+              src={iconsUrl + (condition ? "check.svg" : "close.svg")}
+              height={40}
+            />
+          </div>
+        </div>
         <div className="section-divider"></div>
         <div className="section-content">No Records - All Fine.</div>
       </section>
