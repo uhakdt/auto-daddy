@@ -264,7 +264,7 @@ const PackagePage = () => {
               <Link to="/privacy">Privacy</Link> |
               <Link to="/terms">Terms and Conditions</Link> |
               <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> |
-              <Link to="/contactus">Contact Us</Link>
+              <a to="/contactus">Contact Us</a>
             </div>
             <div className="package-left-copyright">© 2023 AutoDaddy</div>
           </div>
