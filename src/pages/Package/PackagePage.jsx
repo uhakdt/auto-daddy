@@ -320,15 +320,15 @@ const PackagePage = () => {
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
               <FullReportList />
-              {isMobile ? (
+              {/* {isMobile ? (
                 <></>
               ) : (
                 <img
                   alt="Google"
                   src={iconsUrl + "icon_plus_small.png"}
-                  height={80}
+                  height={40}
                 />
-              )}
+              )} */}
               <div className="package-right-content-openai">
                 <img
                   className="package-right-content-openai-logo"

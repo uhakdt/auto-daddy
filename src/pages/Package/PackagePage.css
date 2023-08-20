@@ -237,10 +237,11 @@
 }
 
 .package-right-header-button-container {
-  background-color: white;
+  /* background-color: white; */
   padding-left: 1rem;
   padding-bottom: 1rem;
   border-bottom-left-radius: 5px;
+  padding-top: 1rem;
 }
 
 .package-right-header-button {

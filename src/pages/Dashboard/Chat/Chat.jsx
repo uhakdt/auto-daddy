@@ -14,6 +14,12 @@ const Chat = ({ currentOrder }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const messagesEndRef = useRef(null); // Create a ref for the messages div
 
+  const presetQuestions = [
+    "What is the fuel efficiency?",
+    "What should I ask the Dealer?",
+    "What's the mileage of the car?",
+    "Tell me about the warranty."
+  ];
   useEffect(() => {
     socket.on("connect", () => {
       console.log("connected");
@@ -38,61 +44,72 @@ const Chat = ({ currentOrder }) => {
     }
   }, [messages]);
 
-  const send = () => {
-    setMessages([...messages, { from: "user", text: input }]);
+  const send = (messageToSend = input) => {
+    setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
 
     if (socket !== null) {
       socket.emit("message", {
-        input: input,
+        input: messageToSend,
         order: currentOrder["extractedData"],
       });
     }
   };
 
+
   return (
     <div className="chatbot">
-      <button
-        className="minimizeButton"
-        onClick={() => setIsMinimized(!isMinimized)}
-      >
-        {isMinimized ? (
-          <FiMaximize2 className="minimizeIcon" />
-        ) : (
-          <FiMinimize2 className="minimizeIcon" />
-        )}
-      </button>
+      <div className="chatbot-header">
+        <button
+          className="minimizeButton"
+          onClick={() => setIsMinimized(!isMinimized)}
+        >
+          {isMinimized ? (
+            <FiMaximize2 className="minimizeIcon" />
+          ) : (
+            <FiMinimize2 className="minimizeIcon" />
+          )}
+        </button>
+      </div>
+
       <div className={`messages ${!isMinimized ? "open" : ""}`}>
-        {" "}
         {messages.map((message, index) => (
           <div
             key={index}
-            className={
-              message.from === "user" ? "userMessage" : "serverMessage"
-            }
+            className={message.from === "user" ? "userMessage" : "serverMessage"}
           >
-            {message.from === "user" ? (
-              <>
-                <div className="chat-title">Your Question:</div>
-                <div>{message.text}</div>
-              </>
-            ) : (
-              <>
-                <div className="chat-title">GPT Answer:</div>
-                <div>{message.text}</div>
-                <div className="chatGPTLabel">Powered by ChatGPT</div>
-              </>
-            )}
+            <div className="chat-title">
+              {message.from === "user" ? "Your Question:" : "GPT Answer:"}
+            </div>
+            <div>{message.text}</div>
+            {message.from !== "user" && <div className="chatGPTLabel">Powered by ChatGPT</div>}
           </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
+      <div className={`content-area ${!isMinimized ? "open" : ""}`}>
+        <div className="preset-questions">
+          {presetQuestions.map((question, index) => (
+            <button
+              key={index}
+              className="preset-question"
+              onClick={() => {
+                setInput(question);
+                send(question);
+              }}
+            >
+              {question}
+            </button>
+          ))}
+        </div>
+      </div>
       <div className="inputContainer">
         <input
-          className="input"
+          className="chat-input"
           value={input}
-          placeholder="Ask any question about the car..."
+          placeholder="Your Question"
           onChange={(e) => setInput(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' && send()} // To send message with Enter key
         />
         <button className="send-chat-button" onClick={send}>
           Ask
