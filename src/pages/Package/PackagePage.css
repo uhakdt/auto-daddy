@@ -78,7 +78,7 @@
   font-size: 1.2rem;
   height: 3.3rem;
   padding-left: 1rem;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   color: var(--dark-purple);
 }
 
@@ -103,14 +103,10 @@
 }
 
 .package-left-button-go:hover {
-  background-color: var(--medium-orange);
-  color: white;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .package-left-button-go:active {
-  background-color: var(--dark-orange);
-  color: white;
   transform: scale(0.95);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -247,19 +243,9 @@
   border-bottom-left-radius: 5px;
 }
 
-.package-right-header-icon {
-  font-size: 2.5rem;
-  color: var(--light-medium-purple);
-  justify-content: center;
-  display: flex;
-  padding: 1rem;
-  align-items: center;
-  margin-left: 2rem;
-}
-
 .package-right-header-button {
   background-color: white;
-  border: 0.1rem solid var(--medium-purple);
+  border: 0.1rem transparent var(--medium-purple);
   color: var(--medium-purple);
   padding: 1rem;
   border-radius: 5px;
@@ -267,6 +253,7 @@
   transition: all 0.3s ease;
   font-size: 1.2rem;
   margin-right: 1rem;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-width: 768px) {
@@ -291,9 +278,11 @@
 }
 
 .package-right-content-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  color: var(--dark-purple);
+  background: -webkit-linear-gradient(#8e60f7, #d832f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 2rem;
 }
 
@@ -315,6 +304,10 @@
   margin-bottom: 2rem;
   width: 100%;
   opacity: 0.5;
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, white, #b0b0b0, white);
 }
 
 .package-right-content-list-openai-container {

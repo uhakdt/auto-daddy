@@ -287,14 +287,7 @@ const PackagePage = () => {
               </>
             ) : (
               <>
-                <div className="package-right-header-icon">
-                  <img
-                    alt="report"
-                    src={process.env.PUBLIC_URL + "/icons/report.svg"}
-                    height={40}
-                    style={{ opacity: 0.5 }}
-                  />
-                </div>
+                <div className="package-right-header-icon"></div>
                 <div className="package-right-header-button-container">
                   <button
                     className="package-right-header-button"
@@ -319,15 +312,9 @@ const PackagePage = () => {
             )}
           </div>
           <div className="package-right-content">
-            <div className="package-right-content-title">Full Car Report</div>
-            <div className="package-right-content-description">
-              We extract extensive Vehicle data and feed it into OpenAI ChatGPT,
-              which privides detailed insights about the car, including an
-              assessment of its value.
-            </div>
-            <div className="package-right-content-description-bold">
-              That's it! Buying a car has never been so informed and
-              straightforward.
+            <div className="package-right-content-title">
+              Get your complete car history report and ask ChatGPT any questions
+              you have about it.
             </div>
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
@@ -344,11 +331,6 @@ const PackagePage = () => {
                   alt="Logo"
                 />
               </div>
-            </div>
-            <div className="package-right-content-description">
-              Receive a detailed report with all of ChatGPT's insights,
-              equipping you with the knowledge you need for a confident purchase
-              decision.
             </div>
             <div
               className="package-right-content-button-container"

@@ -27,7 +27,7 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
   return (
     <div className="auth">
       <div className="auth-header">
-        <span>Register</span>
+        <div>Register</div>
         <img
           alt="close"
           src={iconsUrl + "close.svg"}
@@ -45,7 +45,7 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
           <img alt="Google" src={iconsUrl + "google.svg"} height={20} />
           <span>Register with Google</span>
         </button>
-        <button
+        {/*        <button
           onClick={() => {
             signInWithFacebook();
             handleSetOpen();
@@ -53,13 +53,13 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
         >
           <img alt="Facebook" src={iconsUrl + "facebook.svg"} height={20} />{" "}
           <span>Login with Facebook</span>
-        </button>
+        </button> */}
       </div>
       <div className="separator">
-        <span>Or</span>
+        <span>or</span>
       </div>
       <div className="input-field">
-        <img alt="Email" src={iconsUrl + "email.svg"} height={20} />
+        {/* <img alt="Email" src={iconsUrl + "email.svg"} height={20} /> */}
         <input
           type="text"
           placeholder="E-mail Address"
@@ -68,11 +68,11 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
         />
       </div>
       <div className="input-field">
-        <img
+        {/*  <img
           alt="Password"
           src={iconsUrl + (isPasswordVisible ? "unlocked.svg" : "locked.svg")}
           height={20}
-        />
+        /> */}
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"
@@ -82,7 +82,7 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
         <img
           alt="Toggle Password Visibility"
           src={iconsUrl + (isPasswordVisible ? "nonhidden.svg" : "hidden.svg")}
-          height={20}
+          height={15}
           onClick={togglePasswordVisibility}
           style={{
             cursor: "pointer",

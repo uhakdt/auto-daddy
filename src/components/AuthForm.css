@@ -15,7 +15,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
+  padding: 2.5rem;
   border-radius: 8px;
   outline: none;
   display: flex;
@@ -24,6 +24,13 @@
   justify-content: space-around;
   gap: 10px;
   align-items: center;
+  width: 20%;
+}
+
+@media (max-width: 768px) {
+  .auth {
+    width: 90%;
+  }
 }
 
 .auth-header {
@@ -32,11 +39,12 @@
   align-items: center;
   width: 100%;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
-.auth-header span {
+.auth-header div {
   font-size: 1.5rem;
-  color: purple;
+  color: black;
 }
 
 .auth-header img {
@@ -45,10 +53,6 @@
 
 /* GOOGLE/FACEBOOK */
 .social-auth-buttons {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
 }
@@ -63,7 +67,6 @@
   border: 1px solid var(--dark-orange);
   background-color: white;
   cursor: pointer;
-  width: 50%;
 }
 
 .social-auth-buttons button span {
@@ -79,6 +82,7 @@
   text-align: center;
   margin-bottom: 1rem;
   font-size: 0.8rem;
+  font-weight: bold;
 }
 
 /* INPUT FIELDS */
@@ -122,7 +126,7 @@ input::placeholder {
 }
 
 .submit-btn button {
-  background-color: var(--orange);
+  background-image: linear-gradient(to right, #8e60f7, #d832f7);
   border: none;
   color: white;
   padding: 0.5rem;
@@ -136,12 +140,10 @@ input::placeholder {
 }
 
 .submit-btn button:hover {
-  background-color: var(--medium-orange);
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .submit-btn button:active {
-  background-color: var(--dark-orange);
   transform: scale(0.95);
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }

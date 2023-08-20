@@ -22,7 +22,6 @@ function Sidebar({
     setSelectedOrder(order.orderId);
   };
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
-  console.log(orders);
   return (
     <Box className="sidebar-box">
       <button className="sidebar-toggle-button" onClick={toggleSidebar}>
