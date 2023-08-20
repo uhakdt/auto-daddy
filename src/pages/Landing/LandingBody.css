@@ -53,11 +53,11 @@
 
 .landing-title {
   font-size: 2.5rem;
-  color: #42224d;
+  color: black;
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #290972, #d832f7);
+  background: linear-gradient(to right, #8e60f7, #d832f7);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -114,6 +114,7 @@
   margin-right: 0.5rem;
   text-align: center;
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  font-style: italic;
 }
 
 .landing-button-go {
