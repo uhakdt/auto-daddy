@@ -143,21 +143,15 @@ const OrderDetails = ({ currentOrder }) => {
         currentOrder.data.VdiCheckFull.Imported === false &&
         currentOrder.data.VdiCheckFull.Exported === false,
       Scrapped: currentOrder.data.VdiCheckFull.Scrapped === false,
-      Colour:
-        currentOrder.data.VdiCheckFull.ColourChangeCount === null ||
-        currentOrder.data.VdiCheckFull.ColourChangeCount === 0,
-      Plate:
-        currentOrder.data.VdiCheckFull.PlateChangeCount === null ||
-        currentOrder.data.VdiCheckFull.PlateChangeCount === 0,
+      Colour: true,
+      Plate: true,
       Stolen:
         currentOrder.data.VdiCheckFull.Stolen === false ||
         currentOrder.data.VdiCheckFull.Stolen === null,
       Mileage:
         currentOrder.data.VdiCheckFull.MileageAnomalyDetected === false ||
         currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null,
-      Keepers:
-        currentOrder.data.VdiCheckFull.PreviousKeeperCount === null ||
-        currentOrder.data.VdiCheckFull.PreviousKeeperCount === 0,
+      Keepers: true,
       V5C: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate,
     };
     setListOfConditions(listOfConditions);
