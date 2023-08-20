@@ -116,6 +116,9 @@
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
   font-style: italic;
 }
+.landing-input::placeholder {
+  text-transform: none;
+}
 
 .landing-button-go {
   background-image: linear-gradient(to right, #8e60f7, #d832f7);
@@ -189,6 +192,10 @@
   .landing-input {
     width: 8%;
     margin-right: 0;
+  }
+
+  .landing-input::placeholder {
+    text-transform: none;
   }
 
   .landing-button-go {
