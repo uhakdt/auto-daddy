@@ -19,6 +19,8 @@ const MOT = ({
   aiContentLoading,
   condition,
 }) => {
+  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
+
   if (basic?.MotHistory?.RecordList?.length === 0) {
     return (
       <section ref={goToMOTSection} className="section">
@@ -37,8 +39,6 @@ const MOT = ({
       </section>
     );
   }
-
-  const iconsUrl = process.env.PUBLIC_URL + "/icons/";
 
   return (
     <section ref={goToMOTSection} className="section">

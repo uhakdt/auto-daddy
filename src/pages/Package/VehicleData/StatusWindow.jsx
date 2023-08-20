@@ -6,11 +6,12 @@ const StatusWindow = ({ title, dueDate, status }) => {
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
 
   var condition = status === "Valid" || status === "Taxed";
+  let colour; // Declare the variable once using 'let'
 
   if (condition) {
-    var colour = "#32ce57";
+    colour = "#32ce57";
   } else {
-    var colour = "#fd4438";
+    colour = "#fd4438";
   }
 
   return (

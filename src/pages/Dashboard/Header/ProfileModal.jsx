@@ -41,36 +41,19 @@ function ProfileModal({ isOpen, onClose }) {
               navigate("/dashboard");
             }}
           >
-            <img
-              alt="report"
-              src={process.env.PUBLIC_URL + "/icons/user.svg"}
-              height={20}
-              style={{ paddingRight: "0.5rem" }}
-            />
             Profile ({email === null ? <>Anonymous</> : <>{email}</>})
           </div>
           <div
             className="sub-container"
             onClick={() => {
               onClose();
-              navigate("/contact-us");
+              window.location.href =
+                "mailto:support@autodaddy.co.uk?subject=Need Help&body=Hi, I need some assistance with...";
             }}
           >
-            <img
-              alt="contact"
-              src={process.env.PUBLIC_URL + "/icons/contact.svg"}
-              height={20}
-              style={{ paddingRight: "0.5rem" }}
-            />
-            Contact Us
+            Need Help?
           </div>
           <div className="sub-container" onClick={handleLogout}>
-            <img
-              alt="logout"
-              src={process.env.PUBLIC_URL + "/icons/logout.svg"}
-              height={20}
-              style={{ paddingRight: "0.5rem" }}
-            />
             Logout
           </div>
         </div>
