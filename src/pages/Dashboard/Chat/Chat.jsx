@@ -17,8 +17,8 @@ const Chat = ({ currentOrder }) => {
   const presetQuestions = [
     "What is the fuel efficiency?",
     "What should I ask the Dealer?",
-    "What's the mileage of the car?",
-    "Tell me about the warranty."
+    "Are there any major MOT Failures?",
+    "Tell me about the warranty.",
   ];
   useEffect(() => {
     socket.on("connect", () => {
@@ -56,7 +56,6 @@ const Chat = ({ currentOrder }) => {
     }
   };
 
-
   return (
     <div className="chatbot">
       <div className="chatbot-header">
@@ -76,13 +75,17 @@ const Chat = ({ currentOrder }) => {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={message.from === "user" ? "userMessage" : "serverMessage"}
+            className={
+              message.from === "user" ? "userMessage" : "serverMessage"
+            }
           >
             <div className="chat-title">
               {message.from === "user" ? "Your Question:" : "GPT Answer:"}
             </div>
             <div>{message.text}</div>
-            {message.from !== "user" && <div className="chatGPTLabel">Powered by ChatGPT</div>}
+            {message.from !== "user" && (
+              <div className="chatGPTLabel">Powered by ChatGPT</div>
+            )}
           </div>
         ))}
         <div ref={messagesEndRef} />
@@ -109,7 +112,7 @@ const Chat = ({ currentOrder }) => {
           value={input}
           placeholder="Your Question"
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={e => e.key === 'Enter' && send()} // To send message with Enter key
+          onKeyPress={(e) => e.key === "Enter" && send()} // To send message with Enter key
         />
         <button className="send-chat-button" onClick={() => send(input)}>
           Ask
