@@ -1,85 +1,111 @@
 .chatbot {
   position: fixed;
   bottom: 0;
-  width: 80%;
-  left: 10%;
+  width: calc(100% - 80px); /* Adjusted width to account for padding */
+  left: 50%;
+  transform: translateX(-50%); /* Centering the chatbot */
   background-color: white;
-  padding: 40px;
+  padding: 20px; /* Reduced the padding a bit */
   font-size: 25px;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1.5rem 1.5rem 0 0;
 }
 
 .messages {
-  max-height: calc(
-    70vh - 4rem
-  ); /* Reduce height to accommodate inputContainer */
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  display: none; /* Initially set to none, to show only when maximized */
+  max-height: 70vh;
+  overflow-y: auto;
+  display: none;   /* <-- This is important! */
+  padding: 15px 0;
 }
 
 .messages.open {
-  display: block; /* Use this class to show the messages */
+  display: block;  /* <-- This is important! */
+}
+
+/* New styles */
+.content-area {
+  display: none;   /* Default state is hidden */
+}
+
+.content-area.open {
+  display: block;  /* Display it when it has the 'open' class */
+}
+
+.preset-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;  /* Adds a gap between the questions */
+  padding: 15px 0;
 }
 
 .userMessage,
 .serverMessage {
-  align-items: center;
-  margin-bottom: 10px;
-  border: 1px solid #ececec;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 5px;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 7px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #eef2fe;
 }
 
 .serverMessage {
-  justify-content: flex-end;
-  background-image: linear-gradient(to right, #e3e8fb, #f5def8);
+  align-self: flex-start;
+  background-color: #f7f3fd;
 }
 
 .chat-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .inputContainer {
   display: flex;
-  align-items: stretch;
-  margin-top: 1rem;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-.input {
+.chat-input {
   flex: 1;
-  height: 3rem; /* Set a fixed height for the input */
+  padding: 10px 15px;
   font-size: 2rem;
-  border: 1px solid #ccc;
+  border: 1px solid #e2e2e2;
   border-radius: 0.5rem 0 0 0.5rem;
-}
-
-input:focus {
   outline: none;
 }
 
 .send-chat-button {
-  width: 100px;
-  border: 1px solid #ccc;
-  border-radius: 0 0.5rem 0.5rem 0;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
   background-image: linear-gradient(to right, #8e60f7, #d832f7);
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-chat-button:hover {
+  background-color: #d632e9;
+}
+
+.chatbot-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0px 20px; /* Providing some space */
+  border-bottom: 1px solid #ececec; /* Optional: a subtle line to separate header from content */
 }
 
 .minimizeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   background: none;
   border: none;
   cursor: pointer;
+  margin-left: auto; /* Pushes the button to the right */
+  padding: 10px; /* Making the touch/click area larger for better UX */
 }
 
 .minimizeIcon {
@@ -87,10 +113,76 @@ input:focus {
   height: 20px;
 }
 
+
 .chatGPTLabel {
   font-size: 0.8rem;
   color: #888;
   margin-top: 5px;
   text-align: right;
-  width: 100%;
+}
+
+/* Media Queries for Mobile */
+@media screen and (max-width: 768px) {
+  .chatbot {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    transform: none; /* Remove the transform */
+    left: 0; /* Adjust the left to start from the edge */
+    font-size: 18px;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+
+  .messages {
+    max-height: 50vh;
+    padding: 10px 0;
+  }
+
+  .userMessage,
+  .serverMessage {
+    margin-bottom: 6px;
+    padding: 8px;
+  }
+
+  .chat-title {
+    font-size: 1rem;
+  }
+
+  .inputContainer {
+    margin-top: 8px;
+  }
+
+  .chat-input {
+    font-size: 1rem;
+  }
+
+  .send-chat-button {
+    font-size: 0.9rem;
+  }
+
+  .minimizeIcon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+
+.preset-questions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;  /* Adds a gap between the questions */
+  padding: 15px 0;
+}
+
+.preset-question {
+  padding: 5px 10px;
+  border: none;
+  background-color: #e2e2e2;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.preset-question:hover {
+  background-color: #d1d1d1;
 }
