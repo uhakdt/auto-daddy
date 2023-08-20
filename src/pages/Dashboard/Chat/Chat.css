@@ -1,0 +1,96 @@
+.chatbot {
+  position: fixed;
+  bottom: 0;
+  width: 80%;
+  left: 10%;
+  background-color: white;
+  padding: 40px;
+  font-size: 25px;
+  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.messages {
+  max-height: calc(
+    70vh - 4rem
+  ); /* Reduce height to accommodate inputContainer */
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  display: none; /* Initially set to none, to show only when maximized */
+}
+
+.messages.open {
+  display: block; /* Use this class to show the messages */
+}
+
+.userMessage,
+.serverMessage {
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid #ececec;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.serverMessage {
+  justify-content: flex-end;
+  background-image: linear-gradient(to right, #e3e8fb, #f5def8);
+}
+
+.chat-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  align-items: stretch;
+  margin-top: 1rem;
+}
+
+.input {
+  flex: 1;
+  height: 3rem; /* Set a fixed height for the input */
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.send-chat-button {
+  width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  background-image: linear-gradient(to right, #8e60f7, #d832f7);
+}
+
+.minimizeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.minimizeIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.chatGPTLabel {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 5px;
+  text-align: right;
+  width: 100%;
+}

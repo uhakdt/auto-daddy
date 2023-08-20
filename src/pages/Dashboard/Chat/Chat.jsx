@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react"; // added useRef
 import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
-import { FaUserAlt } from "react-icons/fa";
 import io from "socket.io-client";
 import { AppContext } from "../../../appContext";
+import "./Chat.css";
 
 const socket = io(process.env.REACT_APP_API_URL_WITHOUT_SUFFIX, {
   path: "/api/v1/chat",
@@ -12,6 +12,7 @@ const Chat = ({ currentOrder }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
+  const messagesEndRef = useRef(null); // Create a ref for the messages div
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -31,6 +32,12 @@ const Chat = ({ currentOrder }) => {
     };
   }, [socket]);
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const send = () => {
     setMessages([...messages, { from: "user", text: input }]);
     setInput("");
@@ -43,135 +50,55 @@ const Chat = ({ currentOrder }) => {
     }
   };
 
-  if (isMinimized) {
-    return (
-      <div style={styles.minimizedChat}>
-        <button
-          style={styles.minimizeButton}
-          onClick={() => setIsMinimized(false)}
-        >
-          <FiMaximize2 style={styles.minimizeIcon} />
-        </button>
-      </div>
-    );
-  }
-
   return (
-    <div style={styles.chatbot}>
+    <div className="chatbot">
       <button
-        style={styles.minimizeButton}
-        onClick={() => setIsMinimized(true)}
+        className="minimizeButton"
+        onClick={() => setIsMinimized(!isMinimized)}
       >
-        <FiMinimize2 style={styles.minimizeIcon} />
+        {isMinimized ? (
+          <FiMaximize2 className="minimizeIcon" />
+        ) : (
+          <FiMinimize2 className="minimizeIcon" />
+        )}
       </button>
-      <div style={styles.messages}>
+      <div className={`messages ${!isMinimized ? "open" : ""}`}>
+        {" "}
         {messages.map((message, index) => (
           <div
             key={index}
-            style={
-              message.from === "user"
-                ? styles.userMessage
-                : styles.serverMessage
+            className={
+              message.from === "user" ? "userMessage" : "serverMessage"
             }
           >
             {message.from === "user" ? (
-              <FaUserAlt style={{ marginRight: "10px" }} />
+              <>
+                <div className="chat-title">Your Question:</div>
+                <div>{message.text}</div>
+              </>
             ) : (
-              <img
-                style={styles.avatar}
-                src="https://picsum.photos/200"
-                alt="avatar"
-              />
+              <>
+                <div className="chat-title">GPT Answer:</div>
+                <div>{message.text}</div>
+                <div className="chatGPTLabel">Powered by ChatGPT</div>
+              </>
             )}
-            <div>{message.text}</div>
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
-      <div style={styles.inputContainer}>
+      <div className="inputContainer">
         <input
-          style={styles.input}
+          className="input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button style={styles.button} onClick={send}>
-          Send
+        <button className="send-chat-button" onClick={send}>
+          Ask
         </button>
       </div>
     </div>
   );
-};
-
-const styles = {
-  chatbot: {
-    position: "fixed",
-    bottom: 0,
-    width: "80%",
-    left: "10%",
-    backgroundColor: "white",
-    padding: "40px",
-    fontSize: "25px",
-    boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)",
-  },
-  messages: {
-    maxHeight: "70vh",
-    overflowY: "scroll",
-    scrollbarWidth: "none",
-    msOverflowStyle: "none",
-  },
-  userMessage: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "10px",
-  },
-  serverMessage: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: "10px",
-    justifyContent: "flex-end",
-  },
-  avatar: {
-    width: "50px",
-    height: "50px",
-    borderRadius: "50%",
-    objectFit: "cover",
-    marginRight: "10px",
-  },
-  inputContainer: {
-    display: "flex",
-    marginTop: "10px",
-  },
-  input: {
-    flex: "1",
-    marginRight: "10px",
-  },
-  button: {
-    width: "100px",
-  },
-  minimizeButton: {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-  },
-  minimizeIcon: {
-    width: "20px",
-    height: "20px",
-  },
-  minimizedChat: {
-    position: "fixed",
-    bottom: 0,
-    width: "80px",
-    height: "80px",
-    left: "10%",
-    backgroundColor: "white",
-    padding: "10px",
-    boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 };
 
 export default Chat;
