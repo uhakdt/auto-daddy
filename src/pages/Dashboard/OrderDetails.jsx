@@ -40,7 +40,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const OrderDetails = ({ currentOrder }) => {
-  console.log("currentOrder", currentOrder);
+  console.log("currentOrder", currentOrder?.ulez);
   const [free, setFree] = useState(null);
   const [basic, setBasic] = useState(null);
   const [full, setFull] = useState(null);
@@ -256,9 +256,9 @@ const OrderDetails = ({ currentOrder }) => {
       statusBoxList.push(
         generateStatusBox(
           "ULEZ",
-          `Compliant: ${currentOrder?.data.ulez}`,
+          `Compliant: ${currentOrder?.ulez}`,
           null,
-          currentOrder?.data.ulez
+          currentOrder?.ulez
         )
       );
     }
