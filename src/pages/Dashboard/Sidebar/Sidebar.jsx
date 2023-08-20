@@ -16,25 +16,30 @@ function Sidebar({
   selectedOrderId,
   setSelectedOrderId,
 }) {
-
   //sidebar gradient line
   useEffect(() => {
     const handleScroll = () => {
-      let scrollPercent = (window.scrollY) / (document.documentElement.scrollHeight - window.innerHeight);
+      let scrollPercent =
+        window.scrollY /
+        (document.documentElement.scrollHeight - window.innerHeight);
       let colorChange = Math.min(1, scrollPercent * 2);
 
       let newColor = `linear-gradient(to bottom, 
-        rgba(${hexToRgb('--dark-purple').r}, ${hexToRgb('--dark-purple').g}, ${hexToRgb('--dark-purple').b}, ${1 - colorChange}), 
-        rgba(${hexToRgb('--orange').r}, ${hexToRgb('--orange').g}, ${hexToRgb('--orange').b}, ${colorChange}))`;
+        rgba(${hexToRgb("--dark-purple").r}, ${hexToRgb("--dark-purple").g}, ${
+        hexToRgb("--dark-purple").b
+      }, ${1 - colorChange}), 
+        rgba(${hexToRgb("--orange").r}, ${hexToRgb("--orange").g}, ${
+        hexToRgb("--orange").b
+      }, ${colorChange}))`;
 
       document.body.style.setProperty("--scroll-gradient", newColor);
-    }
+    };
 
     const hexToRgb = (hexColorVar) => {
       let hex = getComputedStyle(document.documentElement)
         .getPropertyValue(hexColorVar)
         .trim();
-      hex = hex.replace(/^#/, '');
+      hex = hex.replace(/^#/, "");
 
       let bigint = parseInt(hex, 16);
       let r = (bigint >> 16) & 255;
@@ -42,14 +47,14 @@ function Sidebar({
       let b = bigint & 255;
 
       return { r: r, g: g, b: b };
-    }
+    };
 
     window.addEventListener("scroll", handleScroll);
 
     // Clean up the listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
-    }
+    };
   }, []);
   const { setCurrentOrder } = useContext(AppContext);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -69,8 +74,6 @@ function Sidebar({
       setIsSidebarOpen(false);
     }
   }, []); //
-
-
 
   return (
     <Box className="sidebar-box">
@@ -98,18 +101,20 @@ function Sidebar({
                     setCurrentOrder(order);
                     setSelectedOrderId(order.orderId); // Update the selected order ID
                   }}
-                  className={`order-button-container ${selectedOrderId === order.orderId
-                    ? "order-button-container-selected"
-                    : ""
-                    }`}
+                  className={`order-button-container ${
+                    selectedOrderId === order.orderId
+                      ? "order-button-container-selected"
+                      : ""
+                  }`}
                 >
                   <div>
-                    <img alt="Google" src={iconsUrl + "car.svg"} height={20} />{" "}
+                    <img alt="Google" src={iconsUrl + "tyre.svg"} height={20} />{" "}
                   </div>
                   <div className="order-button-results-container">
                     <div className="order-button-results-registration-number">
-                      <span style={{ fontWeight: "bold" }}>GB</span>{" "}
-                      <span>{order?.vehicleFreeData.RegistrationNumber}</span>
+                      <span style={{ fontWeight: "bold" }}>
+                        GB {order?.vehicleFreeData.RegistrationNumber}
+                      </span>
                     </div>
                     <div className="order-button-results-model">
                       {CapitalizeEachWord(

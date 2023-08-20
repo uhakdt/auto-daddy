@@ -160,11 +160,12 @@ function LandingBody() {
           <input
             type="text"
             className="landing-input"
-            placeholder="Reg Number"
+            placeholder="REG Number"
             value={tempRegistrationNumber}
-            onChange={(event) => setTempRegistrationNumber(event.target.value.toUpperCase())}
-            style={{ textTransform: 'uppercase' }}
-
+            onChange={(event) =>
+              setTempRegistrationNumber(event.target.value.toUpperCase())
+            }
+            style={{ textTransform: "uppercase", fontWeight: "bold" }}
           />
           <button type="submit" className="landing-button-go">
             GO

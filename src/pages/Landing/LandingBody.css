@@ -119,6 +119,9 @@
 .landing-input::placeholder {
   text-transform: none;
 }
+.landing-input:focus {
+  outline: none;
+}
 
 .landing-button-go {
   background-image: linear-gradient(to right, #8e60f7, #d832f7);
