@@ -1,3 +1,53 @@
+.floating-plus {
+    position: absolute;
+    top: 50%;
+    /* Adjust these values to position the image as per your design */
+    left: 7%;
+    /* Adjust these values to position the image as per your design */
+    z-index: 1;
+    /* This ensures the image stays below your content. Increase this value if you want it to float above some content. */
+    width: 10%;
+    /* Adjust the percentage as needed for your design */
+}
+
+.floating-nut {
+    position: absolute;
+    top: 20%;
+    /* Adjust these values to position the image as per your design */
+    right: 10%;
+    z-index: 1000;
+    /* Generally, a high z-index to ensure the image stays on top */
+    width: 7%;
+    /* Adjust the percentage as needed for your design */
+    transform: translateY(-50%);
+    /* This is to vertically center the image */
+}
+
+.floating-hand {
+    position: absolute;
+    top: 35%;
+    /* Adjust these values to position the image as per your design */
+    right: 0%;
+    /* Adjust these values to position the image as per your design */
+    z-index: 1;
+    /* This ensures the image stays below your content. Increase this value if you want it to float above some content. */
+    width: 60%;
+    /* Adjust the percentage as needed for your design */
+}
+
+.landing-footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.landing-form-container {
+    max-width: 85%;
+    max-height: 85%;
+    text-align: center;
+}
 
 
 /* FORM */
@@ -5,57 +55,84 @@
 .landing-title {
     font-size: 2.5rem;
     color: #42224d;
-    width: 75%;
 }
 
-.landing-description {
+.gradient-text {
+    background: linear-gradient(45deg, purple, pink);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.landing-divider {
+    border: 0;
+    /* Removes default border */
+    border-top: 1.5px solid rgba(0, 0, 0, 0.2);
+    /* 50% opacity black color */
+    max-width: 60%;
+    /* Takes half of the full width of the container */
+    margin: 1rem auto;
+    /* Vertical margin of 1rem, horizontal margin set to auto */
+}
+
+/* .landing-description {
     font-size: 1rem;
     color: #42224d;
     margin-bottom: 1rem;
-    width: 75%;
-}
+} */
 
 .landing-form {
     display: flex;
     justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+
+    max-width: 400px;
+    margin: auto;
 }
+
 
 .landing-GB {
     padding: 1rem;
-    border: 1px solid #bdbdbd;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    display: flex;
+    color: rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    /* Horizontally centers content */
+    align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    /* Vertically centers content */
 }
 
 .landing-input {
-    border: 1px solid #bdbdbd;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     flex-grow: 1;
-    font-size: 1.2rem;
-    height: 3.3rem;
-    padding-left: 1rem;
-    margin-right: 1rem;
+    font-size: 2rem;
+    height: 5rem;
+    /* padding-left: 1rem; */
+    margin-right: 0.5rem;
+    text-align: center ;
+    box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .landing-button-go {
-    background-color: #d55a6f;
+    background-image: linear-gradient(to right, rgb(187, 29, 187), #df8695); /* creates a horizontal gradient from purple to pink */
     border: none;
     color: white;
-    padding: 0.5rem;
+    padding: 1rem;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    height: 3.3rem;
     width: 5rem;
-    font-size: 1.2rem;
+    font-size: 2rem;
     order: 2;
+    font-weight: bold;
 }
 
 .landing-button-go:hover {
@@ -80,6 +157,26 @@
 }
 
 @media (max-width: 768px) {
+
+    .floating-plus {
+        width: 10%;
+        left: 1%;
+        top: 40%;
+        /* Adjust for mobile */
+    }
+
+    .floating-nut {
+        width: 10%;
+        right: 1%;
+        top: 15%;
+    }
+
+    .floating-hand {
+        width: 50%;
+        right: 0%;
+        top: 65%;
+    }
+
     .landing-container {
         flex-direction: column;
     }
@@ -89,18 +186,21 @@
     }
 
     .landing-form {
+        flex-wrap: wrap;
         flex-direction: row;
-        justify-content: space-between;
+        /* justify-content: space-between; */
     }
 
     .landing-GB,
     .landing-input {
         width: 8%;
+        margin-right: 0;
     }
 
     .landing-button-go {
         width: 95%;
         border-radius: 5px;
+        padding: 1rem;
         margin-top: 1rem;
         margin-bottom: 5rem;
     }
