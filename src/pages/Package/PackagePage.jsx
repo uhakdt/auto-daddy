@@ -428,7 +428,7 @@ const PackagePage = () => {
                 </div>
                 <div className="package-pay-left-cost">
                   Total
-                  <span className="package-pay-left-cost-price">£9.25</span>
+                  <span className="package-pay-left-cost-price">£14.90</span>
                 </div>
                 <div className="package-pay-left-footer">
                   Powered by
