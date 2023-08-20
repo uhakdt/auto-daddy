@@ -84,6 +84,10 @@ const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
       }
 
       // Confirm the payment that was created server side
+      if (email === "") {
+        setEmail(user.email);
+      }
+
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {

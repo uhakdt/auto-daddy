@@ -12,7 +12,7 @@ const Footer = () => {
         <Link to="/data-deletion">Data Deletion</Link>{" "}
         <Link to="/gdpr">GDPR</Link>{" "}
         <Link to="/money-back">Money Back Guarantee</Link>{" "}
-        <Link to="/contact-us">Contact Us</Link>{" "}
+        <a href="mailto:support@autodaddy.co.uk">Contact Us</a>
       </Box>
       <Typography variant="body2" color="text.secondary" align="center">
         © {new Date().getFullYear()} Auto Daddy. All rights reserved.

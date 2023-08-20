@@ -58,7 +58,7 @@ const Settings = () => {
         color="primary"
         startIcon={<PhoneIcon />}
         onClick={() => {
-          window.location.href = "tel:+1234567890";
+          window.location.href = "tel:+447455025053";
         }}
         className="contact-button"
       >

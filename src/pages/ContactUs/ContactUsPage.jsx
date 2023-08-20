@@ -7,7 +7,8 @@ const ContactUsPage = () => {
       <h1>Contact Us</h1>
       <p>
         If you have any questions or concerns, please contact us at
-        [uhakdt@gmail.com]. We aim to respond within 48 hours.
+        <a href="mailto:support@autodaddy.co.uk">support@autodaddy.co.uk</a>. We
+        aim to respond within 48 hours.
       </p>
     </div>
   );
