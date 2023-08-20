@@ -52,18 +52,24 @@ const Mileage = ({
   const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.6;
   const chartHeight = dimensions.width > 500 ? 300 : dimensions.width * 0.6;
 
-  const data =
-    full?.MileageRecordList?.map((record) => ({
-      date: record.DateOfInformation,
-      mileage: record.Mileage,
-    })).reverse() || [];
-
   const sortedMileageRecords =
     full?.MileageRecordList?.slice().sort((a, b) => {
-      const dateA = new Date(a.DateOfInformation);
-      const dateB = new Date(b.DateOfInformation);
+      const dateA = new Date(
+        a.DateOfInformation.split("/").reverse().join("-")
+      );
+      const dateB = new Date(
+        b.DateOfInformation.split("/").reverse().join("-")
+      );
       return dateB - dateA;
     }) || [];
+
+  const data =
+    sortedMileageRecords
+      .map((record) => ({
+        date: record.DateOfInformation,
+        mileage: record.Mileage,
+      }))
+      .reverse() || [];
 
   return (
     <section ref={goToMileageSection} className="section">

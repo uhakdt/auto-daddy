@@ -141,7 +141,7 @@
 .ai-summary-container {
   position: relative; /* This allows us to position .ai-summary-by relative to this container */
   padding: 1rem;
-  background-color: var(--light-medium-purple);
+  background: linear-gradient(to right, #e3e8fb, #f5def8);
   border-radius: 5px;
 }
 
