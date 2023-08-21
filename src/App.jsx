@@ -66,17 +66,23 @@ export const App = ({ children }) => {
         <Helmet>
           <script
             async
+            src="https://www.googletagmanager.com/gtag/js?id=G-W3S4NBW5BY"
+          ></script>
+          <script
+            async
             src="https://www.googletagmanager.com/gtag/js?id=AW-11289562676"
           ></script>
           <script>
             {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'AW-11289562676');
-            `}
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W3S4NBW5BY');
+        gtag('config', 'AW-11289562676');
+        `}
           </script>
         </Helmet>
+
         <div className="App">
           <Navigation />
           {children}

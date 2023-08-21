@@ -71,6 +71,16 @@ function DashboardPage() {
   const { View } = useLottie(options);
 
   useEffect(() => {
+    if (!isPolling && window.gtag && currentOrder) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-11289562676/ccisCM66ys0YELScpIcq",
+        transaction_id: currentOrder.orderId,
+      });
+      console.log("Conversion tracked");
+    }
+  }, [currentOrder]);
+
+  useEffect(() => {
     if (fromPackage) {
       setIsPolling(true);
     }
