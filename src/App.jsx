@@ -3,6 +3,7 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Navigation";
 import { AppContext, initialData, saveDataToStorage } from "./appContext";
+import { Helmet } from "react-helmet";
 
 export const App = ({ children }) => {
   const [data, setData] = useState(initialData);
@@ -62,6 +63,20 @@ export const App = ({ children }) => {
       }}
     >
       <BrowserRouter>
+        <Helmet>
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=AW-11289562676"
+          ></script>
+          <script>
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-11289562676');
+            `}
+          </script>
+        </Helmet>
         <div className="App">
           <Navigation />
           {children}

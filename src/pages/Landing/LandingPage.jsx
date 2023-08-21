@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { Helmet } from "react-helmet";
+
 import { auth } from "../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -21,7 +23,6 @@ import LandingFooter from "../NavMenus/LandingFooter";
 import LandingBody from "./LandingBody";
 
 function LandingPage() {
-
   const [user] = useAuthState(auth);
 
   // const user = auth.currentUser;
@@ -35,7 +36,6 @@ function LandingPage() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [formType, setFormType] = useState("login");
-
 
   const handleModalOpen = () => {
     setOpen(true);
@@ -63,7 +63,6 @@ function LandingPage() {
     setSnackbarOpen(false);
   };
 
-
   const toggleDrawer = (open) => (event) => {
     if (
       event &&
@@ -76,133 +75,153 @@ function LandingPage() {
   };
 
   return (
-    <div className="landing-container">
-      <div className="landing-left">
-        <div className="landing-header-container">
-          <h2 className="landing-logo" onClick={() => navigate("/")}>
-            AutoDaddy
-          </h2>
-          {isMobile ? (
-            <div className="landing-menu-button">
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2, display: { sm: "none" }, color: "black" }}
-                onClick={toggleDrawer(true)}
-              >
-                <MenuIcon />
-              </IconButton>
-            </div>
-          ) : (
-            <div className="landing-button-login-container">
-              {user ? (
-                <button className="landing-button-login" onClick={() => navigate("/dashboard")}>
-                  Dashboard
-                </button>
-              ) : (
-                <button className="landing-button-login" onClick={handleModalOpen}>
-                  Login
-                </button>
-              )}
-            </div>
-          )}
+    <>
+      <Helmet>
+        <title>AutoDaddy | Home</title>
+        <meta
+          name="description"
+          content="AutoDaddy: Get your complete Car History Check and ask ChatGPT any questions you have about it."
+        />
+        <meta
+          name="keywords"
+          content="auto, vehicle, car, services, autodaddy"
+        />
+        <link rel="canonical" href="https://autodaddy.co.uk/" />
+      </Helmet>
+      <div className="landing-container">
+        <div className="landing-left">
+          <div className="landing-header-container">
+            <h2 className="landing-logo" onClick={() => navigate("/")}>
+              AutoDaddy
+            </h2>
+            {isMobile ? (
+              <div className="landing-menu-button">
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="menu"
+                  sx={{ mr: 2, display: { sm: "none" }, color: "black" }}
+                  onClick={toggleDrawer(true)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </div>
+            ) : (
+              <div className="landing-button-login-container">
+                {user ? (
+                  <button
+                    className="landing-button-login"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Dashboard
+                  </button>
+                ) : (
+                  <button
+                    className="landing-button-login"
+                    onClick={handleModalOpen}
+                  >
+                    Login
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+
+          <LandingBody />
+          <LandingFooter />
         </div>
 
-        <LandingBody />
-        <LandingFooter />
-      </div>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={2000}
-        onClose={handleSnackbarClose}
-        message={snackbarMessage}
-      />
-      {isMobile && (
-        <SwipeableDrawer
-          className="landing-drawer"
-          anchor="right"
-          open={drawerOpen}
-          onClose={handleDrawerClose}
-          onOpen={handleDrawerOpen}
-          sx={{
-            "& .MuiDrawer-paperAnchorLeft, & .MuiDrawer-paperAnchorRight": {
-              width: "50%",
-            },
-          }}
-        >
-          <div>
-            <List>
-              <div>
-                {user ? (
-                  <>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={2000}
+          onClose={handleSnackbarClose}
+          message={snackbarMessage}
+        />
+        {isMobile && (
+          <SwipeableDrawer
+            className="landing-drawer"
+            anchor="right"
+            open={drawerOpen}
+            onClose={handleDrawerClose}
+            onOpen={handleDrawerOpen}
+            sx={{
+              "& .MuiDrawer-paperAnchorLeft, & .MuiDrawer-paperAnchorRight": {
+                width: "50%",
+              },
+            }}
+          >
+            <div>
+              <List>
+                <div>
+                  {user ? (
+                    <>
+                      <Button
+                        color="inherit"
+                        onClick={() => navigate("/dashboard")}
+                        sx={{
+                          color: "black",
+                          fontSize: "14px",
+                          mr: "16px",
+                        }}
+                      >
+                        Dashboard
+                      </Button>
+                    </>
+                  ) : (
                     <Button
                       color="inherit"
-                      onClick={() => navigate("/dashboard")}
+                      onClick={handleModalOpen}
                       sx={{
                         color: "black",
                         fontSize: "14px",
                         mr: "16px",
                       }}
                     >
-                      Dashboard
+                      Login
                     </Button>
-                  </>
-                ) : (
-                  <Button
-                    color="inherit"
-                    onClick={handleModalOpen}
-                    sx={{
-                      color: "black",
-                      fontSize: "14px",
-                      mr: "16px",
-                    }}
-                  >
-                    Login
-                  </Button>
-                )}
-              </div>
-            </List>
+                  )}
+                </div>
+              </List>
+            </div>
+          </SwipeableDrawer>
+        )}
+        <Modal
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div>
+            {!user && formType === "login" && (
+              <LoginForm
+                setFormType={setFormType}
+                loginEmail={loginEmail}
+                setLoginEmail={setLoginEmail}
+                loginPassword={loginPassword}
+                setLoginPassword={setLoginPassword}
+                setOpen={setOpen}
+                page="landing"
+              />
+            )}
+            {!user && formType === "register" && (
+              <RegisterForm
+                setFormType={setFormType}
+                registerName={registerName}
+                setRegisterName={setRegisterName}
+                registerEmail={registerEmail}
+                setRegisterEmail={setRegisterEmail}
+                registerPassword={registerPassword}
+                setRegisterPassword={setRegisterPassword}
+                setOpen={setOpen}
+                page="landing"
+              />
+            )}
           </div>
-        </SwipeableDrawer>
-      )}
-      <Modal
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div>
-          {!user && formType === "login" && (
-            <LoginForm
-              setFormType={setFormType}
-              loginEmail={loginEmail}
-              setLoginEmail={setLoginEmail}
-              loginPassword={loginPassword}
-              setLoginPassword={setLoginPassword}
-              setOpen={setOpen}
-              page="landing"
-            />
-          )}
-          {!user && formType === "register" && (
-            <RegisterForm
-              setFormType={setFormType}
-              registerName={registerName}
-              setRegisterName={setRegisterName}
-              registerEmail={registerEmail}
-              setRegisterEmail={setRegisterEmail}
-              registerPassword={registerPassword}
-              setRegisterPassword={setRegisterPassword}
-              setOpen={setOpen}
-              page="landing"
-            />
-          )}
-        </div>
-      </Modal>
-    </div>
+        </Modal>
+      </div>
+    </>
   );
 }
 

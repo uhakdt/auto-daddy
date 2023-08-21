@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 
 import { useQuery } from "react-query";
 
+import { Helmet } from "react-helmet";
+
 import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
 import { auth, db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -132,36 +134,50 @@ function DashboardPage() {
   }
 
   return (
-    <Box
-      className="dashboard"
-      sx={{ display: "flex", flexDirection: "column" }}
-    >
-      <Header />
-      {orders && currentOrder && (
-        <>
-          <Box
-            className="dashboard-content"
-            sx={{ display: "flex", flex: "1" }}
-          >
-            <Sidebar
-              className="sidebar"
-              orders={orders}
-              isSidebarOpen={isSidebarOpen}
-              setIsSidebarOpen={setIsSidebarOpen}
-              toggleSidebar={toggleSidebar}
-              selectedOrderId={selectedOrderId}
-              setSelectedOrderId={setSelectedOrderId}
-            />
+    <>
+      <Helmet>
+        <title>AutoDaddy | Dashboard</title>
+        <meta
+          name="description"
+          content="Access your AutoDaddy orders and view car history reports in your personalized dashboard. Chat with ChatGPT to ask any questions you have about your car history report."
+        />
+        <meta
+          name="keywords"
+          content="auto, vehicle, car, dashboard, autodaddy, orders, history, report, settings, user"
+        />
+        <link rel="canonical" href="https://autodaddy.co.uk/dashboard" />
+      </Helmet>
+      <Box
+        className="dashboard"
+        sx={{ display: "flex", flexDirection: "column" }}
+      >
+        <Header />
+        {orders && currentOrder && (
+          <>
+            <Box
+              className="dashboard-content"
+              sx={{ display: "flex", flex: "1" }}
+            >
+              <Sidebar
+                className="sidebar"
+                orders={orders}
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+                toggleSidebar={toggleSidebar}
+                selectedOrderId={selectedOrderId}
+                setSelectedOrderId={setSelectedOrderId}
+              />
 
-            <OrderDetails
-              currentOrder={currentOrder}
-              className="order-details"
-            />
-          </Box>
-          <Chat currentOrder={currentOrder} />
-        </>
-      )}
-    </Box>
+              <OrderDetails
+                currentOrder={currentOrder}
+                className="order-details"
+              />
+            </Box>
+            <Chat currentOrder={currentOrder} />
+          </>
+        )}
+      </Box>
+    </>
   );
 }
 
