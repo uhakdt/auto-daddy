@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./MainStatusBar.css";
 
 function MainStatusBar({ allStatusGood }) {
-  return { allStatusGood } ? (
+  return allStatusGood ? (
     <div
       className="main-status-bar"
       style={{ backgroundColor: allStatusGood ? "#32ce57" : "#fd4438" }}
