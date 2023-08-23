@@ -53,6 +53,7 @@
 @media (max-width: 600px) {
   .section {
     flex-direction: column; /* Stack children vertically */
+    margin-left: 0.4rem; /* Add some margin */
   }
 
   .section-title {
@@ -243,6 +244,12 @@
 
 .status-window-details-value {
   font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .status-window {
+    width: 100% !important;
+  }
 }
 
 /* TABLES */
