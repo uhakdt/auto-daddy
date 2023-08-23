@@ -40,7 +40,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const OrderDetails = ({ currentOrder }) => {
-  console.log("currentOrder", currentOrder?.ulez);
   const [free, setFree] = useState(null);
   const [basic, setBasic] = useState(null);
   const [full, setFull] = useState(null);
@@ -276,14 +275,9 @@ const OrderDetails = ({ currentOrder }) => {
   useEffect(() => {
     // This effect will only run once when the component mounts
     if (currentOrder["gptRequested"] === true) {
-      console.log(
-        "AI Content already requested: \n",
-        currentOrder["aiContent"]
-      );
       setAIContent(currentOrder["aiContent"]);
       setAIContentLoading(false);
     } else if (currentOrder["gptRequested"] === false) {
-      console.log("AI Content not requested");
       fetchAIContent(currentOrder);
     }
   }, [currentOrder]);

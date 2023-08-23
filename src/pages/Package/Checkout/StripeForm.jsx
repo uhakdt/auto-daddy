@@ -83,16 +83,11 @@ const StripeForm = forwardRef(({ paymentIntentId }, ref) => {
         throw new Error("Failed to update payment intent");
       }
 
-      // Confirm the payment that was created server side
-      if (email === "") {
-        setEmail(user.email);
-      }
-
       const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
           return_url: `${process.env.REACT_APP_YOUR_DOMAIN}/dashboard?from=package`,
-          receipt_email: email,
+          receipt_email: email === "" ? user.email : email,
         },
       });
 

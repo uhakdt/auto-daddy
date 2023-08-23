@@ -52,6 +52,7 @@ const getOrderById = async (orderId) => {
 function DashboardPage() {
   const { currentOrder, setCurrentOrder, registrationNumber } =
     useContext(AppContext);
+  console.log(registrationNumber);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isPolling, setIsPolling] = useState(false);
 
@@ -76,7 +77,6 @@ function DashboardPage() {
         send_to: "AW-11289562676/ccisCM66ys0YELScpIcq",
         transaction_id: currentOrder.orderId,
       });
-      console.log("Conversion tracked");
     }
   }, [currentOrder]);
 
