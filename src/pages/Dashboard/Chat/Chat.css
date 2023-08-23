@@ -1,11 +1,14 @@
 .chatbot {
   position: fixed;
   bottom: 0;
-  width: calc(100% - 80px); /* Adjusted width to account for padding */
+  width: calc(100% - 80px);
+  /* Adjusted width to account for padding */
   left: 50%;
-  transform: translateX(-50%); /* Centering the chatbot */
+  transform: translateX(-50%);
+  /* Centering the chatbot */
   background-color: white;
-  padding: 20px; /* Reduced the padding a bit */
+  padding: 20px;
+  /* Reduced the padding a bit */
   font-size: 25px;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1.5rem 1.5rem 0 0;
@@ -14,27 +17,42 @@
 .messages {
   max-height: 70vh;
   overflow-y: auto;
-  display: none;   /* <-- This is important! */
+  display: none;
+  /* <-- This is important! */
   padding: 15px 0;
 }
 
 .messages.open {
-  display: block;  /* <-- This is important! */
+  display: block;
+  /* <-- This is important! */
 }
 
 /* New styles */
 .content-area {
-  display: none;   /* Default state is hidden */
+  display: none;
+  /* Default state is hidden */
 }
 
 .content-area.open {
-  display: block;  /* Display it when it has the 'open' class */
+  display: block;
+  /* Display it when it has the 'open' class */
+}
+
+.landing-logo {
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  /* Making the touch/click area larger for better UX */
 }
 
 .preset-questions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;  /* Adds a gap between the questions */
+  gap: 10px;
+  /* Adds a gap between the questions */
   padding: 15px 0;
 }
 
@@ -96,16 +114,20 @@
 .chatbot-header {
   display: flex;
   justify-content: flex-end;
-  padding: 0px 20px; /* Providing some space */
-  border-bottom: 1px solid #ececec; /* Optional: a subtle line to separate header from content */
+  padding: 0px 20px;
+  /* Providing some space */
+  border-bottom: 1px solid #ececec;
+  /* Optional: a subtle line to separate header from content */
 }
 
 .minimizeButton {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: auto; /* Pushes the button to the right */
-  padding: 10px; /* Making the touch/click area larger for better UX */
+  margin-left: auto;
+  /* Pushes the button to the right */
+  padding: 10px;
+  /* Making the touch/click area larger for better UX */
 }
 
 .minimizeIcon {
@@ -124,10 +146,13 @@
 /* Media Queries for Mobile */
 @media screen and (max-width: 768px) {
   .chatbot {
-    width: calc(100% - 20px); /* Full width minus padding */
+    width: calc(100% - 20px);
+    /* Full width minus padding */
     padding: 10px;
-    transform: none; /* Remove the transform */
-    left: 0; /* Adjust the left to start from the edge */
+    transform: none;
+    /* Remove the transform */
+    left: 0;
+    /* Adjust the left to start from the edge */
     font-size: 18px;
     border-radius: 1rem 1rem 0 0;
   }
@@ -170,7 +195,8 @@
 .preset-questions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;  /* Adds a gap between the questions */
+  gap: 10px;
+  /* Adds a gap between the questions */
   padding: 15px 0;
 }
 
@@ -185,4 +211,69 @@
 
 .preset-question:hover {
   background-color: #d1d1d1;
+}
+
+.lds-ellipsis {
+  position: relative;
+  width: 80px;
+  padding-bottom: 1rem;
+}
+
+.lds-ellipsis div {
+  position: absolute;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: #d55a6f;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.8s infinite;
+}
+
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.8s infinite;
+}
+
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.8s infinite;
+}
+
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.8s infinite;
+}
+
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(24px, 0);
+  }
 }

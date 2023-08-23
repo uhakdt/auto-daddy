@@ -13,6 +13,7 @@ const Chat = ({ currentOrder }) => {
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(false);
   const messagesEndRef = useRef(null); // Create a ref for the messages div
+  const [isLoading, setIsLoading] = useState(false);
 
   const presetQuestions = [
     "What is the fuel efficiency?",
@@ -26,11 +27,13 @@ const Chat = ({ currentOrder }) => {
     });
 
     const messageListener = (data) => {
+      setIsLoading(false);  // Set loading to false when a response is received
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
       ]);
     };
+
     socket.on("message", messageListener);
 
     return () => {
@@ -47,6 +50,7 @@ const Chat = ({ currentOrder }) => {
   const send = (messageToSend = input) => {
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
+    setIsLoading(true); // Set loading to true when sending a message
 
     if (socket !== null) {
       socket.emit("message", {
@@ -55,10 +59,31 @@ const Chat = ({ currentOrder }) => {
       });
     }
   };
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === "Enter") {
+        setIsMinimized(!isMinimized);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [isMinimized]);
+
+
 
   return (
     <div className="chatbot">
       <div className="chatbot-header">
+        {/* <img
+          className="landing-logo"
+          src={`${process.env.PUBLIC_URL}/icons/unlocked.svg`}
+          alt="Logo"
+        /> */}
+
         <button
           className="minimizeButton"
           onClick={() => setIsMinimized(!isMinimized)}
@@ -89,6 +114,16 @@ const Chat = ({ currentOrder }) => {
           </div>
         ))}
         <div ref={messagesEndRef} />
+        <div className={`messages ${!isMinimized ? "open" : ""}`}>
+          {isLoading &&
+            <div className="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>}
+        </div>
+
       </div>
       <div className={`content-area ${!isMinimized ? "open" : ""}`}>
         <div className="preset-questions">
