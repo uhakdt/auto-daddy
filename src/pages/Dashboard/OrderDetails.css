@@ -8,9 +8,12 @@
   --dark-purple: #42224d;
 }
 
+/* Your .order-details styles */
 .order-details {
-  margin-bottom: 4rem;
+  width: calc(100% - 0.7rem); 
+  margin-bottom: 7rem;
 }
+
 
 /* MAIN */
 
