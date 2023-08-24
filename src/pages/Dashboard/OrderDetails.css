@@ -10,10 +10,9 @@
 
 /* Your .order-details styles */
 .order-details {
-  width: calc(100% - 1rem); 
+  width: calc(100% - 1rem);
   margin-bottom: 7rem;
 }
-
 
 /* MAIN */
 
@@ -50,10 +49,10 @@
   flex-grow: 1; /* Allows the content to take up remaining space */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .section {
     flex-direction: column; /* Stack children vertically */
-    margin-left: 0rem; 
+    margin-left: 0rem;
   }
 
   .section-title {
@@ -246,7 +245,7 @@
   font-weight: bold;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .status-window {
     width: 100% !important;
   }
@@ -259,7 +258,7 @@
   width: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .table-figure-container {
     flex-direction: column;
   }
@@ -306,4 +305,14 @@
 .new-order-transition.show {
   opacity: 1;
   max-height: 500px;
+}
+
+.car-image {
+  width: 75%;
+}
+
+@media (max-width: 768px) {
+  .car-image {
+    width: 100%;
+  }
 }

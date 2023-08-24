@@ -17,7 +17,6 @@ function Sidebar({
   selectedOrderId,
   setSelectedOrderId,
 }) {
-
   const { setCurrentOrder } = useContext(AppContext);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const handleOrderClick = (order) => {
@@ -40,10 +39,7 @@ function Sidebar({
   return (
     <>
       <GradientLine />
-      <Box className={`sidebar-box ${isSidebarOpen ? 'open' : ''}`}>
-    
-        <span className="sidebar-text">MENU</span>
-
+      <Box className={`sidebar-box ${isSidebarOpen ? "open" : ""}`}>
         <button className="sidebar-toggle-button" onClick={toggleSidebar}>
           {isSidebarOpen ? (
             <BsToggleOn size={25} color="#42224d" />
@@ -51,7 +47,6 @@ function Sidebar({
             <BsToggleOff size={25} color="#42224d" />
           )}
         </button>
-
 
         {isSidebarOpen && (
           <>
@@ -69,13 +64,18 @@ function Sidebar({
                       setCurrentOrder(order);
                       setSelectedOrderId(order.orderId); // Update the selected order ID
                     }}
-                    className={`order-button-container ${selectedOrderId === order.orderId
-                      ? "order-button-container-selected"
-                      : ""
-                      }`}
+                    className={`order-button-container ${
+                      selectedOrderId === order.orderId
+                        ? "order-button-container-selected"
+                        : ""
+                    }`}
                   >
                     <div>
-                      <img alt="Google" src={iconsUrl + "tyre.svg"} height={20} />{" "}
+                      <img
+                        alt="Google"
+                        src={iconsUrl + "tyre.svg"}
+                        height={20}
+                      />{" "}
                     </div>
                     <div className="order-button-results-container">
                       <div className="order-button-results-registration-number">

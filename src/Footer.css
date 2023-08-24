@@ -13,7 +13,7 @@
   flex-basis: 100%; /* Links take up full width by default */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .footer-links {
     flex-wrap: wrap;
   }

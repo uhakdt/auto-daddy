@@ -8,14 +8,14 @@ const VehicleMain = ({ free, basic, imageUrl }) => {
   return (
     <section>
       <div style={style.titleContainer}>
-        <h1 style={style.title}>AutoDaddy Report</h1>
-        <hr style={style.line} />
         <h2 style={style.subTitle}>
           <div>{CapitalizeEachWord(basic.VehicleRegistration.MakeModel)}</div>
         </h2>
       </div>
       <div style={style.imageContainer}>
-        {imageUrl ? <img width={"75%"} src={imageUrl} alt="Car" /> : null}
+        {imageUrl ? (
+          <img className="car-image" src={imageUrl} alt="Car" />
+        ) : null}
       </div>
     </section>
   );
