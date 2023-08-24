@@ -40,7 +40,6 @@ const signInWithGoogle = async () => {
     await signInWithPopup(auth, googleProvider);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -50,7 +49,6 @@ const signInWithApple = async () => {
     await signInWithPopup(auth, appleProvider);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -70,7 +68,6 @@ const signInWithTwitter = async () => {
     await signInWithPopup(auth, twitterProvider);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -80,7 +77,6 @@ const logInWithEmailAndPassword = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -90,7 +86,6 @@ const signInAsGuest = async () => {
     await signInAnonymously(auth);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -100,7 +95,6 @@ const registerWithEmailAndPassword = async (email, password) => {
     await createUserWithEmailAndPassword(auth, email, password);
     return { error: null };
   } catch (err) {
-    alert(err.message);
     return { error: err };
   }
 };
@@ -110,8 +104,7 @@ const sendPasswordReset = async (email) => {
     await sendPasswordResetEmail(auth, email);
     alert("Password reset link sent!");
   } catch (err) {
-    console.error(err);
-    alert(err.message);
+    return { error: err };
   }
 };
 

@@ -158,6 +158,7 @@ function LandingBody() {
             <span>GB</span>
           </div>
           <input
+            autoFocus
             type="text"
             className="landing-input"
             placeholder="REG Number"
