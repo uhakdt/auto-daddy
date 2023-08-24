@@ -1,6 +1,6 @@
 .floating-plus {
   position: absolute;
-  top: 50%;
+  top: 60%;
   /* Adjust these values to position the image as per your design */
   left: 7%;
   /* Adjust these values to position the image as per your design */
@@ -35,7 +35,7 @@
   /* Adjust the percentage as needed for your design */
 }
 
-.landing-footer-container {
+.landing-body-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -116,9 +116,11 @@
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
   font-style: italic;
 }
+
 .landing-input::placeholder {
   text-transform: none;
 }
+
 .landing-input:focus {
   outline: none;
 }
@@ -217,10 +219,10 @@
     display: none;
   }
 
-  .landing-logo {
+  /* .landing-logo {
     height: 0.75rem;
     padding-right: 0.5rem;
-  }
+  } */
 
   .landing-footer a {
     font-size: 0.6rem;

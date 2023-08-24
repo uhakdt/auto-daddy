@@ -128,7 +128,7 @@ function LandingBody() {
   };
 
   return (
-    <div className="landing-footer-container">
+    <div className="landing-body-container">
       <img
         src="/page-images/floating-plus.png"
         alt="plus"

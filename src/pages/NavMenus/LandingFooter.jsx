@@ -7,37 +7,37 @@ function LandingFooter() {
     <div className="landing-footer-container">
       <div className="landing-logos-container">
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/stripe-logo.svg`}
           alt="Logo"
         />
         <img
-          className="landing-logo"
+          className="footer-logo"
           src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
           alt="Logo"
         />

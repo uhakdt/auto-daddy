@@ -91,9 +91,17 @@ function LandingPage() {
       <div className="landing-container">
         <div className="landing-left">
           <div className="landing-header-container">
-            <h2 className="landing-logo" onClick={() => navigate("/")}>
-              AutoDaddy
-            </h2>
+            <div className="landing-logo-title-container">
+              <img
+                className="landing-logo"
+                src={`${process.env.PUBLIC_URL}/icons/autodaddy-logo.svg`}
+                alt="Logo"
+              />
+              <h2 className="landing-title" onClick={() => navigate("/")}>
+                AutoDaddy
+              </h2>
+            </div>
+
             {isMobile ? (
               <div className="landing-menu-button">
                 <IconButton

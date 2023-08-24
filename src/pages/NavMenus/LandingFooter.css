@@ -1,13 +1,16 @@
 /* FOOTER */
 
-.landing-logos-container {
+.landing-footer-container {
     display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-bottom: 1rem;
+    flex-direction: column;
+    align-items: center; /* centers children horizontally */
+    justify-content: center; /* centers children vertically */
+    width: 100%; /* ensures it takes full width */
+    text-align: center; /* centers inline elements */
 }
 
-.landing-logo {
+
+.footer-logo {
     height: 1.25rem;
     padding-right: 0.5rem;
 }

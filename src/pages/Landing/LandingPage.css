@@ -20,10 +20,21 @@
   align-items: center;
 }
 
-.landing-logo {
+.landing-logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* adjust as needed for spacing between logo and title */
+}
+
+.landing-title {
   font-size: 1.5rem;
   color: #42224d;
   cursor: pointer;
+  /* margin-left: 10px;   */
+}
+.landing-logo {
+  width: 40px;
+  height: 40px;
 }
 
 .landing-button-login-container {
