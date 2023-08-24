@@ -61,25 +61,25 @@ const Chat = ({ currentOrder }) => {
   };
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.key === "Enter") {
-        setIsMinimized(!isMinimized);
+      if (e.key === "Enter" && isMinimized) { // Only maximize when it's minimized
+        setIsMinimized(false); // Explicitly set the state to false to open/maximize
       }
     };
-
+  
     document.addEventListener("keydown", handleKeyPress);
-
+  
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, [isMinimized]);
-
+  
 
 
   return (
     <div className="chatbot">
       <div className="chatbot-header">
         {/* <img
-          className="landing-logo"
+          className="chat-logo"
           src={`${process.env.PUBLIC_URL}/icons/unlocked.svg`}
           alt="Logo"
         /> */}

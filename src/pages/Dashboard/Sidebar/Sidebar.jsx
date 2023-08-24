@@ -40,7 +40,9 @@ function Sidebar({
   return (
     <>
       <GradientLine />
-      <Box className="sidebar-box">
+      <Box className={`sidebar-box ${isSidebarOpen ? 'open' : ''}`}>
+    
+        <span className="sidebar-text">MENU</span>
 
         <button className="sidebar-toggle-button" onClick={toggleSidebar}>
           {isSidebarOpen ? (
@@ -49,6 +51,7 @@ function Sidebar({
             <BsToggleOff size={25} color="#42224d" />
           )}
         </button>
+
 
         {isSidebarOpen && (
           <>

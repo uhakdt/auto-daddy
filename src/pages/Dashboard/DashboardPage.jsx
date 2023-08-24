@@ -186,7 +186,7 @@ function DashboardPage() {
 
               <OrderDetails
                 currentOrder={currentOrder}
-                className="order-details"
+                className="order-details-dashboard"
               />
             </Box>
             <Chat currentOrder={currentOrder} />

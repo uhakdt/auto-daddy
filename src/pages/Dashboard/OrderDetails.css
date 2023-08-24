@@ -10,7 +10,7 @@
 
 /* Your .order-details styles */
 .order-details {
-  width: calc(100% - 0.7rem); 
+  width: calc(100% - 1rem); 
   margin-bottom: 7rem;
 }
 
@@ -53,7 +53,7 @@
 @media (max-width: 600px) {
   .section {
     flex-direction: column; /* Stack children vertically */
-    margin-left: 0.4rem; /* Add some margin */
+    margin-left: 0rem; 
   }
 
   .section-title {
@@ -169,10 +169,10 @@
 
 /* STATUS WINDOWS */
 
-.status-windows-container {
+.status-windows-container-dashboard {
   display: flex;
   flex-wrap: wrap;
-  margin: 0.3rem;
+  margin-top: 0.3rem;
   justify-content: center;
 }
 

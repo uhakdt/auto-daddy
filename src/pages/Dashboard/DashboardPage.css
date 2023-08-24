@@ -4,9 +4,9 @@
   height: 100vh;
 }
 
-.order-details {
+.order-details-dashboard {
   flex-grow: 1;
-  /* padding: 10px; */
+  padding: 0.8rem;
   overflow: auto;
 }
 

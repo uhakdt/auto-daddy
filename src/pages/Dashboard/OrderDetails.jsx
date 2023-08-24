@@ -318,7 +318,7 @@ const OrderDetails = ({ currentOrder }) => {
 
             <MainStatusBar allStatusGood={allStatusGood} />
 
-            <section className="status-windows-container">
+            <section className="status-windows-container-dashboard">
               {statusBoxList &&
                 statusBoxList.map((statusBox, index) => (
                   <StatusWindow
