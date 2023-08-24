@@ -134,9 +134,8 @@ function LandingBody() {
 
       <div className="landing-form-container">
         <h2 className="landing-title">
-          Get your complete Car History Check and ask{" "}
-          <span className="gradient-text">ChatGPT</span> any questions you have
-          about it.
+          Complete Car History Check and ask{" "}
+          <span className="gradient-text">ChatGPT</span> any Question.
         </h2>
         {/* <p className="landing-description">
                     Guiding your car-buying journey with deep data dives, insights and

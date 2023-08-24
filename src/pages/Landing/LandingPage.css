@@ -21,8 +21,8 @@
 
 .landing-logo-title-container {
   display: flex;
-  align-items: center;
-  gap: 10px; /* adjust as needed for spacing between logo and title */
+  /* align-items: center; */
+  gap: 5px; /* adjust as needed for spacing between logo and title */
 }
 
 .landing-title {
@@ -32,7 +32,7 @@
   /* margin-left: 10px;   */
 }
 .landing-logo {
-  width: 40px;
+  width: 30px;
   height: 40px;
 }
 
@@ -75,20 +75,19 @@
 
 .floating-plus {
   position: relative;
-  top: 0%;
-  right: 10%;
-  z-index: 1000;
+  /* top: 60%; */
+  bottom: 20%;
+  left: 5%;
+  z-index: 1;
   width: 7%;
-  transform: translateY(-50%);
 }
 
 .floating-nut {
   position: relative;
-  top: 60%;
-  left: 40%;
+  top: 2%;
+  left: 80%;
   z-index: 1;
-  width: 10%;
-  transform: translateY(-50%);
+  width: 9%;
 }
 
 @media (max-width: 768px) {
@@ -96,13 +95,13 @@
     width: 10%;
     right: 1%;
     left: 1%;
-    top: 5%;
+    bottom: 5%;
   }
 
   .floating-nut {
     width: 10%;
     right: 1%;
-    left: 40%;
+    left: 90%;
     top: 5%;
   }
 }

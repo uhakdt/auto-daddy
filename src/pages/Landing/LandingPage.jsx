@@ -89,8 +89,9 @@ function LandingPage() {
         <link rel="canonical" href="https://autodaddy.co.uk/" />
       </Helmet>
       <div className="landing-container">
-        
+
         <div className="landing-main">
+
           <div className="landing-header-container">
             <div className="landing-logo-title-container">
               <img
@@ -102,7 +103,7 @@ function LandingPage() {
                 AutoDaddy
               </h2>
             </div>
-         
+
 
             {isMobile ? (
               <div className="landing-menu-button">
@@ -137,8 +138,19 @@ function LandingPage() {
             )}
           </div>
 
+          <img
+            src="/page-images/floating-nut.png"
+            alt="nut"
+            className="floating-nut"
+          />
           <LandingBody />
+          <img
+            src="/page-images/floating-plus.png"
+            alt="plus"
+            className="floating-plus"
+          />
           <LandingFooter />
+
         </div>
 
         <Snackbar
