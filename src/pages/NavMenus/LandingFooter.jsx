@@ -42,7 +42,7 @@ function LandingFooter() {
           alt="Logo"
         />
       </div>
-      <div className="landing-footer">
+      <div className="landing-footer-links">
         <Link to="/privacy">Privacy</Link> |
         <Link to="/terms">Terms and Conditions</Link> |
         {/* <Link to="/cookies">Cookies</Link> |

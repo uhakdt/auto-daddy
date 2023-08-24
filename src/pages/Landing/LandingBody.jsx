@@ -129,17 +129,8 @@ function LandingBody() {
 
   return (
     <div className="landing-body-container">
-      <img
-        src="/page-images/floating-plus.png"
-        alt="plus"
-        className="floating-plus"
-      />
-      <img
-        src="/page-images/floating-nut.png"
-        alt="nut"
-        className="floating-nut"
-      />
-      {/* <img src="/page-images/floating-hand.png" alt="hand" className="floating-hand" /> */}
+
+
 
       <div className="landing-form-container">
         <h2 className="landing-title">

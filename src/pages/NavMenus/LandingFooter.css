@@ -6,6 +6,7 @@
     align-items: center; /* centers children horizontally */
     justify-content: center; /* centers children vertically */
     width: 100%; /* ensures it takes full width */
+    height: 100px; /* fixed height */
     text-align: center; /* centers inline elements */
 }
 
@@ -15,7 +16,7 @@
     padding-right: 0.5rem;
 }
 
-.landing-footer {
+.landing-footer-links {
     display: grid;
     grid-auto-flow: column;
     justify-content: flex-start;
@@ -24,7 +25,7 @@
     flex-wrap: wrap;
 }
 
-.landing-footer a {
+.landing-footer-links a {
     text-decoration: none;
     color: inherit;
     font-size: 0.8rem;

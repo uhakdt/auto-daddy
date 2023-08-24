@@ -89,7 +89,8 @@ function LandingPage() {
         <link rel="canonical" href="https://autodaddy.co.uk/" />
       </Helmet>
       <div className="landing-container">
-        <div className="landing-left">
+        
+        <div className="landing-main">
           <div className="landing-header-container">
             <div className="landing-logo-title-container">
               <img
@@ -101,6 +102,7 @@ function LandingPage() {
                 AutoDaddy
               </h2>
             </div>
+         
 
             {isMobile ? (
               <div className="landing-menu-button">
