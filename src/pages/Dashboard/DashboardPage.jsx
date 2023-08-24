@@ -95,7 +95,13 @@ function DashboardPage() {
     onSuccess: (ordersList) => {
       if (
         ordersList.length > 0 &&
-        ordersList[0].vehicleFreeData.RegistrationNumber === registrationNumber
+        ordersList[0].vehicleFreeData.RegistrationNumber.replace(
+          /\s+/g,
+          ""
+        ).toUpperCase() ===
+          (registrationNumber
+            ? registrationNumber.replace(/\s+/g, "").toUpperCase()
+            : "")
       ) {
         setCurrentOrder(ordersList[0]);
         setIsPolling(false);
