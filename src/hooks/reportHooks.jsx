@@ -14,17 +14,21 @@ export const handleDownloadReport = async (orderId, free, auth) => {
 };
 
 export const handleDownloadSampleReport = async () => {
+  const newWindow = window.open("", "_blank");
+
+  if (!newWindow) {
+    alert("Please disable your pop-up blocker and try again.");
+    return;
+  }
+
   try {
     const downloadUrl = await getSampleReportUrl();
 
-    // Create new link and trigger click event on it
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.target = "_blank"; // to open in a new tab
-    link.download = "report.pdf";
-    link.click();
+    if (newWindow) {
+      newWindow.location.href = downloadUrl;
+    }
   } catch (err) {
-    console.error("Error downloading file:", err);
+    if (newWindow) newWindow.close();
   }
 };
 
