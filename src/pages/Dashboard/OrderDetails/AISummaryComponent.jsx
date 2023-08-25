@@ -24,22 +24,6 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
               >
                 ChatGPT Rating: {aiContent?.["rating"]}
               </div>{" "}
-              {aiContent?.["estimated_valuation"] === undefined ? (
-                <></>
-              ) : (
-                <div
-                  style={{
-                    fontWeight: "bolder",
-                    fontSize: "1.5rem",
-                    marginTop: "0.5rem",
-                  }}
-                >
-                  Valuation: {aiContent["estimated_valuation"]}{" "}
-                  <span style={{ fontSize: "1rem" }}>
-                    (Conservative Estimate of retail value)
-                  </span>
-                </div>
-              )}
               <br />
               <div style={{ fontSize: "1.4rem", paddingTop: "1rem" }}>
                 {aiContent?.["content"]}
