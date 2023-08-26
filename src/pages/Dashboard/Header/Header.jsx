@@ -10,9 +10,13 @@ function Header() {
 
   return (
     <div className="header">
-      <h2 onClick={() => navigate("/")} className="logo">
-        AutoDaddy
-      </h2>
+      <img
+        onClick={() => navigate("/")}
+        src="/logos/logo.png"
+        alt="logo"
+        height={40}
+        style={{ cursor: "pointer", padding: "1rem" }}
+      />
       <div className="profile">
         <div className="profile-icon">
           <img

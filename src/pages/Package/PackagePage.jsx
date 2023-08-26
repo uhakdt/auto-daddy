@@ -174,9 +174,13 @@ const PackagePage = () => {
         <div className="package-left">
           <div>
             <div className="package-left-header-container">
-              <h2 onClick={() => navigate("/")} className="package-left-logo">
-                AutoDaddy
-              </h2>
+              <img
+                onClick={() => navigate("/")}
+                src="/logos/logo.png"
+                alt="logo"
+                height={40}
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <div className="package-left-form-container">
               <form className="package-left-form" onSubmit={handleSubmit}>
