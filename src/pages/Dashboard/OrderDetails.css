@@ -8,12 +8,20 @@
   --dark-purple: #42224d;
 }
 
-/* Your .order-details styles */
-.order-details {
-  /* width: calc(100% - 1rem); */
-  margin-bottom: 8rem;
+@media (min-width: 768px) {
+  .order-details {
+    margin: 0 auto; /* Centers the element horizontally */
+    max-width: 60%; /* Set the maximum width to 80% of the parent */
+    margin-bottom: 10rem;
+  }
 }
 
+@media (max-width: 768px) {
+  .order-details {
+    margin-left: 1.2rem;
+    margin-bottom: 8rem;
+  }
+}
 /* MAIN */
 
 .section {
@@ -138,8 +146,6 @@
   padding-left: 2rem;
   padding-right: 2rem;
 }
-
-
 
 /* STATUS WINDOWS */
 
