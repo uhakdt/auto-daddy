@@ -450,8 +450,12 @@ const PackagePage = () => {
                     purchase decision.
                   </div> */}
                   <div className="package-pay-left-subtitle">
-                    For License Plate {registrationNumber}
+                    <span className="package-pay-left-subtitle-text">For License Plate</span>
+                    <span className="package-pay-left-subtitle-line"></span>
+                    <span className="package-pay-left-subtitle-reg">Reg: {registrationNumber}</span>
                   </div>
+
+
                   <div className="package-pay-left-cost">
                     <span className="package-pay-left-cost-name"> Price:</span>
                     <span className="package-pay-left-cost-price">£9.20</span>
