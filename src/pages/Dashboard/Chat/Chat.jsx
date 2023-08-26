@@ -14,6 +14,7 @@ const Chat = ({ currentOrder }) => {
   const [isMinimized, setIsMinimized] = useState(true);
   const messagesEndRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPending, setIsPending] = useState(false);  // State to track if a question is pending
 
   const presetQuestions = [
     "What is the fuel efficiency?",
@@ -27,6 +28,7 @@ const Chat = ({ currentOrder }) => {
 
     const messageListener = (data) => {
       setIsLoading(false);
+      setIsPending(false);  // Set isPending to false when a response is received
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
@@ -47,6 +49,9 @@ const Chat = ({ currentOrder }) => {
   }, [messages]);
 
   const send = (messageToSend = input) => {
+    if (isPending) return;  // Don't send if a question is already pending
+
+    setIsPending(true);  // Set isPending to true when sending a question
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
     setIsLoading(true);
@@ -59,6 +64,7 @@ const Chat = ({ currentOrder }) => {
       });
     }
   };
+  
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === "Enter" && isMinimized) {
@@ -76,11 +82,7 @@ const Chat = ({ currentOrder }) => {
   return (
     <div className="chatbot">
       <div className="chatbot-header">
-        {/* <img
-          className="chat-logo"
-          src={`${process.env.PUBLIC_URL}/icons/unlocked.svg`}
-          alt="Logo"
-        /> */}
+        <div style={{ alignSelf: "center" }}>Ask ChatGPT Below</div>
 
         <button
           className="minimizeButton"

@@ -2,40 +2,33 @@
   position: fixed;
   bottom: 0;
   width: calc(100% - 80px);
-  /* Adjusted width to account for padding */
   left: 50%;
   transform: translateX(-50%);
-  /* Centering the chatbot */
   background-color: white;
   padding: 20px;
-  /* Reduced the padding a bit */
   font-size: 25px;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1.5rem 1.5rem 0 0;
 }
 
+
 .messages {
   max-height: 70vh;
   overflow-y: auto;
   display: none;
-  /* <-- This is important! */
   padding: 15px 0;
 }
 
 .messages.open {
   display: block;
-  /* <-- This is important! */
 }
 
-/* New styles */
 .content-area {
   display: none;
-  /* Default state is hidden */
 }
 
 .content-area.open {
   display: block;
-  /* Display it when it has the 'open' class */
 }
 
 .chat-logo {
@@ -45,7 +38,6 @@
   border: none;
   cursor: pointer;
   padding: 10px;
-  /* Making the touch/click area larger for better UX */
 }
 
 .preset-questions {
@@ -115,7 +107,6 @@
   display: flex;
   justify-content: flex-end;
   padding: 0px 20px;
-  /* Providing some space */
   border-bottom: 1px solid #ececec;
   /* Optional: a subtle line to separate header from content */
 }
@@ -125,9 +116,7 @@
   border: none;
   cursor: pointer;
   margin-left: auto;
-  /* Pushes the button to the right */
   padding: 10px;
-  /* Making the touch/click area larger for better UX */
 }
 
 .minimizeIcon {

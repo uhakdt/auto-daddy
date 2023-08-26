@@ -36,6 +36,7 @@ const Chat = () => {
   const [isMinimized, setIsMinimized] = useState(true);
   const messagesEndRef = useRef(null); // Create a ref for the messages div
   const [isLoading, setIsLoading] = useState(false);
+  const [isPending, setIsPending] = useState(false); 
 
   const presetQuestions = ["Is this car a good buy?"];
   useEffect(() => {
@@ -45,6 +46,7 @@ const Chat = () => {
 
     const messageListener = (data) => {
       setIsLoading(false);
+      setIsPending(false);  
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
@@ -65,6 +67,9 @@ const Chat = () => {
   }, [messages]);
 
   const send = (messageToSend = input) => {
+    if (isPending) return;  // Don't send if a question is already pending
+
+    setIsPending(true);  // Set isPending to true when sending a question
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
     setIsLoading(true);
@@ -79,6 +84,7 @@ const Chat = () => {
       });
     }
   };
+
 
   useEffect(() => {
     const handleKeyPress = (e) => {
