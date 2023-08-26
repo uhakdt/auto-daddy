@@ -1,3 +1,71 @@
+/* AI SUMMARY */
+
+.ai-summary-container {
+  position: relative; /* This allows us to position .ai-summary-by relative to this container */
+  padding: 1rem;
+  background: linear-gradient(to right, #e3e8fb, #f5def8);
+  border-radius: 5px;
+}
+
+.ai-summary-content {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-purple);
+  margin-bottom: 1rem;
+}
+
+.ai-summary-by {
+  margin-top: 0.2rem;
+  position: absolute; /* This allows us to position this element at the bottom right of .ai-summary-container */
+  bottom: 0;
+  right: 0;
+  font-size: 0.75rem;
+  color: var(--dark-purple);
+  padding: 0.5rem;
+  font-weight: bold;
+}
+
+
+.table-figure-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 5px linear-gradient(to right, white, #e0dfdf, white) 
+  /* padding-bottom: 5px;  */
+}
+
+
+
+@media (max-width: 768px) {
+  .table-figure-container {
+    flex-direction: column;
+  }
+}
+
+
+.section-table {
+  margin-top: 1rem ;
+  width: 100%;
+}
+
+.section-table td {
+  border: 1.5px solid rgb(195, 195, 195);
+  padding: 10px;
+}
+
+.section-table-first-column {
+  border-bottom-style: hidden !important;
+  align-content: center;
+  width: 5% !important;
+}
+
+.section-table-second-column {
+  border-left-style: hidden !important;
+  width: 30% !important;
+}
+
+
+
 .table-row-container {
   display: flex;
   flex-direction: column;
@@ -9,33 +77,25 @@
   align-items: center;
   margin-bottom: 1rem;
 
-  .table-row-status {
+}
 
-    height: 1rem;
-    width: 1rem;
-    border-radius: 50%;
-    border: 1px solid black;
-    align-items: center;
-  }
+.table-row-title-value-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 
-  .table-row-title-value-container {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
+.table-row-title {
+  font-size: 1rem;
+  margin-left: 1rem;
+  font-weight: 500;
 
-  .table-row-title {
-    font-size: 1rem;
-    margin-left: 1rem;
-    font-weight: 500;
-  
-    margin-top: 0.4rem; 
-  
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100%;
-  }
+  margin-top: 0.4rem; 
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
 }
 
 .table-row-value {
@@ -44,9 +104,13 @@
   text-align: right;
 }
 
-.table-row-divider {
+/* .table-row-divider {
   border: 0;
   height: 1px;
   background: #333;
   background-image: linear-gradient(to right, white, #e0dfdf, white);
-}
+} */
+
+
+
+

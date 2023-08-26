@@ -19,7 +19,6 @@ const Chat = ({ currentOrder }) => {
     "What is the fuel efficiency?",
     "What should I ask the Dealer?",
     "Are there any major MOT Failures?",
-    "Tell me about the warranty.",
   ];
   useEffect(() => {
     socket.on("connect", () => {
