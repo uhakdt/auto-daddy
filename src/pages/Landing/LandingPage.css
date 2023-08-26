@@ -19,16 +19,15 @@
 
 .landing-logo-title-container {
   display: flex;
-  /* align-items: center; */
-  gap: 5px; /* adjust as needed for spacing between logo and title */
+  gap: 5px;
 }
 
-.landing-title {
+.landing-header-title {
   font-size: 1.5rem;
   color: #42224d;
   cursor: pointer;
-  /* margin-left: 10px;   */
 }
+
 .landing-logo {
   width: 30px;
   height: 40px;

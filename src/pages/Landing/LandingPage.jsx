@@ -92,7 +92,10 @@ function LandingPage() {
         <div className="landing-main">
           <div className="landing-header-container">
             <div className="landing-logo-title-container">
-              <h2 className="landing-title" onClick={() => navigate("/")}>
+              <h2
+                className="landing-header-title"
+                onClick={() => navigate("/")}
+              >
                 AutoDaddy
               </h2>
             </div>
