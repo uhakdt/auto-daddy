@@ -357,12 +357,12 @@ const PackagePage = () => {
               <div
                 className="package-right-content-button-container"
                 onClick={() =>
-                  openCheckoutAndCreatePaymentIntent(1490, vehicleFreeData)
+                  openCheckoutAndCreatePaymentIntent(920, vehicleFreeData)
                 }
               >
                 Get Full Report{" "}
                 <span style={{ fontSize: "1.5rem", marginLeft: "0.5rem" }}>
-                  £9.42
+                  £9.20
                 </span>
               </div>
             </div>
@@ -448,7 +448,7 @@ const PackagePage = () => {
                   </div>
                   <div className="package-pay-left-cost">
                     Total
-                    <span className="package-pay-left-cost-price">£14.90</span>
+                    <span className="package-pay-left-cost-price">£9.20</span>
                   </div>
                   <div className="package-pay-left-footer">
                     Powered by

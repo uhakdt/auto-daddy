@@ -37,7 +37,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null); // Create a ref for the messages div
   const [isLoading, setIsLoading] = useState(false);
 
-  const presetQuestions = ["How are you?"];
+  const presetQuestions = ["Is this car a good buy?"];
   useEffect(() => {
     socket.on("connect", () => {
       console.log("connected");
@@ -68,6 +68,7 @@ const Chat = () => {
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
     setIsLoading(true);
+    setIsMinimized(false);
 
     if (socket !== null) {
       socket.emit("message", {

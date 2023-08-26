@@ -35,6 +35,11 @@
   margin-bottom: 3rem;
 }
 
+@media screen and (max-width: 768px) {
+  .package-left-header-container {
+    justify-content: center;
+  }
+}
 .package-left-logo {
   font-size: 1.5rem;
   color: var(--dark-purple);
@@ -143,6 +148,11 @@
   font-weight: bold;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+@media screen and (max-width: 768px) {
+  .package-left-carmake-container {
+    justify-content: center;
+  }
 }
 
 .package-left-tax-and-mot-container {
@@ -525,7 +535,7 @@
 .package-pay-right-content {
   background-color: white;
   min-height: 2rem;
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 -0.1rem 0.8rem rgb(0 0 0 / 0.4);
   padding: 1rem;

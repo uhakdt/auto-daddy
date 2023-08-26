@@ -145,7 +145,6 @@ function LandingBody() {
             <span>GB</span>
           </div>
           <input
-            autoFocus={isMobile ? true : null}
             type="text"
             className="landing-input"
             placeholder="REG Number"

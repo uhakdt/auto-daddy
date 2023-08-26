@@ -1,6 +1,5 @@
 import React from "react";
 import "./StatusWindow.css";
-import { FaCheck, FaRegTimesCircle } from "react-icons/fa";
 
 const StatusWindow = ({ title, dueDate, status }) => {
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";

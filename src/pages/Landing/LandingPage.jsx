@@ -89,21 +89,13 @@ function LandingPage() {
         <link rel="canonical" href="https://autodaddy.co.uk/" />
       </Helmet>
       <div className="landing-container">
-
         <div className="landing-main">
-
           <div className="landing-header-container">
             <div className="landing-logo-title-container">
-              <img
-                className="landing-logo"
-                src={`${process.env.PUBLIC_URL}/icons/autodaddy-logo.svg`}
-                alt="Logo"
-              />
               <h2 className="landing-title" onClick={() => navigate("/")}>
                 AutoDaddy
               </h2>
             </div>
-
 
             {isMobile ? (
               <div className="landing-menu-button">
@@ -150,7 +142,6 @@ function LandingPage() {
             className="floating-plus"
           />
           <LandingFooter />
-
         </div>
 
         <Snackbar
