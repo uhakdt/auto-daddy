@@ -74,6 +74,7 @@ const Chat = () => {
         input: messageToSend,
         order: formatVehicleData(vehicleFreeData),
         pageFrom: "package",
+        registrationNumber: vehicleFreeData.registrationNumber,
       });
     }
   };
