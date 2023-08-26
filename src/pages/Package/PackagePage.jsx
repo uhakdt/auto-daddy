@@ -295,7 +295,6 @@ const PackagePage = () => {
 
         <div className="package-right">
           <div className="package-right-container">
-
             <div className="package-right-content">
               <div className="package-right-content-title">
                 Get your complete car history report and ask ChatGPT any
@@ -355,7 +354,6 @@ const PackagePage = () => {
                     >
                       View sample report
                     </button>
-                 
                   </div>
                 </>
               )}
@@ -430,22 +428,32 @@ const PackagePage = () => {
             {user && payments && (
               <div className="package-pay-container">
                 <div className="package-pay-left-container">
-                  <div className="package-pay-left-logo">AutoDaddy</div>
-                  <div className="package-pay-left-title">Full Car History +
-                    GPT Unlocked</div>
-       
-                  <div className="package-pay-left-subtitle">
-                    <span className="package-pay-left-subtitle-text">For License Plate</span>
-                    <span className="package-pay-left-subtitle-line"></span>
-                    <span className="package-pay-left-subtitle-reg">Reg: {registrationNumber}</span>
+                  <div className="package-pay-left-logo">
+                    <img
+                      src="/logos/logo.png"
+                      alt="logo"
+                      height={40}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+                  <div className="package-pay-left-title">
+                    Full Car History + GPT Unlocked
                   </div>
 
+                  <div className="package-pay-left-subtitle">
+                    <span className="package-pay-left-subtitle-text">
+                      Make: {vehicleFreeData.make}
+                    </span>
+                    <span className="package-pay-left-subtitle-line"></span>
+                    <span className="package-pay-left-subtitle-reg">
+                      Reg: {registrationNumber}
+                    </span>
+                  </div>
 
                   <div className="package-pay-left-cost">
                     <span className="package-pay-left-cost-name"> Price:</span>
                     <span className="package-pay-left-cost-price">£9.20</span>
                   </div>
-
 
                   <div className="package-pay-left-footer">
                     Powered by

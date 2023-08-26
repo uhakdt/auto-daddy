@@ -487,31 +487,7 @@
   margin-bottom: 2rem;
 }
 
-/* @media screen and (max-width: 768px) {
-  .package-pay-left-subtitle {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
 
-  .package-pay-left-subtitle-line {
-    height: 1rem;  
-    width: 1px; 
-    background-color: #b0b0b0;  
-    margin: 0 10px; 
-  }
-}
-
-.package-pay-left-subtitle-reg {
-  margin: 0 15px;  
-}
-
-.package-pay-left-subtitle {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--dark-purple);
-  margin-bottom: 2rem;
-} */
 
 
 
