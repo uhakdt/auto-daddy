@@ -129,9 +129,6 @@ function LandingBody() {
 
   return (
     <div className="landing-body-container">
-
-
-
       <div className="landing-form-container">
         <h2 className="landing-title">
           Complete Car History Check and ask{" "}
@@ -148,7 +145,7 @@ function LandingBody() {
             <span>GB</span>
           </div>
           <input
-            autoFocus
+            autoFocus={isMobile ? true : null}
             type="text"
             className="landing-input"
             placeholder="REG Number"

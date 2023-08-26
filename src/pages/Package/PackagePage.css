@@ -207,6 +207,7 @@
 
   .package-left-copyright {
     margin-top: 1rem;
+    margin-bottom: 7rem;
   }
 }
 
@@ -353,7 +354,8 @@
 
 @media screen and (max-width: 768px) {
   .package-right-content-openai-logo {
-    margin-right: -1rem;
+    margin-right: -0.5rem;
+    height: 7rem;
   }
 }
 
@@ -376,6 +378,7 @@
 @media screen and (max-width: 768px) {
   .package-footer-mobile {
     padding: 1rem;
+    margin-bottom: 5rem;
   }
 }
 
@@ -496,6 +499,7 @@
   font-size: small;
   margin-top: 2rem;
   opacity: 0.4;
+  margin-bottom: 2rem;
 }
 
 .package-pay-left-stripe-logo {

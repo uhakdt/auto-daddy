@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"; // added useRef
+import React, { useState, useEffect, useRef, useContext } from "react"; // added useRef
 import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
 import io from "socket.io-client";
 import { AppContext } from "../../../appContext";
@@ -8,18 +8,36 @@ const socket = io(process.env.REACT_APP_API_URL_WITHOUT_SUFFIX, {
   path: "/api/v1/chat",
 });
 
-const Chat = ({ currentOrder }) => {
+function formatVehicleData(freeVehicleData) {
+  return `
+    Registration Number: ${freeVehicleData.registrationNumber}
+    Tax Status: ${freeVehicleData.taxStatus}
+    Tax Due Date: ${freeVehicleData.taxDueDate}
+    MOT Status: ${freeVehicleData.motStatus}
+    Make: ${freeVehicleData.make}
+    Year of Manufacture: ${freeVehicleData.yearOfManufacture}
+    Engine Capacity: ${freeVehicleData.engineCapacity}
+    CO2 Emissions: ${freeVehicleData.co2Emissions}
+    Fuel Type: ${freeVehicleData.fuelType}
+    Marked for Export: ${freeVehicleData.markedForExport}
+    Colour: ${freeVehicleData.colour}
+    Type Approval: ${freeVehicleData.typeApproval}
+    Date of Last V5C Issued: ${freeVehicleData.dateOfLastV5CIssued}
+    MOT Expiry Date: ${freeVehicleData.motExpiryDate}
+    Wheelplan: ${freeVehicleData.wheelplan}
+    Month of First Registration: ${freeVehicleData.monthOfFirstRegistration}
+  `;
+}
+
+const Chat = () => {
+  const { vehicleFreeData } = useContext(AppContext);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(true);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef(null); // Create a ref for the messages div
   const [isLoading, setIsLoading] = useState(false);
 
-  const presetQuestions = [
-    "What is the fuel efficiency?",
-    "What should I ask the Dealer?",
-    "Are there any major MOT Failures?",
-  ];
+  const presetQuestions = ["How are you?"];
   useEffect(() => {
     socket.on("connect", () => {
       console.log("connected");
@@ -54,15 +72,17 @@ const Chat = ({ currentOrder }) => {
     if (socket !== null) {
       socket.emit("message", {
         input: messageToSend,
-        order: currentOrder["extractedData"],
-        pageFrom: "dashboard",
+        order: formatVehicleData(vehicleFreeData),
+        pageFrom: "package",
       });
     }
   };
+
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === "Enter" && isMinimized) {
-        setIsMinimized(false);
+        // Only maximize when it's minimized
+        setIsMinimized(false); // Explicitly set the state to false to open/maximize
       }
     };
 
@@ -76,12 +96,7 @@ const Chat = ({ currentOrder }) => {
   return (
     <div className="chatbot">
       <div className="chatbot-header">
-        {/* <img
-          className="chat-logo"
-          src={`${process.env.PUBLIC_URL}/icons/unlocked.svg`}
-          alt="Logo"
-        /> */}
-
+        <div style={{ alignSelf: "center" }}>Ask ChatGPT Below</div>
         <button
           className="minimizeButton"
           onClick={() => setIsMinimized(!isMinimized)}
@@ -145,7 +160,7 @@ const Chat = ({ currentOrder }) => {
           value={input}
           placeholder="Your Question"
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && send()}
+          onKeyDown={(e) => e.key === "Enter" && send()} // To send message with Enter key
         />
         <button className="send-chat-button" onClick={() => send(input)}>
           Ask
