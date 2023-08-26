@@ -506,7 +506,7 @@ const PackagePage = () => {
           key={"top-center"}
         />
       </div>
-      <Chat />
+      {/*   <Chat /> */}
     </>
   );
 };
