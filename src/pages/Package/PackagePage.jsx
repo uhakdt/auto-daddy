@@ -31,6 +31,7 @@ import FullReportList from "./GetFullReport/FullReportList";
 import Chat from "./Chat/Chat";
 
 import { handleDownloadSampleReport } from "../../hooks/reportHooks";
+import PackageFooter from "../NavMenus/PackageFooter";
 
 const auth = getAuth();
 
@@ -258,38 +259,7 @@ const PackagePage = () => {
           {isMobile ? (
             <></>
           ) : (
-            <div className="package-left-footer-container">
-              <div className="package-left-logos-container">
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
-                  alt="Logo"
-                />
-              </div>
-              <div className="package-left-footer">
-                <a href="/privacy">Privacy</a> |
-                <a href="/terms">Terms and Conditions</a>{" "}
-                {/* |
-              <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> */}{" "}
-                |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
-              </div>
-              <div className="package-left-copyright">© 2023 AutoDaddy</div>
-            </div>
+            <PackageFooter/>
           )}
         </div>
 
@@ -355,18 +325,7 @@ const PackagePage = () => {
                     >
                       View sample report
                     </button>
-                    {/* {user ? (
-                      <button
-                        className="package-right-header-button"
-                        onClick={() => {
-                          navigate("/dashboard");
-                        }}
-                      >
-                        Dashboard
-                      </button>
-                    ) : (
-                      <></>
-                    )} */}
+                 
                   </div>
                 </>
               )}
@@ -444,11 +403,7 @@ const PackagePage = () => {
                   <div className="package-pay-left-logo">AutoDaddy</div>
                   <div className="package-pay-left-title">Full Car History +
                     GPT Unlocked</div>
-                  {/* <div className="package-pay-left-description">
-                    Receive a detailed report with all of ChatGPT's insights,
-                    equipping you with the knowledge you need for a confident
-                    purchase decision.
-                  </div> */}
+       
                   <div className="package-pay-left-subtitle">
                     <span className="package-pay-left-subtitle-text">For License Plate</span>
                     <span className="package-pay-left-subtitle-line"></span>
