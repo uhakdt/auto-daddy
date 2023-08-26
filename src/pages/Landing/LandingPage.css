@@ -33,6 +33,10 @@
   height: 40px;
 }
 
+.landing-menu-button {
+  display: flex;
+}
+
 .landing-button-login-container {
   display: flex;
   align-items: center;

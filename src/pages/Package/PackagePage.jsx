@@ -295,44 +295,7 @@ const PackagePage = () => {
 
         <div className="package-right">
           <div className="package-right-container">
-            <div className="package-right-header">
-              {isMobile ? (
-                <>
-                  <div className="package-right-header-button-container">
-                    <button
-                      className="package-right-header-button"
-                      onClick={handleDownloadSampleReport}
-                    >
-                      View sample report
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="package-right-header-icon"></div>
-                  <div className="package-right-header-button-container">
-                    <button
-                      className="package-right-header-button"
-                      onClick={handleDownloadSampleReport}
-                    >
-                      View sample report
-                    </button>
-                    {user ? (
-                      <button
-                        className="package-right-header-button"
-                        onClick={() => {
-                          navigate("/dashboard");
-                        }}
-                      >
-                        Dashboard
-                      </button>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </>
-              )}
-            </div>
+
             <div className="package-right-content">
               <div className="package-right-content-title">
                 Get your complete car history report and ask ChatGPT any
@@ -369,6 +332,44 @@ const PackagePage = () => {
                   £9.20
                 </span>
               </div>
+            </div>
+            <div className="package-right-header">
+              {isMobile ? (
+                <>
+                  <div className="package-right-header-button-container">
+                    <button
+                      className="package-right-header-button"
+                      onClick={handleDownloadSampleReport}
+                    >
+                      View sample report
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="package-right-header-icon"></div>
+                  <div className="package-right-header-button-container">
+                    <button
+                      className="package-right-header-button"
+                      onClick={handleDownloadSampleReport}
+                    >
+                      View sample report
+                    </button>
+                    {/* {user ? (
+                      <button
+                        className="package-right-header-button"
+                        onClick={() => {
+                          navigate("/dashboard");
+                        }}
+                      >
+                        Dashboard
+                      </button>
+                    ) : (
+                      <></>
+                    )} */}
+                  </div>
+                </>
+              )}
             </div>
             <div className="package-right-logos-container">
               <img
@@ -441,19 +442,22 @@ const PackagePage = () => {
               <div className="package-pay-container">
                 <div className="package-pay-left-container">
                   <div className="package-pay-left-logo">AutoDaddy</div>
-                  <div className="package-pay-left-title">Full Car Report</div>
-                  <div className="package-pay-left-description">
+                  <div className="package-pay-left-title">Full Car History +
+                    GPT Unlocked</div>
+                  {/* <div className="package-pay-left-description">
                     Receive a detailed report with all of ChatGPT's insights,
                     equipping you with the knowledge you need for a confident
                     purchase decision.
-                  </div>
+                  </div> */}
                   <div className="package-pay-left-subtitle">
                     For License Plate {registrationNumber}
                   </div>
                   <div className="package-pay-left-cost">
-                    Total
+                    <span className="package-pay-left-cost-name"> Price:</span>
                     <span className="package-pay-left-cost-price">£9.20</span>
                   </div>
+
+
                   <div className="package-pay-left-footer">
                     Powered by
                     <span className="package-pay-left-stripe-logo">stripe</span>

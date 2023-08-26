@@ -37,9 +37,10 @@
 
 @media screen and (max-width: 768px) {
   .package-left-header-container {
-    justify-content: center;
+    justify-content: left;
   }
 }
+
 .package-left-logo {
   font-size: 1.5rem;
   color: var(--dark-purple);
@@ -120,6 +121,7 @@
   .package-left-form {
     display: block;
   }
+
   .package-left-form-container {
     margin-top: -2rem;
   }
@@ -149,6 +151,7 @@
   gap: 1rem;
   margin-bottom: 2rem;
 }
+
 @media screen and (max-width: 768px) {
   .package-left-carmake-container {
     justify-content: center;
@@ -169,6 +172,7 @@
   .package-left-tax-and-mot-container {
     flex-wrap: nowrap;
   }
+
   .package-left-other-details-container {
     margin-bottom: -3rem;
   }
@@ -244,7 +248,8 @@
 .package-right-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .package-right-header-button-container {
@@ -252,7 +257,7 @@
   padding-left: 1rem;
   padding-bottom: 1rem;
   border-bottom-left-radius: 5px;
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
 }
 
 .package-right-header-button {
@@ -272,8 +277,11 @@
   .package-right {
     margin: 0rem;
   }
+
   .package-right-header {
     justify-content: center;
+    margin-bottom: 5rem;
+
   }
 }
 
@@ -373,9 +381,9 @@
 
 .package-right-logos-container {
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
-  margin-right: 3rem;
+  /* margin-right: 3rem; */
   margin-top: -1rem;
 }
 
@@ -456,6 +464,7 @@
     padding: 2rem;
   }
 }
+
 .package-pay-left-container {
   flex: 1;
   display: flex;
@@ -470,11 +479,16 @@
 }
 
 .package-pay-left-title {
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--dark-purple);
+  font-size: 2.3rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #8e60f7, #d832f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 2rem;
 }
+
+
 
 .package-pay-left-subtitle {
   font-size: 1.5rem;
@@ -483,23 +497,37 @@
   margin-bottom: 2rem;
 }
 
-.package-pay-left-description {
+/* .package-pay-left-description {
   font-size: 1rem;
   color: var(--dark-purple);
   margin-bottom: 2rem;
+} */
+
+@media screen and (max-width: 768px) {
+  .package-pay-left-cost {
+    justify-content: center;
+  }
+
 }
 
 .package-pay-left-cost {
+  display: flex;
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--dark-purple);
+
 }
 
 .package-pay-left-cost-price {
   font-size: 2rem;
   font-weight: 500;
   color: var(--dark-purple);
-  margin-left: 1rem;
+}
+
+.package-pay-left-cost-name {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
 }
 
 .package-pay-left-footer {
@@ -601,9 +629,22 @@
 
   .package-pay-left-logo {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
+    position: relative;
+    margin-bottom: 2rem;
   }
+
+  .package-pay-left-logo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+    height: 2px;
+    background: linear-gradient(to right, white, #e0dfdf, white);
+  }
+
 
   .package-pay-right-button-close {
     position: absolute;
