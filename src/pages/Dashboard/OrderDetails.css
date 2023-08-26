@@ -11,7 +11,7 @@
 @media (min-width: 768px) {
   .order-details {
     margin: 0 auto; /* Centers the element horizontally */
-    max-width: 60%; /* Set the maximum width to 80% of the parent */
+    max-width: 80%; /* Set the maximum width to 80% of the parent */
     margin-bottom: 10rem;
   }
 }

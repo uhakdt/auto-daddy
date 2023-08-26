@@ -31,13 +31,14 @@
   align-items: center;
   width: 100%;
   /* border-bottom: 1px solid #000000;  */
-  /* padding-bottom: 5px;  */
+  padding-bottom: 5px; 
 }
 
 
 @media (max-width: 768px) {
   .table-figure-container {
     flex-direction: column;
+    width: 100%;
   }
 }
 
