@@ -326,10 +326,7 @@ const PackagePage = () => {
                   openCheckoutAndCreatePaymentIntent(920, vehicleFreeData)
                 }
               >
-                Get Full Report{" "}
-                <span style={{ fontSize: "1.5rem", marginLeft: "0.5rem" }}>
-                  £9.20
-                </span>
+                Get Full Report
               </div>
             </div>
             <div className="package-right-header">
