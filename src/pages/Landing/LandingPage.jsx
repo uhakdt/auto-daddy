@@ -98,12 +98,6 @@ function LandingPage() {
                 height={40}
                 style={{ cursor: "pointer" }}
               />
-              {/*   <h2
-                className="landing-header-title"
-                onClick={() => navigate("/")}
-              >
-                AutoDaddy
-              </h2> */}
             </div>
 
             {isMobile ? (
