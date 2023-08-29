@@ -37,42 +37,8 @@ const PackagePageLeft = () => {
     setSnackbarOpen(false);
   };
 
-  // Payment Form states
-  const [clientSecret, setClientSecret] = useState("");
-  const [paymentIntentId, setPaymentIntentId] = useState("");
-
-  const [formType, setFormType] = useState("login");
-  const [payments, setPayments] = useState(false);
-
   const navigate = useNavigate();
 
-  const openCheckoutAndCreatePaymentIntent = (price, vehicleFreeData) => {
-    setOpen(true);
-    setPayments(true);
-
-    if (typeof vehicleFreeData === "undefined") {
-      alert("Please enter a license plate number.");
-      navigate("/");
-      return;
-    }
-
-    fetch(`${process.env.REACT_APP_API_URL}/stripe/create-payment-intent`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": process.env.REACT_APP_YOUR_DOMAIN,
-      },
-      body: JSON.stringify({
-        price,
-        vehicleFreeData,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPaymentIntentId(data.paymentIntentId);
-        setClientSecret(data.clientSecret);
-      });
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -128,7 +94,7 @@ const PackagePageLeft = () => {
     <>
       <div className="package-left">
         <div>
-          <div className="package-left-header-container">
+          {/* <div className="package-left-header-container">
             <img
               onClick={() => navigate("/")}
               src="/logos/logo.png"
@@ -136,7 +102,7 @@ const PackagePageLeft = () => {
               height={40}
               style={{ cursor: "pointer" }}
             />
-          </div>
+          </div> */}
           <div className="package-left-form-container">
             <form className="package-left-form" onSubmit={handleSubmit}>
               <div className="package-left-input-container">
