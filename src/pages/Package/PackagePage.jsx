@@ -32,6 +32,7 @@ import Chat from "./Chat/Chat";
 
 import { handleDownloadSampleReport } from "../../hooks/reportHooks";
 import PackagePageLeft from "./PackagePageLeft";
+import PackagePagePay from "./PackagePagePay";
 
 const auth = getAuth();
 
@@ -107,39 +108,7 @@ const PackagePage = () => {
       });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitted(true);
-    if (pattern.test(registrationNumber.replace(/\s/g, ""))) {
-      setIsValid(true);
-      setIsLoading(true);
-      try {
-        await axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/dvla/${registrationNumber.replace(
-              /\s/g,
-              ""
-            )}`
-          )
-          .then((res) => {
-            const vehicleFreeData = new VehicleFreeData(res.data);
-            setVehicleFreeData(vehicleFreeData);
-            setRegistrationNumber(registrationNumber);
-            setResponseStatus(true);
-            setIsLoading(false);
-          });
-      } catch (error) {
-        setSnackbarMessage(error.response.data.message);
-        setSnackbarOpen(true);
-        setResponseStatus(false);
-        setIsLoading(false);
-      }
-    } else {
-      setIsValid(false);
-      setSnackbarMessage("Invalid UK license plate number");
-      setSnackbarOpen(true);
-    }
-  };
+  
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
@@ -201,14 +170,7 @@ const PackagePage = () => {
                   />
                 </div>
               </div>
-              <div
-                className="package-right-content-button-container"
-                onClick={() =>
-                  openCheckoutAndCreatePaymentIntent(920, vehicleFreeData)
-                }
-              >
-                Get Full Report
-              </div>
+              <PackagePagePay />
             </div>
             <div className="package-right-header">
               {isMobile ? (
@@ -236,6 +198,7 @@ const PackagePage = () => {
                 </>
               )}
             </div>
+
             <div className="package-right-logos-container">
               <img
                 className="package-right-logo"
@@ -273,105 +236,10 @@ const PackagePage = () => {
               </div>
               <div className="package-left-copyright">© 2023 AutoDaddy</div>
             </div>
+       
           </div>
         </div>
-
-        <Modal
-          open={open}
-          onClose={() => {
-            setOpen(false);
-            setPayments(false);
-          }}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <div>
-            {!user && formType === "login" && (
-              <LoginForm
-                setFormType={setFormType}
-                setOpen={setOpen}
-                page="package"
-              />
-            )}
-            {!user && formType === "register" && (
-              <RegisterForm
-                setFormType={setFormType}
-                setOpen={setOpen}
-                page="package"
-              />
-            )}
-            {user && payments && (
-              <div className="package-pay-container">
-                <div className="package-pay-left-container">
-                  <div className="package-pay-left-logo">
-                    <img
-                      src="/logos/logo.png"
-                      alt="logo"
-                      height={40}
-                      style={{ cursor: "pointer" }}
-                    />
-                  </div>
-                  <div className="package-pay-left-title">
-                    Full Car History + GPT Unlocked
-                  </div>
-
-                  <div className="package-pay-left-subtitle">
-                    <span className="package-pay-left-subtitle-text">
-                      Make: {vehicleFreeData.make}
-                    </span>
-                    <span className="package-pay-left-subtitle-line"></span>
-                    <span className="package-pay-left-subtitle-reg">
-                      Reg: {registrationNumber}
-                    </span>
-                  </div>
-
-                  <div className="package-pay-left-cost">
-                    <span className="package-pay-left-cost-name"> Price:</span>
-                    <span className="package-pay-left-cost-price">£9.20</span>
-                  </div>
-
-                  <div className="package-pay-left-footer">
-                    Powered by
-                    <span className="package-pay-left-stripe-logo">stripe</span>
-                    <div className="package-pay-left-footer-divider"></div>
-                    <a href="/terms">Terms</a>
-                    <a href="/privacy">Privacy</a>
-                  </div>
-                </div>
-
-                <div className="package-pay-right-container">
-                  <div className="package-pay-right-content">
-                    {clientSecret && (
-                      <Elements
-                        options={{
-                          clientSecret,
-                          theme: "stripe",
-                        }}
-                        stripe={stripePromise}
-                      >
-                        <StripeForm paymentIntentId={paymentIntentId} />
-                      </Elements>
-                    )}
-                  </div>
-                  <div
-                    className="package-pay-right-button-close"
-                    onClick={() => {
-                      setOpen(false);
-                      setPayments(false);
-                    }}
-                  >
-                    <img
-                      alt="close"
-                      src={iconsUrl + "close.svg"}
-                      onClick={() => setOpen(false)}
-                      height={20}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </Modal>
+       
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={snackbarOpen}

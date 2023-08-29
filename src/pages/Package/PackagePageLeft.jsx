@@ -2,35 +2,14 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { Helmet } from "react-helmet";
-
 import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-
-import { RiCarLine } from "react-icons/ri";
-
-import Modal from "@mui/material/Modal";
 import { Link, Snackbar } from "@mui/material";
-
 import { AppContext } from "../../appContext";
-
-import StripeForm from "./Checkout/StripeForm";
-import LoginForm from "../../components/LoginForm";
-import RegisterForm from "../../components/RegisterForm";
-
 import "./PackagePageLeft.css";
-
 import { VehicleFreeData } from "../../models/VehicleFreeData";
 import StatusWindow from "./VehicleData/StatusWindow";
 import TableRow from "./VehicleData/TableRow";
-import FullReportList from "./GetFullReport/FullReportList";
-
-import Chat from "./Chat/Chat";
-
-import { handleDownloadSampleReport } from "../../hooks/reportHooks";
 
 const auth = getAuth();
 
