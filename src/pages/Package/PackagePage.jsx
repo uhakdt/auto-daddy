@@ -31,6 +31,7 @@ import FullReportList from "./GetFullReport/FullReportList";
 import Chat from "./Chat/Chat";
 
 import { handleDownloadSampleReport } from "../../hooks/reportHooks";
+import PackagePageLeft from "./PackagePageLeft";
 
 const auth = getAuth();
 
@@ -171,127 +172,7 @@ const PackagePage = () => {
         <link rel="canonical" href="https://autodaddy.co.uk/package" />
       </Helmet>
       <div className="package-container">
-        <div className="package-left">
-          <div>
-            <div className="package-left-header-container">
-              <img
-                onClick={() => navigate("/")}
-                src="/logos/logo.png"
-                alt="logo"
-                height={40}
-                style={{ cursor: "pointer" }}
-              />
-            </div>
-            <div className="package-left-form-container">
-              <form className="package-left-form" onSubmit={handleSubmit}>
-                <div className="package-left-input-container">
-                  <div className="package-left-GB">
-                    <span>GB</span>
-                  </div>
-                  <input
-                    type="text"
-                    className="package-left-input"
-                    placeholder="License Plate"
-                    value={registrationNumber}
-                    onChange={(event) =>
-                      setRegistrationNumber(event.target.value)
-                    }
-                  />
-                </div>
-                <button type="submit" className="package-left-button-go">
-                  Check again
-                </button>
-              </form>
-            </div>
-            <div className="package-left-content-container">
-              <div className="package-left-carmake-container">
-                {vehicleFreeData.make}
-              </div>
-              <div className="package-left-tax-and-mot-container">
-                <StatusWindow
-                  title={"TAX"}
-                  dueDate={vehicleFreeData.taxDueDate}
-                  status={vehicleFreeData.taxStatus}
-                />
-                <StatusWindow
-                  title={"MOT"}
-                  dueDate={vehicleFreeData.motExpiryDate}
-                  status={vehicleFreeData.motStatus}
-                />
-              </div>
-              <div className="package-left-other-details-container">
-                <TableRow
-                  item={vehicleFreeData.monthOfFirstRegistration}
-                  title="Registration Date:"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {vehicleFreeData.monthOfFirstRegistration}
-                </TableRow>
-                <TableRow
-                  item={vehicleFreeData.colour}
-                  title="Colour:"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {vehicleFreeData.colour}
-                </TableRow>
-                <TableRow
-                  item={vehicleFreeData.fuelType}
-                  title="Fuel Type:"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {vehicleFreeData.fuelType}
-                </TableRow>
-                <TableRow
-                  item={vehicleFreeData.co2Emissions}
-                  title="CO2 emissions:"
-                  colour="#6f508c"
-                  last={true}
-                >
-                  {vehicleFreeData.co2Emissions}
-                </TableRow>
-              </div>
-            </div>
-          </div>
-          {isMobile ? (
-            <></>
-          ) : (
-            <div className="package-left-footer-container">
-              <div className="package-left-logos-container">
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
-                  alt="Logo"
-                />
-                <img
-                  className="package-left-logo"
-                  src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
-                  alt="Logo"
-                />
-              </div>
-              <div className="package-left-footer">
-                <a href="/privacy">Privacy</a> |
-                <a href="/terms">Terms and Conditions</a>{" "}
-                {/* |
-              <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> */}{" "}
-                |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
-              </div>
-              <div className="package-left-copyright">© 2023 AutoDaddy</div>
-            </div>
-          )}
-        </div>
+        <PackagePageLeft />
 
         <div className="package-right">
           <div className="package-right-container">
@@ -382,22 +263,19 @@ const PackagePage = () => {
                 alt="Logo"
               />
             </div>
+            <div className="package-footer-mobile">
+              <div className="package-left-footer">
+                <a href="/privacy">Privacy</a> |
+                <a href="/terms">Terms and Conditions</a>{" "}
+                {/* |
+            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link>  */}
+                |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
+              </div>
+              <div className="package-left-copyright">© 2023 AutoDaddy</div>
+            </div>
           </div>
         </div>
-        {isMobile ? (
-          <div className="package-footer-mobile">
-            <div className="package-left-footer">
-              <a href="/privacy">Privacy</a> |
-              <a href="/terms">Terms and Conditions</a>{" "}
-              {/* |
-            <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link>  */}
-              |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
-            </div>
-            <div className="package-left-copyright">© 2023 AutoDaddy</div>
-          </div>
-        ) : (
-          <></>
-        )}
+
         <Modal
           open={open}
           onClose={() => {
@@ -503,6 +381,7 @@ const PackagePage = () => {
           key={"top-center"}
         />
       </div>
+      
       {/*   <Chat /> */}
     </>
   );
