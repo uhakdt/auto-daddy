@@ -286,7 +286,7 @@ const PackagePage = () => {
                 <a href="/terms">Terms and Conditions</a>{" "}
                 {/* |
               <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link> */}{" "}
-                |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
+                |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
               </div>
               <div className="package-left-copyright">© 2023 AutoDaddy</div>
             </div>
@@ -391,7 +391,7 @@ const PackagePage = () => {
               <a href="/terms">Terms and Conditions</a>{" "}
               {/* |
             <Link to="/cookies">Cookies</Link> |<Link to="/gdpr">GDPR</Link>  */}
-              |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
+              |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
             </div>
             <div className="package-left-copyright">© 2023 AutoDaddy</div>
           </div>

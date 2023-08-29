@@ -30,8 +30,8 @@
 //       <div className="package-left-footer">
 //         <a href="/privacy">Privacy</a> |
 //         <a href="/terms">Terms and Conditions</a>{" "}
-     
-//         |<a href="mailto:support@autodaddy.co.uk">Contact Us</a>
+
+//         |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
 //       </div>
 //       <div className="package-left-copyright">© 2023 AutoDaddy</div>
 //     </div>

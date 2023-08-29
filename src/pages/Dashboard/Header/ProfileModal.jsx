@@ -48,7 +48,7 @@ function ProfileModal({ isOpen, onClose }) {
             onClick={() => {
               onClose();
               window.location.href =
-                "mailto:support@autodaddy.co.uk?subject=Need Help&body=Hi, I need some assistance with...";
+                "mailto:main@autodaddy.co.uk?subject=Need Help&body=Hi, I need some assistance with...";
             }}
           >
             Need Help?

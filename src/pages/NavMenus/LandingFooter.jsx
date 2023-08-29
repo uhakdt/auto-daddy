@@ -47,7 +47,7 @@ function LandingFooter() {
         <Link to="/terms">Terms and Conditions</Link> |
         {/* <Link to="/cookies">Cookies</Link> |
         <Link to="/gdpr">GDPR</Link> | */}
-        <a href="mailto:support@autodaddy.co.uk">Contact Us</a>
+        <a href="mailto:main@autodaddy.co.uk">Contact Us</a>
       </div>
       <div className="landing-copyright">© 2023 AutoDaddy</div>
     </div>
