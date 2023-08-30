@@ -12,10 +12,7 @@ import RegSearchFormAgain from "../Components/RegSearchForm/RegSearchFormAgain";
 const auth = getAuth();
 
 const PackagePageLeft = () => {
-  const {
-    vehicleFreeData,
-    setPreviousPage,
-  } = useContext(AppContext);
+  const { vehicleFreeData, setPreviousPage } = useContext(AppContext);
 
   // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
@@ -52,9 +49,7 @@ const PackagePageLeft = () => {
     <>
       <div className="package-left">
         <div>
-   
           <div className="package-left-form-container">
-            
             <RegSearchFormAgain />
           </div>
           <div className="package-left-content-container">
@@ -74,78 +69,46 @@ const PackagePageLeft = () => {
               />
             </div>
             <div className="package-left-other-details-container">
-              <TableRow
-                item={vehicleFreeData.monthOfFirstRegistration}
-                title="Registration Date:"
-                colour="#6f508c"
-                last={false}
-              >
-                {vehicleFreeData.monthOfFirstRegistration}
-              </TableRow>
-              <TableRow
-                item={vehicleFreeData.colour}
-                title="Colour:"
-                colour="#6f508c"
-                last={false}
-              >
-                {vehicleFreeData.colour}
-              </TableRow>
-              <TableRow
-                item={vehicleFreeData.fuelType}
-                title="Fuel Type:"
-                colour="#6f508c"
-                last={false}
-              >
-                {vehicleFreeData.fuelType}
-              </TableRow>
-              <TableRow
-                item={vehicleFreeData.co2Emissions}
-                title="CO2 emissions:"
-                colour="#6f508c"
-                last={true}
-              >
-                {vehicleFreeData.co2Emissions}
-              </TableRow>
+              <table className="details-table">
+                <tbody>
+                  <tr>
+                    <td className="details-table-title">Registration Date:</td>
+                    <td className="details-table-item">
+                      {vehicleFreeData.monthOfFirstRegistration}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="details-table-title">Colour:</td>
+                    <td className="details-table-item">
+                      {vehicleFreeData.colour}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="details-table-title">Fuel Type:</td>
+                    <td className="details-table-item">
+                      {vehicleFreeData.fuelType}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="details-table-title">CO2 emissions:</td>
+                    <td className="details-table-item">
+                      {vehicleFreeData.co2Emissions}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-        {/* {isMobile ? (
-          <></>
-        ) : (
-          <div className="package-left-footer-container">
-            <div className="package-left-logos-container">
-              <img
-                className="package-left-logo"
-                src={`${process.env.PUBLIC_URL}/logos/openai-logo.png`}
-                alt="Logo"
-              />
-              <img
-                className="package-left-logo"
-                src={`${process.env.PUBLIC_URL}/logos/ukvd-logo.svg`}
-                alt="Logo"
-              />
-              <img
-                className="package-left-logo"
-                src={`${process.env.PUBLIC_URL}/logos/replit-logo.svg`}
-                alt="Logo"
-              />
-              <img
-                className="package-left-logo"
-                src={`${process.env.PUBLIC_URL}/logos/dvla-logo.png`}
-                alt="Logo"
-              />
-            </div>
-          </div>
-        )} */}
       </div>
       <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={snackbarOpen}
-          autoHideDuration={2000}
-          onClose={handleSnackbarClose}
-          message={snackbarMessage}
-          key={"top-center"}
-        />
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleSnackbarClose}
+        message={snackbarMessage}
+        key={"top-center"}
+      />
     </>
   );
 };
