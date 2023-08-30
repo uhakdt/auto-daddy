@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { Helmet } from "react-helmet";
-
-import { auth } from "../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-
 
 import "./LandingPage.css";
 import LandingFooter from "../NavMenus/LandingFooter";
@@ -14,11 +8,6 @@ import LandingHeader from "../NavMenus/LandingHeader";
 
 
 function LandingPage() {
-  
-
-
-
- 
 
   return (
     <>

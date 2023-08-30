@@ -129,12 +129,12 @@ function LandingHeader() {
           </div>
         )}
       </div>
-      <Snackbar
+      {/* <Snackbar
         open={snackbarOpen}
         autoHideDuration={2000}
         onClose={handleSnackbarClose}
         message={snackbarMessage}
-      />
+      /> */}
       {isMobile && (
         <SwipeableDrawer
           className="landing-drawer"
