@@ -1,6 +1,7 @@
 .landing-header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .landing-logo-title-container {

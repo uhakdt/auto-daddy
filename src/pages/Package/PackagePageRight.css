@@ -18,7 +18,8 @@
   background-color: var(--light-purple);
   display: flex;
   justify-content: center;
-  margin: 1rem;
+  margin-top: 1rem;
+  margin-left: 1rem;
   border-radius: 5px;
 }
 
@@ -59,6 +60,7 @@
 @media screen and (max-width: 768px) {
   .package-right {
     margin: 0rem;
+    background: none;
   }
 
   .package-right-header {
@@ -156,6 +158,10 @@
     margin-right: -0.5rem;
     height: 7rem;
   }
+  .package-right-content {
+    width: auto;
+  }
+
 }
 
 /* FOOTER */

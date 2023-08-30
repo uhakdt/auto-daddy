@@ -59,7 +59,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+
   box-sizing: border-box;
 }
 
@@ -87,6 +87,7 @@
 
 .package-left-form-container {
   margin-bottom: 3rem;
+  margin-top: 4rem;
 }
 
 .package-left-form {
@@ -160,7 +161,7 @@
   }
 
   .package-left-form-container {
-    margin-top: -2rem;
+   
   }
 
   .package-left-input {

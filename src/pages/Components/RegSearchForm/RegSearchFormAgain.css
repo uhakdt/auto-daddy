@@ -54,7 +54,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   /* width: 5rem; */
-  font-size: 1rem;
+  /* font-size: 1rem; */
   order: 2;
   font-weight: bold;
 }
