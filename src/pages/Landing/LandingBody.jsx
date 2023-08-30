@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import "./LandingBody.css";
-import RegSearchForm from "../Components/RegSearchForm";
+import RegSearchForm from "../Components/RegSearchForm/RegSearchForm";
 
 function LandingBody() {
 

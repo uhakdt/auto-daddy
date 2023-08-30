@@ -10,13 +10,13 @@ import {
   IconButton,
 } from "@mui/material";
 
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import confetti from "canvas-confetti";
 
-import { AppContext } from "../../appContext";
-import { VehicleFreeData } from "../../models/VehicleFreeData";
-import CarLoader from "../../SVGs/CarLoader";
+import { AppContext } from "../../../appContext";
+import { VehicleFreeData } from "../../../models/VehicleFreeData";
+import CarLoader from "../../../SVGs/CarLoader";
 import "./RegSearchForm.css";
 
 function RegSearchForm() {

@@ -1,0 +1,131 @@
+.landing-form {
+  display: flex;
+  justify-content: center;
+
+  max-width: 400px;
+  margin: auto;
+}
+
+.landing-GB {
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  color: rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  /* Horizontally centers content */
+  align-items: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  /* Vertically centers content */
+}
+
+.landing-input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  flex-grow: 1;
+  font-size: 2rem;
+  height: 5rem;
+  /* padding-left: 1rem; */
+  margin-right: 0.5rem;
+  text-align: center;
+  box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  font-style: italic;
+}
+
+.landing-input::placeholder {
+  text-transform: none;
+}
+
+.landing-input:focus {
+  outline: none;
+}
+
+.landing-button-go {
+  background-image: linear-gradient(to right, #8e60f7, #d832f7);
+  border: none;
+  color: white;
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 5rem;
+  font-size: 2rem;
+  order: 2;
+  font-weight: bold;
+}
+
+.landing-button-go:hover {
+  background-color: #b84361;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.landing-button-go:active {
+  background-color: #8b3150;
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    flex-direction: column;
+  }
+  .landing-body-container {
+    margin-top: 50px;
+  }
+
+  .landing-title {
+    font-size: 2.2rem;
+    text-align: left;
+  }
+
+  .landing-form {
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .landing-GB,
+  .landing-input {
+    width: 8%;
+    margin-right: 0;
+  }
+
+  .landing-input::placeholder {
+    text-transform: none;
+  }
+
+  .landing-button-go {
+    width: 95%;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+  }
+
+  .landing-right {
+    display: none;
+  }
+
+  .landing-button-login-container {
+    display: none;
+  }
+
+  .landing-footer a {
+    font-size: 0.6rem;
+    align-self: center;
+  }
+}
+
+/* LOADER */
+
+.landing-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

@@ -1,28 +1,21 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import { getAuth } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Snackbar } from "@mui/material";
 import { AppContext } from "../../appContext";
 import "./PackagePageLeft.css";
-import { VehicleFreeData } from "../../models/VehicleFreeData";
 import StatusWindow from "./VehicleData/StatusWindow";
 import TableRow from "./VehicleData/TableRow";
+import RegSearchFormAgain from "../Components/RegSearchForm/RegSearchFormAgain";
 
 const auth = getAuth();
 
 const PackagePageLeft = () => {
   const {
-    registrationNumber,
-    setRegistrationNumber,
     vehicleFreeData,
-    setVehicleFreeData,
     setPreviousPage,
   } = useContext(AppContext);
-  const [open, setOpen] = React.useState(false);
-  const [user, loading] = useAuthState(auth);
 
   // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
@@ -38,41 +31,6 @@ const PackagePageLeft = () => {
   };
 
   const navigate = useNavigate();
-
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitted(true);
-    if (pattern.test(registrationNumber.replace(/\s/g, ""))) {
-      setIsValid(true);
-      setIsLoading(true);
-      try {
-        await axios
-          .post(
-            `${process.env.REACT_APP_API_URL}/dvla/${registrationNumber.replace(
-              /\s/g,
-              ""
-            )}`
-          )
-          .then((res) => {
-            const vehicleFreeData = new VehicleFreeData(res.data);
-            setVehicleFreeData(vehicleFreeData);
-            setRegistrationNumber(registrationNumber);
-            setResponseStatus(true);
-            setIsLoading(false);
-          });
-      } catch (error) {
-        setSnackbarMessage(error.response.data.message);
-        setSnackbarOpen(true);
-        setResponseStatus(false);
-        setIsLoading(false);
-      }
-    } else {
-      setIsValid(false);
-      setSnackbarMessage("Invalid UK license plate number");
-      setSnackbarOpen(true);
-    }
-  };
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
@@ -94,35 +52,10 @@ const PackagePageLeft = () => {
     <>
       <div className="package-left">
         <div>
-          {/* <div className="package-left-header-container">
-            <img
-              onClick={() => navigate("/")}
-              src="/logos/logo.png"
-              alt="logo"
-              height={40}
-              style={{ cursor: "pointer" }}
-            />
-          </div> */}
+   
           <div className="package-left-form-container">
-            <form className="package-left-form" onSubmit={handleSubmit}>
-              <div className="package-left-input-container">
-                <div className="package-left-GB">
-                  <span>GB</span>
-                </div>
-                <input
-                  type="text"
-                  className="package-left-input"
-                  placeholder="License Plate"
-                  value={registrationNumber}
-                  onChange={(event) =>
-                    setRegistrationNumber(event.target.value)
-                  }
-                />
-              </div>
-              <button type="submit" className="package-left-button-go">
-                Check again
-              </button>
-            </form>
+            
+            <RegSearchFormAgain />
           </div>
           <div className="package-left-content-container">
             <div className="package-left-carmake-container">
