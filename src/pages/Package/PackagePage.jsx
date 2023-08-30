@@ -63,24 +63,26 @@ const PackagePage = () => {
         />
         <link rel="canonical" href="https://autodaddy.co.uk/package" />
       </Helmet>
-      <div className="Package-header-container">
-        <div className="Package-header-main">
-          <LandingHeader />
+      <div className="package-page">
+        <div className="Package-header-container">
+          <div className="Package-header-main">
+            <LandingHeader />
+          </div>
         </div>
+        <div className="package-container">
+          <PackagePageLeft />
+          <PackagePageRight />
+          <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={snackbarOpen}
+            autoHideDuration={2000}
+            onClose={handleSnackbarClose}
+            message={snackbarMessage}
+            key={"top-center"}
+          />
+        </div>
+        <LandingFooter />
       </div>
-      <div className="package-container">
-        <PackagePageLeft />
-        <PackagePageRight />
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={snackbarOpen}
-          autoHideDuration={2000}
-          onClose={handleSnackbarClose}
-          message={snackbarMessage}
-          key={"top-center"}
-        />
-      </div>
-      
       {/*   <Chat /> */}
     </>
   );

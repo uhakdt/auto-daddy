@@ -7,10 +7,15 @@
   --medium-purple: #6f508c;
   --dark-purple: #42224d;
 }
+.package-page {
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100vh;  */
+}
 
 .package-container {
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 /* OTHER 

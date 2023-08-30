@@ -9,7 +9,7 @@ import { Link, Snackbar } from "@mui/material";
 
 import { AppContext } from "../../appContext";
 
-import "./PackagePage.css";
+import "./PackagePageRight.css";
 
 import FullReportList from "./GetFullReport/FullReportList";
 
@@ -83,7 +83,7 @@ const PackagePageRight = () => {
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
               <FullReportList />
-              {isMobile ? (
+              {/* {isMobile ? (
                 <></>
               ) : (
                 <img
@@ -91,7 +91,7 @@ const PackagePageRight = () => {
                   src={iconsUrl + "icon_plus_small.png"}
                   height={40}
                 />
-              )}
+              )} */}
               <div className="package-right-content-openai">
                 <img
                   className="package-right-content-openai-logo"
@@ -128,7 +128,7 @@ const PackagePageRight = () => {
               </>
             )}
           </div>
-
+{/* 
           <div className="package-right-logos-container">
             <img
               className="package-right-logo"
@@ -163,7 +163,7 @@ const PackagePageRight = () => {
               |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
             </div>
             <div className="package-left-copyright">© 2023 AutoDaddy</div>
-          </div>
+          </div> */}
         </div>
       </div>
 

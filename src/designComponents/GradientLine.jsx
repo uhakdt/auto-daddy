@@ -32,7 +32,6 @@ function GradientLine() {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up the listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     }
