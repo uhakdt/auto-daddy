@@ -88,6 +88,7 @@ function DashboardPage() {
   } = useQuery("orders", fetchOrdersByAuthUser, {
     onSuccess: (ordersList) => {
       if (
+        !selectedOrderId &&
         fromPackage &&
         ordersList.length > 0 &&
         ordersList[0].vehicleFreeData.RegistrationNumber.replace(
@@ -108,7 +109,7 @@ function DashboardPage() {
   });
 
   useEffect(() => {
-    if (isPolling) {
+    if (isPolling && !selectedOrderId) {
       const intervalId = setInterval(() => {
         refetch();
       }, 1000);

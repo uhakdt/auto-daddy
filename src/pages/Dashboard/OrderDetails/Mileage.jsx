@@ -49,7 +49,7 @@ const Mileage = ({
     };
   }, []);
 
-  const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.6;
+  const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.8;
   const chartHeight = dimensions.width > 500 ? 300 : dimensions.width * 0.6;
 
   const sortedMileageRecords =

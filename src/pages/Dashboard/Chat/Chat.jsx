@@ -56,6 +56,7 @@ const Chat = ({ currentOrder, registrationNumber }) => {
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
     setIsLoading(true);
+    setIsMinimized(false);
 
     if (socket !== null) {
       socket.emit("message", {
