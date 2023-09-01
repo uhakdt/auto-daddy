@@ -15,11 +15,10 @@
 .package-right {
   flex: 1;
   width: 100%;
-  background-color: var(--light-purple);
+
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
-  margin-left: 1rem;
+
   border-radius: 5px;
 }
 
@@ -73,10 +72,11 @@
 .package-right-content {
   background-color: white;
   min-height: 2rem;
-  width: 70%;
-  margin: 3rem auto;
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-bottom: 3rem;
   border-radius: 10px;
-  box-shadow: 0 -0.2rem 0.9rem rgb(0 0 0 / 0.4);
+  box-shadow: 0 -0.2rem 0.9rem rgb(0 0 0 / 0.2);
   padding: 2rem;
 }
 
@@ -126,32 +126,6 @@
   margin-right: 2rem;
 }
 
-.package-right-content-button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #8e60f7, #d832f7);
-  margin-top: 1rem !important;
-  margin: -2rem;
-  height: 4.5rem;
-  border-radius: 0 0 10px 10px;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.package-right-content-button-container:hover {
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.package-right-content-button-container:active {
-  transform: scale(1.05);
-  border-radius: 10px;
-  font-size: 1.3rem;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-}
 
 @media screen and (max-width: 768px) {
   .package-right-content-openai-logo {
@@ -159,7 +133,7 @@
     height: 7rem;
   }
   .package-right-content {
-    width: auto;
+    margin-left: 0;
   }
 
 }

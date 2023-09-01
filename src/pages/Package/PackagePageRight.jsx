@@ -128,45 +128,8 @@ const PackagePageRight = () => {
               </>
             )}
           </div>
-{/* 
-          <div className="package-right-logos-container">
-            <img
-              className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/visa-logo.png`}
-              alt="Logo"
-            />
-            <img
-              className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/mastercard-logo.png`}
-              alt="Logo"
-            />
-            <img
-              className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/applepay-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/stripe-logo.svg`}
-              alt="Logo"
-            />
-            <img
-              className="package-right-logo"
-              src={`${process.env.PUBLIC_URL}/logos/paypal-logo.svg`}
-              alt="Logo"
-            />
-          </div>
-          <div className="package-footer-mobile">
-            <div className="package-left-footer">
-              <a href="/privacy">Privacy</a> |
-              <a href="/terms">Terms and Conditions</a>{" "}
-              |<a href="mailto:main@autodaddy.co.uk">Contact Us</a>
-            </div>
-            <div className="package-left-copyright">© 2023 AutoDaddy</div>
-          </div> */}
         </div>
       </div>
-
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={snackbarOpen}

@@ -19,7 +19,7 @@ const StatusWindow = ({ title, dueDate, status }) => {
       style={{
         backgroundImage: `linear-gradient(90deg, ${colour} 0.8rem, white 0.8rem`,
         borderColor: "#E0DFDF",
-        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
+        boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.1)",
       }}
     >
       <div>
@@ -34,14 +34,12 @@ const StatusWindow = ({ title, dueDate, status }) => {
         </div>
         <div className="status-window-divider-package"></div>
         <div className="status-window-details-package">
-          <div style={{ paddingBottom: 5 }}>
-            Due date:{" "}
-            <span className="status-window-details-value-package">{dueDate}</span>
-          </div>
-          <div>
-            Status:{" "}
-            <span className="status-window-details-value-package">{status}</span>
-          </div>
+          <div className="status-window-details-package-title">Due date: </div>
+          <span className="status-window-details-package-text">{dueDate}</span>
+        </div>
+        <div className="status-window-details-package">
+          <div className="status-window-details-package-title">Status:</div>
+          <span className="status-window-details-package-text">{status}</span>
         </div>
       </div>
     </div>

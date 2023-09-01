@@ -2,22 +2,20 @@
 
 .status-windows-container-package {
   display: flex;
-  flex-wrap: wrap;
   margin: 0.3rem;
   justify-content: center;
 }
 
 .status-window-package {
-  width: 10rem;
+  /* width: 10rem; */
+  width: 100%;
   min-height: 4.5rem;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #bdbdbd;
   padding: 0.5rem;
   padding-left: 1.5rem;
-  margin-right: 1rem;
-  margin-bottom: 0.5rem;
-  display: flex;
+  /* display: flex; */
 }
 
 .status-window-title-package {
@@ -37,11 +35,22 @@
 }
 
 .status-window-details-package {
-  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 0.5rem;
-  font-weight: 400;
+
 }
 
-.status-window-details-value-package {
+.status-window-details-package-title {
   font-weight: bold;
+  text-align: left;
+  white-space: pre-line;
+
+}
+
+.status-window-details-package-text {
+  text-align: right;
+  white-space: nowrap;
+
 }

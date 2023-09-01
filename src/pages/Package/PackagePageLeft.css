@@ -12,48 +12,6 @@
   ----------------------------------------
   */
 
-/* Additional CSS for the table */
-.details-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.details-table td {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 8px;
-
-}
-
-.details-table tr:first-child td {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.details-table td:first-child {
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.details-table td:last-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.details-table-title {
-  font-weight: bold;
-
-  text-align: left;
-}
-
-.details-table-item {
-
-  text-align: right;
-  
-}
-
-
-
-
-
 .package-left {
   flex: 1;
   display: flex;
@@ -87,7 +45,7 @@
 
 .package-left-form-container {
   margin-bottom: 3rem;
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .package-left-form {
@@ -161,7 +119,6 @@
   }
 
   .package-left-form-container {
-   
   }
 
   .package-left-input {
@@ -191,20 +148,56 @@
   margin-bottom: 2rem;
 }
 
-@media screen and (max-width: 768px) {
-  .package-left-carmake-container {
-    justify-content: center;
-  }
-}
-
 .package-left-tax-and-mot-container {
   display: flex;
-  justify-content: left;
-  flex-wrap: wrap;
+  justify-content: center;
+  /* flex-wrap: wrap; */
+  gap: 0.5rem;
 }
 
 .package-left-other-details-container {
   margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Additional CSS for the table */
+.details-table {
+  /* width: 50%; */
+  width: 100%;
+  border-collapse: separate; /* Changed from collapse to separate */
+  border-spacing: 0; /* Add this */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px; /* Add this */
+  overflow: hidden; /* Add this */
+}
+
+.details-table td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px;
+}
+
+.details-table tr:first-child td {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-table td:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-table td:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.details-table-title {
+  font-weight: bold;
+  text-align: left;
+}
+
+.details-table-item {
+  text-align: right;
 }
 
 @media screen and (max-width: 768px) {
@@ -215,4 +208,7 @@
   .package-left-other-details-container {
     margin-bottom: -3rem;
   }
+  /* .details-table {
+    width: 100%;
+  } */
 }
