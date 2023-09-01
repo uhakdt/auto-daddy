@@ -19,15 +19,10 @@ import PackagePagePay from "./PackagePagePay";
 
 const auth = getAuth();
 
-
-
 const iconsUrl = process.env.PUBLIC_URL + "/icons/";
 
 const PackagePageRight = () => {
-  const {
-    vehicleFreeData,
-    setPreviousPage,
-  } = useContext(AppContext);
+  const { vehicleFreeData, setPreviousPage } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const [user, loading] = useAuthState(auth);
 
@@ -52,8 +47,6 @@ const PackagePageRight = () => {
   const [payments, setPayments] = useState(false);
 
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     if (isValid && isSubmitted && responseStatus) {
@@ -80,6 +73,9 @@ const PackagePageRight = () => {
               Get your complete car history report and ask ChatGPT any questions
               you have about it.
             </div>
+            <div className="package-right-content-description-bold">
+              Included Full Report
+            </div>
             <div className="package-right-content-divider"></div>
             <div className="package-right-content-list-openai-container">
               <FullReportList />
@@ -92,13 +88,28 @@ const PackagePageRight = () => {
                   height={40}
                 />
               )} */}
-              <div className="package-right-content-openai">
+              {/* <div className="package-right-content-openai">
                 <img
                   className="package-right-content-openai-logo"
                   src={`${process.env.PUBLIC_URL}/logos/chatgpt-logo.png`}
                   alt="Logo"
                 />
-              </div>
+              </div> */}
+            </div>
+            <div className="horizontal-item-logo">
+              <img
+                alt="Google"
+                src={iconsUrl + "icon_plus_small.png"}
+                height={40}
+              />
+            </div>
+            <div className="horizontal-wrapper">
+              <img
+                className="horizontal-item package-right-content-openai-logo"
+                src={`${process.env.PUBLIC_URL}/logos/chatgpt-logo.png`}
+                alt="Logo"
+              />
+              <div className="horizontal-item">Ask any Question!</div>
             </div>
             <PackagePagePay />
           </div>

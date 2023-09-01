@@ -86,7 +86,7 @@
   background: -webkit-linear-gradient(#8e60f7, #d832f7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .package-right-content-description {
@@ -96,10 +96,13 @@
 }
 
 .package-right-content-description-bold {
-  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
   color: var(--dark-purple);
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .package-right-content-divider {
@@ -113,19 +116,39 @@
   background-image: linear-gradient(to right, white, #b0b0b0, white);
 }
 
+.horizontal-wrapper {
+  display: flex;
+  align-items: center; /* Vertically center the items */
+  justify-content: center;
+}
+.horizontal-item-logo {
+  display: flex;
+  align-items: center; /* Vertically center the items */
+  justify-content: center;
+  height: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.horizontal-item {
+  text-align: right; /* Remove any default margins */
+  font-size: 2rem;
+  font-weight: 600;
+  max-width: 200px;  /* Sets the maximum width for the text box */
+  white-space: normal;  /* Allows the text to wrap to the next line */
+  overflow-wrap: break-word;  /* Allows the text to break onto the next line */
+  
+}
+
 .package-right-content-list-openai-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  /* justify-content: space-between; */
 }
 
 .package-right-content-openai-logo {
-  height: 10rem;
-  margin-right: 2rem;
+  height: 6rem;
+  margin-left: 2.5rem;
 }
-
 
 @media screen and (max-width: 768px) {
   .package-right-content-openai-logo {
@@ -135,7 +158,12 @@
   .package-right-content {
     margin-left: 0;
   }
-
+  .horizontal-item-logo {
+    margin-left: 0rem;
+  }
+  .horizontal-item {
+    margin-left: 1rem;
+  }
 }
 
 /* FOOTER */
@@ -153,5 +181,3 @@
   padding-right: 0.5rem;
   padding-bottom: 1rem;
 }
-
-

@@ -9,11 +9,13 @@
     height: 100px; /* fixed height */
     text-align: center; /* centers inline elements */
 }
-
+.landing-logos-container    {
+    margin-bottom: 1rem;
+}
 
 .footer-logo {
     height: 1.25rem;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
 }
 
 .landing-footer-links {
