@@ -4,6 +4,7 @@ import TableRow from "../../Package/VehicleData/TableRow";
 import AISummaryComponent from "./AISummaryComponent";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
+import { InsertSpaces } from "../../../auxiliaryFunctions/stringFunctions";
 
 const ImportantChecks = ({ basic, aiContent, aiContentLoading, condition }) => {
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
@@ -44,12 +45,13 @@ const ImportantChecks = ({ basic, aiContent, aiContentLoading, condition }) => {
               {basic?.VehicleRegistration?.VinLast5 || "Unknown"}
             </TableRow>
             <TableRow
-              item={basic?.VehicleRegistration?.EngineNumber}
+              item={InsertSpaces(basic?.VehicleRegistration?.EngineNumber)}
               title="Engine Number"
               colour="#6f508c"
               last={false}
             >
-              {basic?.VehicleRegistration?.EngineNumber || "Unknown"}
+              {InsertSpaces(basic?.VehicleRegistration?.EngineNumber) ||
+                "Unknown"}
             </TableRow>
             <TableRow
               item={

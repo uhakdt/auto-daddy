@@ -52,9 +52,9 @@ const getOrderById = async (orderId) => {
 function DashboardPage() {
   const { currentOrder, setCurrentOrder, registrationNumber } =
     useContext(AppContext);
-  console.log(registrationNumber);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isPolling, setIsPolling] = useState(false);
+  const [isPolling, setIsPolling] = useState(true);
 
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -65,7 +65,7 @@ function DashboardPage() {
     animationData: jeep,
     loop: true,
     style: {
-      height: "10rem",
+      height: "5rem",
     },
   };
 
@@ -80,12 +80,6 @@ function DashboardPage() {
     }
   }, [currentOrder]);
 
-  useEffect(() => {
-    if (fromPackage) {
-      setIsPolling(true);
-    }
-  }, [fromPackage]);
-
   const {
     data: orders,
     isLoading,
@@ -94,6 +88,7 @@ function DashboardPage() {
   } = useQuery("orders", fetchOrdersByAuthUser, {
     onSuccess: (ordersList) => {
       if (
+        fromPackage &&
         ordersList.length > 0 &&
         ordersList[0].vehicleFreeData.RegistrationNumber.replace(
           /\s+/g,
@@ -105,8 +100,9 @@ function DashboardPage() {
       ) {
         setCurrentOrder(ordersList[0]);
         setIsPolling(false);
-      } else if (fromPackage) {
-        setIsPolling(true);
+      } else if (!fromPackage) {
+        setCurrentOrder(ordersList[0]);
+        setIsPolling(false);
       }
     },
   });
@@ -120,8 +116,6 @@ function DashboardPage() {
       return () => clearInterval(intervalId);
     }
   }, [isPolling, refetch]);
-
-  const [selectedOrderId, setSelectedOrderId] = useState(null);
 
   useEffect(() => {
     if (orderIdFromUrl) {
@@ -140,15 +134,6 @@ function DashboardPage() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  if (isPolling) {
-    return <div className="loader">{View}</div>;
-  }
-
-  if (error) {
-    console.error("Failed to fetch orders:", error);
-    // Handle the error accordingly
-  }
-
   return (
     <>
       <Helmet>
@@ -163,36 +148,44 @@ function DashboardPage() {
         />
         <link rel="canonical" href="https://autodaddy.co.uk/dashboard" />
       </Helmet>
-      <Box
-        className="dashboard"
-        sx={{ display: "flex", flexDirection: "column" }}
-      >
-        <Header />
-        {orders && currentOrder && (
-          <>
-            <Box
-              className="dashboard-content"
-              sx={{ display: "flex", flex: "1" }}
-            >
-              <Sidebar
-                className="sidebar"
-                orders={orders}
-                isSidebarOpen={isSidebarOpen}
-                setIsSidebarOpen={setIsSidebarOpen}
-                toggleSidebar={toggleSidebar}
-                selectedOrderId={selectedOrderId}
-                setSelectedOrderId={setSelectedOrderId}
-              />
 
-              <OrderDetails
+      {isPolling ? (
+        <div style={{}}>{View}</div>
+      ) : (
+        <Box
+          className="dashboard"
+          sx={{ display: "flex", flexDirection: "column" }}
+        >
+          <Header />
+          {orders && currentOrder && (
+            <>
+              <Box
+                className="dashboard-content"
+                sx={{ display: "flex", flex: "1" }}
+              >
+                <Sidebar
+                  className="sidebar"
+                  orders={orders}
+                  isSidebarOpen={isSidebarOpen}
+                  setIsSidebarOpen={setIsSidebarOpen}
+                  toggleSidebar={toggleSidebar}
+                  selectedOrderId={selectedOrderId}
+                  setSelectedOrderId={setSelectedOrderId}
+                />
+
+                <OrderDetails
+                  currentOrder={currentOrder}
+                  className="order-details-dashboard"
+                />
+              </Box>
+              <Chat
                 currentOrder={currentOrder}
-                className="order-details-dashboard"
+                registrationNumber={registrationNumber}
               />
-            </Box>
-            <Chat currentOrder={currentOrder} />
-          </>
-        )}
-      </Box>
+            </>
+          )}
+        </Box>
+      )}
     </>
   );
 }

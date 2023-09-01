@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useRef } from "react"; // added useRef
-import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
+import React, { useState, useEffect, useRef } from "react";
+
 import io from "socket.io-client";
-import { AppContext } from "../../../appContext";
+
+import { FiMinimize2, FiMaximize2 } from "react-icons/fi";
 import "./Chat.css";
 
 const socket = io(process.env.REACT_APP_API_URL_WITHOUT_SUFFIX, {
   path: "/api/v1/chat",
 });
 
-const Chat = ({ currentOrder }) => {
+const Chat = ({ currentOrder, registrationNumber }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(true);
   const messagesEndRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPending, setIsPending] = useState(false);  // State to track if a question is pending
+  const [isPending, setIsPending] = useState(false);
 
   const presetQuestions = [
     "What is the fuel efficiency?",
@@ -28,7 +29,7 @@ const Chat = ({ currentOrder }) => {
 
     const messageListener = (data) => {
       setIsLoading(false);
-      setIsPending(false);  // Set isPending to false when a response is received
+      setIsPending(false);
       setMessages((currentMessages) => [
         ...currentMessages,
         { from: "server", text: data },
@@ -49,9 +50,9 @@ const Chat = ({ currentOrder }) => {
   }, [messages]);
 
   const send = (messageToSend = input) => {
-    if (isPending) return;  // Don't send if a question is already pending
+    if (isPending) return;
 
-    setIsPending(true);  // Set isPending to true when sending a question
+    setIsPending(true);
     setMessages([...messages, { from: "user", text: messageToSend }]);
     setInput("");
     setIsLoading(true);
@@ -61,10 +62,11 @@ const Chat = ({ currentOrder }) => {
         input: messageToSend,
         order: currentOrder["extractedData"],
         pageFrom: "dashboard",
+        registrationNumber: registrationNumber,
       });
     }
   };
-  
+
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (e.key === "Enter" && isMinimized) {
