@@ -13,10 +13,17 @@ const FullReportList = () => (
       "Write-Off",
       "Full Scrap",
       "Import/ Export",
-      "Plate& Colour",
+      "Plate",
+      "Colour",
       "Owner& Keeper",
       "VIN",
       "Ex-Taxi",
+      "ChatGPT",
+      "GPT Summary",
+      "V5C",
+      "ULEZ",
+      "Salvage History",
+
     ].map((item, index) => (
       <div
         className="full-report-item"
@@ -31,7 +38,7 @@ const FullReportList = () => (
           <span>{item}</span>
         </div>
         <FaCheck className="full-report-check-icon" color="#32CE57" size={20} />
-        <div className="full-report-item-divider"></div>
+        {/* <div className="full-report-item-divider"></div> */}
       </div>
     ))}
   </div>
