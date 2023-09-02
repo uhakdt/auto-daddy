@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import { TbReportAnalytics } from "react-icons/tb";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
-import GradientLine from "../../../designComponents/GradientLine";
+// import GradientLine from "../../../designComponents/GradientLine";
 
 function Sidebar({
   orders,
@@ -38,7 +38,7 @@ function Sidebar({
 
   return (
     <>
-      <GradientLine />
+      {/* <GradientLine /> */}
       <Box className={`sidebar-box ${isSidebarOpen ? "open" : ""}`}>
         <button className="sidebar-toggle-button" onClick={toggleSidebar}>
           {isSidebarOpen ? (

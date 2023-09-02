@@ -26,7 +26,6 @@
   width: var(--open-width);
   position: relative;   /* reverts position to default when open */
   border-right: 1px solid #ddd;
-  margin: 0 0.5rem 0 0.5rem;
 
 }
 

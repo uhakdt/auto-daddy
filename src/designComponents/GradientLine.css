@@ -1,6 +1,6 @@
-:root {
-    --dark-purple: #673AB7; /* This is a shade of dark purple */
-    --orange: #FF5722;     /* This is a shade of orange */
+/* :root {
+    --dark-purple: #673AB7;
+    --orange: #FF5722;    
 }
 
 .gradient-line::before {
@@ -13,4 +13,6 @@
     background: var(--scroll-gradient, linear-gradient(to bottom, var(--dark-purple), var(--orange)));
     pointer-events: none;
     z-index: 1000;
-}
+    margin-right: 10px;  
+  
+} */

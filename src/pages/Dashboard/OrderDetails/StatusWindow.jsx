@@ -35,7 +35,7 @@ const StatusWindow = ({
           <img
             alt="Google"
             src={iconsUrl + (condition ? "check.svg" : "close.svg")}
-            height={20}
+            height={20} style={{ marginRight: "5px" }}
           />
         </div>
         <div className="status-window-divider"></div>
