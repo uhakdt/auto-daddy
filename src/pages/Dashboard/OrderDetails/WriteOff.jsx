@@ -52,36 +52,32 @@ const WriteOff = ({
           aiContent={aiContent}
         />
 
-        <div className="table-figure-container">
-          <div rules="all" className="section-table">
-            {full.WriteOffDate && (
-              <TableRow
-                item={FormatDate(full.WriteOffDate)}
-                title="Date"
-                colour="#6f508c"
-                last={false}
-              >
-                {FormatDate(full.WriteOffDate)}
-              </TableRow>
-            )}
-            <TableRow
-              item={full?.WriteOffCategory}
-              title="Category"
-              colour="#6f508c"
-              last={false}
-            >
-              {full?.WriteOffCategory}
-            </TableRow>
-            <TableRow
-              item={full?.WriteOffRecordCount}
-              title="Record Count"
-              colour="#6f508c"
-              last={true}
-            >
-              {full?.WriteOffRecordCount}
-            </TableRow>
-          </div>
-        </div>
+        {full.WriteOffDate && (
+          <TableRow
+            item={FormatDate(full.WriteOffDate)}
+            title="Date"
+            colour="#6f508c"
+            last={false}
+          >
+            {FormatDate(full.WriteOffDate)}
+          </TableRow>
+        )}
+        <TableRow
+          item={full?.WriteOffCategory}
+          title="Category"
+          colour="#6f508c"
+          last={false}
+        >
+          {full?.WriteOffCategory}
+        </TableRow>
+        <TableRow
+          item={full?.WriteOffRecordCount}
+          title="Record Count"
+          colour="#6f508c"
+          last={true}
+        >
+          {full?.WriteOffRecordCount}
+        </TableRow>
         {full.WriteOffRecordList && full.WriteOffRecordList.length > 0 ? (
           <>
             {full.WriteOffRecordList.map((x, i) => {

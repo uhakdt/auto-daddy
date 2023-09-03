@@ -52,109 +52,98 @@ const MOT = ({
           />
         </div>
       </div>
-      <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent
           aiContentLoading={aiContentLoading}
           aiContent={aiContent}
         />
-
-        <div className="table-figure-container">
-          <div className="section-table">
-            <TableRow
-              title="Pass Rate"
-              item={basic?.MotHistory?.RecordList?.length}
-              colour="#6f508c"
-              last={false}
-            >
-              {basic?.MotHistory?.RecordList?.length
-                ? CalculateMOTPassRate(basic.MotHistory.RecordList)
-                : "No MOT History"}
-            </TableRow>
-            <TableRow
-              title="Failed Tests"
-              item={basic?.MotHistory?.RecordList}
-              colour="#6f508c"
-              last={false}
-            >
-              {CalculateMOTFailedTests(basic?.MotHistory?.RecordList || [])}
-            </TableRow>
-            <TableRow
-              title="Total Advice Items"
-              item={basic?.MotHistory?.RecordList}
-              colour="#6f508c"
-              last={false}
-            >
-              {CalculateTotalAdviceItems(basic?.MotHistory?.RecordList || [])}
-            </TableRow>
-            <TableRow
-              title="Total Items Failed"
-              item={basic?.MotHistory?.RecordList}
-              colour="#6f508c"
-              last={false}
-            >
-              {CalculateTotalAdviceItemsFailed(
-                basic?.MotHistory?.RecordList || []
-              )}
-            </TableRow>
-            <TableRow
-              title="Expiry Date"
-              item={free?.MotExpiryDate}
-              colour="#6f508c"
-              last={true}
-            >
-              {FormatDate(free?.MotExpiryDate)}
-            </TableRow>
-          </div>
-        </div>
-
+        <TableRow
+          title="Pass Rate"
+          item={basic?.MotHistory?.RecordList?.length}
+          colour="#6f508c"
+          last={false}
+        >
+          {basic?.MotHistory?.RecordList?.length
+            ? CalculateMOTPassRate(basic.MotHistory.RecordList)
+            : "No MOT History"}
+        </TableRow>
+        <TableRow
+          title="Failed Tests"
+          item={basic?.MotHistory?.RecordList}
+          colour="#6f508c"
+          last={false}
+        >
+          {CalculateMOTFailedTests(basic?.MotHistory?.RecordList || [])}
+        </TableRow>
+        <TableRow
+          title="Total Advice Items"
+          item={basic?.MotHistory?.RecordList}
+          colour="#6f508c"
+          last={false}
+        >
+          {CalculateTotalAdviceItems(basic?.MotHistory?.RecordList || [])}
+        </TableRow>
+        <TableRow
+          title="Total Items Failed"
+          item={basic?.MotHistory?.RecordList}
+          colour="#6f508c"
+          last={false}
+        >
+          {CalculateTotalAdviceItemsFailed(basic?.MotHistory?.RecordList || [])}
+        </TableRow>
+        <TableRow
+          title="Expiry Date"
+          item={free?.MotExpiryDate}
+          colour="#6f508c"
+          last={true}
+        >
+          {FormatDate(free?.MotExpiryDate)}
+        </TableRow>
         {basic?.MotHistory?.RecordList?.map((x, i) => (
-          <div className="table-figure-container" key={i}>
-            <div className="section-table" style={{ width: "100%" }}>
+          <div key={i}>
+            <TableRow
+              item={x?.TestDate}
+              title={`Test Nr. ${i + 1}`}
+              colour="#6f508c"
+              last={false}
+            >
+              {FormatDate(x?.TestDate)}
+            </TableRow>
+            <TableRow
+              item={x?.TestNumber}
+              title="Test Number"
+              colour="#6f508c"
+              last={false}
+            >
+              {x?.TestNumber}
+            </TableRow>
+            <TableRow
+              item={x?.TestResult}
+              title="Test Result"
+              colour="#6f508c"
+              last={false}
+            >
+              {x?.TestResult}
+            </TableRow>
+            <TableRow
+              item={x?.ExpiryDate}
+              title="Expiry Date"
+              colour="#6f508c"
+              last={false}
+            >
+              {FormatDate(x?.ExpiryDate)}
+            </TableRow>
+            {x?.AnnotationDetailsList?.map((y, j) => (
               <TableRow
-                item={x?.TestDate}
-                title={`Test Nr. ${i + 1}`}
+                key={j}
+                item={y?.Type}
+                title="MOT Advise"
                 colour="#6f508c"
-                last={false}
+                last={j === x?.AnnotationDetailsList?.length - 1}
               >
-                {FormatDate(x?.TestDate)}
+                Type: {y?.Type} <br /> {y?.Text}
               </TableRow>
-              <TableRow
-                item={x?.TestNumber}
-                title="Test Number"
-                colour="#6f508c"
-                last={false}
-              >
-                {x?.TestNumber}
-              </TableRow>
-              <TableRow
-                item={x?.TestResult}
-                title="Test Result"
-                colour="#6f508c"
-                last={false}
-              >
-                {x?.TestResult}
-              </TableRow>
-              <TableRow
-                item={x?.ExpiryDate}
-                title="Expiry Date"
-                colour="#6f508c"
-                last={false}
-              >
-                {FormatDate(x?.ExpiryDate)}
-              </TableRow>
-              {x?.AnnotationDetailsList?.map((y, j) => (
-                <TableRow
-                  key={j}
-                  item={y?.Type}
-                  title="MOT Advise"
-                  colour="#6f508c"
-                  last={j === x?.AnnotationDetailsList?.length - 1}
-                >
-                  Type: {y?.Type} <br /> {y?.Text}
-                </TableRow>
-              ))}
-            </div>
+            ))}
           </div>
         ))}
       </div>

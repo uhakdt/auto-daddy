@@ -5,6 +5,7 @@
   padding: 1rem;
   background: linear-gradient(to right, #e3e8fb, #f5def8);
   border-radius: 5px;
+  margin-bottom: 1rem;
 }
 
 .ai-summary-content {
@@ -26,11 +27,10 @@
 }
 
 
-.table-figure-container {
+/* .table-figure-container {
   display: flex;
   align-items: center;
   width: 100%;
-  /* border-bottom: 1px solid #000000;  */
   padding-bottom: 5px; 
 }
 
@@ -40,10 +40,10 @@
     flex-direction: column;
     width: 100%;
   }
-}
+} */
 
 
-.section-table {
+/* .section-table {
   margin-top: 1rem ;
   width: 100%;
 }
@@ -62,55 +62,60 @@
 .section-table-second-column {
   border-left-style: hidden !important;
   width: 30% !important;
-}
+} */
+
+
+
+
 
 
 
 .table-row-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
-}
-
-.table-row-value-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-
-}
-
-.table-row-title-value-container {
-  display: flex;
-  justify-content: space-between;
   width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+.table-row-container td {
+  padding: 8px;
+}
+
+.table-row-container tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-row-container td:first-child {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-row-container:first-of-type tr:first-child {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-row-container td:last-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .table-row-title {
-  font-size: 1rem;
-  margin-left: 1rem;
-  font-weight: 500;
-
-  margin-top: 0.4rem; 
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100%;
+  font-weight: 400;
+  text-align: left;
 }
 
-.table-row-value {
-  font-size: 1.5rem;
-  font-weight: bold;
+.table-row-children {
   text-align: right;
+  font-weight: bold;
 }
 
-.table-row-divider {
-  border: 0;
-  height: 1px;
-  background: #333;
-  background-image: linear-gradient(to right, white, #e0dfdf, white);
+.last-row {
+  margin-bottom: 16px;  
 }
 
+@media screen and (max-width: 768px) {
+  .package-left-tax-and-mot-container {
+    flex-wrap: nowrap;
+  }
 
-
-
+  .package-left-other-details-container {
+    margin-bottom: -3rem;
+  }
+}

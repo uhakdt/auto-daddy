@@ -25,27 +25,22 @@ const VICInspected = ({ full, aiContent, aiContentLoading }) => {
           aiContentLoading={aiContentLoading}
           aiContent={aiContent}
         />
-
-        <div className="table-figure-container">
-          <div rules="all" className="section-table">
-            <TableRow
-              item={FormatDate(full?.VicTestDate)}
-              title="Date"
-              colour="#6f508c"
-              last={false}
-            >
-              {FormatDate(full?.VicTestDate)}
-            </TableRow>
-            <TableRow
-              item={full?.VicTestResult}
-              title="Test Result"
-              colour="#6f508c"
-              last={false}
-            >
-              {full?.VicTestResult}
-            </TableRow>
-          </div>
-        </div>
+        <TableRow
+          item={FormatDate(full?.VicTestDate)}
+          title="Date"
+          colour="#6f508c"
+          last={false}
+        >
+          {FormatDate(full?.VicTestDate)}
+        </TableRow>
+        <TableRow
+          item={full?.VicTestResult}
+          title="Test Result"
+          colour="#6f508c"
+          last={false}
+        >
+          {full?.VicTestResult}
+        </TableRow>
       </div>
     </section>
   );

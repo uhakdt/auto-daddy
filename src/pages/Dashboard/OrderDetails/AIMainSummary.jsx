@@ -6,6 +6,7 @@ const AIMainSummary = ({ aiContent, aiContentLoading }) => {
   return (
     <section className="section">
       <div className="section-title">AutoDaddy AI Summary</div>
+      <div className="section-divider"></div>
       <div className="section-content">
         <AISummaryComponent
           aiContentLoading={aiContentLoading}

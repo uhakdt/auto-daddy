@@ -50,81 +50,66 @@ const ImportExport = ({
           aiContentLoading={aiContentLoading}
           aiContent={aiContent}
         />
+        <TableRow
+          item={full?.DateFirstRegistered}
+          title="Date First Registered"
+          colour="#6f508c"
+          last={false}
+        >
+          {FormatDate(full?.DateFirstRegistered || "Unknown")}
+        </TableRow>
 
-        <div className="table-figure-container">
-          <div className="section-table">
-            <TableRow
-              item={full?.DateFirstRegistered}
-              title="Date First Registered"
-              colour="#6f508c"
-              last={false}
-            >
-              {FormatDate(full?.DateFirstRegistered || "Unknown")}
-            </TableRow>
+        {full?.Imported ? (
+          <TableRow
+            item={full?.ImportDate}
+            title="Import Date"
+            colour="#6f508c"
+            last={false}
+          >
+            {FormatDate(full?.ImportDate || "Unknown")}
+          </TableRow>
+        ) : (
+          <TableRow item={false} title="Imported" colour="#6f508c" last={false}>
+            False
+          </TableRow>
+        )}
 
-            {full?.Imported ? (
-              <TableRow
-                item={full?.ImportDate}
-                title="Import Date"
-                colour="#6f508c"
-                last={false}
-              >
-                {FormatDate(full?.ImportDate || "Unknown")}
-              </TableRow>
-            ) : (
-              <TableRow
-                item={false}
-                title="Imported"
-                colour="#6f508c"
-                last={false}
-              >
-                False
-              </TableRow>
-            )}
+        {full?.ImportUsedBeforeUkRegistration && (
+          <TableRow
+            item={full?.ImportUsedBeforeUkRegistration}
+            title="Import Used before UK Registration"
+            colour="#6f508c"
+            last={false}
+          >
+            {full?.ImportUsedBeforeUkRegistration || "Unknown"}
+          </TableRow>
+        )}
 
-            {full?.ImportUsedBeforeUkRegistration && (
-              <TableRow
-                item={full?.ImportUsedBeforeUkRegistration}
-                title="Import Used before UK Registration"
-                colour="#6f508c"
-                last={false}
-              >
-                {full?.ImportUsedBeforeUkRegistration || "Unknown"}
-              </TableRow>
-            )}
+        {full?.ImportedFromOutsideEu && (
+          <TableRow
+            item={full?.ImportedFromOutsideEu}
+            title="Imported From Outside EU"
+            colour="#6f508c"
+            last={false}
+          >
+            {full?.ImportedFromOutsideEu || "Unknown"}
+          </TableRow>
+        )}
 
-            {full?.ImportedFromOutsideEu && (
-              <TableRow
-                item={full?.ImportedFromOutsideEu}
-                title="Imported From Outside EU"
-                colour="#6f508c"
-                last={false}
-              >
-                {full?.ImportedFromOutsideEu || "Unknown"}
-              </TableRow>
-            )}
-
-            {full?.Exported ? (
-              <TableRow
-                item={full?.ExportDate}
-                title="Export Date"
-                colour="#6f508c"
-                last={true}
-              >
-                {FormatDate(full?.ExportDate || "Unknown")}
-              </TableRow>
-            ) : (
-              <TableRow
-                item={false}
-                title="Exported"
-                colour="#6f508c"
-                last={true}
-              >
-                False
-              </TableRow>
-            )}
-          </div>
-        </div>
+        {full?.Exported ? (
+          <TableRow
+            item={full?.ExportDate}
+            title="Export Date"
+            colour="#6f508c"
+            last={true}
+          >
+            {FormatDate(full?.ExportDate || "Unknown")}
+          </TableRow>
+        ) : (
+          <TableRow item={false} title="Exported" colour="#6f508c" last={true}>
+            False
+          </TableRow>
+        )}
       </div>
     </section>
   );

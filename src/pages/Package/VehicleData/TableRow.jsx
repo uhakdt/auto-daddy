@@ -5,16 +5,14 @@ const TableRow = ({ item, title, colour, last, children }) => {
   if (!item) return null;
 
   return (
-    <div className="table-row-container">
-      <div className="table-row-value-container">
-        <div className="table-row-status"></div>
-        <div className="table-row-title-value-container">
-          <span className="table-row-title">{title}</span>
-          <span className="table-row-value">{children}</span>
-        </div>
-      </div>
-      {last ? null : <div className="table-row-divider"></div>}
-    </div>
+    <table className={`table-row-container ${last ? "last-row" : ""}`}>
+      <tbody>
+        <tr>
+          <td className="table-row-title">{title}</td>
+          <td className="table-row-children">{children}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 

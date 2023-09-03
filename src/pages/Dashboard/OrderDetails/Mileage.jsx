@@ -90,100 +90,90 @@ const Mileage = ({
           aiContent={aiContent}
         />
 
-        <div className="table-figure-container">
-          <div className="section-table">
+        <TableRow
+          item={"Odometer"}
+          title="Odometer"
+          colour="#6f508c"
+          last={false}
+        >
+          In miles
+        </TableRow>
+        <TableRow
+          item={full?.MileageRecordCount}
+          title="No. of Registrations"
+          colour="#6f508c"
+          last={false}
+        >
+          {full?.MileageRecordCount || "Unknown"}
+        </TableRow>
+        <TableRow
+          item={full?.MileageAnomalyDetected}
+          title="Anomaly"
+          colour="#6f508c"
+          last={false}
+        >
+          {CapitalizeEachWord((full?.MileageAnomalyDetected || "").toString())}
+        </TableRow>
+        {full?.MileageRecordList?.length > 0 && (
+          <>
             <TableRow
-              item={"Odometer"}
-              title="Odometer"
+              item={sortedMileageRecords[0]?.DateOfInformation}
+              title="Last Registration"
               colour="#6f508c"
               last={false}
             >
-              In miles
+              {sortedMileageRecords[0]?.DateOfInformation || "Unknown"}
             </TableRow>
             <TableRow
-              item={full?.MileageRecordCount}
-              title="No. of Registrations"
+              item={sortedMileageRecords[0]?.Mileage}
+              title="Last MOT Mileage"
               colour="#6f508c"
               last={false}
             >
-              {full?.MileageRecordCount || "Unknown"}
+              {sortedMileageRecords[0]?.Mileage || "Unknown"}
             </TableRow>
             <TableRow
-              item={full?.MileageAnomalyDetected}
-              title="Anomaly"
+              item={CalcAvgMileAYear(sortedMileageRecords)}
+              title="Average Mileage"
               colour="#6f508c"
               last={false}
             >
-              {CapitalizeEachWord(
-                (full?.MileageAnomalyDetected || "").toString()
-              )}
+              {`${CalcAvgMileAYear(sortedMileageRecords) || "Unknown"} p/year`}
             </TableRow>
-            {full?.MileageRecordList?.length > 0 && (
-              <>
-                <TableRow
-                  item={sortedMileageRecords[0]?.DateOfInformation}
-                  title="Last Registration"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {sortedMileageRecords[0]?.DateOfInformation || "Unknown"}
-                </TableRow>
-                <TableRow
-                  item={sortedMileageRecords[0]?.Mileage}
-                  title="Last MOT Mileage"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {sortedMileageRecords[0]?.Mileage || "Unknown"}
-                </TableRow>
-                <TableRow
-                  item={CalcAvgMileAYear(sortedMileageRecords)}
-                  title="Average Mileage"
-                  colour="#6f508c"
-                  last={false}
-                >
-                  {`${
-                    CalcAvgMileAYear(sortedMileageRecords) || "Unknown"
-                  } p/year`}
-                </TableRow>
-                <TableRow
-                  item={CalcLastYearMile(sortedMileageRecords)}
-                  title="Mileage Last Year"
-                  colour="#6f508c"
-                  last={true}
-                >
-                  {`${
-                    CalcLastYearMile(sortedMileageRecords) || "Unknown"
-                  } miles`}
-                </TableRow>
-              </>
-            )}
-          </div>
-          {/* Be sure to handle potential undefined values in LineChart and data */}
-          <LineChart
-            width={chartWidth}
-            height={chartHeight}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis dataKey="mileage" />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="mileage"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            />
-          </LineChart>
-        </div>
+            <TableRow
+              item={CalcLastYearMile(sortedMileageRecords)}
+              title="Mileage Last Year"
+              colour="#6f508c"
+              last={true}
+            >
+              {`${CalcLastYearMile(sortedMileageRecords) || "Unknown"} miles`}
+            </TableRow>
+          </>
+        )}
+        {/* Be sure to handle potential undefined values in LineChart and data */}
+        <LineChart
+          width={chartWidth}
+          height={chartHeight}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis dataKey="mileage" />
+          <Tooltip />
+          <Legend />
+          <Line
+            type="monotone"
+            dataKey="mileage"
+            stroke="#8884d8"
+            activeDot={{ r: 8 }}
+          />
+        </LineChart>
         {sortedMileageRecords?.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">

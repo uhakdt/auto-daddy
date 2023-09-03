@@ -25,7 +25,7 @@ const AISummaryComponent = ({ aiContentLoading, aiContent }) => {
                 ChatGPT Rating: {aiContent?.["rating"]}
               </div>{" "}
               <br />
-              <div style={{ fontSize: "1.4rem", paddingTop: "1rem" }}>
+              <div style={{ fontSize: "1.4rem"}}>
                 {aiContent?.["content"]}
               </div>
             </>

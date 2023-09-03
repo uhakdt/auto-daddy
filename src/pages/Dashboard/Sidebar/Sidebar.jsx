@@ -4,7 +4,6 @@ import { AppContext } from "../../../appContext";
 import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
 import Box from "@mui/material/Box";
-import { TbReportAnalytics } from "react-icons/tb";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
 // import GradientLine from "../../../designComponents/GradientLine";
@@ -31,9 +30,7 @@ function Sidebar({
         navigator.userAgent
       );
 
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
+    setIsSidebarOpen(false);
   }, []);
 
   return (
@@ -96,9 +93,6 @@ function Sidebar({
             ) : (
               <></>
             )}
-            {/* <IconButton onClick={onSelectSettings} className="settings-button">
-            <SettingsIcon />
-          </IconButton> */}
           </>
         )}
       </Box>

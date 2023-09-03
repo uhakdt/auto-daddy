@@ -30,7 +30,6 @@
   border-radius: 5px;
   padding: 1rem;
   justify-content: space-between;
-  /* margin: 1rem; */
   flex-direction: column;
   margin-bottom: 1.5rem;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
@@ -69,8 +68,9 @@
 
   .section-divider {
     width: 100%; /* Make the divider a full-width horizontal line */
-    height: 1px; /* Make the divider thin */
-    margin: 0.5rem 0; /* Add some vertical margin to create space */
+    border: 1px solid rgb(0, 0, 0, 0.1); /* Add a subtle border */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .section-content {
