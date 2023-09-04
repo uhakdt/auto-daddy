@@ -54,6 +54,39 @@
   flex-grow: 1; /* Allows the content to take up remaining space */
 }
 
+
+
+/* vehicle details */
+.section-column {
+  display: flex;
+  align-items: center; /* this aligns items to the center vertically */
+  justify-content: space-between;
+}
+
+.section-info-column {
+  flex: 1;
+  margin-right: 20px; /* Or any space you want between the content and image */
+}
+
+.section-image-column {
+  flex: 0 0 auto; /* This means the image section will not grow or shrink, but will keep its original size */
+  width: 50%; /* or whatever width you prefer */
+
+}
+
+@media (max-width: 768px) {
+  .section-column {
+      flex-direction: column;
+  }
+
+  .section-info-column, .section-image-column {
+      width: 100%;
+      margin-right: 0;
+  }
+}
+
+
+
 @media (max-width: 768px) {
   .section {
     flex-direction: column; /* Stack children vertically */
@@ -151,6 +184,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 0.3rem;
+  margin-bottom: 1rem;
   justify-content: center;
 }
 

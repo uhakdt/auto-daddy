@@ -2,7 +2,7 @@ import React from "react";
 
 import TableRow from "../../Package/VehicleData/TableRow";
 import AISummaryComponent from "./AISummaryComponent";
-
+import "./MOT.css";
 import {
   CalculateMOTPassRate,
   CalculateMOTFailedTests,
@@ -99,53 +99,29 @@ const MOT = ({
         >
           {FormatDate(free?.MotExpiryDate)}
         </TableRow>
-        {basic?.MotHistory?.RecordList?.map((x, i) => (
-          <div key={i}>
-            <TableRow
-              item={x?.TestDate}
-              title={`Test Nr. ${i + 1}`}
-              colour="#6f508c"
-              last={false}
-            >
-              {FormatDate(x?.TestDate)}
-            </TableRow>
-            <TableRow
-              item={x?.TestNumber}
-              title="Test Number"
-              colour="#6f508c"
-              last={false}
-            >
-              {x?.TestNumber}
-            </TableRow>
-            <TableRow
-              item={x?.TestResult}
-              title="Test Result"
-              colour="#6f508c"
-              last={false}
-            >
-              {x?.TestResult}
-            </TableRow>
-            <TableRow
-              item={x?.ExpiryDate}
-              title="Expiry Date"
-              colour="#6f508c"
-              last={false}
-            >
-              {FormatDate(x?.ExpiryDate)}
-            </TableRow>
-            {x?.AnnotationDetailsList?.map((y, j) => (
-              <TableRow
-                key={j}
-                item={y?.Type}
-                title="MOT Advise"
-                colour="#6f508c"
-                last={j === x?.AnnotationDetailsList?.length - 1}
-              >
-                Type: {y?.Type} <br /> {y?.Text}
-              </TableRow>
-            ))}
-          </div>
-        ))}
+        <ul className="sessions">
+          {basic?.MotHistory?.RecordList?.map((x, i) => (
+            <div key={i}>
+              <li>
+                <div className="mot-time">{FormatDate(x?.TestDate)}</div>
+                {/* <p>{`Test Nr. ${i + 1}`}</p> */}
+                {/* <p>Test Number</p>
+                <div className="time">{x?.TestNumber}</div> */}
+                <div>Test Result</div>
+                <div className="mot-time">{x?.TestResult}</div>
+                <div>Expiry Date</div>
+                <div className="mot-time">{FormatDate(x?.ExpiryDate)}</div>
+                {x?.AnnotationDetailsList?.map((y, j) => (
+                  <div key={j}>
+                    <div className="mot-time">{y?.Type}</div>
+                    <div className="mot-title">MOT Advise: {y?.Text}</div>
+                  </div>
+                ))}
+              </li>
+              <li></li>
+            </div>
+          ))}
+        </ul>
       </div>
     </section>
   );
