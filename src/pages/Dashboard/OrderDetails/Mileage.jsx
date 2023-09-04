@@ -12,6 +12,7 @@ import {
 import AISummaryComponent from "./AISummaryComponent";
 
 import TableRow from "../../Package/VehicleData/TableRow";
+import { ResponsiveContainer } from "recharts";
 
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 import {
@@ -28,29 +29,6 @@ const Mileage = ({
   condition,
 }) => {
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
-
-  const [dimensions, setDimensions] = useState({
-    height: window.innerHeight,
-    width: window.innerWidth,
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setDimensions({
-        height: window.innerHeight,
-        width: window.innerWidth,
-      });
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  const chartWidth = dimensions.width > 500 ? 500 : dimensions.width * 0.8;
-  const chartHeight = dimensions.width > 500 ? 300 : dimensions.width * 0.6;
 
   const sortedMileageRecords =
     full?.MileageRecordList?.slice().sort((a, b) => {
@@ -151,29 +129,31 @@ const Mileage = ({
           </>
         )}
         {/* Be sure to handle potential undefined values in LineChart and data */}
-        <LineChart
-          width={chartWidth}
-          height={chartHeight}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis dataKey="mileage" />
-          <Tooltip />
-          <Legend />
-          <Line
-            type="monotone"
-            dataKey="mileage"
-            stroke="#8884d8"
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
+        <div className="mileage-chart-margin">
+          <ResponsiveContainer width="100%" aspect={3 / 2}>
+            <LineChart
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 20,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis dataKey="mileage" />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="mileage"
+                stroke="#8884d8"
+                activeDot={{ r: 8 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
         {sortedMileageRecords?.map((x, i) => {
           return (
             <div key={i} className="table-figure-container">

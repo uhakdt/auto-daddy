@@ -14,6 +14,14 @@
   margin-bottom: 10rem;
 }
 
+@media (min-width: 1200px) {
+  .order-details {
+    margin: auto;
+    max-width: 60%; /* Set the maximum width to 80% of the parent */
+    margin-bottom: 10rem;
+  }
+}
+
 @media (max-width: 768px) {
   .order-details {
     margin-bottom: 8rem;
@@ -54,8 +62,6 @@
   flex-grow: 1; /* Allows the content to take up remaining space */
 }
 
-
-
 /* vehicle details */
 .section-column {
   display: flex;
@@ -71,21 +77,19 @@
 .section-image-column {
   flex: 0 0 auto; /* This means the image section will not grow or shrink, but will keep its original size */
   width: 50%; /* or whatever width you prefer */
-
 }
 
 @media (max-width: 768px) {
   .section-column {
-      flex-direction: column;
+    flex-direction: column;
   }
 
-  .section-info-column, .section-image-column {
-      width: 100%;
-      margin-right: 0;
+  .section-info-column,
+  .section-image-column {
+    width: 100%;
+    margin-right: 0;
   }
 }
-
-
 
 @media (max-width: 768px) {
   .section {
@@ -110,6 +114,11 @@
     padding-left: 0; /* Remove left padding */
     padding-top: 0.5rem; /* Add top padding */
   }
+}
+
+.mileage-chart-margin {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 /* BUTTONS */
