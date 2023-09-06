@@ -25,6 +25,7 @@ import ImportExport from "./OrderDetails/ImportExport";
 import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
+import Salvage from "./OrderDetails/Salvage";
 
 import NewOrder from "./NewOrder/NewOrder";
 import MainStatusBar from "./MainStatusBar/MainStatusBar";
@@ -152,6 +153,9 @@ const OrderDetails = ({ currentOrder }) => {
         currentOrder.data.VdiCheckFull.MileageAnomalyDetected === null,
       Keepers: true,
       V5C: currentOrder.data.VdiCheckFull.LatestV5cIssuedDate,
+      Salvage:
+        currentOrder.data.Salvage?.salvage_auction_record_found === false,
+      Taxi: currentOrder.data.Taxi?.is_possible_taxi === false,
     };
     setListOfConditions(listOfConditions);
 
@@ -238,6 +242,18 @@ const OrderDetails = ({ currentOrder }) => {
         null,
         listOfConditions["V5C"]
       ),
+      generateStatusBox(
+        "Salvage",
+        `Number of Records: ${currentOrder?.data?.Salvage?.salvage_auction_records?.length}`,
+        null,
+        listOfConditions["Salvage"]
+      ),
+      generateStatusBox(
+        "Taxi",
+        `Taxi: ${currentOrder?.data?.Taxi?.is_possible_taxi}`,
+        null,
+        listOfConditions["Taxi"]
+      ),
     ];
 
     if (
@@ -265,6 +281,8 @@ const OrderDetails = ({ currentOrder }) => {
   useEffect(() => {
     setFree(currentOrder.vehicleFreeData);
     setBasic(currentOrder.data.VehicleAndMotHistory);
+    currentOrder.data.VdiCheckFull.Salvage = currentOrder.data.Salvage;
+    currentOrder.data.VdiCheckFull.Taxi = currentOrder.data.Taxi;
     setFull(currentOrder.data.VdiCheckFull);
     generateStatusBoxList(currentOrder);
     fetchImageUrl();
@@ -351,6 +369,13 @@ const OrderDetails = ({ currentOrder }) => {
               aiContent={aiContent?.["main_details_analysis"]}
               aiContentLoading={aiContentLoading}
               imageUrl={imageUrl}
+            />
+
+            <Salvage
+              full={full}
+              aiContent={aiContent?.["salvage"]}
+              aiContentLoading={aiContentLoading}
+              condition={listOfConditions["salvage"]}
             />
 
             <MOT

@@ -77,14 +77,14 @@ function Sidebar({
                     <div className="order-button-results-container">
                       <div className="order-button-results-registration-number">
                         <span style={{ fontWeight: "bold" }}>
-                          GB {order?.vehicleFreeData.RegistrationNumber}
+                          GB {order?.vehicleFreeData?.RegistrationNumber}
                         </span>
                       </div>
                       <div className="order-button-results-model">
-                        {CapitalizeEachWord(
-                          order?.data.VehicleAndMotHistory.VehicleRegistration
-                            .MakeModel
-                        )}
+                        {
+                          order?.data?.VehicleAndMotHistory?.VehicleRegistration
+                            ?.MakeModel
+                        }
                       </div>
                     </div>
                   </div>
