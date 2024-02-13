@@ -14,3 +14,7 @@ code {
   font-family: "Roboto", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+/* src/index.css or src/styles/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
