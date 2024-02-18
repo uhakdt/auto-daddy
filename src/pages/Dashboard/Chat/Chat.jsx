@@ -18,9 +18,10 @@ const Chat = ({ currentOrder, registrationNumber }) => {
   const [isPending, setIsPending] = useState(false);
 
   const presetQuestions = [
-    "What is the fuel efficiency?",
-    "What should I ask the Dealer?",
+    "Why would this be a GOOD car?",
+    "Why would this be a BAD car?",
     "Are there any major MOT Failures?",
+    "What should I ask the Dealer?",
   ];
   useEffect(() => {
     socket.on("connect", () => {
