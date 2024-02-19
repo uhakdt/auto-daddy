@@ -10,7 +10,7 @@
 
 .footer-links a {
   padding: 5px;
-  flex-basis: 100%; /* Links take up full width by default */
+  flex-basis: 100%;
 }
 
 @media (max-width: 768px) {

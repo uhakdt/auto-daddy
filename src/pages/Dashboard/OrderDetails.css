@@ -10,14 +10,14 @@
 
 .order-details {
   margin: auto;
-  max-width: 80%; /* Set the maximum width to 80% of the parent */
+  max-width: 80%;
   margin-bottom: 10rem;
 }
 
 @media (min-width: 1200px) {
   .order-details {
     margin: auto;
-    max-width: 60%; /* Set the maximum width to 80% of the parent */
+    max-width: 60%;
     margin-bottom: 10rem;
   }
 }
@@ -28,8 +28,8 @@
     max-width: 95%;
   }
 }
-/* MAIN */
 
+/* MAIN */
 .section {
   background-color: white;
   border-width: 1px;
@@ -59,24 +59,24 @@
 }
 
 .section-content {
-  flex-grow: 1; /* Allows the content to take up remaining space */
+  flex-grow: 1;
 }
 
 /* vehicle details */
 .section-column {
   display: flex;
-  align-items: center; /* this aligns items to the center vertically */
+  align-items: center;
   justify-content: space-between;
 }
 
 .section-info-column {
   flex: 1;
-  margin-right: 20px; /* Or any space you want between the content and image */
+  margin-right: 20px;
 }
 
 .section-image-column {
-  flex: 0 0 auto; /* This means the image section will not grow or shrink, but will keep its original size */
-  width: 50%; /* or whatever width you prefer */
+  flex: 0 0 auto;
+  width: 50%;
 }
 
 @media (max-width: 768px) {
@@ -93,26 +93,26 @@
 
 @media (max-width: 768px) {
   .section {
-    flex-direction: column; /* Stack children vertically */
+    flex-direction: column;
     margin-left: 0rem;
   }
 
   .section-title {
-    padding-right: 0; /* Remove right padding */
-    padding-bottom: 0.5rem; /* Add bottom padding */
-    flex-basis: auto; /* Removes the fixed width on mobile */
+    padding-right: 0;
+    padding-bottom: 0.5rem;
+    flex-basis: auto;
   }
 
   .section-divider {
-    width: 100%; /* Make the divider a full-width horizontal line */
-    border: 1px solid rgb(0, 0, 0, 0.1); /* Add a subtle border */
+    width: 100%;
+    border: 1px solid rgb(0, 0, 0, 0.1);
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
 
   .section-content {
-    padding-left: 0; /* Remove left padding */
-    padding-top: 0.5rem; /* Add top padding */
+    padding-left: 0;
+    padding-top: 0.5rem;
   }
 }
 
@@ -122,7 +122,6 @@
 }
 
 /* BUTTONS */
-
 .button {
   margin-right: 1rem;
   margin-top: 1rem;
@@ -135,7 +134,7 @@
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease; /* Adjust transition to include all properties */
+  transition: all 0.3s ease;
 }
 
 .button:hover {
@@ -150,7 +149,6 @@
 }
 
 /* REGISTRATION NUMBER PLATE */
-
 .registration-number-container {
   display: flex;
   border: 2px solid #cdcdcd;
@@ -167,8 +165,8 @@
   align-items: center;
   padding: 0.3rem;
   border-right: 1px solid #cdcdcd;
-  flex-basis: 10%; /* Set the width to be 10% of the container */
-  flex-shrink: 0; /* Prevent the box from shrinking */
+  flex-basis: 10%;
+  flex-shrink: 0;
   text-align: center;
 }
 
@@ -181,14 +179,13 @@
   justify-content: center;
   align-items: center;
   padding: 0.3rem;
-  flex-grow: 1; /* Allow the box to take up the remaining space */
+  flex-grow: 1;
   text-align: center;
   padding-left: 2rem;
   padding-right: 2rem;
 }
 
 /* STATUS WINDOWS */
-
 .status-windows-container-dashboard {
   display: flex;
   flex-wrap: wrap;
@@ -206,7 +203,6 @@
   border-radius: 5px;
   border: 1px solid #bdbdbd;
   padding-top: 0.5rem;
-  /* padding-right: 0.5rem; */
   padding-bottom: 0.5rem;
   padding-left: 1.5rem;
   margin-right: 0.5rem;
@@ -219,25 +215,25 @@
 }
 
 .status-window:hover {
-  background-color: #f2f2f2; /* Light gray on hover */
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Add a box shadow on hover */
+  background-color: #f2f2f2;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .status-window:active {
-  background-color: #e6e6e6; /* Darker gray when clicked */
-  transform: scale(0.95); /* Slightly reduce the size when clicked */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Reduce box shadow when clicked */
+  background-color: #e6e6e6;
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .status-window.no-hover {
-  cursor: default; /* Change cursor to default */
+  cursor: default;
 }
 
 .status-window.no-hover:hover,
 .status-window.no-hover:active {
-  background-color: white; /* Keep the background color on hover and click */
-  transform: none; /* No scaling on click */
-  box-shadow: none; /* No box shadow on hover and click */
+  background-color: white;
+  transform: none;
+  box-shadow: none;
 }
 
 .status-window-title {
@@ -287,7 +283,6 @@
 }
 
 /* NEW ORDER */
-
 .new-order-transition {
   transition: max-height 0.75s ease-in-out, opacity 0.75s ease-in-out;
   overflow: hidden;

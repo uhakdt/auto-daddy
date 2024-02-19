@@ -3,7 +3,6 @@ import React from "react";
 import TableRow from "../../Package/VehicleData/TableRow";
 import AISummaryComponent from "./AISummaryComponent";
 
-import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 import "../OrderDetails.css";
 import FormatDate from "../../../auxiliaryFunctions/dateFunctions";
 

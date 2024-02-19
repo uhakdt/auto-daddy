@@ -1,8 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Grid, TextField } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import CarLoader from "../../../SVGs/CarLoader";
+import { Grid, TextField } from "@mui/material";
 
 import axios from "axios";
 
@@ -21,14 +19,9 @@ function NewOrder() {
   const [responseStatus, setResponseStatus] = useState(false);
 
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();

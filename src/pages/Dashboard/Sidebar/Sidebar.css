@@ -16,23 +16,16 @@
   height: 100vh;
   transition: transform 0.3s ease-out;
   transform: translateX(0%);
-  position: static;      /* makes the sidebar fixed */
+  position: static;
 
-  width: 0;             /* start with no width when closed */
-  --open-width: 150px; 
-
+  width: 0;
+  --open-width: 150px;
 }
 .sidebar-box.open {
   width: var(--open-width);
-  position: relative;   /* reverts position to default when open */
+  position: relative;
   border-right: 1px solid #ddd;
-
 }
-
-
-/* .sidebar-toggle-button {
-  display: none;
-} */
 
 /* MOBILE VIEW STARTS HERE */
 .sidebar-toggle-button {
@@ -84,9 +77,6 @@
 
 .order-button-results-model {
   font-size: 0.9rem;
-}
-
-.order-button-results-registration-number span {
 }
 
 .settings-button {

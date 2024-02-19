@@ -4,12 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { logout, auth } from "../../../firebase";
 
 import Modal from "@mui/material/Modal";
-import {
-  MdOutlinePersonOutline,
-  MdQuestionAnswer,
-  MdExitToApp,
-} from "react-icons/md";
-
 import "./ProfileModal.css";
 
 function ProfileModal({ isOpen, onClose }) {

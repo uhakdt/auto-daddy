@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   flex-direction: row;
-  /* max-width: 400px; */
   margin: auto;
 }
 
@@ -17,10 +16,8 @@
   display: flex;
   color: rgba(0, 0, 0, 0.2);
   justify-content: center;
-  /* Horizontally centers content */
   align-items: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  /* Vertically centers content */
 }
 
 .landing-input-again {
@@ -30,8 +27,6 @@
   border-bottom-left-radius: 0;
   flex-grow: 1;
   font-size: 2rem;
-  /* height: 5rem; */
-  /* padding-left: 1rem; */
   margin-right: 0.5rem;
   text-align: center;
   box-shadow: 5px 0px 10px 0px rgba(0, 0, 0, 0.2);
@@ -53,8 +48,6 @@
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* width: 5rem; */
-  /* font-size: 1rem; */
   order: 2;
   font-weight: bold;
 }
@@ -73,8 +66,6 @@
 @media (max-width: 1052px) {
   .landing-form-again {
     margin-top: 2rem;
-
-
   }
   .landing-container-again {
     flex-direction: column;
@@ -91,7 +82,6 @@
   .landing-GB-again,
   .landing-input-again {
     width: 5%;
-    /* margin-right: 0; */
   }
 
   .landing-input-again::placeholder {
@@ -100,10 +90,7 @@
 
   .landing-button-go-again {
     max-width: 20%;
-    /* width: 95%; */
     border-radius: 5px;
-    /* padding: 1rem; */
-    /* margin-top: 1rem; */
   }
 
   .landing-right-again {
@@ -121,7 +108,6 @@
 }
 
 /* LOADER */
-
 .landing-loader-again {
   display: flex;
   justify-content: center;

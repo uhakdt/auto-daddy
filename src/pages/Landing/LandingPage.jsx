@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 
 import "./LandingPage.css";
@@ -6,9 +6,7 @@ import LandingFooter from "../NavMenus/LandingFooter";
 import LandingBody from "./LandingBody";
 import LandingHeader from "../NavMenus/LandingHeader";
 
-
 function LandingPage() {
-
   return (
     <>
       <Helmet>
@@ -25,7 +23,7 @@ function LandingPage() {
       </Helmet>
       <div className="landing-container">
         <div className="landing-main">
-          <LandingHeader/>
+          <LandingHeader />
           <img
             src="/page-images/floating-nut.png"
             alt="nut"

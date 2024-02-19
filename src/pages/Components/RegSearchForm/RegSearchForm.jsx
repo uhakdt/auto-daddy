@@ -1,22 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-import {
-  Snackbar,
-  SwipeableDrawer,
-  Button,
-  List,
-  IconButton,
-} from "@mui/material";
-
 import { auth } from "../../../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+
+import { Snackbar } from "@mui/material";
 import confetti from "canvas-confetti";
 
 import { AppContext } from "../../../appContext";
 import { VehicleFreeData } from "../../../models/VehicleFreeData";
-import CarLoader from "../../../SVGs/CarLoader";
 import "./RegSearchForm.css";
 
 function RegSearchForm() {
@@ -27,7 +19,6 @@ function RegSearchForm() {
     setPreviousPage,
   } = useContext(AppContext);
   const [user, loading] = useAuthState(auth);
-  const [open, setOpen] = React.useState(false);
   const [pattern] = useState(/^[A-Za-z0-9]{1,7}$/);
   const [tempRegistrationNumber, setTempRegistrationNumber] = useState("");
   const [isValid, setIsValid] = useState(false);
@@ -37,23 +28,8 @@ function RegSearchForm() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
-
-  const handleDrawerOpen = () => {
-    setDrawerOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
 
   const navigate = useNavigate();
-
-
 
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
@@ -92,7 +68,6 @@ function RegSearchForm() {
         setIsLoading(false);
       }
       setSnackbarMessage("Invalid UK license plate number");
-
     } else {
       setIsValid(false);
       setSnackbarMessage("Invalid UK license plate number");
@@ -110,17 +85,6 @@ function RegSearchForm() {
       setPreviousPage("/");
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData, user]);
-
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setDrawerOpen(open);
-  };
 
   return (
     <div>

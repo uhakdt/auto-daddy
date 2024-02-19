@@ -11,7 +11,6 @@
   border-radius: 1.5rem 1.5rem 0 0;
 }
 
-
 .messages {
   max-height: 70vh;
   overflow-y: auto;
@@ -44,7 +43,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* Adds a gap between the questions */
   padding: 15px 0;
 }
 
@@ -108,7 +106,6 @@
   justify-content: flex-end;
   padding: 0px 20px;
   border-bottom: 1px solid #ececec;
-  /* Optional: a subtle line to separate header from content */
 }
 
 .minimizeButton {
@@ -124,7 +121,6 @@
   height: 20px;
 }
 
-
 .chatGPTLabel {
   font-size: 0.8rem;
   color: #888;
@@ -132,20 +128,15 @@
   text-align: right;
 }
 
-/* Media Queries for Mobile */
 @media screen and (max-width: 768px) {
   .chatbot {
     width: calc(100% - 20px);
-    /* Full width minus padding */
     padding: 10px;
     transform: none;
-    /* Remove the transform */
     left: 0;
-    /* Adjust the left to start from the edge */
     font-size: 18px;
     border-radius: 1rem 1rem 0 0;
   }
-
 
   .messages {
     max-height: 50vh;
@@ -180,12 +171,10 @@
   }
 }
 
-
 .preset-questions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  /* Adds a gap between the questions */
   padding: 15px 0;
 }
 
@@ -241,7 +230,6 @@
   0% {
     transform: scale(0);
   }
-
   100% {
     transform: scale(1);
   }
@@ -251,7 +239,6 @@
   0% {
     transform: scale(1);
   }
-
   100% {
     transform: scale(0);
   }
@@ -261,7 +248,6 @@
   0% {
     transform: translate(0, 0);
   }
-
   100% {
     transform: translate(24px, 0);
   }

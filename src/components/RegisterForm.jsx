@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  registerWithEmailAndPassword,
-  signInWithGoogle,
-  signInWithFacebook,
-} from "../firebase";
+import { registerWithEmailAndPassword, signInWithGoogle } from "../firebase";
 
 import "./AuthForm.css";
 
@@ -45,21 +41,11 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
           <img alt="Google" src={iconsUrl + "google.svg"} height={20} />
           <span>Register with Google</span>
         </button>
-        {/*        <button
-          onClick={() => {
-            signInWithFacebook();
-            handleSetOpen();
-          }}
-        >
-          <img alt="Facebook" src={iconsUrl + "facebook.svg"} height={20} />{" "}
-          <span>Login with Facebook</span>
-        </button> */}
       </div>
       <div className="separator">
         <span>or</span>
       </div>
       <div className="input-field">
-        {/* <img alt="Email" src={iconsUrl + "email.svg"} height={20} /> */}
         <input
           type="text"
           placeholder="E-mail Address"
@@ -68,11 +54,6 @@ const RegisterForm = ({ setFormType, setOpen, page }) => {
         />
       </div>
       <div className="input-field">
-        {/*  <img
-          alt="Password"
-          src={iconsUrl + (isPasswordVisible ? "unlocked.svg" : "locked.svg")}
-          height={20}
-        /> */}
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"

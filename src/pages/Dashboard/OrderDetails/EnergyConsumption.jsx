@@ -1,6 +1,5 @@
 import React from "react";
 import TableRow from "../../Package/VehicleData/TableRow";
-import EmissionsLabel from "../../../SVGs/EmissionsLabel";
 import AISummaryComponent from "./AISummaryComponent";
 
 const EnergyConsumption = ({ basic, aiContent, aiContentLoading }) => {
@@ -12,7 +11,7 @@ const EnergyConsumption = ({ basic, aiContent, aiContentLoading }) => {
         <AISummaryComponent
           aiContentLoading={aiContentLoading}
           aiContent={aiContent}
-        />      
+        />
 
         <TableRow
           item={basic?.TechnicalDetails?.Performance?.Power?.Bhp}
@@ -82,14 +81,6 @@ const EnergyConsumption = ({ basic, aiContent, aiContentLoading }) => {
         >
           {(basic?.TechnicalDetails?.Performance?.Co2 || "Unknown") + " g/Km"}
         </TableRow>
-      </div>
-
-      {/* <EmissionsLabel emission={basic.TechnicalDetails.Performance.Co2} /> */}
-
-      <div>
-        {/* TODO: Calculate Tax for 12 months */}
-        {/* TODO: Calculate Tax for 6 months */}
-        {/* TODO: Calculate Fuel Cost for 12,000 miles */}
       </div>
     </section>
   );

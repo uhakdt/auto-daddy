@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 
 import "./LandingBody.css";
 import RegSearchForm from "../Components/RegSearchForm/RegSearchForm";
 
 function LandingBody() {
-
-
   return (
     <div className="landing-body-container">
       <div className="landing-form-container">
@@ -13,12 +11,7 @@ function LandingBody() {
           Complete Car History Check and ask{" "}
           <span className="gradient-text">ChatGPT</span> any Question.
         </h2>
-        {/* <p className="landing-description">
-                    Guiding your car-buying journey with deep data dives, insights and
-                    comprehensive reports!
-                </p> */}
-        <hr className="landing-divider" />{" "}
-        {/* This is the line you're adding */}
+        <hr className="landing-divider" />
         <RegSearchForm />
       </div>
     </div>

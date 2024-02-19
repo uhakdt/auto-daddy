@@ -2,21 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import {
-  Snackbar,
-  SwipeableDrawer,
-  Button,
-  List,
-  IconButton,
-} from "@mui/material";
-
-import { auth } from "../../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import confetti from "canvas-confetti";
-
+import { Snackbar } from "@mui/material";
 import { AppContext } from "../../../appContext";
 import { VehicleFreeData } from "../../../models/VehicleFreeData";
-import CarLoader from "../../../SVGs/CarLoader";
 import "./RegSearchFormAgain.css";
 
 function RegSearchFormAgain() {
@@ -27,7 +15,6 @@ function RegSearchFormAgain() {
     setVehicleFreeData,
     setPreviousPage,
   } = useContext(AppContext);
-  // Registration Form states
   const [pattern] = useState(/^[A-Z]{2}\d{2}\s?[A-Z]{3}$/i);
   const [isValid, setIsValid] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -86,11 +73,6 @@ function RegSearchFormAgain() {
       setPreviousPage("/");
     }
   }, [isValid, isSubmitted, responseStatus, navigate, vehicleFreeData]);
-
-  const isMobile =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      navigator.userAgent
-    );
 
   return (
     <div>

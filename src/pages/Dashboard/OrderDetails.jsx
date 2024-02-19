@@ -26,8 +26,6 @@ import WriteOff from "./OrderDetails/WriteOff";
 import VICInspected from "./OrderDetails/VICInspected";
 import ImportantChecks from "./OrderDetails/ImportantChecks";
 import Salvage from "./OrderDetails/Salvage";
-
-import NewOrder from "./NewOrder/NewOrder";
 import MainStatusBar from "./MainStatusBar/MainStatusBar";
 
 import {

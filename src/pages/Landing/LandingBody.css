@@ -1,6 +1,4 @@
 .landing-body-container {
-  /* margin-top: 50px; */
-  /* margin-bottom:200px; */
   padding-top: 0;
   display: flex;
   align-items: center;
@@ -15,7 +13,6 @@
 }
 
 /* FORM */
-
 .landing-title {
   margin-top: 0;
   font-size: 2.5rem;
@@ -36,4 +33,3 @@
   background-image: linear-gradient(to right, white, #e0dfdf, white);
   margin-bottom: 2rem;
 }
-

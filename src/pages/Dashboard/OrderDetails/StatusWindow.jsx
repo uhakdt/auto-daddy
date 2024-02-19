@@ -1,6 +1,5 @@
 import React from "react";
 import "../OrderDetails.css";
-import { FaCheck, FaRegTimesCircle } from "react-icons/fa";
 
 const StatusWindow = ({
   title,
@@ -14,9 +13,6 @@ const StatusWindow = ({
 
   const computedGradientColor = gradientColor;
   const computedNoHover = noHover;
-
-  const green = "#32ce57";
-  const red = "#fd4438";
 
   return (
     <div
@@ -35,7 +31,8 @@ const StatusWindow = ({
           <img
             alt="Google"
             src={iconsUrl + (condition ? "check.svg" : "close.svg")}
-            height={20} style={{ marginRight: "5px" }}
+            height={20}
+            style={{ marginRight: "5px" }}
           />
         </div>
         <div className="status-window-divider"></div>

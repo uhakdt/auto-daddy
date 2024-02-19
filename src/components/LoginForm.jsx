@@ -3,7 +3,6 @@ import {
   logInWithEmailAndPassword,
   signInWithGoogle,
   signInAsGuest,
-  signInWithFacebook,
 } from "../firebase";
 
 import "./AuthForm.css";
@@ -56,19 +55,9 @@ const LoginForm = ({ setFormType, setOpen, page }) => {
           <img alt="Google" src={iconsUrl + "google.svg"} height={20} />{" "}
           <span>Login with Google</span>
         </button>
-        {/*   <button
-          onClick={() => {
-            signInWithFacebook();
-            handleSetOpen();
-          }}
-        >
-          <img alt="Facebook" src={iconsUrl + "facebook.svg"} height={20} />{" "}
-          <span>Login with Facebook</span>
-        </button> */}
       </div>
       <div className="separator">or</div>
       <div className="input-field">
-        {/* <img alt="Email" src={iconsUrl + "email.svg"} height={20} /> */}
         <input
           type="text"
           placeholder="Email"
@@ -77,11 +66,6 @@ const LoginForm = ({ setFormType, setOpen, page }) => {
         />
       </div>
       <div className="input-field">
-        {/*  <img
-          alt="Password"
-          src={iconsUrl + (isPasswordVisible ? "unlocked.svg" : "locked.svg")}
-          height={20}
-        /> */}
         <input
           type={isPasswordVisible ? "text" : "password"}
           placeholder="Password"

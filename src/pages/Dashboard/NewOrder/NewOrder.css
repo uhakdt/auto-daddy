@@ -5,7 +5,7 @@
   border-style: solid;
   border-radius: 5px;
   padding: 1rem;
-  justify-content: space-between; /* Distribute the space evenly between children */
+  justify-content: space-between;
   margin: 0.3rem;
   display: flex;
   justify-content: center;

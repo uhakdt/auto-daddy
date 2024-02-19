@@ -18,9 +18,7 @@ import jeep from "../../SVGs/jeep.json";
 
 import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
-import Settings from "./Settings/Settings";
 import Header from "./Header/Header";
-import { Style } from "@mui/icons-material";
 import Chat from "./Chat/Chat";
 import { useLocation } from "react-router-dom";
 

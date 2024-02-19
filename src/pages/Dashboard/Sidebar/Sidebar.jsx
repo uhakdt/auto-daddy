@@ -1,12 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../../appContext";
-
-import { CapitalizeEachWord } from "../../../auxiliaryFunctions/stringFunctions";
 
 import Box from "@mui/material/Box";
 import { BsToggleOn, BsToggleOff } from "react-icons/bs";
 import "./Sidebar.css";
-// import GradientLine from "../../../designComponents/GradientLine";
 
 function Sidebar({
   orders,
@@ -17,25 +14,14 @@ function Sidebar({
   setSelectedOrderId,
 }) {
   const { setCurrentOrder } = useContext(AppContext);
-  const [selectedOrder, setSelectedOrder] = useState(null);
-  const handleOrderClick = (order) => {
-    setCurrentOrder(order);
-    setSelectedOrder(order.orderId);
-  };
   const iconsUrl = process.env.PUBLIC_URL + "/icons/";
 
   useEffect(() => {
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
-
     setIsSidebarOpen(false);
   }, []);
 
   return (
     <>
-      {/* <GradientLine /> */}
       <Box className={`sidebar-box ${isSidebarOpen ? "open" : ""}`}>
         <button className="sidebar-toggle-button" onClick={toggleSidebar}>
           {isSidebarOpen ? (
@@ -47,11 +33,6 @@ function Sidebar({
 
         {isSidebarOpen && (
           <>
-            {/*<div className="new-search-button-container">
-            <button type="submit" className="new-search-button">
-              New Search
-            </button>
-          </div> */}
             {orders.length !== 0 ? (
               <>
                 {orders.map((order) => (
@@ -59,7 +40,7 @@ function Sidebar({
                     key={order.orderId}
                     onClick={() => {
                       setCurrentOrder(order);
-                      setSelectedOrderId(order.orderId); // Update the selected order ID
+                      setSelectedOrderId(order.orderId);
                     }}
                     className={`order-button-container ${
                       selectedOrderId === order.orderId

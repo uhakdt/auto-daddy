@@ -13,7 +13,6 @@
 }
 
 /* LOADER */
-
 .landing-loader {
   display: flex;
   justify-content: center;
@@ -23,7 +22,6 @@
 
 .floating-plus {
   position: relative;
-  /* top: 60%; */
   bottom: 20%;
   left: 5%;
   z-index: 1;
@@ -45,7 +43,6 @@
     left: 1%;
     bottom: 5%;
   }
-
   .floating-nut {
     width: 10%;
     right: 1%;

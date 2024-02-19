@@ -2,10 +2,9 @@ export const handleDownloadReport = async (orderId, free, auth) => {
   try {
     const downloadUrl = await getReportUrl(orderId, free, auth);
 
-    // Create new link and trigger click event on it
     const link = document.createElement("a");
     link.href = downloadUrl;
-    link.target = "_blank"; // to open in a new tab
+    link.target = "_blank";
     link.download = "report.pdf";
     link.click();
   } catch (err) {

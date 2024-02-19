@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import Navigation from "./Navigation";
 import { AppContext, initialData, saveDataToStorage } from "./appContext";
 import { Helmet } from "react-helmet";
+import Routing from "./Routing";
 
 export const App = ({ children }) => {
   const [data, setData] = useState(initialData);
@@ -84,7 +84,7 @@ export const App = ({ children }) => {
         </Helmet>
 
         <div className="App">
-          <Navigation />
+          <Routing />
           {children}
         </div>
       </BrowserRouter>

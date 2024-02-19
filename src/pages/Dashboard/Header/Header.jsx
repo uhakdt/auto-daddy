@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Header.css";
 import ProfileModal from "./ProfileModal";
 import { useNavigate } from "react-router-dom";
-import { MdOutlinePersonOutline } from "react-icons/md";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
