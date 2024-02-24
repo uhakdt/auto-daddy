@@ -16,6 +16,7 @@ function LandingPage() {
 
     if (referralCode) {
       console.log("Referral Code:", referralCode);
+      localStorage.setItem("referralCode", referralCode);
     }
   }, [location]);
 

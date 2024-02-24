@@ -84,7 +84,7 @@ function DashboardPage() {
     error,
     refetch,
   } = useQuery("orders", fetchOrdersByAuthUser, {
-    onSuccess: (ordersList) => {
+    onSuccess: async (ordersList) => {
       if (
         !selectedOrderId &&
         fromPackage &&
@@ -99,6 +99,24 @@ function DashboardPage() {
       ) {
         setCurrentOrder(ordersList[0]);
         setIsPolling(false);
+        const referralCode = localStorage.getItem("referralCode");
+        if (referralCode) {
+          const user = auth.currentUser;
+          await fetch(
+            `${process.env.REACT_APP_API_URL}/referral/send_money_to_user`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                referralCode: referralCode,
+                uid: user.uid,
+                email: user.email,
+              }),
+            }
+          );
+        }
       } else if (!fromPackage) {
         setCurrentOrder(ordersList[0]);
         setIsPolling(false);
