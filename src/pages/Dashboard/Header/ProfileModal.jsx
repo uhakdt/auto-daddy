@@ -18,6 +18,24 @@ function ProfileModal({ isOpen, onClose }) {
   };
 
   const email = user ? user.email : null;
+  const uid = user ? user.uid : null;
+
+  const sendReferralLinkToEmail = async () => {
+    const apiUrl =
+      process.env.REACT_APP_API_URL + "/referral/send_referral_link";
+    const payload = {
+      uid: uid,
+      email: email,
+    };
+
+    await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  };
 
   return (
     <Modal

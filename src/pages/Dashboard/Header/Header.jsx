@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "./Header.css";
 import ProfileModal from "./ProfileModal";
+import ReferralCodeModal from "./ReferralCodeModal";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  const [showModal, setShowModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showReferralCodeModal, setShowReferralCodeModal] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -17,19 +19,32 @@ function Header() {
         style={{ cursor: "pointer", padding: "1rem" }}
       />
       <div className="profile">
-        <div className="profile-icon">
+        <div
+          className="profile-icon"
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <img
-            onClick={() => setShowModal(true)}
-            alt="report"
+            onClick={() => setShowProfileModal(true)}
+            alt="profile"
             src={process.env.PUBLIC_URL + "/icons/user.svg"}
             height={15}
-            style={{ paddingRight: "0.3rem" }}
+            style={{ paddingRight: "0.3rem", cursor: "pointer" }}
+          />
+          <ProfileModal
+            isOpen={showProfileModal}
+            onClose={() => setShowProfileModal(false)}
+          />
+          <button
+            onClick={() => setShowReferralCodeModal(true)}
+            className="refer-btn"
+          >
+            Refer
+          </button>
+          <ReferralCodeModal
+            isOpen={showReferralCodeModal}
+            onClose={() => setShowReferralCodeModal(false)}
           />
         </div>
-        <ProfileModal
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-        ></ProfileModal>
       </div>
     </div>
   );

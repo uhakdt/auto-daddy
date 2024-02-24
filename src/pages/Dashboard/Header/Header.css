@@ -32,3 +32,18 @@
   cursor: pointer;
   padding-right: 1rem;
 }
+
+.refer-btn {
+  background-color: var(--medium-purple);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.refer-btn:hover {
+  background-color: var(--medium-dark-purple);
+}

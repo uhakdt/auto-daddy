@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 import "./LandingPage.css";
@@ -7,6 +8,17 @@ import LandingBody from "./LandingBody";
 import LandingHeader from "../NavMenus/LandingHeader";
 
 function LandingPage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const referralCode = searchParams.get("referralCode");
+
+    if (referralCode) {
+      console.log("Referral Code:", referralCode);
+    }
+  }, [location]);
+
   return (
     <>
       <Helmet>

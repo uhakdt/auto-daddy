@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -37,7 +38,22 @@ const appleProvider = new OAuthProvider("apple.com");
 
 const signInWithGoogle = async () => {
   try {
-    await signInWithPopup(auth, googleProvider);
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        uid: user.uid,
+        email: user.email,
+      });
+      console.log("User added to Firestore");
+    } else {
+      console.log("User already exists in Firestore");
+    }
+
     return { error: null };
   } catch (err) {
     return { error: err };
@@ -92,7 +108,26 @@ const signInAsGuest = async () => {
 
 const registerWithEmailAndPassword = async (email, password) => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        uid: user.uid,
+        email: user.email,
+      });
+      console.log("User added to Firestore");
+    } else {
+      console.log("User already exists in Firestore");
+    }
+
     return { error: null };
   } catch (err) {
     return { error: err };
