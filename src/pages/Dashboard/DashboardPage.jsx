@@ -8,6 +8,7 @@ import { getOrdersByUserId } from "../../auxiliaryFunctions/firebaseDbQueries";
 import { auth, db } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
 
 import { AppContext } from "../../appContext";
 
@@ -20,7 +21,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import OrderDetails from "./OrderDetails";
 import Header from "./Header/Header";
 import Chat from "./Chat/Chat";
-import { useLocation } from "react-router-dom";
+import Welcome from "./Welcome/Welcome";
 
 const fetchOrdersByAuthUser = async () => {
   return new Promise((resolve, reject) => {
@@ -174,7 +175,7 @@ function DashboardPage() {
           sx={{ display: "flex", flexDirection: "column" }}
         >
           <Header />
-          {orders && currentOrder && (
+          {orders && currentOrder ? (
             <>
               <Box
                 className="dashboard-content"
@@ -200,6 +201,8 @@ function DashboardPage() {
                 registrationNumber={registrationNumber}
               />
             </>
+          ) : (
+            <Welcome />
           )}
         </Box>
       )}

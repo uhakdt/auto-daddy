@@ -10,6 +10,7 @@ import DataDeletionPage from "./pages/Policy/DataDeletionPage";
 import GDPRPage from "./pages/Policy/GDPRPage";
 import MoneyBackPage from "./pages/Policy/MoneyBackPage";
 import ContactUsPage from "./pages/ContactUs/ContactUsPage";
+import SignUpPage from "./pages/SignUp/SignUpPage";
 
 function Routing() {
   return (
@@ -24,6 +25,7 @@ function Routing() {
       <Route path="/gdpr" element={<GDPRPage />} />
       <Route path="/money-back" element={<MoneyBackPage />} />
       <Route path="/contact-us" element={<ContactUsPage />} />
+      <Route path="/sign-up" element={<SignUpPage />} />
     </Routes>
   );
 }
