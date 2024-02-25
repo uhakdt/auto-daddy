@@ -115,7 +115,9 @@ const PackagePagePay = () => {
     <>
       <div
         className="package-right-content-button-container"
-        onClick={() => openCheckoutAndCreatePaymentIntent(920, vehicleFreeData)}
+        onClick={() =>
+          openCheckoutAndCreatePaymentIntent(1980, vehicleFreeData)
+        }
       >
         Get Full Report
       </div>
@@ -170,7 +172,7 @@ const PackagePagePay = () => {
 
                 <div className="package-pay-left-cost">
                   <span className="package-pay-left-cost-name"> Price:</span>
-                  <span className="package-pay-left-cost-price">£9.20</span>
+                  <span className="package-pay-left-cost-price">£19.80</span>
                 </div>
 
                 <div className="package-pay-left-footer">

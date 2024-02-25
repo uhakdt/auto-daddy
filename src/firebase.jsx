@@ -36,6 +36,27 @@ const facebookProvider = new FacebookAuthProvider();
 const twitterProvider = new TwitterAuthProvider();
 const appleProvider = new OAuthProvider("apple.com");
 
+const sendReferralLink = async (uid, email) => {
+  const apiUrl = process.env.REACT_APP_API_URL + "/referral/send_referral_link";
+  const payload = { uid, email };
+
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send referral link");
+    }
+
+    console.log("Referral link sent successfully");
+  } catch (error) {
+    console.error("Error sending referral link:", error);
+  }
+};
+
 const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
@@ -49,6 +70,7 @@ const signInWithGoogle = async () => {
         uid: user.uid,
         email: user.email,
       });
+      await sendReferralLink(user.uid, user.email);
       console.log("User added to Firestore");
     } else {
       console.log("User already exists in Firestore");
@@ -123,6 +145,7 @@ const registerWithEmailAndPassword = async (email, password) => {
         uid: user.uid,
         email: user.email,
       });
+      await sendReferralLink(user.uid, user.email);
       console.log("User added to Firestore");
     } else {
       console.log("User already exists in Firestore");
